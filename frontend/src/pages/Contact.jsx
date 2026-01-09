@@ -34,7 +34,7 @@ const Contact = () => {
 
     try {
  const response = await axios.post(
-  'netlify/functions/contact',
+  `${import.meta.env.VITE_API_URL}/api/contact`,
   formData
 )
 
