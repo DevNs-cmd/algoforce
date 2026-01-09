@@ -34,7 +34,7 @@ const Contact = () => {
 
     try {
  const response = await axios.post(
-  '/.netlify/functions/contact',
+  'netlify/functions/contact',
   formData
 )
 
