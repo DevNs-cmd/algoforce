@@ -78,12 +78,29 @@ const Contact = () => {
         content="Contact AlgoForce to request a demo, revenue audit, or enterprise AI consultation."
       />
       <meta name="robots" content="index, follow" />
-      <meta property="og:url" content="https://algoforceaii.com/contact" />
 
       <link
-  rel="canonical"
-  href="https://algoforceaii.com/contact"
-/>
+        rel="canonical"
+        href="https://algoforceaii.com/contact"
+      />
+
+      {/* Open Graph */}
+      <meta property="og:title" content="Contact AlgoForce – Book a Demo or Consultation" />
+      <meta
+        property="og:description"
+        content="Contact AlgoForce to request a demo, revenue audit, or enterprise AI consultation."
+      />
+      <meta property="og:type" content="website" />
+      <meta property="og:site_name" content="AlgoForce AI" />
+      <meta property="og:url" content="https://algoforceaii.com/contact" />
+
+      {/* Twitter */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="Contact AlgoForce – Book a Demo or Consultation" />
+      <meta
+        name="twitter:description"
+        content="Contact AlgoForce to request a demo, revenue audit, or enterprise AI consultation."
+      />
 
     </Helmet>
     

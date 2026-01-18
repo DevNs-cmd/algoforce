@@ -22,7 +22,7 @@ const Home = () => {
 
         <link
           rel="canonical"
-          href="https://algoforceai.netlify.app/"
+          href="https://algoforceaii.com/"
         />
 
         {/* Open Graph */}
@@ -32,9 +32,18 @@ const Home = () => {
           content="The Operating System for Revenue Intelligence."
         />
         <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="AlgoForce AI" />
         <meta
           property="og:url"
-          content="https://algoforceai.netlify.app/"
+          content="https://algoforceaii.com/"
+        />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="AlgoForce – AI Business Operating System" />
+        <meta
+          name="twitter:description"
+          content="The Operating System for Revenue Intelligence."
         />
       </Helmet>
 

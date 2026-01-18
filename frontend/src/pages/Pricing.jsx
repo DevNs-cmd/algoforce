@@ -103,6 +103,24 @@ const Pricing = () => {
         rel="canonical"
         href="https://algoforceaii.com/pricing"
       />
+
+      {/* Open Graph */}
+      <meta property="og:title" content="AlgoForce Pricing – AI Business OS & Revenue Intelligence" />
+      <meta
+        property="og:description"
+        content="Explore AlgoForce pricing for AI-powered revenue intelligence, audits, enterprise OS setup, and ongoing optimization."
+      />
+      <meta property="og:type" content="website" />
+      <meta property="og:site_name" content="AlgoForce AI" />
+      <meta property="og:url" content="https://algoforceaii.com/pricing" />
+
+      {/* Twitter */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="AlgoForce Pricing – AI Business OS & Revenue Intelligence" />
+      <meta
+        name="twitter:description"
+        content="Explore AlgoForce pricing for AI-powered revenue intelligence, audits, enterprise OS setup, and ongoing optimization."
+      />
     </Helmet>
     
     <div className="min-h-screen pt-24 bg-gradient-to-b from-navy-50 to-white">
