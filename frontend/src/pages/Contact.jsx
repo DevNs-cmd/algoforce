@@ -78,10 +78,13 @@ const Contact = () => {
         content="Contact AlgoForce to request a demo, revenue audit, or enterprise AI consultation."
       />
       <meta name="robots" content="index, follow" />
+      <meta property="og:url" content="https://algoforceaii.com/contact" />
+
       <link
-        rel="canonical"
-        href="https://algoforceofficial.netlify.app/contact"
-      />
+  rel="canonical"
+  href="https://algoforceaii.com/contact"
+/>
+
     </Helmet>
     
     <div className="min-h-screen pt-24 bg-gradient-to-b from-navy-50 to-white">
