@@ -12,11 +12,17 @@ const app = express()
 // ✅ CORS FIX (IMPORTANT FOR MOBILE + NETLIFY)
 app.use(
   cors({
-    origin: '*', // allow all origins (safe for now)
+    origin: [
+      'https://algoforceofficial.netlify.app', // your deployed React frontend
+      'http://localhost:3000',                 // optional: local dev
+      'https://algoforce.in'                   // optional: future domain
+    ],
     methods: ['GET', 'POST', 'PUT'],
-    allowedHeaders: ['Content-Type']
+    allowedHeaders: ['Content-Type'],
+    credentials: true // needed if you use cookies or auth
   })
 )
+
 
 // Middleware
 app.use(express.json())

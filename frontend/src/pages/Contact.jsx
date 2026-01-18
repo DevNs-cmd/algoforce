@@ -34,7 +34,7 @@ const Contact = () => {
 
     try {
  const response = await axios.post(
-  `${import.meta.env.VITE_API_URL}/api/contact`,
+  'netlify/functions/contact',
   formData
 )
 
@@ -60,6 +60,7 @@ const Contact = () => {
       })
     }
   }
+
 
   const inquiryTypes = [
     { value: 'demo', label: 'Request Demo' },

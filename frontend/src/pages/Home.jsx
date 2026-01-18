@@ -22,7 +22,7 @@ const Home = () => {
 
         <link
           rel="canonical"
-          href="https://algoforceofficial.netlify.app/"
+          href="https://algoforceai.netlify.app/"
         />
 
         {/* Open Graph */}
@@ -34,7 +34,7 @@ const Home = () => {
         <meta property="og:type" content="website" />
         <meta
           property="og:url"
-          content="https://algoforceofficial.netlify.app/"
+          content="https://algoforceai.netlify.app/"
         />
       </Helmet>
 
