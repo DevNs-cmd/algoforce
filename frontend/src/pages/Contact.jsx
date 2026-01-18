@@ -34,7 +34,7 @@ const Contact = () => {
 
     try {
  const response = await axios.post(
-  'netlify/functions/contact',
+  'https://algoforce-backend.onrender.com/api/contact',
   formData
 )
 

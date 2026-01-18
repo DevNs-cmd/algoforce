@@ -9,14 +9,13 @@ dotenv.config()
 // Initialize express
 const app = express()
 
+// ✅ COMPRESSION FOR PERFORMANCE
+app.use(compression())
+
 // ✅ CORS FIX (IMPORTANT FOR MOBILE + NETLIFY)
 app.use(
   cors({
-    origin: [
-      'https://algoforceofficial.netlify.app', // your deployed React frontend
-      'http://localhost:3000',                 // optional: local dev
-      'https://algoforce.in'                   // optional: future domain
-    ],
+    origin: 'https://algoforceaii.com',
     methods: ['GET', 'POST', 'PUT'],
     allowedHeaders: ['Content-Type'],
     credentials: true // needed if you use cookies or auth

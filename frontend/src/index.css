@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 * {
   margin: 0;
@@ -16,52 +16,50 @@ body {
   color: #002369;
 }
 
-@layer utilities {
-  .glass {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
-  
-  .glass-dark {
-    background: rgba(0, 35, 105, 0.6);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(135, 0, 255, 0.3);
-  }
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
 
-  .gradient-purple-blue {
-    background: linear-gradient(135deg, #8700ff 0%, #002369 100%);
-  }
+.glass-dark {
+  background: rgba(0, 35, 105, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(135, 0, 255, 0.3);
+}
 
-  .gradient-text {
-    background: linear-gradient(135deg, #8700ff 0%, #002369 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
+.gradient-purple-blue {
+  background: linear-gradient(135deg, #8700ff 0%, #002369 100%);
+}
 
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
+.gradient-text {
+  background: linear-gradient(135deg, #8700ff 0%, #002369 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-  }
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
 
-  .animate-glow {
-    animation: glow 2s ease-in-out infinite alternate;
-  }
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
 
-  @keyframes glow {
-    from {
-      box-shadow: 0 0 20px rgba(135, 0, 255, 0.5);
-    }
-    to {
-      box-shadow: 0 0 30px rgba(135, 0, 255, 0.8), 0 0 40px rgba(135, 0, 255, 0.6);
-    }
+.animate-glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 20px rgba(135, 0, 255, 0.5);
+  }
+  to {
+    box-shadow: 0 0 30px rgba(135, 0, 255, 0.8), 0 0 40px rgba(135, 0, 255, 0.6);
   }
 }
 
