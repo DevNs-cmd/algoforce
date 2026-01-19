@@ -103,7 +103,7 @@ const Footer = () => {
           <p>
             ©{currentYear} AlgoForce. All rights reserved.
           </p>
-          <p>Founder : Dev N Suman</p>
+          <p> @Dev N Suman </p>
         </div>
       </div>
     </footer>
