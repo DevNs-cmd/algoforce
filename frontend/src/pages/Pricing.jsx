@@ -7,7 +7,7 @@ const Pricing = () => {
   const pricingTiers = [
     {
       name: 'Revenue Leak Audit',
-      price: '$9K',
+      price: '$199',
       duration: 'One-time',
       description: 'Discover hidden revenue losses and get a prioritized action plan.',
       features: [
@@ -24,7 +24,7 @@ const Pricing = () => {
     },
     {
       name: 'AlgoForce OS Setup',
-      price: '$20K',
+      price: '$399',
       duration: 'One-time',
       description: 'Full implementation and customization for your business.',
       features: [
@@ -44,7 +44,7 @@ const Pricing = () => {
     },
     {
       name: 'Monthly Intelligence',
-      price: '$5K',
+      price: '$59',
       duration: 'per month',
       description: 'Ongoing optimization, learning, and strategic support.',
       features: [

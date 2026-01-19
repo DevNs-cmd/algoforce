@@ -46,7 +46,7 @@ const Footer = () => {
               </a>
 
               <a
-                href="https://www.facebook.com/your-facebook"
+                href="https://www.facebook.com/share/1BDAyoFCG1/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-purple-400"
@@ -103,7 +103,7 @@ const Footer = () => {
           <p>
             ©{currentYear} AlgoForce. All rights reserved.
           </p>
-          <p>Founder : Dev N Suman</p>
+          <p> @Dev N Suman </p>
         </div>
       </div>
     </footer>
