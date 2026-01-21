@@ -1,8 +1,8 @@
 import { Helmet } from "react-helmet-async"
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import axios from 'axios'
-import { FaEnvelope, FaUser, FaBuilding, FaBriefcase, FaCheckCircle } from 'react-icons/fa'
+import { FaEnvelope, FaUser, FaBuilding, FaBriefcase, FaCheckCircle, FaLock } from 'react-icons/fa'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -17,8 +17,14 @@ const Contact = () => {
   const [status, setStatus] = useState({
     loading: false,
     success: false,
-    error: null
+    error: null,
+    otpSent: false,
+    otpVerified: false
   })
+
+  const [otp, setOtp] = useState('')
+  const [otpLoading, setOtpLoading] = useState(false)
+  const [otpError, setOtpError] = useState(null)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -30,19 +36,53 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setStatus({ loading: true, success: false, error: null })
+    setStatus({ loading: true, success: false, error: null, otpSent: false, otpVerified: false })
 
     try {
- const response = await axios.post(
-  'https://algoforce-backend.onrender.com/api/contact',
-  formData
-)
+      // Use /api proxy in development, falls back to proxy config
+      const response = await axios.post('/api/contact', formData)
 
-
-
-      
       if (response.data.success) {
-        setStatus({ loading: false, success: true, error: null })
+        // OTP has been sent to user's email
+        setStatus({ 
+          loading: false, 
+          success: false, 
+          error: null, 
+          otpSent: true, 
+          otpVerified: false 
+        })
+      }
+    } catch (error) {
+      setStatus({
+        loading: false,
+        success: false,
+        error: error.response?.data?.message || 'Something went wrong. Please try again.',
+        otpSent: false,
+        otpVerified: false
+      })
+    }
+  }
+
+  const handleOtpSubmit = async (e) => {
+    e.preventDefault()
+    setOtpLoading(true)
+    setOtpError(null)
+
+    try {
+      const response = await axios.post('/api/contact/verify-otp', {
+        email: formData.email,
+        otp: otp
+      })
+
+      if (response.data.success) {
+        setStatus({ 
+          loading: false, 
+          success: true, 
+          error: null, 
+          otpSent: true, 
+          otpVerified: true 
+        })
+        // Clear form
         setFormData({
           name: '',
           company: '',
@@ -51,13 +91,12 @@ const Contact = () => {
           problem: '',
           inquiryType: 'demo'
         })
+        setOtp('')
       }
     } catch (error) {
-      setStatus({
-        loading: false,
-        success: false,
-        error: error.response?.data?.message || 'Something went wrong. Please try again.'
-      })
+      setOtpError(error.response?.data?.message || 'Invalid or expired OTP. Please try again.')
+    } finally {
+      setOtpLoading(false)
     }
   }
 
@@ -210,23 +249,100 @@ const Contact = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              {status.success ? (
-                <div className="p-12 text-center border border-green-200 shadow-xl bg-gradient-to-br from-green-50 to-teal-50 rounded-3xl">
-                  <FaCheckCircle className="w-20 h-20 mx-auto mb-6 text-green-600" />
-                  <h3 className="mb-4 text-3xl font-bold text-navy-900">
-                    Message Received!
-                  </h3>
-                  <p className="mb-6 text-gray-700">
-                    Thank you for reaching out. We'll review your information and get back to you within 24 hours.
-                  </p>
-                  <button
-                    onClick={() => setStatus({ loading: false, success: false, error: null })}
-                    className="px-6 py-3 font-semibold text-white transition-colors bg-purple-600 rounded-lg hover:bg-purple-700"
+              <AnimatePresence mode="wait">
+                {status.success ? (
+                  <motion.div 
+                    key="success"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    className="p-12 text-center border border-green-200 shadow-xl bg-gradient-to-br from-green-50 to-teal-50 rounded-3xl"
                   >
-                    Send Another Message
-                  </button>
-                </div>
-              ) : (
+                    <FaCheckCircle className="w-20 h-20 mx-auto mb-6 text-green-600" />
+                    <h3 className="mb-4 text-3xl font-bold text-navy-900">
+                      Email Verified!
+                    </h3>
+                    <p className="mb-6 text-gray-700">
+                      Thank you for verifying your email. We'll review your information and get back to you within 24 hours.
+                    </p>
+                    <button
+                      onClick={() => setStatus({ loading: false, success: false, error: null, otpSent: false, otpVerified: false })}
+                      className="px-6 py-3 font-semibold text-white transition-colors bg-purple-600 rounded-lg hover:bg-purple-700"
+                    >
+                      Send Another Message
+                    </button>
+                  </motion.div>
+                ) : status.otpSent ? (
+                  <motion.div 
+                    key="otp"
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -50 }}
+                    className="p-8 bg-white border border-purple-200 shadow-xl rounded-3xl"
+                  >
+                    <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-purple-100 rounded-full">
+                      <FaLock className="w-8 h-8 text-purple-600" />
+                    </div>
+                    <h3 className="mb-4 text-2xl font-bold text-center text-navy-900">
+                      Verify Your Email
+                    </h3>
+                    <p className="mb-6 text-center text-gray-600">
+                      We've sent a 6-digit verification code to <strong>{formData.email}</strong>
+                    </p>
+                    
+                    <form onSubmit={handleOtpSubmit}>
+                      <div className="mb-6">
+                        <label className="block mb-2 font-semibold text-center text-navy-900">
+                          Enter OTP Code
+                        </label>
+                        <input
+                          type="text"
+                          value={otp}
+                          onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                          maxLength="6"
+                          required
+                          placeholder="000000"
+                          className="w-full py-4 text-3xl font-bold tracking-widest text-center transition-all border-2 border-purple-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                        />
+                      </div>
+
+                      {otpError && (
+                        <div className="p-4 mb-6 text-red-700 border border-red-200 rounded-lg bg-red-50">
+                          {otpError}
+                        </div>
+                      )}
+
+                      <motion.button
+                        type="submit"
+                        disabled={otpLoading || otp.length !== 6}
+                        whileHover={{ scale: otpLoading ? 1 : 1.02 }}
+                        whileTap={{ scale: otpLoading ? 1 : 0.98 }}
+                        className={`w-full py-4 rounded-lg font-semibold text-lg transition-all ${
+                          otpLoading || otp.length !== 6
+                            ? 'bg-gray-400 cursor-not-allowed'
+                            : 'bg-gradient-to-r from-purple-600 to-indigo-600 hover:shadow-xl text-white'
+                        }`}
+                      >
+                        {otpLoading ? 'Verifying...' : 'Verify Email'}
+                      </motion.button>
+                    </form>
+
+                    <p className="mt-6 text-sm text-center text-gray-500">
+                      OTP expires in 10 minutes. Didn't receive it? Check spam folder.
+                    </p>
+                    
+                    <button
+                      onClick={() => {
+                        setStatus({ loading: false, success: false, error: null, otpSent: false, otpVerified: false })
+                        setOtp('')
+                        setOtpError(null)
+                      }}
+                      className="w-full mt-4 text-sm text-purple-600 transition-colors hover:text-purple-700"
+                    >
+                      ← Go Back to Form
+                    </button>
+                  </motion.div>
+                ) : (
                 <form onSubmit={handleSubmit} className="p-8 bg-white border border-gray-100 shadow-xl rounded-3xl">
                   <h3 className="mb-6 text-2xl font-bold text-navy-900">
                     Get in Touch
@@ -363,14 +479,15 @@ const Contact = () => {
                         : 'bg-gradient-to-r from-purple-600 to-indigo-600 hover:shadow-xl text-white'
                     }`}
                   >
-                    {status.loading ? 'Sending...' : 'Send Message'}
+                    {status.loading ? 'Sending OTP...' : 'Send Verification Code'}
                   </motion.button>
 
                   <p className="mt-4 text-sm text-center text-gray-500">
-                    We typically respond within 24 hours
+                    We'll send a verification code to your email
                   </p>
                 </form>
               )}
+              </AnimatePresence>
             </motion.div>
           </div>
         </div>

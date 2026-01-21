@@ -19,7 +19,8 @@ app.use(
     origin: [
       'https://algoforceaii.com',
       'https://www.algoforceaii.com',
-      'http://localhost:5173'
+      'http://localhost:3000',  // Vite dev server
+      'http://localhost:5173'   // Vite fallback port
     ],
     methods: ['GET', 'POST', 'PUT', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],

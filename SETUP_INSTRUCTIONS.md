@@ -2,7 +2,7 @@
 
 ## 🚀 Quick Start Guide
 
-Follow these steps to get the AlgoForce website running on your local machine.
+Follow these steps to get the AlgoForce website running with Supabase database and Gmail OTP verification.
 
 ### Step 1: Install Dependencies
 
@@ -32,29 +32,85 @@ New-Item -Path ".env" -ItemType File
 Add the following content to `backend/.env`:
 ```env
 PORT=5000
-MONGODB_URI=mongodb://localhost:27017/algoforce
 NODE_ENV=development
+
+# Supabase Configuration (CRITICAL: Use SERVICE_ROLE_KEY)
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key_here
+
+# Gmail SMTP Configuration (Use App Password, NOT regular password)
+GMAIL_USER=yourname@gmail.com
+GMAIL_APP_PASS=your_16_character_app_password
 ```
 
-### Step 3: Install & Start MongoDB
+**Important**: See the detailed instructions below for getting these credentials.
 
-#### Option A: Local MongoDB
+### Step 3: Setup Supabase Database
 
-1. Download MongoDB from https://www.mongodb.com/try/download/community
-2. Install MongoDB
-3. Start MongoDB service:
-```powershell
-net start MongoDB
-```
+#### A. Create Supabase Account & Project
 
-#### Option B: MongoDB Atlas (Cloud)
+1. Go to https://supabase.com
+2. Create a free account
+3. Create a new project
+4. Wait for project initialization (~2 minutes)
 
-1. Create account at https://www.mongodb.com/cloud/atlas
-2. Create a cluster
-3. Get connection string
-4. Update `MONGODB_URI` in `backend/.env` with your connection string
+#### B. Get Supabase Credentials
 
-### Step 4: Start the Application
+**CRITICAL: Backend MUST use SERVICE_ROLE_KEY**
+
+1. In your Supabase dashboard, go to **Settings** → **API**
+2. Copy the `service_role` `secret` key (**NOT** the anon/public key)
+3. Add it to your `backend/.env` file as `SUPABASE_SERVICE_ROLE_KEY`
+4. **WARNING**: This key bypasses RLS - keep it secret!
+5. Never expose this key in frontend code or public repos
+
+#### C. Create Contacts Table with RLS
+
+**IMPORTANT**: Use the provided SQL setup script for security
+
+1. In Supabase dashboard, go to **SQL Editor**
+2. Click **New Query**
+3. Open the file: `backend/database/setup.sql`
+4. Copy the ENTIRE contents and paste into SQL Editor
+5. Click **Run** to execute
+6. Verify:
+   - Table created in **Table Editor**
+   - RLS enabled (lock icon appears on table)
+   - Policies created (click table → Policies tab)
+
+This script includes:
+- Complete table structure
+- Row Level Security (RLS) policies
+- Performance indexes
+- Security configurations
+
+### Step 4: Setup Gmail App Password
+
+**Important**: You MUST use a Gmail App Password, NOT your regular Gmail password.
+
+#### Steps:
+
+1. **Enable 2-Factor Authentication** on your Gmail account:
+   - Go to https://myaccount.google.com/security
+   - Enable 2-Step Verification
+
+2. **Generate App Password**:
+   - Go to https://myaccount.google.com/apppasswords
+   - Select **Mail** as the app
+   - Select **Other** as the device
+   - Name it "AlgoForce Backend"
+   - Click **Generate**
+
+3. **Copy the 16-character password** (it will be shown only once)
+
+4. **Add to `.env` file**:
+   ```env
+   GMAIL_USER=yourname@gmail.com
+   GMAIL_APP_PASS=abcdefghijklmnop  # Your 16-char app password (no spaces)
+   ```
+
+**Note**: Never use your regular Gmail password in the code.
+
+### Step 5: Start the Application
 
 #### Using Two Terminal Windows:
 
@@ -68,7 +124,6 @@ You should see:
 ```
 🚀 AlgoForce Backend running on port 5000
 📊 Environment: development
-MongoDB Connected: ...
 ```
 
 **Terminal 2 - Start Frontend:**
@@ -84,7 +139,7 @@ VITE v5.x.x ready in xxx ms
 ➜  Local:   http://localhost:3000/
 ```
 
-### Step 5: Access the Website
+### Step 6: Access the Website
 
 Open your browser and navigate to:
 - **Frontend**: http://localhost:3000
@@ -93,14 +148,21 @@ Open your browser and navigate to:
 ## 📋 Verification Checklist
 
 - [ ] Node.js installed (v16+)
-- [ ] MongoDB running
+- [ ] Supabase account created
+- [ ] Supabase project created
+- [ ] Contacts table created in Supabase
+- [ ] Supabase service_role key added to .env
+- [ ] Gmail 2FA enabled
+- [ ] Gmail App Password generated
+- [ ] Gmail credentials added to .env
 - [ ] Frontend dependencies installed
 - [ ] Backend dependencies installed
-- [ ] .env file created in backend
 - [ ] Backend server running on port 5000
-- [ ] Frontend server running on port 3000
+- [ ] Frontend server running on port 3000 (or shown)
 - [ ] Website loads in browser
 - [ ] Contact form submission works
+- [ ] OTP email received
+- [ ] OTP verification works
 
 ## 🔧 Troubleshooting
 
@@ -121,18 +183,14 @@ taskkill /PID <PID> /F
 
 ### MongoDB Connection Error
 
-1. Ensure MongoDB is running:
-```powershell
-net start MongoDB
-```
+**Not applicable** - We're using Supabase now!
 
-2. Check connection string in `.env`
-3. Try connecting manually:
-```powershell
-mongosh
-# or
-mongo
-```
+If you see Supabase connection errors:
+1. Check your `SUPABASE_SERVICE_ROLE_KEY` in `.env`
+2. Verify you're using the service_role key (NOT anon key)
+3. Ensure your Supabase project is active
+4. Check the Supabase URL matches: `https://nhuhltyaiwhooqzgcqiw.supabase.co`
+5. Verify RLS policies are correctly configured
 
 ### Module Not Found Errors
 
@@ -155,6 +213,14 @@ The backend is already configured with CORS. If you still see issues:
 1. Check that backend is running on port 5000
 2. Verify proxy in `frontend/vite.config.js`
 
+### Email Not Sending
+
+1. Verify Gmail App Password is correct (16 characters, no spaces)
+2. Check 2FA is enabled on Gmail account
+3. Ensure `GMAIL_USER` is your full email address
+4. Try generating a new App Password
+5. Check backend logs for specific error messages
+
 ## 🎨 Testing the Website
 
 1. **Homepage**: Navigate to http://localhost:3000
@@ -169,13 +235,15 @@ The backend is already configured with CORS. If you still see issues:
 3. **Contact Page**: Click "Contact" or "Request Demo"
    - Fill out the form
    - Submit
+   - **Check your email for OTP** (check spam folder too)
+   - Enter the 6-digit OTP code
+   - Submit OTP
+   - Verify success message
    - Check backend terminal for confirmation
-   - Verify MongoDB entry:
-   ```powershell
-   mongosh
-   use algoforce
-   db.contacts.find().pretty()
-   ```
+   - Verify Supabase entry:
+     - Go to Supabase dashboard
+     - Table Editor → contacts
+     - Verify `otp_verified` = true and `status` = 'verified'
 
 ## 📱 Mobile Testing
 
@@ -199,28 +267,47 @@ npm run build
 
 2. Deploy the `dist` folder
 
-### Backend (Railway/Heroku)
+### Backend (Render/Railway/Heroku)
 
-1. Update `.env` with production values
-2. Use MongoDB Atlas for production database
+1. Update `.env` with production values:
+```env
+NODE_ENV=production
+SUPABASE_SERVICE_ROLE_KEY=your_production_service_role_key
+GMAIL_USER=your_production_gmail
+GMAIL_APP_PASS=your_production_app_password
+```
+
+**CRITICAL**: Always use SERVICE_ROLE_KEY on backend!
+
+2. Update CORS in `backend/server.js` with your production domain
+
 3. Deploy backend code
+
+**See `backend/DEPLOYMENT_SETUP.md` for complete deployment guide.**
 
 ## 📞 Need Help?
 
 Common issues:
-- Animations not working? Check if framer-motion is installed
-- Forms not submitting? Check MongoDB connection
-- Styling issues? Verify Tailwind CSS configuration
+- **Animations not working?** Check if framer-motion is installed
+- **Forms not submitting?** Check Supabase connection and credentials
+- **Email not sending?** Verify Gmail App Password and 2FA
+- **OTP not working?** Check OTP hasn't expired (10-minute limit)
+- **Styling issues?** Verify Tailwind CSS configuration
+
+**For detailed troubleshooting, see `backend/DEPLOYMENT_SETUP.md`**
 
 ## 🎯 Next Steps
 
 After setup:
-1. Customize brand colors in `tailwind.config.js`
-2. Add your logo to `frontend/src/assets`
-3. Update content in section components
-4. Configure email notifications for form submissions
-5. Add analytics tracking
+1. Test the complete OTP flow end-to-end
+2. Customize email template in `backend/services/emailService.js`
+3. Customize brand colors in `tailwind.config.js`
+4. Add your logo to `frontend/src/assets`
+5. Update content in section components
+6. Configure Supabase row-level security policies
+7. Set up email notifications for admin
+8. Add analytics tracking
 
 ---
 
-**Setup complete! You now have a fully functional AlgoForce website running locally.** 🎉
+**Setup complete! You now have a fully functional AlgoForce website with OTP email verification running locally.** 🎉

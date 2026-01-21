@@ -1,32 +1,19 @@
-import fs from 'fs'
-import path from 'path'
-import { v4 as uuidv4 } from 'uuid'
 import { validationResult } from 'express-validator'
+import { generateOTP, getOTPExpiry, sendOTPEmail, hashOTP } from '../services/emailService.js'
+import {
+  hasRecentSubmission,
+  hasRecentOTPRequest,
+  createContact,
+  verifyOTP as verifyOTPService,
+  getAllContacts as getAllContactsService,
+  getContactById as getContactByIdService,
+  updateContactStatus as updateContactStatusService
+} from '../services/contactService.js'
 
-// Path to JSON file
-const dataPath = path.join(process.cwd(), 'data', 'contacts.json')
-
-// Read contacts from file
-const readContacts = () => {
-  try {
-    if (!fs.existsSync(dataPath)) return []
-    const data = fs.readFileSync(dataPath, 'utf-8')
-    return JSON.parse(data || '[]')
-  } catch (error) {
-    console.error('Read file error:', error)
-    return []
-  }
-}
-
-// Write contacts to file
-const writeContacts = (contacts) => {
-  fs.writeFileSync(dataPath, JSON.stringify(contacts, null, 2))
-}
-
-// @desc    Submit contact form
+// @desc    Submit contact form and send OTP
 // @route   POST /api/contact
 // @access  Public
-export const submitContact = (req, res) => {
+export const submitContact = async (req, res) => {
   try {
     // Validation
     const errors = validationResult(req)
@@ -40,44 +27,42 @@ export const submitContact = (req, res) => {
 
     const { name, company, email, role, problem, inquiryType } = req.body
 
-    const contacts = readContacts()
-
-    // Check recent submission (24 hours)
-    const last24Hours = Date.now() - 24 * 60 * 60 * 1000
-    const recentSubmission = contacts.find(
-      c => c.email === email && new Date(c.submittedAt).getTime() >= last24Hours
-    )
-
-    if (recentSubmission) {
+    // Check if user has submitted within last 24 hours
+    const hasRecent24h = await hasRecentSubmission(email)
+    if (hasRecent24h) {
       return res.status(429).json({
         success: false,
         message: 'You have already submitted a request recently. We will get back to you soon.'
       })
     }
 
-    const newContact = {
-      id: uuidv4(),
-      name,
-      company,
-      email,
-      role,
-      problem,
-      inquiryType: inquiryType || 'demo',
-      status: 'new',
-      submittedAt: new Date().toISOString()
+    // Check if user has requested OTP within last 5 minutes (rate limiting)
+    const hasRecent5min = await hasRecentOTPRequest(email)
+    if (hasRecent5min) {
+      return res.status(429).json({
+        success: false,
+        message: 'Please wait 5 minutes before requesting a new OTP.'
+      })
     }
 
-    contacts.push(newContact)
-    writeContacts(contacts)
+    // Generate OTP and hash it for storage
+    const otp = generateOTP()
+    const hashedOTP = await hashOTP(otp)
+    const otpExpiry = getOTPExpiry()
+
+    // Save contact to Supabase with hashed OTP
+    const contact = await createContact(
+      { name, company, email, role, problem, inquiryType },
+      hashedOTP,
+      otpExpiry
+    )
+
+    // Send plain OTP via email (user will enter this)
+    await sendOTPEmail(email, otp, name)
 
     res.status(201).json({
       success: true,
-      message: 'Contact form submitted successfully',
-      data: {
-        id: newContact.id,
-        name: newContact.name,
-        email: newContact.email
-      }
+      message: 'OTP sent to your email'
     })
   } catch (error) {
     console.error('Contact submission error:', error)
@@ -88,14 +73,51 @@ export const submitContact = (req, res) => {
   }
 }
 
+// @desc    Verify OTP
+// @route   POST /api/contact/verify-otp
+// @access  Public
+export const verifyOTP = async (req, res) => {
+  try {
+    const { email, otp } = req.body
+
+    // Validate input
+    if (!email || !otp) {
+      return res.status(400).json({
+        success: false,
+        message: 'Email and OTP are required'
+      })
+    }
+
+    // Verify OTP
+    const result = await verifyOTPService(email, otp)
+
+    if (!result.success) {
+      return res.status(400).json({
+        success: false,
+        message: result.message
+      })
+    }
+
+    res.status(200).json({
+      success: true,
+      message: result.message,
+      data: result.data
+    })
+  } catch (error) {
+    console.error('OTP verification error:', error)
+    res.status(500).json({
+      success: false,
+      message: 'Server error. Please try again later.'
+    })
+  }
+}
+
 // @desc    Get all contacts
 // @route   GET /api/contact
 // @access  Admin (future)
-export const getAllContacts = (req, res) => {
+export const getAllContacts = async (req, res) => {
   try {
-    const contacts = readContacts().sort(
-      (a, b) => new Date(b.submittedAt) - new Date(a.submittedAt)
-    )
+    const contacts = await getAllContactsService()
 
     res.status(200).json({
       success: true,
@@ -114,10 +136,9 @@ export const getAllContacts = (req, res) => {
 // @desc    Get contact by ID
 // @route   GET /api/contact/:id
 // @access  Admin (future)
-export const getContactById = (req, res) => {
+export const getContactById = async (req, res) => {
   try {
-    const contacts = readContacts()
-    const contact = contacts.find(c => c.id === req.params.id)
+    const contact = await getContactByIdService(req.params.id)
 
     if (!contact) {
       return res.status(404).json({
@@ -142,26 +163,23 @@ export const getContactById = (req, res) => {
 // @desc    Update contact status
 // @route   PUT /api/contact/:id
 // @access  Admin (future)
-export const updateContactStatus = (req, res) => {
+export const updateContactStatus = async (req, res) => {
   try {
     const { status } = req.body
-    const contacts = readContacts()
 
-    const index = contacts.findIndex(c => c.id === req.params.id)
-
-    if (index === -1) {
-      return res.status(404).json({
+    if (!status) {
+      return res.status(400).json({
         success: false,
-        message: 'Contact not found'
+        message: 'Status is required'
       })
     }
 
-    contacts[index].status = status || contacts[index].status
-    writeContacts(contacts)
+    const contact = await updateContactStatusService(req.params.id, status)
 
     res.status(200).json({
       success: true,
-      message: 'Contact status updated successfully'
+      message: 'Contact status updated successfully',
+      data: contact
     })
   } catch (error) {
     console.error('Update contact error:', error)

@@ -11,7 +11,8 @@ This is a premium, category-defining product website that explains AlgoForce—a
 - **Frontend**: React + Vite, Tailwind CSS
 - **Animations**: React Bits Components, Framer Motion
 - **Backend**: Node.js + Express
-- **Database**: MongoDB
+- **Database**: Supabase (PostgreSQL)
+- **Email**: Gmail SMTP with OTP verification
 - **State Management**: React Hooks
 - **Styling**: Tailwind CSS with glassmorphism effects
 
@@ -20,7 +21,8 @@ This is a premium, category-defining product website that explains AlgoForce—a
 ### Prerequisites
 
 - Node.js (v16 or higher)
-- MongoDB (local or cloud instance)
+- Supabase account and project
+- Gmail account with App Password enabled
 - npm or yarn
 
 ### Installation
@@ -47,15 +49,36 @@ npm install
 Create a `.env` file in the `backend` directory:
 ```env
 PORT=5000
-MONGODB_URI=mongodb://localhost:27017/algoforce
 NODE_ENV=development
+
+# Supabase (CRITICAL: Use SERVICE_ROLE_KEY on backend)
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key_here
+
+# Gmail SMTP (Use App Password)
+GMAIL_USER=yourname@gmail.com
+GMAIL_APP_PASS=your_16_character_app_password
 ```
 
-5. **Start MongoDB**
+**Note**: See `backend/.env.example` for detailed setup instructions.
+
+5. **Setup Supabase Database**
+
+**IMPORTANT**: Run the complete setup script for RLS and security:
+
 ```bash
-# If using local MongoDB
-mongod
+# Use the provided SQL script (RECOMMENDED)
+# File: backend/database/setup.sql
 ```
+
+Copy the entire contents of `backend/database/setup.sql` and run in your Supabase SQL Editor.
+
+This script includes:
+- Table creation with all columns
+- Row Level Security (RLS) policies
+- Performance indexes
+- Security configurations
+
+**See `backend/DEPLOYMENT_SETUP.md` for complete setup guide.**
 
 6. **Run the Application**
 
@@ -74,8 +97,9 @@ npm run dev
 ```
 
 7. **Access the Application**
-- Frontend: http://localhost:3000
+- Frontend: http://localhost:3000 (or shown port)
 - Backend API: http://localhost:5000
+- Health Check: http://localhost:5000/api/health
 
 ## 📂 Project Structure
 
@@ -95,12 +119,14 @@ AlgoForce Official Website OS/
 │   ├── vite.config.js
 │   └── tailwind.config.js
 ├── backend/
-│   ├── config/                 # Database configuration
-│   ├── models/                 # MongoDB models
+│   ├── config/                 # Supabase configuration
+│   ├── services/               # Email & database services
 │   ├── controllers/            # Route controllers
 │   ├── routes/                 # API routes
 │   ├── server.js              # Express server
-│   └── package.json
+│   ├── package.json
+│   ├── .env.example           # Environment template
+│   └── DEPLOYMENT_SETUP.md    # Complete setup guide
 ├── Components/                 # Original React Bits components
 └── README.md
 ```
@@ -137,14 +163,16 @@ AlgoForce Official Website OS/
 - FAQ section
 
 ### Contact Page (`/contact`)
-- Contact form (connected to MongoDB)
+- **OTP-verified contact form** (connected to Supabase)
+- Email verification with 6-digit OTP
 - Inquiry types (Demo, Audit, Enterprise, Consultation)
 - Process explanation
 
 ## 🔌 API Endpoints
 
 ### Contact Routes
-- `POST /api/contact` - Submit contact form
+- `POST /api/contact` - Submit contact form & send OTP email
+- `POST /api/contact/verify-otp` - Verify OTP code
 - `GET /api/contact` - Get all contacts (admin)
 - `GET /api/contact/:id` - Get contact by ID (admin)
 - `PUT /api/contact/:id` - Update contact status (admin)
@@ -191,36 +219,53 @@ npm run build
 Update backend `.env`:
 ```env
 NODE_ENV=production
+SUPABASE_SERVICE_ROLE_KEY=your_production_service_role_key
+GMAIL_USER=your_production_gmail
+GMAIL_APP_PASS=your_production_app_password
 ```
+
+**CRITICAL**: Use SERVICE_ROLE_KEY, not anon key!
 
 3. **Deploy**
 - Frontend: Deploy `frontend/dist` folder to Vercel/Netlify
-- Backend: Deploy to Heroku/Railway/DigitalOcean
-- Database: Use MongoDB Atlas for production
+- Backend: Deploy to Render/Railway/Heroku
+- Database: Supabase (already cloud-based)
+- **IMPORTANT**: Use SUPABASE_SERVICE_ROLE_KEY in production
+- Never expose service_role key in frontend code
 
 ## 🔐 Security Notes
 
-- Add authentication for admin routes in production
-- Use environment variables for sensitive data
-- Implement rate limiting on API endpoints
-- Add CORS whitelist for production
-- Sanitize user inputs
+- ✅ **Service Role Key**: Backend uses SERVICE_ROLE_KEY for database operations
+- ✅ **Row Level Security**: RLS enabled with proper policies
+- ✅ **OTP Hashing**: OTPs hashed with bcrypt before storage
+- ✅ **Secure Random**: Uses crypto.randomInt for OTP generation
+- ✅ **Rate limiting**: Implemented on all API endpoints
+- ✅ **24-hour submission limit** per email
+- ✅ **5-minute OTP request cooldown**
+- ✅ **10-minute OTP expiration**
+- ✅ **CORS configured** for production domains
+- ✅ **Input sanitization** with express-validator
+- ⚠️ **Add authentication** for admin routes in production
 
 ## 🎯 Key Features
 
 ✅ Fully responsive design  
 ✅ Smooth animations with Framer Motion  
 ✅ Glassmorphism UI effects  
-✅ MongoDB integration for lead capture  
+✅ **Supabase database integration**  
+✅ **Email OTP verification system**  
+✅ **Gmail SMTP for email delivery**  
 ✅ Form validation (client + server)  
+✅ Rate limiting & anti-spam protection  
 ✅ Clean component architecture  
 ✅ Production-ready code  
 ✅ SEO-friendly structure  
 
 ## 📝 Future Enhancements
 
+- [ ] Frontend OTP input UI component
 - [ ] Admin dashboard for managing leads
-- [ ] Email notifications on form submission
+- [ ] Email notifications to admin on verified submissions
 - [ ] Analytics integration (Google Analytics/Mixpanel)
 - [ ] Blog section for content marketing
 - [ ] Case studies page

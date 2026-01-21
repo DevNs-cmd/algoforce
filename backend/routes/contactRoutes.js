@@ -3,6 +3,7 @@ import { body } from 'express-validator'
 import rateLimit from 'express-rate-limit'
 import {
   submitContact,
+  verifyOTP,
   getAllContacts,
   getContactById,
   updateContactStatus
@@ -17,6 +18,15 @@ const contactLimiter = rateLimit({
   message: {
     success: false,
     message: 'Too many requests. Please try again later.'
+  }
+})
+
+const otpVerifyLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 10, // max 10 OTP verification attempts per IP
+  message: {
+    success: false,
+    message: 'Too many verification attempts. Please try again later.'
   }
 })
 
@@ -36,6 +46,13 @@ router.post(
   contactLimiter,
   contactValidation,
   submitContact
+)
+
+/* ---------------- OTP VERIFICATION ROUTE ---------------- */
+router.post(
+  '/verify-otp',
+  otpVerifyLimiter,
+  verifyOTP
 )
 
 /* ---------------- ADMIN ROUTES (OPTIONAL) ---------------- */

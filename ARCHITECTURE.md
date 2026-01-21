@@ -40,6 +40,7 @@
 │  ┌────────────────────────────────────────┐                 │
 │  │  Routes (API Endpoints)                │                 │
 │  │  - POST /api/contact                   │                 │
+│  │  - POST /api/contact/verify-otp        │                 │
 │  │  - GET  /api/contact                   │                 │
 │  │  - GET  /api/health                    │                 │
 │  └──────────────────┬─────────────────────┘                 │
@@ -48,23 +49,25 @@
 │  ┌────────────────────────────────────────┐                 │
 │  │  Controllers (Business Logic)          │                 │
 │  │  - Validation                          │                 │
+│  │  - OTP Generation & Verification       │                 │
 │  │  - Error Handling                      │                 │
 │  └──────────────────┬─────────────────────┘                 │
 │                     │                                        │
 │                     ▼                                        │
 │  ┌────────────────────────────────────────┐                 │
-│  │  Models (Mongoose Schemas)             │                 │
-│  │  - Contact Schema                      │                 │
+│  │  Services Layer                        │                 │
+│  │  - Supabase Database Operations        │                 │
+│  │  - Email Service (Gmail SMTP)          │                 │
 │  └──────────────────┬─────────────────────┘                 │
 └────────────────────┬┴──────────────────────────────────────┘
                      │
                      ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                    DATABASE (MongoDB)                        │
-│                   mongodb://localhost:27017                  │
+│                  DATABASE (Supabase)                         │
+│            https://nhuhltyaiwhooqzgcqiw.supabase.co         │
 ├─────────────────────────────────────────────────────────────┤
-│  Collections:                                                │
-│  └─ contacts (form submissions)                             │
+│  Tables:                                                     │
+│  └─ contacts (form submissions + OTP verification)          │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -72,7 +75,7 @@
 
 ## 📊 Data Flow Diagram
 
-### Contact Form Submission Flow
+### Contact Form Submission Flow (with OTP Verification)
 
 ```
 User fills form
@@ -90,14 +93,41 @@ User fills form
             ▼
 ┌────────────────────────┐
 │  Contact Controller    │  Business Logic
-└───────────┬────────────┘  - Check duplicates
-            │                - Format data
+└───────────┬────────────┘  - Check 24h submission
+            │                - Check 5min OTP cooldown
             ▼
 ┌────────────────────────┐
-│   MongoDB (Mongoose)   │  Save to Database
+│  Email Service         │  Generate 6-digit OTP
+└───────────┬────────────┘  10-minute expiry
+            │
+            ▼
+┌────────────────────────┐
+│  Supabase Database     │  Save contact + OTP
+└───────────┬────────────┘  status='pending'
+            │
+            ▼
+┌────────────────────────┐
+│  Gmail SMTP            │  Send OTP Email
 └───────────┬────────────┘
             │
             ▼ Success Response
+┌────────────────────────┐
+│  Contact Page (React)  │  Show OTP Input
+└───────────┬────────────┘
+            │
+            ▼ User enters OTP
+            │
+            ▼ axios.post('/api/contact/verify-otp', {email, otp})
+┌────────────────────────┐
+│  Verify OTP Controller │  Validate OTP
+└───────────┬────────────┘  Check expiry
+            │
+            ▼
+┌────────────────────────┐
+│  Supabase Database     │  Update: otp_verified=true
+└───────────┬────────────┘  status='verified'
+            │
+            ▼ Success
 ┌────────────────────────┐
 │  Contact Page (React)  │  Show Success Message
 └────────────────────────┘
@@ -169,39 +199,45 @@ backend/
 ├── Entry Point
 │   └── server.js
 │       ├── Initialize Express
-│       ├── Connect MongoDB
+│       ├── Configure CORS
 │       ├── Configure Middleware
 │       └── Register Routes
 │
 ├── Configuration
-│   └── config/database.js
-│       └── MongoDB connection
+│   └── config/supabase.js
+│       └── Supabase client initialization
 │
 ├── Routes (API Endpoints)
 │   └── routes/contactRoutes.js
-│       ├── POST /api/contact (submit)
+│       ├── POST /api/contact (submit + send OTP)
+│       ├── POST /api/contact/verify-otp (verify OTP)
 │       ├── GET  /api/contact (list all)
 │       ├── GET  /api/contact/:id (get one)
 │       └── PUT  /api/contact/:id (update)
 │
 ├── Controllers (Business Logic)
 │   └── controllers/contactController.js
-│       ├── submitContact()
+│       ├── submitContact() - Generate & send OTP
+│       ├── verifyOTP() - Validate OTP
 │       ├── getAllContacts()
 │       ├── getContactById()
 │       └── updateContactStatus()
 │
-└── Models (Database Schemas)
-    └── models/Contact.js
-        └── Schema Definition
-            ├── name (String, required)
-            ├── company (String, required)
-            ├── email (String, required, validated)
-            ├── role (String, required)
-            ├── problem (String, required)
-            ├── inquiryType (Enum)
-            ├── status (Enum)
-            └── timestamps
+└── Services (Data & Email Layer)
+    ├── services/contactService.js
+    │   ├── hasRecentSubmission()
+    │   ├── hasRecentOTPRequest()
+    │   ├── createContact()
+    │   ├── verifyOTP()
+    │   ├── getAllContacts()
+    │   ├── getContactById()
+    │   └── updateContactStatus()
+    │
+    └── services/emailService.js
+        ├── generateOTP() - 6-digit random
+        ├── getOTPExpiry() - 10 minutes
+        ├── sendOTPEmail() - Gmail SMTP
+        └── isOTPValid() - Check expiry
 ```
 
 ---
@@ -322,13 +358,27 @@ Input → Frontend Validation
        Backend Validation (Express Validator)
           │
           ▼
-       Sanitization
+       Rate Limiting (20 requests/15min per IP)
           │
           ▼
-       MongoDB Schema Validation
+       Anti-Spam Checks
+          ├── 24-hour submission limit per email
+          └── 5-minute OTP request cooldown
           │
           ▼
-       Stored Safely
+       OTP Generation (6-digit, 10-min expiry)
+          │
+          ▼
+       Supabase Storage (encrypted at rest)
+          │
+          ▼
+       Gmail SMTP (App Password, TLS)
+          │
+          ▼
+       OTP Verification
+          ├── Check expiry
+          ├── One-time use only
+          └── Update verification status
 ```
 
 ---
@@ -401,27 +451,29 @@ No Global State Management Needed
 
 ---
 
-## 🗄️ Database Schema
+## 🗄️ Database Schema (Supabase)
 
-```
-Contact Document:
+```sql
+contacts TABLE:
 {
-  _id: ObjectId,
-  name: String,
-  company: String,
-  email: String (unique indexed),
-  role: String,
-  problem: String,
-  inquiryType: Enum['demo', 'audit', 'enterprise', 'consultation'],
-  status: Enum['new', 'contacted', 'qualified', 'closed'],
-  submittedAt: Date,
-  createdAt: Date,
-  updatedAt: Date
+  id: UUID (primary key, auto-generated),
+  name: TEXT (required),
+  company: TEXT (required),
+  email: TEXT (required),
+  role: TEXT (required),
+  problem: TEXT (required),
+  inquiryType: TEXT (default: 'demo'),
+  status: TEXT (default: 'pending'),
+  otp: TEXT (6-digit code),
+  otp_expiry: TIMESTAMP WITH TIME ZONE,
+  otp_verified: BOOLEAN (default: false),
+  submitted_at: TIMESTAMP WITH TIME ZONE (default: NOW())
 }
 
 Indexes:
-- email (ascending)
-- submittedAt (descending)
+- idx_contacts_email (email)
+- idx_contacts_submitted_at (submitted_at DESC)
+- idx_contacts_otp_verified (otp_verified)
 ```
 
 ---
@@ -484,12 +536,27 @@ App
 POST /api/contact
 ├── Request Body: { name, company, email, role, problem, inquiryType }
 ├── Validation: Express Validator
-├── Response: { success: true, data: { id, name, email } }
+├── Process:
+│   ├── Check 24-hour submission limit
+│   ├── Check 5-minute OTP cooldown
+│   ├── Generate 6-digit OTP
+│   ├── Save to Supabase (status='pending', otp_verified=false)
+│   └── Send OTP email via Gmail SMTP
+├── Response: { success: true, message: "OTP sent to your email" }
 └── Error: { success: false, message: "..." }
+
+POST /api/contact/verify-otp
+├── Request Body: { email, otp }
+├── Process:
+│   ├── Validate OTP from database
+│   ├── Check OTP expiry (10 minutes)
+│   └── Update: otp_verified=true, status='verified'
+├── Response: { success: true, message: "Email verified...", data: {...} }
+└── Error: { success: false, message: "Invalid or expired OTP" }
 
 GET /api/contact
 ├── Response: { success: true, count: N, data: [...] }
-└── Use: Admin dashboard (future)
+└── Use: Admin dashboard - view all leads
 
 GET /api/contact/:id
 ├── Response: { success: true, data: { contact } }
