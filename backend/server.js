@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import compression from 'compression'
 import contactRoutes from './routes/contactRoutes.js'
 
 // Load environment variables
@@ -12,16 +13,22 @@ const app = express()
 // ✅ COMPRESSION FOR PERFORMANCE
 app.use(compression())
 
-// ✅ CORS FIX (IMPORTANT FOR MOBILE + NETLIFY)
+// ✅ CORS FIX (CRITICAL)
 app.use(
   cors({
-    origin: 'https://algoforceaii.com',
-    methods: ['GET', 'POST', 'PUT'],
-    allowedHeaders: ['Content-Type'],
-    credentials: true // needed if you use cookies or auth
+    origin: [
+      'https://algoforceaii.com',
+      'https://www.algoforceaii.com',
+      'http://localhost:5173'
+    ],
+    methods: ['GET', 'POST', 'PUT', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
   })
 )
 
+// ✅ Allow preflight requests
+app.options('*', cors())
 
 // Middleware
 app.use(express.json())
