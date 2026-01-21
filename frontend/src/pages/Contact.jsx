@@ -39,8 +39,9 @@ const Contact = () => {
     setStatus({ loading: true, success: false, error: null, otpSent: false, otpVerified: false })
 
     try {
-      // Use /api proxy in development, falls back to proxy config
-      const response = await axios.post('/api/contact', formData)
+      // Use environment-specific API URL
+      const apiUrl = import.meta.env.VITE_API_URL || ''
+      const response = await axios.post(`${apiUrl}/api/contact`, formData)
 
       if (response.data.success) {
         // OTP has been sent to user's email
@@ -69,7 +70,8 @@ const Contact = () => {
     setOtpError(null)
 
     try {
-      const response = await axios.post('/api/contact/verify-otp', {
+      const apiUrl = import.meta.env.VITE_API_URL || ''
+      const response = await axios.post(`${apiUrl}/api/contact/verify-otp`, {
         email: formData.email,
         otp: otp
       })

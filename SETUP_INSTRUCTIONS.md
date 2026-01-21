@@ -267,6 +267,17 @@ npm run build
 
 2. Deploy the `dist` folder
 
+**SPA Routing Fix**: The frontend is configured to handle direct URL access. When deploying:
+- **Netlify**: Already configured in `netlify.toml` with SPA redirects
+- **Vercel**: Add `vercel.json` with rewrites:
+```json
+{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
+```
+
 ### Backend (Render/Railway/Heroku)
 
 1. Update `.env` with production values:
@@ -282,6 +293,55 @@ GMAIL_APP_PASS=your_production_app_password
 2. Update CORS in `backend/server.js` with your production domain
 
 3. Deploy backend code
+
+**Render Deployment**: The project includes `render.yaml` for easy deployment to Render:
+
+```yaml
+services:
+  - type: web
+    name: algoforce-backend
+    runtime: node
+    env: node
+    region: oregon
+    plan: free
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: GMAIL_USER
+        sync: false
+      - key: GMAIL_APP_PASS
+        sync: false
+    healthCheckPath: /api/health
+```
+
+**Environment-Based API URLs**: Frontend uses environment variables for API endpoints:
+- **Development**: `VITE_API_URL=http://localhost:5000`
+- **Production**: `VITE_API_URL=https://algoforce-backend.onrender.com`
+
+Configured in `frontend/.env.development` and `frontend/.env.production`
+
+**CSS Import Fix**: Fixed `@import rules are not allowed here` error by moving component CSS imports from individual JSX files to `frontend/src/index.css` to prevent Constructable Stylesheets API conflicts in production.
+
+**Testing Production Build Locally**:
+```bash
+# Build frontend
+cd frontend
+npm run build
+
+# Start backend (serves frontend)
+cd ../backend
+npm start
+
+# Test at http://localhost:5000
+# Try refreshing /contact, /pricing - should work!
+```
 
 **See `backend/DEPLOYMENT_SETUP.md` for complete deployment guide.**
 

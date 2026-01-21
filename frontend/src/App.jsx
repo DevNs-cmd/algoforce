@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 
 import Navigation from './components/common/Navigation'
@@ -18,6 +18,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/contact" element={<Contact />} />
+            {/* Catch-all route: redirect unknown paths to home */}
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
 
           <Footer />

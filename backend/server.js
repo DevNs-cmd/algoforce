@@ -2,7 +2,14 @@ import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import compression from 'compression'
+import path from 'path'
+import { fileURLToPath } from 'url'
+import { connectDB } from './config/database.js'
 import contactRoutes from './routes/contactRoutes.js'
+
+// ES module equivalents for __dirname
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 // Load environment variables
 dotenv.config()
@@ -47,6 +54,31 @@ app.get('/api/health', (req, res) => {
   })
 })
 
+// ========================================
+// SPA SUPPORT: Serve Frontend in Production
+// ========================================
+// CRITICAL: This MUST come AFTER all API routes
+// Serves static files from frontend/dist
+const frontendPath = path.join(__dirname, '../frontend/dist')
+
+// Serve static files (JS, CSS, images)
+app.use(express.static(frontendPath))
+
+// SPA Fallback: All non-API routes serve index.html
+// This fixes page refresh on /contact, /pricing, etc.
+app.get('*', (req, res) => {
+  // Only serve index.html for non-API routes
+  if (!req.path.startsWith('/api')) {
+    res.sendFile(path.join(frontendPath, 'index.html'))
+  } else {
+    // API routes that weren't matched return 404
+    res.status(404).json({
+      success: false,
+      message: 'API route not found'
+    })
+  }
+})
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error('🔥 Server Error:', err)
@@ -56,17 +88,17 @@ app.use((err, req, res, next) => {
   })
 })
 
-// 404 handler
-app.use((req, res) => {
-  res.status(404).json({
-    success: false,
-    message: 'Route not found'
-  })
-})
-
-// Start server
+// Connect to database and start server
 const PORT = process.env.PORT || 5000
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 AlgoForce Backend running on port ${PORT}`)
-  console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}`)
+
+connectDB().then(() => {
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`🚀 AlgoForce Backend running on port ${PORT}`)
+
+    console.log(`📋 Environment: ${process.env.NODE_ENV || 'development'}`)
+    console.log(`🏛  Serving frontend from: ${frontendPath}`)
+  })
+}).catch(error => {
+  console.error('Failed to connect to database:', error)
+  process.exit(1)
 })

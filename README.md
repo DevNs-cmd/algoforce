@@ -209,6 +209,72 @@ npm start        # Start production server
 
 ## 📦 Production Build
 
+### SPA Routing Fix (CRITICAL)
+
+To prevent 404 errors on page refresh in production:
+
+1. **Frontend** uses BrowserRouter with catch-all route
+2. **Vite** configured for SPA builds
+3. **Backend** serves `index.html` for all non-API routes
+
+### Render Deployment Configuration
+
+The project includes `render.yaml` for easy deployment to Render:
+
+```yaml
+services:
+  - type: web
+    name: algoforce-backend
+    runtime: node
+    env: node
+    region: oregon
+    plan: free
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: GMAIL_USER
+        sync: false
+      - key: GMAIL_APP_PASS
+        sync: false
+    healthCheckPath: /api/health
+```
+
+### Environment-Based API URLs
+
+Frontend uses environment variables for API endpoints:
+
+- **Development**: `VITE_API_URL=http://localhost:5000`
+- **Production**: `VITE_API_URL=https://algoforce-backend.onrender.com`
+
+Configured in:
+- `frontend/.env.development` (local development)
+- `frontend/.env.production` (production build)
+
+### CSS Import Fix
+
+Fixed `@import rules are not allowed here` error by moving component CSS imports from individual JSX files to `frontend/src/index.css`:
+
+```css
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Component CSS imports (moved from JS to avoid @import issues in production) */
+@import './components/common/BounceCard.css';
+@import './components/common/CircularGallery.css';
+@import './components/common/Dock.css';
+@import './components/common/ScrollReveal.css';
+```
+
+### Build Steps
+
 1. **Build Frontend**
 ```bash
 cd frontend
@@ -227,11 +293,41 @@ GMAIL_APP_PASS=your_production_app_password
 **CRITICAL**: Use SERVICE_ROLE_KEY, not anon key!
 
 3. **Deploy**
-- Frontend: Deploy `frontend/dist` folder to Vercel/Netlify
-- Backend: Deploy to Render/Railway/Heroku
-- Database: Supabase (already cloud-based)
+- **Frontend**: Deploy `frontend/dist` folder to Vercel/Netlify
+  - Netlify: Already configured in `netlify.toml` with SPA redirects
+  - Vercel: Add `vercel.json` with rewrites (see below)
+- **Backend**: Deploy to Render/Railway/Heroku
+  - Backend automatically serves frontend from `dist` folder
+  - All non-API routes return `index.html`
+- **Database**: Supabase (already cloud-based)
 - **IMPORTANT**: Use SUPABASE_SERVICE_ROLE_KEY in production
 - Never expose service_role key in frontend code
+
+### Vercel Configuration (if using Vercel)
+
+Create `vercel.json` in frontend directory:
+```json
+{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
+```
+
+### Testing Production Build Locally
+
+```bash
+# Build frontend
+cd frontend
+npm run build
+
+# Start backend (serves frontend)
+cd ../backend
+npm start
+
+# Test at http://localhost:5000
+# Try refreshing /contact, /pricing - should work!
+```
 
 ## 🔐 Security Notes
 
@@ -260,6 +356,10 @@ GMAIL_APP_PASS=your_production_app_password
 ✅ Clean component architecture  
 ✅ Production-ready code  
 ✅ SEO-friendly structure  
+✅ **SPA routing (no 404 on refresh)**  
+✅ **Environment-based API URLs**  
+✅ **CSS import error fixes**  
+✅ **Render deployment configuration**  
 
 ## 📝 Future Enhancements
 

@@ -1,6 +1,12 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Component CSS imports (moved from JS to avoid @import issues in production) */
+@import './components/common/BounceCard.css';
+@import './components/common/CircularGallery.css';
+@import './components/common/Dock.css';
+@import './components/common/ScrollReveal.css';
 
 * {
   margin: 0;

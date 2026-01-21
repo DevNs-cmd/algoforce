@@ -5,14 +5,12 @@ import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = 'https://nhuhltyaiwhooqzgcqiw.supabase.co'
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
-if (!supabaseKey) {
-  throw new Error('SUPABASE_SERVICE_ROLE_KEY is not configured in environment variables')
-}
-
-// Create Supabase client with service role key (bypasses RLS for backend operations)
-export const supabase = createClient(supabaseUrl, supabaseKey, {
+// Create Supabase client only if key is available
+export const supabase = supabaseKey ? createClient(supabaseUrl, supabaseKey, {
   auth: {
     autoRefreshToken: false,
     persistSession: false
   }
-})
+}) : null
+
+export const isSupabaseAvailable = () => !!supabase

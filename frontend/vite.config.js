@@ -13,5 +13,20 @@ export default defineConfig({
         changeOrigin: true
       }
     }
+  },
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    // Ensure proper asset paths
+    rollupOptions: {
+      output: {
+        manualChunks: undefined
+      }
+    }
+  },
+  // SPA fallback for production preview
+  preview: {
+    port: 3000,
+    strictPort: false
   }
 })

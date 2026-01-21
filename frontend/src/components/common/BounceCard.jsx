@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import './BounceCards.css';
+// CSS imported in index.css to avoid production @import issues
 
 export default function BounceCards({
   className = '',

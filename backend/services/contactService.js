@@ -1,5 +1,6 @@
-import { supabase } from '../config/supabase.js'
 import { verifyOTPHash } from './emailService.js'
+import { getDB } from '../config/database.js'
+import { v4 as uuidv4 } from 'uuid'
 
 /**
  * Check if user has submitted a contact form in the last 24 hours
@@ -7,20 +8,15 @@ import { verifyOTPHash } from './emailService.js'
  * @returns {Promise<boolean>}
  */
 export const hasRecentSubmission = async (email) => {
-  const last24Hours = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
+  const db = getDB()
+  const last24Hours = new Date(Date.now() - 24 * 60 * 60 * 1000)
 
-  const { data, error } = await supabase
-    .from('contacts')
-    .select('id')
-    .eq('email', email)
-    .gte('submitted_at', last24Hours)
-    .limit(1)
+  const contact = await db.collection('contacts').findOne({
+    email,
+    submittedAt: { $gte: last24Hours }
+  })
 
-  if (error) {
-    throw new Error(`Database error: ${error.message}`)
-  }
-
-  return data && data.length > 0
+  return !!contact
 }
 
 /**
@@ -29,21 +25,16 @@ export const hasRecentSubmission = async (email) => {
  * @returns {Promise<boolean>}
  */
 export const hasRecentOTPRequest = async (email) => {
-  const last5Minutes = new Date(Date.now() - 5 * 60 * 1000).toISOString()
+  const db = getDB()
+  const last5Minutes = new Date(Date.now() - 5 * 60 * 1000)
 
-  const { data, error } = await supabase
-    .from('contacts')
-    .select('id, submitted_at')
-    .eq('email', email)
-    .gte('submitted_at', last5Minutes)
-    .is('otp_verified', false)
-    .limit(1)
+  const contact = await db.collection('contacts').findOne({
+    email,
+    otp_verified: false,
+    submittedAt: { $gte: last5Minutes }
+  })
 
-  if (error) {
-    throw new Error(`Database error: ${error.message}`)
-  }
-
-  return data && data.length > 0
+  return !!contact
 }
 
 /**
@@ -54,35 +45,26 @@ export const hasRecentOTPRequest = async (email) => {
  * @returns {Promise<Object>} - Created contact record
  */
 export const createContact = async (contactData, hashedOTP, otpExpiry) => {
+  const db = getDB()
   const { name, company, email, role, problem, inquiryType } = contactData
 
-  const { data, error } = await supabase
-    .from('contacts')
-    .insert([
-      {
-        name,
-        company,
-        email,
-        role,
-        problem,
-        inquiryType: inquiryType || 'demo',
-        status: 'pending',
-        otp: hashedOTP, // Store hashed OTP for security
-        otp_expiry: otpExpiry.toISOString(),
-        otp_verified: false,
-        submitted_at: new Date().toISOString()
-      }
-    ])
-    .select()
-    .single()
-
-  if (error) {
-    // Log error for debugging but don't expose internal details
-    console.error('[Supabase Error] Failed to create contact:', error.message, error.code)
-    throw new Error(`Failed to create contact: ${error.message}`)
+  const newContact = {
+    _id: uuidv4(),
+    name,
+    company,
+    email,
+    role,
+    problem,
+    inquiryType: inquiryType || 'demo',
+    status: 'pending',
+    otp: hashedOTP,
+    otp_expiry: otpExpiry,
+    otp_verified: false,
+    submittedAt: new Date()
   }
 
-  return data
+  await db.collection('contacts').insertOne(newContact)
+  return newContact
 }
 
 /**
@@ -92,68 +74,51 @@ export const createContact = async (contactData, hashedOTP, otpExpiry) => {
  * @returns {Promise<Object>} - Verification result
  */
 export const verifyOTP = async (email, plainOTP) => {
-  try {
-    // Fetch contact with matching email (unverified only)
-    const { data: contacts, error: fetchError } = await supabase
-      .from('contacts')
-      .select('*')
-      .eq('email', email)
-      .eq('otp_verified', false)
-      .order('submitted_at', { ascending: false })
-      .limit(1)
+  const db = getDB()
 
-    if (fetchError) {
-      console.error('[Supabase Error] Failed to fetch contact for OTP verification:', fetchError.message)
-      throw new Error(`Database error: ${fetchError.message}`)
-    }
+  // Find unverified contact with matching email
+  const contact = await db.collection('contacts').findOne({
+    email,
+    otp_verified: false
+  }, {
+    sort: { submittedAt: -1 }
+  })
 
-    if (!contacts || contacts.length === 0) {
-      return { success: false, message: 'Invalid email or OTP already verified' }
-    }
+  if (!contact) {
+    return { success: false, message: 'Invalid email or OTP already verified' }
+  }
 
-    const contact = contacts[0]
+  // Check if OTP has expired
+  const now = new Date()
+  if (now > contact.otp_expiry) {
+    return { success: false, message: 'OTP has expired. Please request a new one.' }
+  }
 
-    // Check if OTP has expired
-    const now = new Date()
-    const expiryTime = new Date(contact.otp_expiry)
+  // Verify hashed OTP
+  const isValid = await verifyOTPHash(plainOTP, contact.otp)
+  if (!isValid) {
+    return { success: false, message: 'Invalid OTP code' }
+  }
 
-    if (now > expiryTime) {
-      return { success: false, message: 'OTP has expired. Please request a new one.' }
-    }
-
-    // Verify hashed OTP
-    const isValid = await verifyOTPHash(plainOTP, contact.otp)
-
-    if (!isValid) {
-      return { success: false, message: 'Invalid OTP code' }
-    }
-
-    // Update contact to verified status
-    const { error: updateError } = await supabase
-      .from('contacts')
-      .update({
+  // Update contact to verified status
+  await db.collection('contacts').updateOne(
+    { _id: contact._id },
+    {
+      $set: {
         otp_verified: true,
         status: 'verified'
-      })
-      .eq('id', contact.id)
-
-    if (updateError) {
-      console.error('[Supabase Error] Failed to update verification status:', updateError.message)
-      throw new Error(`Failed to verify contact: ${updateError.message}`)
-    }
-
-    return {
-      success: true,
-      message: 'Email verified successfully. We will get back to you soon!',
-      data: {
-        id: contact.id,
-        name: contact.name,
-        email: contact.email
       }
     }
-  } catch (error) {
-    console.error('[OTP Verification Error]:', error)
-    throw error
+  )
+
+  return {
+    success: true,
+    message: 'Email verified successfully. We will get back to you soon!',
+    data: {
+      id: contact._id,
+      name: contact.name,
+      email: contact.email
+    }
   }
 }
 
@@ -162,16 +127,13 @@ export const verifyOTP = async (email, plainOTP) => {
  * @returns {Promise<Array>}
  */
 export const getAllContacts = async () => {
-  const { data, error } = await supabase
-    .from('contacts')
-    .select('*')
-    .order('submitted_at', { ascending: false })
+  const db = getDB()
+  const contacts = await db.collection('contacts')
+    .find({})
+    .sort({ submittedAt: -1 })
+    .toArray()
 
-  if (error) {
-    throw new Error(`Database error: ${error.message}`)
-  }
-
-  return data || []
+  return contacts
 }
 
 /**
@@ -180,20 +142,9 @@ export const getAllContacts = async () => {
  * @returns {Promise<Object|null>}
  */
 export const getContactById = async (id) => {
-  const { data, error } = await supabase
-    .from('contacts')
-    .select('*')
-    .eq('id', id)
-    .single()
-
-  if (error) {
-    if (error.code === 'PGRST116') {
-      return null // Not found
-    }
-    throw new Error(`Database error: ${error.message}`)
-  }
-
-  return data
+  const db = getDB()
+  const contact = await db.collection('contacts').findOne({ _id: id })
+  return contact
 }
 
 /**
@@ -203,16 +154,17 @@ export const getContactById = async (id) => {
  * @returns {Promise<Object>}
  */
 export const updateContactStatus = async (id, status) => {
-  const { data, error } = await supabase
-    .from('contacts')
-    .update({ status })
-    .eq('id', id)
-    .select()
-    .single()
+  const db = getDB()
 
-  if (error) {
-    throw new Error(`Failed to update contact: ${error.message}`)
+  const result = await db.collection('contacts').findOneAndUpdate(
+    { _id: id },
+    { $set: { status } },
+    { returnDocument: 'after' }
+  )
+
+  if (!result.value) {
+    throw new Error('Contact not found')
   }
 
-  return data
+  return result.value
 }
