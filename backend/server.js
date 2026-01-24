@@ -8,6 +8,15 @@ import contactRoutes from './routes/contactRoutes.js'
 // Initialize express
 const app = express()
 
+// ✅ Trust Proxy (for Render/Express Rate Limit)
+app.set('trust proxy', 1)
+
+// ✅ Request Logger (for debugging)
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`)
+  next()
+})
+
 // ✅ Compression
 app.use(compression())
 
