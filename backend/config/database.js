@@ -1,10 +1,9 @@
 import { MongoClient } from "mongodb";
-const uri = process.env.MONGO_URI;
-
 let db;
 let client;
 
 export const connectDB = async () => {
+  const uri = process.env.MONGO_URI;
   if (!uri) {
     console.error("❌ MONGO_URI is missing from environment variables!");
     console.log("Please set MONGO_URI in your Render Environment Variables.");
