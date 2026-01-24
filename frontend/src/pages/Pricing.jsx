@@ -7,7 +7,7 @@ const Pricing = () => {
   const pricingTiers = [
     {
       name: 'Revenue Leak Audit',
-      price: '$129',
+      price: '$29',
       duration: 'One-time',
       description: 'Discover hidden revenue losses and get a prioritized action plan.',
       features: [
@@ -24,7 +24,7 @@ const Pricing = () => {
     },
     {
       name: 'AlgoForce OS Setup',
-      price: '$199',
+      price: '$99',
       duration: 'One-time',
       description: 'Full implementation and customization for your business.',
       features: [
@@ -136,7 +136,7 @@ const Pricing = () => {
               Pricing & <span className="gradient-text bg-gradient-to-r from-purple-400 to-blue-400">Consulting</span>
             </h1>
             <p className="max-w-3xl mx-auto text-xl text-gray-300">
-              Premium positioning for premium results. This is not a $99/month SaaS tool. 
+              Premium positioning for premium results. This is not a $5/month SaaS tool. 
               This is enterprise-grade intelligence infrastructure.
             </p>
           </motion.div>
