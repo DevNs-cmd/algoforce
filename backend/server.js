@@ -55,29 +55,8 @@ app.get('/api/health', (req, res) => {
 })
 
 // ========================================
-// SPA SUPPORT: Serve Frontend in Production
+// API ONLY: Frontend served separately on Vercel
 // ========================================
-// CRITICAL: This MUST come AFTER all API routes
-// Serves static files from frontend/dist
-const frontendPath = path.join(__dirname, '../frontend/dist')
-
-// Serve static files (JS, CSS, images)
-app.use(express.static(frontendPath))
-
-// SPA Fallback: All non-API routes serve index.html
-// This fixes page refresh on /contact, /pricing, etc.
-app.get('*', (req, res) => {
-  // Only serve index.html for non-API routes
-  if (!req.path.startsWith('/api')) {
-    res.sendFile(path.join(frontendPath, 'index.html'))
-  } else {
-    // API routes that weren't matched return 404
-    res.status(404).json({
-      success: false,
-      message: 'API route not found'
-    })
-  }
-})
 
 // Error handling middleware
 app.use((err, req, res, next) => {

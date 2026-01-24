@@ -40,7 +40,7 @@ const Contact = () => {
 
     try {
       // Use environment-specific API URL
-      const apiUrl = import.meta.env.VITE_API_URL || ''
+      const apiUrl = import.meta.env.VITE_API_URL || 'https://algoforce-backend.onrender.com'
       const response = await axios.post(`${apiUrl}/api/contact`, formData)
 
       if (response.data.success) {
@@ -70,7 +70,7 @@ const Contact = () => {
     setOtpError(null)
 
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || ''
+      const apiUrl = import.meta.env.VITE_API_URL || 'https://algoforce-backend.onrender.com'
       const response = await axios.post(`${apiUrl}/api/contact/verify-otp`, {
         email: formData.email,
         otp: otp
