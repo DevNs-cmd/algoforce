@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer'
 import bcrypt from 'bcrypt'
+import crypto from 'crypto'
 
 /**
  * Create nodemailer transporter for Gmail
@@ -24,7 +25,6 @@ const createTransporter = () => {
  */
 export const generateOTP = () => {
   // Use crypto for more secure random number generation
-  const crypto = require('crypto')
   const randomNum = crypto.randomInt(100000, 999999)
   return randomNum.toString()
 }

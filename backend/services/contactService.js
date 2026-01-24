@@ -77,12 +77,13 @@ export const verifyOTP = async (email, plainOTP) => {
   const db = getDB()
 
   // Find unverified contact with matching email
-  const contact = await db.collection('contacts').findOne({
+  const contact = await db.collection('contacts').find({
     email,
     otp_verified: false
-  }, {
-    sort: { submittedAt: -1 }
   })
+    .sort({ submittedAt: -1 })
+    .limit(1)
+    .next()
 
   if (!contact) {
     return { success: false, message: 'Invalid email or OTP already verified' }
