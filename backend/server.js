@@ -8,8 +8,18 @@ import contactRoutes from './routes/contactRoutes.js'
 // Initialize express
 const app = express()
 
-// ✅ Trust Proxy (for Render/Express Rate Limit)
+// ✅ Trust Proxy (for Render/Express Rate Limit) - MUST BE SET EARLY
 app.set('trust proxy', 1)
+
+// ✅ Diagnostic Logs for Render Environment
+console.log('--- Startup Diagnostic Check ---')
+console.log(`Node Version: ${process.version}`)
+console.log(`Environment: ${process.env.NODE_ENV || 'development'}`)
+console.log(`PORT: ${process.env.PORT || 5000}`)
+console.log(`MONGO_URI exists: ${!!process.env.MONGO_URI}`)
+console.log(`GMAIL_USER exists: ${!!process.env.GMAIL_USER}`)
+console.log(`GMAIL_APP_PASS length: ${process.env.GMAIL_APP_PASS ? process.env.GMAIL_APP_PASS.length : 0}`)
+console.log('--------------------------------')
 
 // ✅ Request Logger (for debugging)
 app.use((req, res, next) => {

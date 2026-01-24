@@ -1,17 +1,18 @@
 import { MongoClient } from "mongodb";
-
 const uri = process.env.MONGO_URI;
 
-if (!uri) {
-  throw new Error("❌ MONGO_URI is not defined in Render Environment Variables");
-}
-
-const client = new MongoClient(uri);
-
 let db;
+let client;
 
 export const connectDB = async () => {
+  if (!uri) {
+    console.error("❌ MONGO_URI is missing from environment variables!");
+    console.log("Please set MONGO_URI in your Render Environment Variables.");
+    process.exit(1);
+  }
+
   try {
+    client = new MongoClient(uri);
     await client.connect();
     db = client.db("algoforce");
     console.log("✅ MongoDB Connected");
