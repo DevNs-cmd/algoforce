@@ -28,6 +28,7 @@ const Navigation = () => {
 
   const navLinks = [
     { name: "Home", path: "/" },
+    { name: "AlgoForce Labs", path: "/algoforce-labs.html", isExternal: true },
     { name: "Pricing", path: "/pricing" },
     { name: "Contact", path: "/contact" },
   ];
@@ -64,11 +65,10 @@ const Navigation = () => {
             {/* Home link always first */}
             <Link
               to="/"
-              className={`font-medium transition-colors ${
-                location.pathname === "/"
+              className={`font-medium transition-colors ${location.pathname === "/"
                   ? "text-purple-400"
                   : "text-white hover:text-purple-400"
-              }`}
+                }`}
             >
               Home
             </Link>
@@ -106,19 +106,28 @@ const Navigation = () => {
             {/* Other nav links (exclude Home) */}
             {navLinks
               .filter((link) => link.path !== "/")
-              .map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  className={`font-medium transition-colors ${
-                    location.pathname === link.path
-                      ? "text-purple-400"
-                      : "text-white hover:text-purple-400"
-                  }`}
-                >
-                  {link.name}
-                </Link>
-              ))}
+              .map((link) =>
+                link.isExternal ? (
+                  <a
+                    key={link.path}
+                    href={link.path}
+                    className="font-medium text-white hover:text-purple-400 transition-colors"
+                  >
+                    {link.name}
+                  </a>
+                ) : (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    className={`font-medium transition-colors ${location.pathname === link.path
+                        ? "text-purple-400"
+                        : "text-white hover:text-purple-400"
+                      }`}
+                  >
+                    {link.name}
+                  </Link>
+                )
+              )}
           </div>
 
           {/* CTA */}
@@ -226,6 +235,9 @@ const Navigation = () => {
                   <Link to="/pricing" onClick={() => setMobileMenuOpen(false)}>
                     Pricing
                   </Link>
+                  <a href="/algoforce-labs.html" onClick={() => setMobileMenuOpen(false)}>
+                    AlgoForce Labs
+                  </a>
                   <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
                     Contact
                   </Link>

@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoForce Labs | Global AI, Growth & Systems Lab</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: {
+                            900: '#020617',
+                            950: '#01040f',
+                        },
+                        violet: {
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --bg-deep: #01040f;
+            --accent-violet: #8700ff;
+            --glass-white: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glow-violet: rgba(135, 0, 255, 0.2);
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: #f8fafc;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* PREMIUM GRADIENTS & PARALLAX */
+        .bg-mesh {
+            background:
+                radial-gradient(circle at 10% 10%, rgba(135, 0, 255, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(0, 35, 105, 0.3) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, #01040f 0%, #000 100%);
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+        }
+
+        .parallax-bg {
+            position: fixed;
+            inset: -50px;
+            pointer-events: none;
+            z-index: -1;
+            background-image:
+                radial-gradient(1px 1px at 20px 30px, #fff, rgba(0, 0, 0, 0)),
+                radial-gradient(1px 1px at 40px 70px, #fff, rgba(0, 0, 0, 0)),
+                radial-gradient(2px 2px at 50px 160px, rgba(135, 0, 255, 0.5), rgba(0, 0, 0, 0));
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            opacity: 0.2;
+            will-change: transform;
+        }
+
+        /* GLASSMORPHISM 3.0 */
+        .glass {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-premium {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+            backdrop-filter: blur(32px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+        }
+
+        /* 3D DEPTH */
+        .depth-3d {
+            transform-style: preserve-3d;
+            perspective: 1500px;
+        }
+
+        .tilt-card {
+            transition: transform 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67), box-shadow 0.2s ease;
+            transform-style: preserve-3d;
+        }
+
+        /* VOLUMETRIC LIGHT */
+        .spotlight {
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, var(--glow-violet) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            filter: blur(100px);
+        }
+
+        /* ANIMATIONS */
+        @keyframes float-hero {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(-12deg);
+            }
+
+            50% {
+                transform: translateY(-30px) rotate(-10deg);
+            }
+        }
+
+        .animate-float {
+            animation: float-hero 15s ease-in-out infinite;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px) scale(0.98);
+            transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* TYPOGRAPHY */
+        .gradient-text {
+            background: linear-gradient(135deg, #fff 20%, #a78bfa 60%, #8700ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 20px rgba(135, 0, 255, 0.3));
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.4s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent-violet);
+            transition: width 0.4s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* NOISE TEXTURE */
+        .noise {
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3BaseFilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.02;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        /* BUTTONS */
+        .btn-enterprise {
+            background: #fff;
+            color: #000;
+            font-weight: 800;
+            padding: 16px 40px;
+            border-radius: 12px;
+            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn-enterprise:hover {
+            color: #fff;
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(135, 0, 255, 0.4);
+        }
+
+        .btn-enterprise::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--accent-violet);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn-enterprise:hover::before {
+            transform: translateY(0);
+        }
+
+        .btn-outline {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-weight: 500;
+            padding: 16px 40px;
+            border-radius: 12px;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-outline:hover {
+            border-color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* IMAGE 3D CONTAINER */
+        .image-3d-wrap {
+            position: relative;
+            transform-style: preserve-3d;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.8);
+        }
+
+        .image-3d-wrap img {
+            transition: transform 0.5s ease;
+        }
+
+        .image-3d-wrap:hover img {
+            transform: scale(1.1);
+        }
+
+        .image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, var(--bg-deep), transparent 60%);
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-mesh"></div>
+    <div class="parallax-bg" id="parallax-far"></div>
+    <div class="parallax-bg" id="parallax-mid" style="background-size: 300px 300px; opacity: 0.1;"></div>
+    <div class="noise"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-black/20 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto px-8 py-6 flex justify-between items-center">
+            <a href="/" class="flex items-center space-x-3 group">
+                <div
+                    class="w-8 h-8 rounded-lg bg-gradient-to-br from-white to-violet-500 flex items-center justify-center font-black text-black text-xs transition-transform group-hover:rotate-45">
+                    A</div>
+                <span
+                    class="text-xl font-display font-bold tracking-tight text-white uppercase tracking-[0.2em]">AlgoForce
+                    <span class="text-violet-500 font-light">Labs</span></span>
+            </a>
+            <div
+                class="hidden md:flex items-center space-x-10 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">
+                <a href="/" class="nav-link hover:text-white">Home</a>
+                <a href="#capability-stack" class="nav-link hover:text-white">Capabilities</a>
+                <a href="#philosophy" class="nav-link hover:text-white">Philosophy</a>
+                <a href="/pricing" class="nav-link hover:text-white">Capital</a>
+            </div>
+            <div>
+                <a href="/contact"
+                    class="text-[11px] font-bold py-3 px-6 rounded-md border border-white/10 hover:bg-white hover:text-black transition-all uppercase tracking-widest">Partner</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center pt-24 px-8 overflow-hidden">
+        <div class="spotlight -top-20 -left-20"></div>
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center relative z-10">
+            <div>
+                <div
+                    class="inline-flex items-center space-x-2 px-3 py-1 rounded-full glass border border-white/10 text-[10px] font-bold uppercase tracking-[0.3em] text-violet-400 mb-8">
+                    <span class="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse"></span>
+                    <span>Global Intelligence & Execution</span>
+                </div>
+                <h1
+                    class="text-7xl md:text-9xl font-display font-black leading-[0.9] mb-8 gradient-text tracking-tighter">
+                    AlgoForce <br> Labs
+                </h1>
+                <h2 class="text-2xl md:text-3xl font-light text-slate-300 mb-6 max-w-xl leading-snug">
+                    Global AI, Growth & Systems Lab for Companies That Intend to Lead.
+                </h2>
+                <p class="text-lg text-slate-500 mb-10 max-w-lg leading-relaxed font-light">
+                    We design intelligence, engineer revenue systems, and build digital infrastructure for startups,
+                    enterprises, and governments.
+                </p>
+                <div class="flex flex-wrap gap-6">
+                    <a href="/contact" class="btn-enterprise">Request Strategic Call</a>
+                    <button class="btn-outline">Explore Capabilities</button>
+                </div>
+            </div>
+            <div class="relative hidden lg:block">
+                <!-- Floating Glass Elements -->
+                <div class="relative w-full aspect-square flex items-center justify-center">
+                    <div
+                        class="absolute w-80 h-[500px] glass-premium rounded-3xl animate-float -rotate-12 translate-x-[-40px]">
+                    </div>
+                    <div class="absolute w-72 h-[450px] glass-premium rounded-3xl animate-float rotate-6 translate-x-[40px] translate-y-20"
+                        style="animation-delay: -3s;"></div>
+                    <div class="absolute w-64 h-64 glass-premium rounded-full flex items-center justify-center -translate-y-20 animate-float"
+                        style="animation-delay: -6s;">
+                        <div class="text-white/20 text-6xl">⬥</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Positioning Section -->
+    <section class="py-32 px-8 border-t border-white/5" id="capability-stack">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-12 items-end mb-24">
+                <div>
+                    <span class="text-[10px] font-black uppercase tracking-[0.4em] text-violet-500 block mb-4">Core
+                        Positioning</span>
+                    <h2 class="text-5xl md:text-7xl font-black font-display tracking-tight leading-none">The Capability
+                        <br> Stack
+                    </h2>
+                </div>
+                <div class="pb-2">
+                    <p class="text-xl text-slate-400 font-light max-w-md leading-relaxed italic">
+                        “One partner. Every capability required to build, scale, and dominate global markets.”
+                    </p>
+                </div>
+            </div>
+
+            <!-- Service Universe -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+                <!-- 1. Branding -->
+                <div
+                    class="tilt-card glass p-10 rounded-2xl group cursor-default hover:border-violet-500/50 transition-all duration-500">
+                    <div class="text-violet-500 mb-6 text-sm font-black tracking-widest">01 / BRANDING & IDENTITY</div>
+                    <h3 class="text-3xl font-bold mb-6 group-hover:text-violet-400 transition-colors">Global Image</h3>
+                    <div class="space-y-3">
+                        <p class="text-sm text-slate-500 font-light">• Strategy & Position</p>
+                        <p class="text-sm text-slate-500 font-light">• Visual Identity Systems</p>
+                        <p class="text-sm text-slate-500 font-light">• Messaging & Tone</p>
+                        <p class="text-sm text-slate-500 font-light">• Pitch & Investor Design</p>
+                    </div>
+                    <div
+                        class="mt-8 pt-8 border-t border-white/5 text-[10px] font-bold text-slate-600 uppercase tracking-widest group-hover:text-white transition-colors">
+                        Available at Scale</div>
+                </div>
+
+                <!-- 2. Content -->
+                <div
+                    class="tilt-card glass p-10 rounded-2xl group cursor-default hover:border-violet-500/50 transition-all duration-500">
+                    <div class="text-violet-500 mb-6 text-sm font-black tracking-widest">02 / CONTENT SYSTEMS</div>
+                    <h3 class="text-3xl font-bold mb-6 group-hover:text-violet-400 transition-colors">Narrative Ops</h3>
+                    <div class="space-y-3">
+                        <p class="text-sm text-slate-500 font-light">• Viral Growth Strategy</p>
+                        <p class="text-sm text-slate-500 font-light">• Multi-channel Mgmt</p>
+                        <p class="text-sm text-slate-500 font-light">• High-end Content Prod</p>
+                        <p class="text-sm text-slate-500 font-light">• Community Engineering</p>
+                    </div>
+                    <div
+                        class="mt-8 pt-8 border-t border-white/5 text-[10px] font-bold text-slate-600 uppercase tracking-widest group-hover:text-white transition-colors">
+                        Strategic Distribution</div>
+                </div>
+
+                <!-- 3. Search -->
+                <div
+                    class="tilt-card glass p-10 rounded-2xl group cursor-default hover:border-violet-500/50 transition-all duration-500">
+                    <div class="text-violet-500 mb-6 text-sm font-black tracking-widest">03 / SEARCH & AEO</div>
+                    <h3 class="text-3xl font-bold mb-6 group-hover:text-violet-400 transition-colors">Visibility Engine
+                    </h3>
+                    <div class="space-y-3">
+                        <p class="text-sm text-slate-500 font-light">• Technical SEO</p>
+                        <p class="text-sm text-slate-500 font-light">• AI Search (AEO)</p>
+                        <p class="text-sm text-slate-500 font-light">• Local GEO Strategy</p>
+                        <p class="text-sm text-slate-500 font-light">• Sentiment Optimization</p>
+                    </div>
+                    <div
+                        class="mt-8 pt-8 border-t border-white/5 text-[10px] font-bold text-slate-600 uppercase tracking-widest group-hover:text-white transition-colors">
+                        Algorithmic Dominance</div>
+                </div>
+
+                <!-- 4. Marketing -->
+                <div
+                    class="tilt-card glass p-10 rounded-2xl group cursor-default hover:border-violet-500/50 transition-all duration-500">
+                    <div class="text-violet-500 mb-6 text-sm font-black tracking-widest">04 / GROWTH OPS</div>
+                    <h3 class="text-3xl font-bold mb-6 group-hover:text-violet-400 transition-colors">Performance</h3>
+                    <div class="space-y-3">
+                        <p class="text-sm text-slate-500 font-light">• Global Paid Media</p>
+                        <p class="text-sm text-slate-500 font-light">• Funnel Architecture</p>
+                        <p class="text-sm text-slate-500 font-light">• Email Automation</p>
+                        <p class="text-sm text-slate-500 font-light">• Converstion Optim</p>
+                    </div>
+                    <div
+                        class="mt-8 pt-8 border-t border-white/5 text-[10px] font-bold text-slate-600 uppercase tracking-widest group-hover:text-white transition-colors">
+                        Revenue Acceleration</div>
+                </div>
+
+                <!-- 5. Web Dev -->
+                <div
+                    class="tilt-card glass p-10 rounded-2xl group cursor-default hover:border-violet-500/50 transition-all duration-500">
+                    <div class="text-violet-500 mb-6 text-sm font-black tracking-widest">05 / WEB & SaaS</div>
+                    <h3 class="text-3xl font-bold mb-6 group-hover:text-violet-400 transition-colors">Platforms</h3>
+                    <div class="space-y-3">
+                        <p class="text-sm text-slate-500 font-light">• Custom Web Systems</p>
+                        <p class="text-sm text-slate-500 font-light">• SaaS MVP & Scale</p>
+                        <p class="text-sm text-slate-500 font-light">• Enterprise Dashboards</p>
+                        <p class="text-sm text-slate-500 font-light">• Cloud Infrastructure</p>
+                    </div>
+                    <div
+                        class="mt-8 pt-8 border-t border-white/5 text-[10px] font-bold text-slate-600 uppercase tracking-widest group-hover:text-white transition-colors">
+                        Digital Foundations</div>
+                </div>
+
+                <!-- 6. App Dev -->
+                <div
+                    class="tilt-card glass p-10 rounded-2xl group cursor-default hover:border-violet-500/50 transition-all duration-500">
+                    <div class="text-violet-500 mb-6 text-sm font-black tracking-widest">06 / APP DEVELOPMENT</div>
+                    <h3 class="text-3xl font-bold mb-6 group-hover:text-violet-400 transition-colors">Ecosystems</h3>
+                    <div class="space-y-3">
+                        <p class="text-sm text-slate-500 font-light">• Native iOS & Android</p>
+                        <p class="text-sm text-slate-500 font-light">• Cross-Platform Apps</p>
+                        <p class="text-sm text-slate-500 font-light">• AI Native Mobile</p>
+                        <p class="text-sm text-slate-500 font-light">• Startup & Ent. MVPs</p>
+                    </div>
+                    <div
+                        class="mt-8 pt-8 border-t border-white/5 text-[10px] font-bold text-slate-600 uppercase tracking-widest group-hover:text-white transition-colors">
+                        Mobile First</div>
+                </div>
+
+                <!-- 7. AI Auto -->
+                <div
+                    class="tilt-card glass p-10 rounded-2xl group cursor-default hover:border-violet-500/50 transition-all duration-500">
+                    <div class="text-violet-500 mb-6 text-sm font-black tracking-widest">07 / AI & AUTOMATION</div>
+                    <h3 class="text-3xl font-bold mb-6 group-hover:text-violet-400 transition-colors">Intelligence</h3>
+                    <div class="space-y-3">
+                        <p class="text-sm text-slate-500 font-light">• Custom AI Agents</p>
+                        <p class="text-sm text-slate-500 font-light">• CRM / Sales Auto</p>
+                        <p class="text-sm text-slate-500 font-light">• AI Voice Systems</p>
+                        <p class="text-sm text-slate-500 font-light">• Internal Operations</p>
+                    </div>
+                    <div
+                        class="mt-8 pt-8 border-t border-white/5 text-[10px] font-bold text-slate-600 uppercase tracking-widest group-hover:text-white transition-colors">
+                        Autonomous Future</div>
+                </div>
+
+                <!-- 8. RevOps -->
+                <div
+                    class="tilt-card glass p-10 rounded-2xl group cursor-default hover:border-violet-500/50 transition-all duration-500">
+                    <div class="text-violet-500 mb-6 text-sm font-black tracking-widest">08 / REVENUE OPS</div>
+                    <h3 class="text-3xl font-bold mb-6 group-hover:text-violet-400 transition-colors">Yield</h3>
+                    <div class="space-y-3">
+                        <p class="text-sm text-slate-500 font-light">• Sales Pipelines</p>
+                        <p class="text-sm text-slate-500 font-light">• Billing & Sub Systems</p>
+                        <p class="text-sm text-slate-500 font-light">• RevAnalytics</p>
+                        <p class="text-sm text-slate-500 font-light">• Systems Consulting</p>
+                    </div>
+                    <div
+                        class="mt-8 pt-8 border-t border-white/5 text-[10px] font-bold text-slate-600 uppercase tracking-widest group-hover:text-white transition-colors">
+                        Capital Efficiency</div>
+                </div>
+
+                <!-- 9. Enterprise -->
+                <div
+                    class="tilt-card glass p-10 rounded-2xl group cursor-default border-violet-500/30 bg-violet-500/[0.05] transition-all duration-500">
+                    <div class="text-violet-400 mb-6 text-sm font-black tracking-widest">09 / STRATEGIC SERVICES</div>
+                    <h3 class="text-3xl font-bold mb-6 text-white group-hover:text-violet-300 transition-colors">
+                        Transformation</h3>
+                    <div class="space-y-3">
+                        <p class="text-sm text-slate-300 font-light">• CTO/CMO-as-Service</p>
+                        <p class="text-sm text-slate-300 font-light">• Governments & Institutions</p>
+                        <p class="text-sm text-slate-300 font-light">• White-label Infrastructure</p>
+                        <p class="text-sm text-slate-300 font-light">• Founder Mentorship</p>
+                    </div>
+                    <div
+                        class="mt-8 pt-8 border-t border-white/10 text-[10px] font-bold text-violet-400 uppercase tracking-widest">
+                        High-Side Access</div>
+                </div>
+            </div>
+
+            <!-- Summary stats or note -->
+            <div class="text-center">
+                <p class="text-[11px] font-black uppercase tracking-[0.5em] text-slate-600">Total Discrete Modules: 72 |
+                    Global Availability: 24/7</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Section -->
+    <section class="py-32 px-8 bg-neutral-950/20 relative overflow-hidden">
+        <div class="spotlight -bottom-40 right-0"></div>
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-16 items-center">
+            <div class="md:w-1/2">
+                <span class="text-[10px] font-black uppercase tracking-[0.4em] text-violet-500 block mb-6">Partnership
+                    Model</span>
+                <h2 class="text-5xl md:text-7xl font-display font-black tracking-tighter mb-8 leading-none">Why
+                    AlgoForce Labs</h2>
+                <p class="text-xl text-slate-400 font-light leading-relaxed">
+                    Systems over tactics. Intelligence over noise. We operate with the clinical precision of a top-tier
+                    management consultancy and the aggressive execution of a global technology hub.
+                </p>
+            </div>
+            <div class="md:w-1/2 grid grid-cols-1 gap-6">
+                <!-- Why Cards -->
+                <div class="flex items-start gap-6 glass p-8 rounded-2xl">
+                    <div class="text-2xl pt-1">✔</div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2">Not vendors. Strategic partners.</h4>
+                        <p class="text-slate-500 font-light">We take responsibility for outcomes, not just deliverables.
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-6 glass p-8 rounded-2xl">
+                    <div class="text-2xl pt-1 text-violet-500 font-black">AI-first, not AI-added.</div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2">Native Intelligence</h4>
+                        <p class="text-slate-500 font-light">AI is baked into the kernel of every system we architect.
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-6 glass p-8 rounded-2xl">
+                    <div class="text-2xl pt-1">🚀</div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2">Built for scale, not experiments.</h4>
+                        <p class="text-slate-500 font-light">Every module is stress-tested for global enterprise
+                            deployment.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Who We Work With -->
+    <section class="py-32 px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-24">
+                <h2 class="text-5xl font-display font-black mb-6 tracking-tight">Ecosystem Tiers</h2>
+                <div class="h-px w-24 bg-violet-600 mx-auto opacity-50"></div>
+            </div>
+            <div class="grid grid-cols-2 lg:grid-cols-5 gap-8">
+                <div class="text-center group">
+                    <div
+                        class="w-16 h-16 rounded-full glass mx-auto flex items-center justify-center mb-6 group-hover:border-violet-500 transition-colors">
+                        <span class="text-lg">✦</span>
+                    </div>
+                    <span class="text-[10px] font-black uppercase tracking-widest text-slate-500">Founders</span>
+                </div>
+                <div class="text-center group">
+                    <div
+                        class="w-16 h-16 rounded-full glass mx-auto flex items-center justify-center mb-6 group-hover:border-violet-500 transition-colors">
+                        <span class="text-lg">▲</span>
+                    </div>
+                    <span class="text-[10px] font-black uppercase tracking-widest text-slate-500">Scaleups</span>
+                </div>
+                <div class="text-center group">
+                    <div
+                        class="w-16 h-16 rounded-full glass mx-auto flex items-center justify-center mb-6 group-hover:border-violet-500 transition-colors">
+                        <span class="text-lg">⬢</span>
+                    </div>
+                    <span class="text-[10px] font-black uppercase tracking-widest text-slate-500">Enterprises</span>
+                </div>
+                <div class="text-center group">
+                    <div
+                        class="w-16 h-16 rounded-full glass mx-auto flex items-center justify-center mb-6 group-hover:border-violet-500 transition-colors">
+                        <span class="text-lg">🏛</span>
+                    </div>
+                    <span class="text-[10px] font-black uppercase tracking-widest text-slate-500">Governments</span>
+                </div>
+                <div class="text-center group">
+                    <div
+                        class="w-16 h-16 rounded-full glass mx-auto flex items-center justify-center mb-6 group-hover:border-violet-500 transition-colors">
+                        <span class="text-lg">∞</span>
+                    </div>
+                    <span class="text-[10px] font-black uppercase tracking-widest text-slate-500">Agencies</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy -->
+    <section class="py-48 px-8 relative overflow-hidden" id="philosophy">
+        <div class="max-w-7xl mx-auto text-center relative z-10">
+            <div class="inline-block glass-premium p-16 md:p-24 rounded-[40px] border-white/10 transform -rotate-1">
+                <h3
+                    class="text-4xl md:text-6xl font-display font-black italic mb-12 tracking-tighter opacity-90 leading-none">
+                    “Build systems that outlast trends.” <br>
+                    <span class="text-violet-500">“Automate intelligence.”</span> <br>
+                    “Scale without chaos.”
+                </h3>
+                <div class="text-[12px] font-black uppercase tracking-[0.6em] text-slate-500">The Labs Philosophy</div>
+            </div>
+        </div>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(135,0,255,0.05)_0%,transparent_100%)]">
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-32 px-8">
+        <div
+            class="max-w-5xl mx-auto glass-premium p-16 md:p-20 rounded-3xl text-center border-violet-500/20 relative overflow-hidden">
+            <div class="spotlight -top-40 left-1/2 -translate-x-1/2"></div>
+            <h2 class="text-4xl md:text-6xl font-display font-black mb-8 tracking-tighter">Ready to Build What Others
+                Can’t?</h2>
+            <p class="text-xl text-slate-400 mb-12 font-light max-w-2xl mx-auto">
+                Secure your position in the next era of digital dominance. Request a full capability audit or initiate a
+                strategic partnership.
+            </p>
+            <div class="flex flex-wrap justify-center gap-6">
+                <a href="/contact" class="btn-enterprise">Partner with AlgoForce Labs</a>
+                <a href="/contact" class="btn-outline">Request Capability Audit</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-8 border-t border-white/5 text-center">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-[10px] font-bold uppercase tracking-widest text-slate-600">
+                &copy; 2026 AlgoForce AI. All Rights Reserved. Private & Confidential.
+            </div>
+            <div class="flex space-x-8 text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                <a href="#" class="hover:text-white transition-colors">Terms</a>
+                <a href="#" class="hover:text-white transition-colors">Systems Status</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // REVEAL ANIMATION
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section, .tilt-card').forEach(el => {
+            el.classList.add('reveal');
+            observer.observe(el);
+        });
+
+        // 3D TILT EFFECT
+        const cards = document.querySelectorAll('.tilt-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = (centerY - y) / 20;
+                const rotateY = (x - centerX) / 20;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                card.style.boxShadow = `${-rotateY * 2}px ${rotateX * 2}px 30px rgba(135, 0, 255, 0.15)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                card.style.boxShadow = 'none';
+            });
+        });
+
+        // SPOTLIGHT TRACKING
+        document.addEventListener('mousemove', (e) => {
+            const spotlights = document.querySelectorAll('.spotlight');
+            spotlights.forEach(spot => {
+                const rect = spot.parentElement.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    // Only move if parent is somewhat visible
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
