@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Component CSS inlined to avoid @import issues in production */
+/* Component CSS inlined to avoid issues in production */
 .bounceCardsContainer {
   position: relative;
   display: flex;

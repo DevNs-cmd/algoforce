@@ -1,6 +1,6 @@
 import { Camera, Mesh, Plane, Program, Renderer, Texture, Transform } from 'ogl';
 import { useEffect, useRef } from 'react';
-// CSS imported in index.css to avoid production @import issues
+// CSS imported in index.css to avoid production issues
 
 function debounce(func, wait) {
   let timeout;

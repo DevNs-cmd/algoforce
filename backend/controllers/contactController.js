@@ -66,6 +66,15 @@ export const submitContact = async (req, res) => {
     })
   } catch (error) {
     console.error('Contact submission error:', error)
+
+    // If it's a specific email error, pass it to the client for debugging
+    if (error.message.includes('authentication') || error.message.includes('GMAIL')) {
+      return res.status(500).json({
+        success: false,
+        message: `Email Authentication Failed: ${error.message}. Please check your GMAIL_USER and GMAIL_APP_PASS in the Render environment variables.`
+      })
+    }
+
     res.status(500).json({
       success: false,
       message: 'Server error. Please try again later.'
