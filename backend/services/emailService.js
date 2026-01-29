@@ -5,12 +5,12 @@ import crypto from 'crypto'
 /**
  * Create nodemailer transporter for Gmail with production-ready settings
  */
-const createTransporter = () => {
+const buildMailer = () => {
   if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASS) {
     throw new Error('Gmail credentials not configured. Check GMAIL_USER and GMAIL_APP_PASS in .env')
   }
 
-  return nodemailer.createTransporter({
+  return nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 587,
     secure: false, // true for 465, false for other ports
@@ -93,7 +93,7 @@ const verifyTransporter = async (transporter) => {
  */
 export const sendOTPEmail = async (email, otp, name) => {
   try {
-    const transporter = createTransporter()
+    const transporter = buildMailer()
 
     // Verify connection before sending
     await verifyTransporter(transporter)
