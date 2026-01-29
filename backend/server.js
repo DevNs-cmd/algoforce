@@ -2,6 +2,8 @@ import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
 import compression from 'compression'
+import fs from 'fs'
+import path from 'path'
 import { connectDB } from './config/database.js'
 import contactRoutes from './routes/contactRoutes.js'
 
@@ -23,6 +25,36 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 console.log('--------------------------------')
+
+// ✅ Startup Code Scan (prevent nodemailer.createTransporter regression)
+const checkForForbiddenCode = () => {
+  const checkFile = (filePath) => {
+    try {
+      const content = fs.readFileSync(filePath, 'utf8')
+      if (content.includes('nodemailer.createTransporter')) {
+        throw new Error(`🚨 FORBIDDEN CODE DETECTED: nodemailer.createTransporter found in ${filePath}`)
+      }
+    } catch (e) {
+      // ignore read errors
+    }
+  }
+  const backendDir = path.join(process.cwd(), 'backend')
+  const walk = (dir) => {
+    const files = fs.readdirSync(dir)
+    files.forEach(f => {
+      const filePath = path.join(dir, f)
+      const stat = fs.statSync(filePath)
+      if (stat.isDirectory()) {
+        walk(filePath)
+      } else if (f.endsWith('.js')) {
+        checkFile(filePath)
+      }
+    })
+  }
+  walk(backendDir)
+}
+
+checkForForbiddenCode()
 
 // ✅ Request Logger (for debugging)
 app.use((req, res, next) => {
