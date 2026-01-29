@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "deploy:check": "node DEPLOYMENT_HELPER.js"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
