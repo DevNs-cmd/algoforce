@@ -39,10 +39,11 @@ app.use(
     origin: [
       'https://algoforceaii.com',
       'https://www.algoforceaii.com',
+      'https://algoforceofficial.vercel.app',
       'http://localhost:3000',
       'http://localhost:5173'
     ],
-    methods: ['GET', 'POST', 'PUT', 'OPTIONS'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
     maxAge: 86400
