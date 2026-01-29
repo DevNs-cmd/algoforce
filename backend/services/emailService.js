@@ -5,6 +5,8 @@ import crypto from 'crypto'
 /**
  * Create nodemailer transporter for Gmail with production-ready settings
  */
+console.log("🔥 NEW emailService.js LOADED");
+
 const buildMailer = () => {
   if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASS) {
     throw new Error('Gmail credentials not configured. Check GMAIL_USER and GMAIL_APP_PASS in .env')
