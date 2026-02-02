@@ -2,10 +2,12 @@ import { Helmet } from "react-helmet-async"
 
 import Hero from '../components/sections/Hero'
 import WhatIsAlgoForce from '../components/sections/WhatIsAlgoForce'
+import FoundersVision from '../components/sections/FoundersVision'
 import HowItWorks from '../components/sections/HowItWorks'
 import ProductModules from '../components/sections/ProductModules'
 import WhyAlgoForce from '../components/sections/WhyAlgoForce'
 import WhoItsFor from '../components/sections/WhoItsFor'
+
 
 const Home = () => {
   return (
@@ -17,6 +19,22 @@ const Home = () => {
           name="description"
           content="AlgoForce is an enterprise-grade AI Business Operating System that eliminates revenue leaks and compounds intelligence."
         />
+        <script type="application/ld+json">
+          {`
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "AlgoForce AI",
+  "url": "https://algoforceaii.com",
+  "founder": {
+    "@type": "Person",
+    "name": "Dev N Suman",
+    "url": "www.linkedin.com/in/dev-n-suman-3616a6377"
+  }
+}
+`}
+        </script>
+
 
         <meta name="robots" content="index, follow" />
 
@@ -50,6 +68,7 @@ const Home = () => {
       <div className="overflow-x-hidden">
         <Hero />
         <WhatIsAlgoForce />
+        <FoundersVision />
         <HowItWorks />
         <ProductModules />
         <WhyAlgoForce />
