@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async"
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { sendOTP, verifyAndSaveContact } from '../services/api'
+import { sendOTP, verifyAndSaveContact, API_URL } from '../services/api'
 import { FaUser, FaBuilding, FaBriefcase, FaCheckCircle, FaLock, FaPhone } from 'react-icons/fa'
 
 const Contact = () => {
@@ -18,12 +18,14 @@ const Contact = () => {
     loading: false,
     success: false,
     error: null,
-    step: 1, // 1: Fill form, 2: Enter OTP
+    step: 1, // 1: Fill form, 2: Enter OTP, 3: Verify OTP
     phone: ''
   })
 
   const [otp, setOtp] = useState('')
   const [otpError, setOtpError] = useState(null)
+  const [isVerified, setIsVerified] = useState(false)
+  const [otpSent, setOtpSent] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -47,11 +49,12 @@ const Contact = () => {
       const data = await sendOTP(formData.phone)
 
       if (data.success) {
+        setOtpSent(true)
         setStatus({
           loading: false,
           success: false,
           error: null,
-          step: 2,
+          step: 2, // Show OTP input
           phone: formData.phone
         })
       }
@@ -63,6 +66,55 @@ const Contact = () => {
         step: 1,
         phone: ''
       })
+    }
+  }
+
+  const handleVerifyOTP = async () => {
+    setStatus(prev => ({ ...prev, loading: true, error: null }))
+    setOtpError(null)
+
+    try {
+      // Validate OTP format
+      if (!otp || otp.length !== 6 || !/^\d{6}$/.test(otp)) {
+        throw new Error('Please enter a valid 6-digit OTP')
+      }
+
+      // Call the verify endpoint with phone and OTP using the API service
+      const data = await verifyAndSaveContact({
+        name: formData.name,
+        company: formData.company,
+        phone: formData.phone,
+        role: formData.role,
+        problem: formData.problem,
+        inquiryType: formData.inquiryType,
+        otp: otp
+      })
+
+      if (data.success) {
+        setIsVerified(true)
+        setStatus({
+          loading: false,
+          success: true,
+          error: null,
+          step: 3, // Verified state
+          phone: formData.phone
+        })
+        
+        // Clear form after successful verification
+        setFormData({
+          name: '',
+          company: '',
+          phone: '',
+          role: '',
+          problem: '',
+          inquiryType: 'demo'
+        })
+      } else {
+        throw new Error(data.message || 'Invalid OTP. Please try again.')
+      }
+    } catch (error) {
+      setOtpError(error.response?.data?.message || error.message || 'Failed to verify OTP. Please try again.')
+      setStatus(prev => ({ ...prev, loading: false }))
     }
   }
 
@@ -91,9 +143,10 @@ const Contact = () => {
           loading: false,
           success: true,
           error: null,
-          step: 1,
+          step: 3,
           phone: ''
         })
+        setIsVerified(true)
         // Clear form
         setFormData({
           name: '',
@@ -277,13 +330,13 @@ const Contact = () => {
                         Thank you for verifying your phone. We'll review your information and get back to you within 24 hours.
                       </p>
                       <button
-                        onClick={() => setStatus({ loading: false, success: false, error: null, otpSent: false, otpVerified: false })}
+                        onClick={() => setStatus({ loading: false, success: false, error: null, step: 1, phone: '' })}
                         className="px-6 py-3 font-semibold text-white transition-colors bg-purple-600 rounded-lg hover:bg-purple-700"
                       >
                         Send Another Message
                       </button>
                     </motion.div>
-                  ) : status.otpSent ? (
+                  ) : status.step === 2 ? (  // Show OTP input after sending OTP
                     <motion.div
                       key="otp"
                       initial={{ opacity: 0, x: 50 }}
