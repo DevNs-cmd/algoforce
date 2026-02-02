@@ -2,13 +2,12 @@ import { Helmet } from "react-helmet-async"
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { sendOTP, verifyAndSaveContact } from '../services/api'
-import { FaEnvelope, FaUser, FaBuilding, FaBriefcase, FaCheckCircle, FaLock, FaPhone } from 'react-icons/fa'
+import { FaUser, FaBuilding, FaBriefcase, FaCheckCircle, FaLock, FaPhone } from 'react-icons/fa'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     company: '',
-    email: '',
     phone: '',
     role: '',
     problem: '',
@@ -78,7 +77,12 @@ const Contact = () => {
       }
 
       const data = await verifyAndSaveContact({
-        ...formData,
+        name: formData.name,
+        company: formData.company,
+        phone: formData.phone,
+        role: formData.role,
+        problem: formData.problem,
+        inquiryType: formData.inquiryType,
         otp
       })
 
@@ -94,7 +98,6 @@ const Contact = () => {
         setFormData({
           name: '',
           company: '',
-          email: '',
           phone: '',
           role: '',
           problem: '',
@@ -414,24 +417,7 @@ const Contact = () => {
                         </div>
                       </div>
 
-                      {/* Email */}
-                      <div className="mb-6">
-                        <label className="block mb-2 font-semibold text-navy-900">
-                          Email *
-                        </label>
-                        <div className="relative">
-                          <FaEnvelope className="absolute text-gray-400 transform -translate-y-1/2 left-4 top-1/2" />
-                          <input
-                            type="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            required
-                            placeholder="john@acme.com"
-                            className="w-full py-3 pl-12 pr-4 transition-all border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                          />
-                        </div>
-                      </div>
+
 
                       {/* Phone */}
                       <div className="mb-6">

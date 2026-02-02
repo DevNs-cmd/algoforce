@@ -12,7 +12,7 @@ const SITEMAP_FILE_PATH = './frontend/public/sitemap.xml';
 
 console.log('🚀 Preparing to submit sitemap to Google Search Console...\n');
 
-// Verify sitemap exists and is valid
+// Verify sitemap exists and is valid 
 try {
   const sitemapContent = fs.readFileSync(SITEMAP_FILE_PATH, 'utf8');
   

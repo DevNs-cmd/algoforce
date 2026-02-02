@@ -51,11 +51,30 @@ app.use((req, res, next) => {
 // Trust proxy for cloud platforms (Northflank / Render / Railway)
 app.set('trust proxy', 1)
 
-// Basic startup info (safe for production)
-const PORT = process.env.PORT || 8080
-console.log(`🚀 Starting AlgoForce Backend`)
-console.log(`🌍 Environment: ${process.env.NODE_ENV || 'production'}`)
-console.log(`🔌 Port: ${PORT}`)
+// Validate environment variables at startup
+const requiredEnvVars = ['PORT'];
+console.log('🔧 Validating environment variables...');
+
+// Check for PORT, with fallback
+const PORT = process.env.PORT || 8080;
+console.log(`🔌 Port: ${PORT}`);
+
+// Check for MongoDB configuration
+if (process.env.MONGODB_URI || process.env.MONGO_URI) {
+  console.log('✅ MongoDB URI configured');
+} else {
+  console.log('⚠️  MongoDB URI not set, will use local development default');
+}
+
+// Check for Twilio configuration
+if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN && process.env.TWILIO_SERVICE_SID) {
+  console.log('✅ Twilio configured');
+} else {
+  console.log('⚠️  Twilio not configured - using mock service for development');
+}
+
+console.log(`🌍 Environment: ${process.env.NODE_ENV || 'production'}`);
+console.log(`🚀 Starting AlgoForce Backend`);
 
 // Compression middleware
 app.use(compression())

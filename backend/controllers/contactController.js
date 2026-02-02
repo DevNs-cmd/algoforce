@@ -72,6 +72,8 @@ export const sendOTP = async (req, res) => {
   }
 }
 
+
+
 // @desc    Verify OTP and save contact enquiry
 // @route   POST /api/contact/verify-and-save
 // @access  Public
@@ -87,7 +89,7 @@ export const verifyAndSave = async (req, res) => {
       })
     }
 
-    const { name, company, email, phone, role, problem, inquiryType, otp } = req.body
+    const { name, company, phone, role, problem, inquiryType, otp } = req.body
 
     // Validate required fields
     if (!phone || !validatePhoneNumber(phone)) {
@@ -125,7 +127,7 @@ export const verifyAndSave = async (req, res) => {
 
     // Save contact to database after successful verification
     const contact = await createContact(
-      { name, company, email, phone, role, problem, inquiryType },
+      { name, company, phone, role, problem, inquiryType },
       null, // No local OTP hash needed
       null  // No local expiry needed
     )

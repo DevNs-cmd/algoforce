@@ -4,19 +4,17 @@ import { v4 as uuidv4 } from 'uuid'
 
 /**
  * Check if user has submitted a contact form in the last 24 hours
- * @param {string} identifier - User phone number or email
+ * @param {string} identifier - User phone number
  * @returns {Promise<boolean>}
  */
 export const hasRecentSubmission = async (identifier) => {
   const db = getDB()
   const last24Hours = new Date(Date.now() - 24 * 60 * 60 * 1000)
 
-  // Check by phone first, then by email for backward compatibility
+  // Check by phone
   const contact = await db.collection('contacts').findOne({
-    $or: [
-      { phone: identifier, submittedAt: { $gte: last24Hours } },
-      { email: identifier, submittedAt: { $gte: last24Hours } }
-    ]
+    phone: identifier,
+    submittedAt: { $gte: last24Hours }
   })
 
   return !!contact
@@ -24,19 +22,18 @@ export const hasRecentSubmission = async (identifier) => {
 
 /**
  * Check if user has requested OTP in the last 5 minutes (rate limiting)
- * @param {string} identifier - User phone number or email
+ * @param {string} identifier - User phone number
  * @returns {Promise<boolean>}
  */
 export const hasRecentOTPRequest = async (identifier) => {
   const db = getDB()
   const last5Minutes = new Date(Date.now() - 5 * 60 * 1000)
 
-  // Check by phone first, then by email for backward compatibility
+  // Check by phone
   const contact = await db.collection('contacts').findOne({
-    $or: [
-      { phone: identifier, otp_verified: false, submittedAt: { $gte: last5Minutes } },
-      { email: identifier, otp_verified: false, submittedAt: { $gte: last5Minutes } }
-    ]
+    phone: identifier,
+    otp_verified: false,
+    submittedAt: { $gte: last5Minutes }
   })
 
   return !!contact
@@ -51,13 +48,12 @@ export const hasRecentOTPRequest = async (identifier) => {
  */
 export const createContact = async (contactData, hashedOTP = null, otpExpiry = null) => {
   const db = getDB()
-  const { name, company, email, phone, role, problem, inquiryType } = contactData
+  const { name, company, phone, role, problem, inquiryType } = contactData
 
   const newContact = {
     _id: uuidv4(),
     name,
     company,
-    email: email || '',
     phone: phone || '',
     role,
     problem,
@@ -96,11 +92,11 @@ export const verifyOTP = async (phone, plainOTP) => {
   }
 
   try {
-    // Verify OTP using Twilio service
-    const twilioResult = await verifyOTPSMS(phone, plainOTP)
+    // Verify OTP using service (Twilio or mock)
+    const verificationResult = await verifyOTPSMS(phone, plainOTP)
     
-    if (!twilioResult.success) {
-      return { success: false, message: twilioResult.message }
+    if (!verificationResult.success) {
+      return { success: false, message: verificationResult.message }
     }
 
     // Update contact to verified status

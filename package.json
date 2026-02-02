@@ -5,7 +5,9 @@
   "main": "backend/server.js",
   "scripts": {
     "start": "node backend/server.js",
-    "dev": "cd backend && npm run dev",
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -24,6 +26,9 @@
     "node-schedule": "^2.1.1",
     "resend": "^6.9.1",
     "xml2js": "^0.6.2"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
   },
   "repository": {
     "type": "git",
