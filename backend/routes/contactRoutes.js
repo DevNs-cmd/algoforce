@@ -32,12 +32,14 @@ const otpVerifyLimiter = rateLimit({
 
 // ---------------- VALIDATION ----------------
 const sendOTPValidation = [
-  body('phone').trim().notEmpty().withMessage('Phone number is required').matches(/^\+[1-9]\d{10,14}$/).withMessage('Phone number must be in E.164 format (e.g., +1234567890)')
+  body('phone').trim().notEmpty().withMessage('Phone number is required').matches(/^\+[1-9]\d{10,14}$/).withMessage('Phone number must be in E.164 format (e.g., +1234567890)'),
+  body('email').optional().isEmail().withMessage('Valid email is required if provided')
 ]
 
 const verifyAndSaveValidation = [
   body('name').trim().notEmpty().withMessage('Name is required'),
   body('company').trim().notEmpty().withMessage('Company is required'),
+  body('email').optional().isEmail().withMessage('Valid email is required if provided'),
   body('phone').trim().notEmpty().withMessage('Phone number is required').matches(/^\+[1-9]\d{10,14}$/).withMessage('Phone number must be in E.164 format (e.g., +1234567890)'),
   body('role').trim().notEmpty().withMessage('Role is required'),
   body('problem').trim().notEmpty().withMessage('Problem description is required'),
@@ -52,7 +54,6 @@ router.post(
   sendOTPValidation,
   sendOTP
 )
-
 
 
 /* ---------------- VERIFY AND SAVE ROUTE ---------------- */

@@ -14,8 +14,8 @@ const api = axios.create({
 
 export { API_URL }
 
-export const sendOTP = async (phone) => {
-    const response = await api.post('/contact/send-otp', { phone })
+export const sendOTP = async (data) => {
+    const response = await api.post('/contact/send-otp', data)
     return response.data
 }
 

@@ -3,13 +3,14 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { sendOTP, verifyAndSaveContact, API_URL } from '../services/api'
 import PhoneInput from '../components/PhoneInput'
-import { FaUser, FaBuilding, FaBriefcase, FaCheckCircle, FaLock, FaPhone } from 'react-icons/fa'
+import { FaUser, FaBuilding, FaBriefcase, FaCheckCircle, FaLock, FaPhone, FaEnvelope } from 'react-icons/fa'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     company: '',
     phone: '',
+    email: '',
     role: '',
     problem: '',
     inquiryType: 'demo'
@@ -83,7 +84,7 @@ const Contact = () => {
     setStatus(prev => ({ ...prev, loading: true, error: null }))
 
     try {
-      const data = await sendOTP(formData.phone)
+      const data = await sendOTP({ phone: formData.phone, email: formData.email })
 
       if (data.success) {
         setOtpSent(true)
@@ -124,6 +125,7 @@ const Contact = () => {
         name: formData.name,
         company: formData.company,
         phone: formData.phone,
+        email: formData.email,
         role: formData.role,
         problem: formData.problem,
         inquiryType: formData.inquiryType,
@@ -145,6 +147,7 @@ const Contact = () => {
           name: '',
           company: '',
           phone: '',
+          email: '',
           role: '',
           problem: '',
           inquiryType: 'demo'
@@ -186,6 +189,7 @@ const Contact = () => {
         name: formData.name,
         company: formData.company,
         phone: formData.phone,
+        email: formData.email,
         role: formData.role,
         problem: formData.problem,
         inquiryType: formData.inquiryType,
@@ -206,6 +210,7 @@ const Contact = () => {
           name: '',
           company: '',
           phone: '',
+          email: '',
           role: '',
           problem: '',
           inquiryType: 'demo'
@@ -524,7 +529,23 @@ const Contact = () => {
                         </div>
                       </div>
 
-
+                      {/* Email */}
+                      <div className="mb-6">
+                        <label className="block mb-2 font-semibold text-navy-900">
+                          Email Address
+                        </label>
+                        <div className="relative">
+                          <FaEnvelope className="absolute text-gray-400 transform -translate-y-1/2 left-4 top-1/2" />
+                          <input
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            placeholder="john@acme.com"
+                            className="w-full py-3 pl-12 pr-4 transition-all border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                          />
+                        </div>
+                      </div>
 
                       {/* Phone */}
                       <div className="mb-6">

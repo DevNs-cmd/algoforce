@@ -4,16 +4,19 @@ import { v4 as uuidv4 } from 'uuid'
 
 /**
  * Check if user has submitted a contact form in the last 24 hours
- * @param {string} identifier - User phone number
+ * @param {string} identifier - User phone number or email
  * @returns {Promise<boolean>}
  */
 export const hasRecentSubmission = async (identifier) => {
   const db = getDB()
   const last24Hours = new Date(Date.now() - 24 * 60 * 60 * 1000)
 
-  // Check by phone - use exact match for normalized phone number
+  // Check by phone or email
   const contact = await db.collection('contacts').findOne({
-    phone: identifier,
+    $or: [
+      { phone: identifier },
+      { email: identifier.toLowerCase() }
+    ],
     submittedAt: { $gte: last24Hours }
   })
 
@@ -22,16 +25,19 @@ export const hasRecentSubmission = async (identifier) => {
 
 /**
  * Check if user has requested OTP in the last 5 minutes (rate limiting)
- * @param {string} identifier - User phone number
+ * @param {string} identifier - User phone number or email
  * @returns {Promise<boolean>}
  */
 export const hasRecentOTPRequest = async (identifier) => {
   const db = getDB()
   const last5Minutes = new Date(Date.now() - 5 * 60 * 1000)
 
-  // Check by phone - use exact match for normalized phone number
+  // Check by phone or email for recent OTP requests
   const contact = await db.collection('contacts').findOne({
-    phone: identifier,
+    $or: [
+      { phone: identifier },
+      { email: identifier.toLowerCase() }
+    ],
     otp_verified: false,
     submittedAt: { $gte: last5Minutes }
   })
@@ -40,33 +46,74 @@ export const hasRecentOTPRequest = async (identifier) => {
 }
 
 /**
- * Create a new contact entry
+ * Create a new contact entry or update existing one
  * @param {Object} contactData - Contact form data
  * @param {string} hashedOTP - Hashed OTP (optional for Twilio)
  * @param {Date} otpExpiry - OTP expiry time (optional for Twilio)
- * @returns {Promise<Object>} - Created contact record
+ * @returns {Promise<Object>} - Created/updated contact record
  */
 export const createContact = async (contactData, hashedOTP = null, otpExpiry = null) => {
   const db = getDB()
-  const { name, company, phone, role, problem, inquiryType } = contactData
+  const { name, company, phone, email, role, problem, inquiryType } = contactData
 
-  const newContact = {
-    _id: uuidv4(),
-    name,
-    company,
-    phone: phone || '',
-    role,
-    problem,
-    inquiryType: inquiryType || 'demo',
-    status: 'pending',
-    otp: hashedOTP,  // Will be null for Twilio (handled by Twilio service)
-    otp_expiry: otpExpiry,  // Will be null for Twilio
-    otp_verified: false,
-    submittedAt: new Date()
+  // Normalize email to lowercase
+  const normalizedEmail = email ? email.toLowerCase().trim() : ''
+
+  // Check if a contact with same phone or email already exists
+  const existingContact = await db.collection('contacts').findOne({
+    $or: [
+      { phone: phone },
+      { email: normalizedEmail }
+    ]
+  })
+
+  if (existingContact) {
+    // Update existing contact
+    const updatedContact = {
+      name,
+      company,
+      phone,
+      email: normalizedEmail,
+      role,
+      problem,
+      inquiryType: inquiryType || 'demo',
+      status: 'pending',
+      otp: hashedOTP,  // Will be null for Twilio (handled by Twilio service)
+      otp_expiry: otpExpiry,  // Will be null for Twilio
+      otp_verified: false,
+      updatedAt: new Date()
+    }
+
+    await db.collection('contacts').updateOne(
+      { _id: existingContact._id },
+      { $set: updatedContact }
+    )
+
+    // Fetch the updated contact to return
+    const result = await db.collection('contacts').findOne({ _id: existingContact._id })
+    return result
+  } else {
+    // Create new contact
+    const newContact = {
+      _id: uuidv4(),
+      name,
+      company,
+      phone,
+      email: normalizedEmail,
+      role,
+      problem,
+      inquiryType: inquiryType || 'demo',
+      status: 'pending',
+      otp: hashedOTP,  // Will be null for Twilio (handled by Twilio service)
+      otp_expiry: otpExpiry,  // Will be null for Twilio
+      otp_verified: false,
+      submittedAt: new Date(),
+      updatedAt: new Date()
+    }
+
+    await db.collection('contacts').insertOne(newContact)
+    return newContact
   }
-
-  await db.collection('contacts').insertOne(newContact)
-  return newContact
 }
 
 /**
@@ -105,8 +152,10 @@ export const verifyOTP = async (phone, plainOTP) => {
       {
         $set: {
           otp_verified: true,
-          status: 'verified'
-        }
+          status: 'verified',
+          updatedAt: new Date()
+        },
+        $unset: { otp: "", otp_expiry: "" } // Remove OTP fields after successful verification
       }
     )
 
@@ -116,7 +165,8 @@ export const verifyOTP = async (phone, plainOTP) => {
       data: {
         id: contact._id,
         name: contact.name,
-        phone: contact.phone
+        phone: contact.phone,
+        email: contact.email
       }
     }
 
@@ -162,7 +212,7 @@ export const updateContactStatus = async (id, status) => {
 
   const result = await db.collection('contacts').findOneAndUpdate(
     { _id: id },
-    { $set: { status } },
+    { $set: { status, updatedAt: new Date() } },
     { returnDocument: 'after' }
   )
 

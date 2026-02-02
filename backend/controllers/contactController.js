@@ -25,7 +25,7 @@ export const sendOTP = async (req, res) => {
       })
     }
 
-    const { phone } = req.body
+    const { phone, email } = req.body
 
     // Normalize phone number to E.164 format
     const normalizedPhone = normalizePhoneNumber(phone);
@@ -38,8 +38,21 @@ export const sendOTP = async (req, res) => {
       })
     }
 
+    // Validate email if provided
+    let normalizedEmail = '';
+    if (email) {
+      normalizedEmail = email.toLowerCase().trim();
+      if (!normalizedEmail.includes('@') || !normalizedEmail.includes('.')) {
+        return res.status(400).json({
+          success: false,
+          message: 'Valid email is required'
+        })
+      }
+    }
+
     // Check if user has requested OTP within last 5 minutes (rate limiting)
-    const hasRecent5min = await hasRecentOTPRequest(normalizedPhone)
+    const identifier = normalizedEmail || normalizedPhone; // Use email if available, otherwise phone
+    const hasRecent5min = await hasRecentOTPRequest(identifier)
     if (hasRecent5min) {
       return res.status(429).json({
         success: false,
@@ -55,6 +68,17 @@ export const sendOTP = async (req, res) => {
         message: smsResult.message
       })
     }
+
+    // Create or update contact record with pending status
+    await createContact({
+      name: 'Pending Verification', // Placeholder until verify-and-save is called
+      company: 'Pending',
+      phone: normalizedPhone,
+      email: normalizedEmail,
+      role: 'Pending',
+      problem: 'Pending',
+      inquiryType: 'demo'
+    })
 
     res.status(200).json({
       success: true,
@@ -80,7 +104,6 @@ export const sendOTP = async (req, res) => {
 }
 
 
-
 // @desc    Verify OTP and save contact enquiry
 // @route   POST /api/contact/verify-and-save
 // @access  Public
@@ -96,7 +119,7 @@ export const verifyAndSave = async (req, res) => {
       })
     }
 
-    const { name, company, phone, role, problem, inquiryType, otp } = req.body
+    const { name, company, phone, email, role, problem, inquiryType, otp } = req.body
 
     // Normalize phone number to E.164 format
     const normalizedPhone = normalizePhoneNumber(phone);
@@ -109,6 +132,18 @@ export const verifyAndSave = async (req, res) => {
       })
     }
 
+    // Validate email if provided
+    let normalizedEmail = '';
+    if (email) {
+      normalizedEmail = email.toLowerCase().trim();
+      if (!normalizedEmail.includes('@') || !normalizedEmail.includes('.')) {
+        return res.status(400).json({
+          success: false,
+          message: 'Valid email is required'
+        })
+      }
+    }
+
     if (!otp || otp.length !== 6) {
       return res.status(400).json({
         success: false,
@@ -117,7 +152,8 @@ export const verifyAndSave = async (req, res) => {
     }
 
     // Check if user has submitted within last 24 hours
-    const hasRecent24h = await hasRecentSubmission(normalizedPhone)
+    const identifier = normalizedEmail || normalizedPhone; // Use email if available, otherwise phone
+    const hasRecent24h = await hasRecentSubmission(identifier)
     if (hasRecent24h) {
       return res.status(429).json({
         success: false,
@@ -137,7 +173,7 @@ export const verifyAndSave = async (req, res) => {
 
     // Save contact to database after successful verification
     const contact = await createContact(
-      { name, company, phone: normalizedPhone, role, problem, inquiryType },
+      { name, company, phone: normalizedPhone, email: normalizedEmail, role, problem, inquiryType },
       null, // No local OTP hash needed
       null  // No local expiry needed
     )
@@ -147,7 +183,9 @@ export const verifyAndSave = async (req, res) => {
       message: 'Contact enquiry saved successfully',
       data: {
         contactId: contact._id,
-        name: contact.name
+        name: contact.name,
+        email: contact.email,
+        phone: contact.phone
       }
     })
   } catch (error) {
