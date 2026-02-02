@@ -3,6 +3,7 @@ import { HelmetProvider } from 'react-helmet-async'
 
 import Navigation from './components/common/Navigation'
 import Footer from './components/common/Footer'
+import ChatBotButton from './components/ChatBotButton'
 import Home from './pages/Home'
 import Pricing from './pages/Pricing'
 import Contact from './pages/Contact'
@@ -13,7 +14,7 @@ function App() {
       <Router>
         <div className="min-h-screen bg-white">
           <Navigation />
-
+          
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/pricing" element={<Pricing />} />
@@ -21,8 +22,9 @@ function App() {
             {/* Catch-all route: redirect unknown paths to home */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
-
+          
           <Footer />
+          <ChatBotButton />
         </div>
       </Router>
     </HelmetProvider>
