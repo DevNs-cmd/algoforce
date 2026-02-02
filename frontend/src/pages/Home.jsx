@@ -25,7 +25,7 @@ const Home = () => {
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "AlgoForce AI",
-  "url": "https://algoforceaii.com",
+  "url": "https://www.algoforceaii.com",
   "founder": {
     "@type": "Person",
     "name": "Dev N Suman",
@@ -40,7 +40,7 @@ const Home = () => {
 
         <link
           rel="canonical"
-          href="https://algoforceaii.com/"
+          href="https://www.algoforceaii.com/"
         />
 
         {/* Open Graph */}
@@ -53,7 +53,7 @@ const Home = () => {
         <meta property="og:site_name" content="AlgoForce AI" />
         <meta
           property="og:url"
-          content="https://algoforceaii.com/"
+          content="https://www.algoforceaii.com/"
         />
 
         {/* Twitter */}

@@ -101,7 +101,7 @@ const Pricing = () => {
       <meta name="robots" content="index, follow" />
       <link
         rel="canonical"
-        href="https://algoforceaii.com/pricing"
+        href="https://www.algoforceaii.com/pricing"
       />
 
       {/* Open Graph */}
@@ -112,7 +112,7 @@ const Pricing = () => {
       />
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="AlgoForce AI" />
-      <meta property="og:url" content="https://algoforceaii.com/pricing" />
+      <meta property="og:url" content="https://www.algoforceaii.com/pricing" />
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />

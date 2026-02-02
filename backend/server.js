@@ -2,11 +2,51 @@ import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
 import compression from 'compression'
+import helmet from 'helmet'
 import { connectDB } from './config/database.js'
 import contactRoutes from './routes/contactRoutes.js'
 
 // Initialize Express app
 const app = express()
+
+// Security middleware
+app.use(helmet({
+  hsts: {
+    maxAge: 31536000, // 1 year in seconds
+    includeSubDomains: true,
+    preload: true
+  },
+  frameguard: { action: 'deny' },
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'", 'fonts.googleapis.com'],
+      fontSrc: ["'self'", 'fonts.gstatic.com'],
+      imgSrc: ["'self'", 'data:', 'https:'],
+      scriptSrc: ["'self'"],
+      connectSrc: ["'self'", 'https://pagead2.googlesyndication.com']
+    }
+  }
+}))
+
+// Middleware to force www and HTTPS
+app.use((req, res, next) => {
+  const host = req.get('Host');
+  const protocol = req.secure ? 'https' : 'http';
+  
+  // Check if the host is the non-www version
+  if (host && host === 'algoforceaii.com') {
+    // Redirect to www version with HTTPS
+    return res.redirect(301, `https://www.algoforceaii.com${req.originalUrl}`);
+  }
+  
+  // If not HTTPS and not localhost, redirect to HTTPS
+  if (!req.secure && host && !host.startsWith('localhost')) {
+    return res.redirect(301, `https://www.algoforceaii.com${req.originalUrl}`);
+  }
+  
+  next();
+});
 
 // Trust proxy for cloud platforms (Northflank / Render / Railway)
 app.set('trust proxy', 1)

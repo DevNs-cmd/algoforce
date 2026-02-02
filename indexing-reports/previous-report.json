@@ -1,0 +1,87 @@
+{
+  "timestamp": "2026-02-02T13:00:30.091Z",
+  "site": "https://algoforceaii.com",
+  "sitemapUrl": "https://algoforceaii.com/sitemap.xml",
+  "totalUrls": 3,
+  "results": [
+    {
+      "url": "https://algoforceaii.com/",
+      "finalUrl": "https://www.algoforceaii.com/",
+      "title": "AlgoForce AI — Enterprise Revenue Intelligence Platform",
+      "statusCode": 200,
+      "redirectedUrl": "https://www.algoforceaii.com/",
+      "hasRedirect": true,
+      "is404": false,
+      "isAccessible": true,
+      "indexingStatus": "Indexed",
+      "lastCrawlDate": "2026-02-02T12:59:55.581Z",
+      "canonicalTag": "https://algoforceaii.com/",
+      "robotsMeta": "index, follow",
+      "isValidCanonical": true,
+      "isValidRobotsMeta": true,
+      "issues": [
+        "Redirect (307) to https://www.algoforceaii.com/"
+      ],
+      "responseTime": "N/A"
+    },
+    {
+      "url": "https://algoforceaii.com/pricing",
+      "finalUrl": "https://www.algoforceaii.com/pricing",
+      "title": "AlgoForce AI — Enterprise Revenue Intelligence Platform",
+      "statusCode": 200,
+      "redirectedUrl": "https://www.algoforceaii.com/pricing",
+      "hasRedirect": true,
+      "is404": false,
+      "isAccessible": true,
+      "indexingStatus": "Indexed",
+      "lastCrawlDate": "2026-02-02T13:00:16.060Z",
+      "canonicalTag": "https://algoforceaii.com/",
+      "robotsMeta": "index, follow",
+      "isValidCanonical": false,
+      "isValidRobotsMeta": true,
+      "issues": [
+        "Redirect (307) to https://www.algoforceaii.com/pricing",
+        "Canonical tag (https://algoforceaii.com/) doesn't match expected URL"
+      ],
+      "responseTime": "N/A"
+    },
+    {
+      "url": "https://algoforceaii.com/contact",
+      "finalUrl": "https://www.algoforceaii.com/contact",
+      "title": "AlgoForce AI — Enterprise Revenue Intelligence Platform",
+      "statusCode": 200,
+      "redirectedUrl": "https://www.algoforceaii.com/contact",
+      "hasRedirect": true,
+      "is404": false,
+      "isAccessible": true,
+      "indexingStatus": "Indexed",
+      "lastCrawlDate": "2026-02-02T13:00:29.576Z",
+      "canonicalTag": "https://algoforceaii.com/",
+      "robotsMeta": "index, follow",
+      "isValidCanonical": false,
+      "isValidRobotsMeta": true,
+      "issues": [
+        "Redirect (307) to https://www.algoforceaii.com/contact",
+        "Canonical tag (https://algoforceaii.com/) doesn't match expected URL"
+      ],
+      "responseTime": "N/A"
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "indexed": 3,
+    "notIndexed": 0,
+    "errors": 0,
+    "issuesFound": true
+  },
+  "previousReport": {
+    "timestamp": "2026-02-02T12:52:15.835Z",
+    "summary": {
+      "total": 3,
+      "indexed": 3,
+      "notIndexed": 3,
+      "errors": 0,
+      "issuesFound": true
+    }
+  }
+}

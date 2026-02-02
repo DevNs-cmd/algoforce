@@ -21,6 +21,17 @@
   "author": "AlgoForce",
   "license": "ISC",
   "dependencies": {
-    "resend": "^6.9.1"
-  }
+    "node-schedule": "^2.1.1",
+    "resend": "^6.9.1",
+    "xml2js": "^0.6.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevNs-cmd/algoforce.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/DevNs-cmd/algoforce/issues"
+  },
+  "homepage": "https://github.com/DevNs-cmd/algoforce#readme"
 }

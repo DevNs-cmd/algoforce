@@ -128,7 +128,7 @@ const Contact = () => {
 
         <link
           rel="canonical"
-          href="https://algoforceaii.com/contact"
+          href="https://www.algoforceaii.com/contact"
         />
 
         {/* Open Graph */}
@@ -139,7 +139,7 @@ const Contact = () => {
         />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="AlgoForce AI" />
-        <meta property="og:url" content="https://algoforceaii.com/contact" />
+        <meta property="og:url" content="https://www.algoforceaii.com/contact" />
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
