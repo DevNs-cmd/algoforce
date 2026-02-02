@@ -42,8 +42,11 @@ npm install
 
 Create `backend/.env`:
 ```env
-PORT=5000
+PORT=8080
 MONGODB_URI=mongodb://localhost:27017/algoforce
+TWILIO_ACCOUNT_SID=your_twilio_account_sid
+TWILIO_AUTH_TOKEN=your_twilio_auth_token
+TWILIO_SERVICE_SID=your_twilio_verify_service_sid
 NODE_ENV=development
 ```
 
@@ -70,7 +73,7 @@ npm run dev
 
 You should see:
 ```
-🚀 AlgoForce Backend running on port 5000
+🚀 AlgoForce Backend running on port 8080
 MongoDB Connected: localhost:27017
 ```
 
@@ -107,10 +110,12 @@ Your website should now be running! Check:
    - Name: Test User
    - Company: Test Corp
    - Email: test@example.com
+   - Phone: +1234567890 (E.164 format)
    - Role: Developer
    - Problem: Testing the form
-3. Click "Send Message"
-4. You should see success message
+3. Click "Send Verification Code"
+4. Enter the OTP code received via SMS
+5. Click "Verify Phone" - You should see success message
 
 Verify in MongoDB:
 ```powershell
@@ -140,7 +145,7 @@ db.contacts.find().pretty()
 
 ### Other Pages:
 - **Pricing** - 3 tiers + enterprise solutions
-- **Contact** - Working form with MongoDB
+- **Contact** - Working form with SMS OTP verification and MongoDB
 
 ## 🔧 Common Issues & Fixes
 
@@ -201,8 +206,9 @@ Now that it's running:
 
 4. **Deploy**
    - Frontend: Vercel (recommended)
-   - Backend: Railway (recommended)
+   - Backend: Northflank (recommended) - optimized for PORT 8080
    - Database: MongoDB Atlas
+   - SMS: Twilio Verify v2
 
 ## 📚 Documentation
 

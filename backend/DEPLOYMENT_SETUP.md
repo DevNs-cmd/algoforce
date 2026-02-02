@@ -1,86 +1,59 @@
-# 🚀 AlgoForce Backend - Supabase & OTP Integration Setup Guide
+# 🚀 AlgoForce Backend - MongoDB & Twilio SMS OTP Setup Guide
 
 ## ✅ COMPLETED IMPLEMENTATION
 
 ### What Was Done:
-1. ✅ Installed `nodemailer` for Gmail SMTP
-2. ✅ Updated Supabase config with correct URL
-3. ✅ Created email service for OTP generation and sending
-4. ✅ Created Supabase service layer for all database operations
-5. ✅ Completely rewrote contact controller with OTP flow
-6. ✅ Added `/api/contact/verify-otp` route
+1. ✅ Replaced Gmail SMTP with Twilio Verify v2 SMS OTP
+2. ✅ Replaced Supabase with MongoDB native driver
+3. ✅ Created auth service for Twilio integration
+4. ✅ Updated contact controller with new endpoints
+5. ✅ Added Docker support for containerization
+6. ✅ Configured for Northflank deployment (PORT 8080)
 7. ✅ Maintained all existing routes and response formats
 8. ✅ Added production-ready error handling
 9. ✅ Fixed SPA routing (404 on page refresh)
-10. ✅ Fixed CSS @import errors in production
-11. ✅ Added environment-based API URLs
-12. ✅ Created Render deployment configuration
+10. ✅ Added environment-based API URLs
+11. ✅ Created comprehensive deployment guides
 
 ---
 
 ## 📋 REQUIRED SETUP STEPS
 
-### 1️⃣ Create Supabase Table
+### 1️⃣ Create MongoDB Atlas Cluster
 
-Run this SQL in your Supabase SQL Editor:
+Follow the detailed setup in `MONGODB_SETUP.md`:
 
-```sql
-CREATE TABLE contacts (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  name TEXT NOT NULL,
-  company TEXT NOT NULL,
-  email TEXT NOT NULL,
-  role TEXT NOT NULL,
-  problem TEXT NOT NULL,
-  inquiryType TEXT DEFAULT 'demo',
-  status TEXT DEFAULT 'pending',
-  otp TEXT,
-  otp_expiry TIMESTAMP WITH TIME ZONE,
-  otp_verified BOOLEAN DEFAULT false,
-  submitted_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
+1. Create free M0 cluster on MongoDB Atlas
+2. Configure network access and database user
+3. Get your connection string
+4. Set up indexes for optimal performance
 
--- Create index for faster lookups
-CREATE INDEX idx_contacts_email ON contacts(email);
-CREATE INDEX idx_contacts_submitted_at ON contacts(submitted_at);
-CREATE INDEX idx_contacts_otp_verified ON contacts(otp_verified);
-```
+### 2️⃣ Get Twilio Credentials
 
-### 2️⃣ Get Gmail App Password
+1. Sign up at [Twilio Console](https://console.twilio.com)
+2. Get your Account SID and Auth Token
+3. Create a Verify service and get Service SID
+4. Keep credentials secure
 
-1. Enable 2-Factor Authentication on your Gmail account
-2. Go to: https://myaccount.google.com/apppasswords
-3. Select "Mail" and generate app password
-4. Copy the 16-character password (no spaces)
-
-### 3️⃣ Get Supabase Service Role Key
-
-**CRITICAL: Backend MUST use SERVICE_ROLE_KEY**
-
-1. Go to your Supabase project dashboard
-2. Navigate to Settings → API
-3. Copy the `service_role` `secret` key (**NOT** the anon key)
-4. **WARNING**: This key bypasses RLS - keep it secret!
-5. Never expose this key in frontend code or public repositories
-
-### 4️⃣ Configure Environment Variables
+### 3️⃣ Configure Environment Variables
 
 Create a `.env` file in the backend directory:
 
 ```bash
 # Server Configuration
-PORT=5000
+PORT=8080
 NODE_ENV=production
 
-# Supabase Configuration
-SUPABASE_SERVICE_ROLE_KEY=your_actual_supabase_service_role_key_here
+# MongoDB Configuration
+MONGO_URI=your_mongodb_connection_string
 
-# Gmail SMTP Configuration
-GMAIL_USER=yourname@gmail.com
-GMAIL_APP_PASS=your16characterapppass
+# Twilio SMS OTP Configuration
+TWILIO_ACCOUNT_SID=your_account_sid_here
+TWILIO_AUTH_TOKEN=your_auth_token_here
+TWILIO_SERVICE_SID=your_service_sid_here
 ```
 
-### 5️⃣ Test the Integration
+### 4️⃣ Test the Integration
 
 Start the server:
 ```bash
@@ -88,114 +61,84 @@ cd backend
 npm start
 ```
 
-Test endpoints:
+Test endpoints (see `MONGODB_SETUP.md` for detailed examples).
 
-**1. Submit Contact Form (Sends OTP):**
-```bash
-POST /api/contact
-Content-Type: application/json
+### 5️⃣ Deploy to Production
 
-{
-  "name": "John Doe",
-  "company": "TechCorp",
-  "email": "john@example.com",
-  "role": "CTO",
-  "problem": "Need AI solutions",
-  "inquiryType": "demo"
-}
+**Northflank (Recommended):**
+- Follow `NORTHFLANK_MIGRATION_GUIDE.md`
+- Set environment variables in dashboard
+- Configure health check: `/api/health` on port 8080
 
-Expected Response:
-{
-  "success": true,
-  "message": "OTP sent to your email"
-}
-```
-
-**2. Verify OTP:**
-```bash
-POST /api/contact/verify-otp
-Content-Type: application/json
-
-{
-  "email": "john@example.com",
-  "otp": "123456"
-}
-
-Expected Response:
-{
-  "success": true,
-  "message": "Email verified successfully. We will get back to you soon!",
-  "data": {
-    "id": "uuid-here",
-    "name": "John Doe",
-    "email": "john@example.com"
-  }
-}
-```
+**Alternative Platforms:**
+- Render, Railway, or Heroku
+- Use PORT 8080
+- All environment variables required
 
 ---
 
 ## 🔒 SECURITY FEATURES IMPLEMENTED
 
-✅ **SERVICE_ROLE_KEY Usage:**
-- Backend uses service_role key (bypasses RLS for backend operations)
-- Allows full database access for verified backend operations
-- NEVER exposed to frontend or public code
+✅ **MongoDB Connection Security:**
+- Connection strings in environment variables
+- Proper authentication with database user
+- Connection pooling and automatic reconnection
 
-✅ **Row Level Security (RLS):**
-- Public users CAN insert contacts (form submissions)
-- Public users CANNOT read, update, or delete contacts
-- Only backend with service_role can manage data
+✅ **Twilio Verify v2 Security:**
+- Phone numbers validated in E.164 format
+- Rate limiting prevents SMS spam
+- 10-minute OTP expiration
 
-✅ **OTP Security:**
-- OTPs are hashed using bcrypt (10 rounds) before storage
-- Plain text OTPs never stored in database
-- Uses crypto.randomInt for secure random generation
-- Verification uses bcrypt.compare for timing-safe comparison
+✅ **Data Validation:**
+- Server-side validation for all inputs
+- Phone number format validation
+- MongoDB injection protection
 
 ---
 
-## 📊 SUPABASE TABLE COLUMNS
+## 📊 MONGODB COLLECTION STRUCTURE
 
-| Column | Type | Description |
-|--------|------|-------------|
-| `id` | UUID | Primary key (auto-generated) |
-| `name` | TEXT | Contact name |
-| `company` | TEXT | Company name |
-| `email` | TEXT | Email address |
-| `role` | TEXT | User role/position |
-| `problem` | TEXT | Problem description |
-| `inquiryType` | TEXT | Type of inquiry (demo/consultation/etc) |
-| `status` | TEXT | Status (pending/verified/contacted) |
-| `otp` | TEXT | **HASHED** OTP code (bcrypt) |
-| `otp_expiry` | TIMESTAMP | OTP expiration time |
-| `otp_verified` | BOOLEAN | Whether OTP is verified |
-| `submitted_at` | TIMESTAMP | Submission timestamp |
+### contacts Collection
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `_id` | ObjectId | Primary key (auto-generated) |
+| `name` | String | Contact name |
+| `company` | String | Company name |
+| `email` | String | Email address |
+| `phone` | String | Phone number (E.164 format) |
+| `role` | String | User role/position |
+| `problem` | String | Problem description |
+| `inquiryType` | String | Type of inquiry |
+| `status` | String | Status (pending/verified/contacted) |
+| `otpHash` | String | **HASHED** OTP code (bcrypt) |
+| `otpExpiry` | Date | OTP expiration time |
+| `otpVerified` | Boolean | Whether OTP is verified |
+| `submittedAt` | Date | Submission timestamp |
 
 ---
 
 ## 🔄 COMPLETE FLOW
 
-1. **User submits contact form** → `POST /api/contact`
-   - Backend validates input
+1. **User submits contact form** → `POST /api/contact/send-otp`
+   - Backend validates phone number format
    - Checks for recent submissions (24h block)
    - Checks for OTP spam (5min cooldown)
    - Generates 6-digit OTP
-   - Saves contact to Supabase with `status='pending'`, `otp_verified=false`
-   - Sends beautiful HTML email with OTP
-   - Returns: `{ success: true, message: "OTP sent to your email" }`
+   - Sends SMS via Twilio Verify v2
+   - Returns: `{ success: true, message: "OTP sent to your phone" }`
 
-2. **User receives email** → Opens email with OTP code
+2. **User receives SMS** → Opens phone with OTP code
 
-3. **User submits OTP** → `POST /api/contact/verify-otp`
-   - Backend validates email + OTP
-   - Checks if OTP exists and matches
-   - Checks if OTP is expired (10 min)
-   - If valid: Updates `otp_verified=true`, `status='verified'`
+3. **User submits contact details + OTP** → `POST /api/contact/verify-and-save`
+   - Backend validates all form fields
+   - Verifies OTP using Twilio Verify v2
+   - Saves complete contact to MongoDB
+   - Updates `otpVerified=true`, `status='verified'`
    - Returns success message
 
 4. **Admin can view contacts** → `GET /api/contact`
-   - Retrieves all contacts from Supabase
+   - Retrieves all contacts from MongoDB
    - Sorted by submission date
 
 ---
@@ -354,8 +297,33 @@ npm start
 Your backend is now fully integrated with:
 - ✅ Supabase database
 - ✅ Gmail OTP verification
-- ✅ Production-grade security
-- ✅ Clean, maintainable code
-- ✅ No breaking changes
+---
+
+## 🎯 FINAL STEPS
+
+After setup is complete:
+
+✅ Ensure MongoDB Atlas cluster is running
+✅ Ensure Twilio Verify service is active
+✅ Add all environment variables to your deployment platform
+✅ Test with real phone numbers for production
+
+Deploy following documentation:
+- See `NORTHFLANK_MIGRATION_GUIDE.md` for Northflank (recommended)
+- See `RENDER_DEPLOYMENT_GUIDE.md` for Render (still supported)
+- Both platforms work with PORT 8080
+
+⚠️ **Important**: The service is ready for production after successful local testing!
+
+For detailed MongoDB setup instructions, see `MONGODB_SETUP.md`.
+
+---
+
+✅ Production-grade security
+✅ Clean, maintainable code
+✅ No breaking changes
+✅ Eliminates cold-start lag
+✅ SMS-based verification
+✅ Container-ready with Docker
 
 Deploy with confidence! 🚀

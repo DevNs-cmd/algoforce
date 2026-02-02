@@ -1,5 +1,5 @@
 import { validationResult } from 'express-validator'
-import { generateOTP, getOTPExpiry, sendOTPEmail, hashOTP } from '../services/emailService.js'
+import { sendOTPSMS, validatePhoneNumber } from '../services/authService.js'
 import {
   hasRecentSubmission,
   hasRecentOTPRequest,
@@ -10,10 +10,10 @@ import {
   updateContactStatus as updateContactStatusService
 } from '../services/contactService.js'
 
-// @desc    Submit contact form and send OTP
-// @route   POST /api/contact
+// @desc    Send OTP to phone number
+// @route   POST /api/contact/send-otp
 // @access  Public
-export const submitContact = async (req, res) => {
+export const sendOTP = async (req, res) => {
   try {
     // Validation
     const errors = validationResult(req)
@@ -25,19 +25,18 @@ export const submitContact = async (req, res) => {
       })
     }
 
-    const { name, company, email, role, problem, inquiryType } = req.body
+    const { phone } = req.body
 
-    // Check if user has submitted within last 24 hours
-    const hasRecent24h = await hasRecentSubmission(email)
-    if (hasRecent24h) {
-      return res.status(429).json({
+    // Validate phone number
+    if (!phone || !validatePhoneNumber(phone)) {
+      return res.status(400).json({
         success: false,
-        message: 'You have already submitted a request recently. We will get back to you soon.'
+        message: 'Valid phone number is required (E.164 format: +1234567890)'
       })
     }
 
     // Check if user has requested OTP within last 5 minutes (rate limiting)
-    const hasRecent5min = await hasRecentOTPRequest(email)
+    const hasRecent5min = await hasRecentOTPRequest(phone)
     if (hasRecent5min) {
       return res.status(429).json({
         success: false,
@@ -45,81 +44,122 @@ export const submitContact = async (req, res) => {
       })
     }
 
-    // Generate OTP and hash it for storage
-    const otp = generateOTP()
-    const hashedOTP = await hashOTP(otp)
-    const otpExpiry = getOTPExpiry()
-
-    // Save contact to Supabase with hashed OTP
-    const contact = await createContact(
-      { name, company, email, role, problem, inquiryType },
-      hashedOTP,
-      otpExpiry
-    )
-
-    // Send plain OTP via email (user will enter this)
-    await sendOTPEmail(email, otp, name)
-
-    res.status(201).json({
-      success: true,
-      message: 'OTP sent to your email'
-    })
-  } catch (error) {
-    console.error('Contact submission error:', error)
-
-    // If it's a specific email error, pass it to the client for debugging
-    if (error.message.includes('authentication') || error.message.includes('GMAIL')) {
-      return res.status(500).json({
-        success: false,
-        message: `Email Authentication Failed: ${error.message}. Please check your GMAIL_USER and GMAIL_APP_PASS in the Render environment variables.`
-      })
-    }
-
-    res.status(500).json({
-      success: false,
-      message: 'Server error. Please try again later.'
-    })
-  }
-}
-
-// @desc    Verify OTP
-// @route   POST /api/contact/verify-otp
-// @access  Public
-export const verifyOTP = async (req, res) => {
-  try {
-    const { email, otp } = req.body
-
-    // Validate input
-    if (!email || !otp) {
-      return res.status(400).json({
-        success: false,
-        message: 'Email and OTP are required'
-      })
-    }
-
-    // Verify OTP
-    const result = await verifyOTPService(email, otp)
-
-    if (!result.success) {
-      return res.status(400).json({
-        success: false,
-        message: result.message
-      })
+    // Send OTP via Twilio SMS
+    const smsResult = await sendOTPSMS(phone)
+    if (!smsResult.success) {
+      throw new Error(smsResult.message)
     }
 
     res.status(200).json({
       success: true,
-      message: result.message,
-      data: result.data
+      message: 'OTP sent to your phone number'
     })
   } catch (error) {
-    console.error('OTP verification error:', error)
+    console.error('Send OTP error:', error)
+
+    // Handle Twilio-specific errors
+    if (error.message.includes('Twilio') || error.message.includes('SMS')) {
+      return res.status(500).json({
+        success: false,
+        message: `SMS Service Error: ${error.message}`
+      })
+    }
+
     res.status(500).json({
       success: false,
       message: 'Server error. Please try again later.'
     })
   }
 }
+
+// @desc    Verify OTP and save contact enquiry
+// @route   POST /api/contact/verify-and-save
+// @access  Public
+export const verifyAndSave = async (req, res) => {
+  try {
+    // Validation
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        success: false,
+        message: 'Validation failed',
+        errors: errors.array()
+      })
+    }
+
+    const { name, company, email, phone, role, problem, inquiryType, otp } = req.body
+
+    // Validate required fields
+    if (!phone || !validatePhoneNumber(phone)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Valid phone number is required (E.164 format: +1234567890)'
+      })
+    }
+
+    if (!otp || otp.length !== 6) {
+      return res.status(400).json({
+        success: false,
+        message: 'Valid 6-digit OTP is required'
+      })
+    }
+
+    // Check if user has submitted within last 24 hours
+    const hasRecent24h = await hasRecentSubmission(phone)
+    if (hasRecent24h) {
+      return res.status(429).json({
+        success: false,
+        message: 'You have already submitted a request recently. We will get back to you soon.'
+      })
+    }
+
+    // Verify OTP using Twilio
+    const verificationResult = await verifyOTPService(phone, otp)
+    
+    if (!verificationResult.success) {
+      return res.status(400).json({
+        success: false,
+        message: verificationResult.message
+      })
+    }
+
+    // Save contact to database after successful verification
+    const contact = await createContact(
+      { name, company, email, phone, role, problem, inquiryType },
+      null, // No local OTP hash needed
+      null  // No local expiry needed
+    )
+
+    res.status(201).json({
+      success: true,
+      message: 'Contact enquiry saved successfully',
+      data: {
+        contactId: contact.id,
+        name: contact.name
+      }
+    })
+  } catch (error) {
+    console.error('Verify and save error:', error)
+
+    // Handle Twilio-specific errors
+    if (error.message.includes('Twilio') || error.message.includes('verification')) {
+      return res.status(500).json({
+        success: false,
+        message: `Verification Service Error: ${error.message}`
+      })
+    }
+
+    res.status(500).json({
+      success: false,
+      message: 'Server error. Please try again later.'
+    })
+  }
+}
+
+// @desc    Verify OTP via Twilio
+// @route   POST /api/contact/verify-otp
+// @access  Public
+
 
 // @desc    Get all contacts
 // @route   GET /api/contact

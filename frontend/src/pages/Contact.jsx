@@ -1,14 +1,15 @@
 import { Helmet } from "react-helmet-async"
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { submitContactForm, verifyContactOTP } from '../services/api'
-import { FaEnvelope, FaUser, FaBuilding, FaBriefcase, FaCheckCircle, FaLock } from 'react-icons/fa'
+import { sendOTP, verifyAndSaveContact } from '../services/api'
+import { FaEnvelope, FaUser, FaBuilding, FaBriefcase, FaCheckCircle, FaLock, FaPhone } from 'react-icons/fa'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     company: '',
     email: '',
+    phone: '',
     role: '',
     problem: '',
     inquiryType: 'demo'
@@ -18,12 +19,11 @@ const Contact = () => {
     loading: false,
     success: false,
     error: null,
-    otpSent: false,
-    otpVerified: false
+    step: 1, // 1: Fill form, 2: Enter OTP
+    phone: ''
   })
 
   const [otp, setOtp] = useState('')
-  const [otpLoading, setOtpLoading] = useState(false)
   const [otpError, setOtpError] = useState(null)
 
   const handleChange = (e) => {
@@ -34,55 +34,68 @@ const Contact = () => {
     }))
   }
 
-  const handleSubmit = async (e) => {
+  const handleSendOTP = async (e) => {
     e.preventDefault()
-    setStatus({ loading: true, success: false, error: null, otpSent: false, otpVerified: false })
+    setStatus(prev => ({ ...prev, loading: true, error: null }))
 
     try {
-      const data = await submitContactForm(formData)
+      // Validate phone number format
+      const phoneRegex = /^\+[1-9]\d{10,14}$/
+      if (!formData.phone || !phoneRegex.test(formData.phone)) {
+        throw new Error('Please enter a valid phone number in E.164 format (e.g., +1234567890)')
+      }
+
+      const data = await sendOTP(formData.phone)
 
       if (data.success) {
-        // OTP has been sent to user's email
         setStatus({
           loading: false,
           success: false,
           error: null,
-          otpSent: true,
-          otpVerified: false
+          step: 2,
+          phone: formData.phone
         })
       }
     } catch (error) {
       setStatus({
         loading: false,
         success: false,
-        error: error.response?.data?.message || 'Something went wrong. Please try again.',
-        otpSent: false,
-        otpVerified: false
+        error: error.response?.data?.message || error.message || 'Something went wrong. Please try again.',
+        step: 1,
+        phone: ''
       })
     }
   }
 
-  const handleOtpSubmit = async (e) => {
+  const handleVerifyAndSave = async (e) => {
     e.preventDefault()
-    setOtpLoading(true)
+    setStatus(prev => ({ ...prev, loading: true, error: null }))
     setOtpError(null)
 
     try {
-      const data = await verifyContactOTP(formData.email, otp)
+      if (!otp || otp.length !== 6) {
+        throw new Error('Please enter a valid 6-digit OTP')
+      }
+
+      const data = await verifyAndSaveContact({
+        ...formData,
+        otp
+      })
 
       if (data.success) {
         setStatus({
           loading: false,
           success: true,
           error: null,
-          otpSent: true,
-          otpVerified: true
+          step: 1,
+          phone: ''
         })
         // Clear form
         setFormData({
           name: '',
           company: '',
           email: '',
+          phone: '',
           role: '',
           problem: '',
           inquiryType: 'demo'
@@ -90,9 +103,8 @@ const Contact = () => {
         setOtp('')
       }
     } catch (error) {
-      setOtpError(error.response?.data?.message || 'Invalid or expired OTP. Please try again.')
-    } finally {
-      setOtpLoading(false)
+      setOtpError(error.response?.data?.message || error.message || 'Invalid or expired OTP. Please try again.')
+      setStatus(prev => ({ ...prev, loading: false }))
     }
   }
 
@@ -256,10 +268,10 @@ const Contact = () => {
                     >
                       <FaCheckCircle className="w-20 h-20 mx-auto mb-6 text-green-600" />
                       <h3 className="mb-4 text-3xl font-bold text-navy-900">
-                        Email Verified!
+                        Contact Saved!
                       </h3>
                       <p className="mb-6 text-gray-700">
-                        Thank you for verifying your email. We'll review your information and get back to you within 24 hours.
+                        Thank you for verifying your phone. We'll review your information and get back to you within 24 hours.
                       </p>
                       <button
                         onClick={() => setStatus({ loading: false, success: false, error: null, otpSent: false, otpVerified: false })}
@@ -280,13 +292,13 @@ const Contact = () => {
                         <FaLock className="w-8 h-8 text-purple-600" />
                       </div>
                       <h3 className="mb-4 text-2xl font-bold text-center text-navy-900">
-                        Verify Your Email
+                        Verify Your Phone
                       </h3>
                       <p className="mb-6 text-center text-gray-600">
-                        We've sent a 6-digit verification code to <strong>{formData.email}</strong>
+                        We've sent a 6-digit verification code to <strong>{status.phone}</strong>
                       </p>
 
-                      <form onSubmit={handleOtpSubmit}>
+                      <form onSubmit={handleVerifyAndSave}>
                         <div className="mb-6">
                           <label className="block mb-2 font-semibold text-center text-navy-900">
                             Enter OTP Code
@@ -310,35 +322,36 @@ const Contact = () => {
 
                         <motion.button
                           type="submit"
-                          disabled={otpLoading || otp.length !== 6}
-                          whileHover={{ scale: otpLoading ? 1 : 1.02 }}
-                          whileTap={{ scale: otpLoading ? 1 : 0.98 }}
-                          className={`w-full py-4 rounded-lg font-semibold text-lg transition-all ${otpLoading || otp.length !== 6
+                          disabled={status.loading || otp.length !== 6}
+                          whileHover={{ scale: status.loading ? 1 : 1.02 }}
+                          whileTap={{ scale: status.loading ? 1 : 0.98 }}
+                          className={`w-full py-4 rounded-lg font-semibold text-lg transition-all ${status.loading || otp.length !== 6
                             ? 'bg-gray-400 cursor-not-allowed'
                             : 'bg-gradient-to-r from-purple-600 to-indigo-600 hover:shadow-xl text-white'
                             }`}
                         >
-                          {otpLoading ? 'Verifying...' : 'Verify Email'}
+                          {status.loading ? 'Verifying...' : 'Verify Phone'}
                         </motion.button>
                       </form>
 
                       <p className="mt-6 text-sm text-center text-gray-500">
-                        OTP expires in 10 minutes. Didn't receive it? Check spam folder.
+                        OTP expires in 10 minutes. Didn't receive it? Check your messages.
                       </p>
-
                       <button
                         onClick={() => {
-                          setStatus({ loading: false, success: false, error: null, otpSent: false, otpVerified: false })
+                          setStatus({ loading: false, success: false, error: null, step: 1, phone: '' })
                           setOtp('')
                           setOtpError(null)
                         }}
                         className="w-full mt-4 text-sm text-purple-600 transition-colors hover:text-purple-700"
                       >
-                        ← Go Back to Form
+                        ← Back to Form
                       </button>
+
+
                     </motion.div>
                   ) : (
-                    <form onSubmit={handleSubmit} className="p-8 bg-white border border-gray-100 shadow-xl rounded-3xl">
+                    <form onSubmit={handleSendOTP} className="p-8 bg-white border border-gray-100 shadow-xl rounded-3xl">
                       <h3 className="mb-6 text-2xl font-bold text-navy-900">
                         Get in Touch
                       </h3>
@@ -420,6 +433,28 @@ const Contact = () => {
                         </div>
                       </div>
 
+                      {/* Phone */}
+                      <div className="mb-6">
+                        <label className="block mb-2 font-semibold text-navy-900">
+                          Phone Number *
+                        </label>
+                        <div className="relative">
+                          <FaPhone className="absolute text-gray-400 transform -translate-y-1/2 left-4 top-1/2" />
+                          <input
+                            type="tel"
+                            name="phone"
+                            value={formData.phone}
+                            onChange={handleChange}
+                            required
+                            placeholder="+1234567890"
+                            className="w-full py-3 pl-12 pr-4 transition-all border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                          />
+                        </div>
+                        <p className="mt-2 text-sm text-gray-500">
+                          Please use E.164 format (e.g., +1234567890)
+                        </p>
+                      </div>
+
                       {/* Role */}
                       <div className="mb-6">
                         <label className="block mb-2 font-semibold text-navy-900">
@@ -477,7 +512,7 @@ const Contact = () => {
                       </motion.button>
 
                       <p className="mt-4 text-sm text-center text-gray-500">
-                        We'll send a verification code to your email
+                        We'll send a verification code to your phone number
                       </p>
                     </form>
                   )}

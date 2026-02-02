@@ -9,13 +9,13 @@ const api = axios.create({
     }
 })
 
-export const submitContactForm = async (data) => {
-    const response = await api.post('/contact', data)
+export const sendOTP = async (phone) => {
+    const response = await api.post('/contact/send-otp', { phone })
     return response.data
 }
 
-export const verifyContactOTP = async (email, otp) => {
-    const response = await api.post('/contact/verify-otp', { email, otp })
+export const verifyAndSaveContact = async (data) => {
+    const response = await api.post('/contact/verify-and-save', data)
     return response.data
 }
 

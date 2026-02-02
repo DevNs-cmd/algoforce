@@ -2,8 +2,8 @@ import express from 'express'
 import { body } from 'express-validator'
 import rateLimit from 'express-rate-limit'
 import {
-  submitContact,
-  verifyOTP,
+  sendOTP,
+  verifyAndSave,
   getAllContacts,
   getContactById,
   updateContactStatus
@@ -30,29 +30,36 @@ const otpVerifyLimiter = rateLimit({
   }
 })
 
-/* ---------------- VALIDATION ---------------- */
-const contactValidation = [
+// ---------------- VALIDATION ----------------
+const sendOTPValidation = [
+  body('phone').trim().notEmpty().withMessage('Phone number is required').matches(/^\+[1-9]\d{10,14}$/).withMessage('Phone number must be in E.164 format (e.g., +1234567890)')
+]
+
+const verifyAndSaveValidation = [
   body('name').trim().notEmpty().withMessage('Name is required'),
   body('company').trim().notEmpty().withMessage('Company is required'),
   body('email').isEmail().withMessage('Valid email is required'),
+  body('phone').trim().notEmpty().withMessage('Phone number is required').matches(/^\+[1-9]\d{10,14}$/).withMessage('Phone number must be in E.164 format (e.g., +1234567890)'),
   body('role').trim().notEmpty().withMessage('Role is required'),
   body('problem').trim().notEmpty().withMessage('Problem description is required'),
-  body('inquiryType').optional().trim()
+  body('inquiryType').optional().trim(),
+  body('otp').trim().notEmpty().withMessage('OTP is required').isLength({ min: 6, max: 6 }).withMessage('OTP must be 6 digits')
 ]
 
-/* ---------------- PUBLIC ROUTE ---------------- */
+/* ---------------- SEND OTP ROUTE ---------------- */
 router.post(
-  '/',
+  '/send-otp',
   contactLimiter,
-  contactValidation,
-  submitContact
+  sendOTPValidation,
+  sendOTP
 )
 
-/* ---------------- OTP VERIFICATION ROUTE ---------------- */
+/* ---------------- VERIFY AND SAVE ROUTE ---------------- */
 router.post(
-  '/verify-otp',
+  '/verify-and-save',
   otpVerifyLimiter,
-  verifyOTP
+  verifyAndSaveValidation,
+  verifyAndSave
 )
 
 /* ---------------- ADMIN ROUTES (OPTIONAL) ---------------- */

@@ -1,0 +1,26 @@
+{
+  "name": "algoforce-official-website-os",
+  "version": "1.0.0",
+  "description": "AlgoForce - Enterprise-grade AI Business Operating System website",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "cd backend && npm run dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "algoforce",
+    "ai",
+    "business-os",
+    "react",
+    "express",
+    "mongodb",
+    "twilio",
+    "sms-otp"
+  ],
+  "author": "AlgoForce",
+  "license": "ISC",
+  "dependencies": {
+    "resend": "^6.9.1"
+  }
+}

@@ -54,11 +54,14 @@ const Navigation = () => {
           <Link to="/" className="flex items-center space-x-2">
             <motion.div
               whileHover={{ scale: 1.05 }}
-              className="text-2xl font-bold"
+              className="text-2xl font-bold bg-white px-4 py-1.5 rounded-full shadow-sm"
             >
-              <span className="gradient-text">AlgoForce</span>
+              <span className="text-[#0A2A43]">Algo</span>
+              <span className="text-[#9A4DFF]">Force</span>
             </motion.div>
           </Link>
+
+
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
@@ -66,8 +69,8 @@ const Navigation = () => {
             <Link
               to="/"
               className={`font-medium transition-colors ${location.pathname === "/"
-                  ? "text-purple-400"
-                  : "text-white hover:text-purple-400"
+                ? "text-purple-400"
+                : "text-white hover:text-purple-400"
                 }`}
             >
               Home
@@ -120,8 +123,8 @@ const Navigation = () => {
                     key={link.path}
                     to={link.path}
                     className={`font-medium transition-colors ${location.pathname === link.path
-                        ? "text-purple-400"
-                        : "text-white hover:text-purple-400"
+                      ? "text-purple-400"
+                      : "text-white hover:text-purple-400"
                       }`}
                   >
                     {link.name}

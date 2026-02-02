@@ -1,19 +1,22 @@
-import { verifyOTPHash } from './emailService.js'
+import { verifyOTPSMS, verifyOTPHash } from './authService.js'
 import { getDB } from '../config/database.js'
 import { v4 as uuidv4 } from 'uuid'
 
 /**
  * Check if user has submitted a contact form in the last 24 hours
- * @param {string} email - User email
+ * @param {string} identifier - User phone number or email
  * @returns {Promise<boolean>}
  */
-export const hasRecentSubmission = async (email) => {
+export const hasRecentSubmission = async (identifier) => {
   const db = getDB()
   const last24Hours = new Date(Date.now() - 24 * 60 * 60 * 1000)
 
+  // Check by phone first, then by email for backward compatibility
   const contact = await db.collection('contacts').findOne({
-    email,
-    submittedAt: { $gte: last24Hours }
+    $or: [
+      { phone: identifier, submittedAt: { $gte: last24Hours } },
+      { email: identifier, submittedAt: { $gte: last24Hours } }
+    ]
   })
 
   return !!contact
@@ -21,44 +24,47 @@ export const hasRecentSubmission = async (email) => {
 
 /**
  * Check if user has requested OTP in the last 5 minutes (rate limiting)
- * @param {string} email - User email
+ * @param {string} identifier - User phone number or email
  * @returns {Promise<boolean>}
  */
-export const hasRecentOTPRequest = async (email) => {
+export const hasRecentOTPRequest = async (identifier) => {
   const db = getDB()
   const last5Minutes = new Date(Date.now() - 5 * 60 * 1000)
 
+  // Check by phone first, then by email for backward compatibility
   const contact = await db.collection('contacts').findOne({
-    email,
-    otp_verified: false,
-    submittedAt: { $gte: last5Minutes }
+    $or: [
+      { phone: identifier, otp_verified: false, submittedAt: { $gte: last5Minutes } },
+      { email: identifier, otp_verified: false, submittedAt: { $gte: last5Minutes } }
+    ]
   })
 
   return !!contact
 }
 
 /**
- * Create a new contact entry with hashed OTP
+ * Create a new contact entry
  * @param {Object} contactData - Contact form data
- * @param {string} hashedOTP - Hashed OTP
- * @param {Date} otpExpiry - OTP expiry time
+ * @param {string} hashedOTP - Hashed OTP (optional for Twilio)
+ * @param {Date} otpExpiry - OTP expiry time (optional for Twilio)
  * @returns {Promise<Object>} - Created contact record
  */
-export const createContact = async (contactData, hashedOTP, otpExpiry) => {
+export const createContact = async (contactData, hashedOTP = null, otpExpiry = null) => {
   const db = getDB()
-  const { name, company, email, role, problem, inquiryType } = contactData
+  const { name, company, email, phone, role, problem, inquiryType } = contactData
 
   const newContact = {
     _id: uuidv4(),
     name,
     company,
-    email,
+    email: email || '',
+    phone: phone || '',
     role,
     problem,
     inquiryType: inquiryType || 'demo',
     status: 'pending',
-    otp: hashedOTP,
-    otp_expiry: otpExpiry,
+    otp: hashedOTP,  // Will be null for Twilio (handled by Twilio service)
+    otp_expiry: otpExpiry,  // Will be null for Twilio
     otp_verified: false,
     submittedAt: new Date()
   }
@@ -68,17 +74,17 @@ export const createContact = async (contactData, hashedOTP, otpExpiry) => {
 }
 
 /**
- * Verify OTP and update contact status
- * @param {string} email - User email
+ * Verify OTP using Twilio and update contact status
+ * @param {string} phone - User phone number
  * @param {string} plainOTP - Plain text OTP from user
  * @returns {Promise<Object>} - Verification result
  */
-export const verifyOTP = async (email, plainOTP) => {
+export const verifyOTP = async (phone, plainOTP) => {
   const db = getDB()
 
-  // Find unverified contact with matching email
+  // Find unverified contact with matching phone
   const contact = await db.collection('contacts').find({
-    email,
+    phone,
     otp_verified: false
   })
     .sort({ submittedAt: -1 })
@@ -86,40 +92,41 @@ export const verifyOTP = async (email, plainOTP) => {
     .next()
 
   if (!contact) {
-    return { success: false, message: 'Invalid email or OTP already verified' }
+    return { success: false, message: 'Invalid phone number or OTP already verified' }
   }
 
-  // Check if OTP has expired
-  const now = new Date()
-  if (now > contact.otp_expiry) {
-    return { success: false, message: 'OTP has expired. Please request a new one.' }
-  }
+  try {
+    // Verify OTP using Twilio service
+    const twilioResult = await verifyOTPSMS(phone, plainOTP)
+    
+    if (!twilioResult.success) {
+      return { success: false, message: twilioResult.message }
+    }
 
-  // Verify hashed OTP
-  const isValid = await verifyOTPHash(plainOTP, contact.otp)
-  if (!isValid) {
-    return { success: false, message: 'Invalid OTP code' }
-  }
+    // Update contact to verified status
+    await db.collection('contacts').updateOne(
+      { _id: contact._id },
+      {
+        $set: {
+          otp_verified: true,
+          status: 'verified'
+        }
+      }
+    )
 
-  // Update contact to verified status
-  await db.collection('contacts').updateOne(
-    { _id: contact._id },
-    {
-      $set: {
-        otp_verified: true,
-        status: 'verified'
+    return {
+      success: true,
+      message: 'Phone verified successfully. We will get back to you soon!',
+      data: {
+        id: contact._id,
+        name: contact.name,
+        phone: contact.phone
       }
     }
-  )
 
-  return {
-    success: true,
-    message: 'Email verified successfully. We will get back to you soon!',
-    data: {
-      id: contact._id,
-      name: contact.name,
-      email: contact.email
-    }
+  } catch (error) {
+    console.error('OTP verification service error:', error)
+    return { success: false, message: 'Verification service error. Please try again.' }
   }
 }
 

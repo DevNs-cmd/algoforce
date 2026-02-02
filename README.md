@@ -11,8 +11,8 @@ This is a premium, category-defining product website that explains AlgoForce—a
 - **Frontend**: React + Vite, Tailwind CSS
 - **Animations**: React Bits Components, Framer Motion
 - **Backend**: Node.js + Express
-- **Database**: Supabase (PostgreSQL)
-- **Email**: Gmail SMTP with OTP verification
+- **Database**: MongoDB (Node.js native driver)
+- **SMS**: Twilio Verify v2 with phone OTP verification
 - **State Management**: React Hooks
 - **Styling**: Tailwind CSS with glassmorphism effects
 
@@ -21,8 +21,8 @@ This is a premium, category-defining product website that explains AlgoForce—a
 ### Prerequisites
 
 - Node.js (v16 or higher)
-- Supabase account and project
-- Gmail account with App Password enabled
+- MongoDB Atlas account
+- Twilio account with Verify service enabled
 - npm or yarn
 
 ### Installation
@@ -48,35 +48,28 @@ npm install
 
 Create a `.env` file in the `backend` directory:
 ```env
-PORT=5000
+PORT=8080
 NODE_ENV=development
 
-# Supabase (CRITICAL: Use SERVICE_ROLE_KEY on backend)
-SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key_here
+# MongoDB Configuration
+MONGO_URI=your_mongodb_connection_string
 
-# Gmail SMTP (Use App Password)
-GMAIL_USER=yourname@gmail.com
-GMAIL_APP_PASS=your_16_character_app_password
+# Twilio SMS OTP (Use Account SID, Auth Token, and Service SID)
+TWILIO_ACCOUNT_SID=your_twilio_account_sid
+TWILIO_AUTH_TOKEN=your_twilio_auth_token
+TWILIO_SERVICE_SID=your_twilio_verify_service_sid
 ```
 
 **Note**: See `backend/.env.example` for detailed setup instructions.
 
-5. **Setup Supabase Database**
+5. **Setup MongoDB Database**
 
-**IMPORTANT**: Run the complete setup script for RLS and security:
-
-```bash
-# Use the provided SQL script (RECOMMENDED)
-# File: backend/database/setup.sql
-```
-
-Copy the entire contents of `backend/database/setup.sql` and run in your Supabase SQL Editor.
-
-This script includes:
-- Table creation with all columns
-- Row Level Security (RLS) policies
-- Performance indexes
-- Security configurations
+Create a MongoDB Atlas cluster:
+1. Go to [MongoDB Atlas](https://cloud.mongodb.com)
+2. Create a free M0 cluster
+3. Add your IP address to the whitelist
+4. Create a database user
+5. Get your connection string
 
 **See `backend/DEPLOYMENT_SETUP.md` for complete setup guide.**
 
@@ -97,9 +90,9 @@ npm run dev
 ```
 
 7. **Access the Application**
-- Frontend: http://localhost:3000 (or shown port)
-- Backend API: http://localhost:5000
-- Health Check: http://localhost:5000/api/health
+- Frontend: http://localhost:5173 (or shown port)
+- Backend API: http://localhost:8080
+- Health Check: http://localhost:8080/api/health
 
 ## 📂 Project Structure
 
@@ -119,11 +112,12 @@ AlgoForce Official Website OS/
 │   ├── vite.config.js
 │   └── tailwind.config.js
 ├── backend/
-│   ├── config/                 # Supabase configuration
-│   ├── services/               # Email & database services
+│   ├── config/                 # Database configuration
+│   ├── services/               # Auth & database services
 │   ├── controllers/            # Route controllers
 │   ├── routes/                 # API routes
 │   ├── server.js              # Express server
+│   ├── Dockerfile              # Container configuration
 │   ├── package.json
 │   ├── .env.example           # Environment template
 │   └── DEPLOYMENT_SETUP.md    # Complete setup guide
@@ -163,22 +157,53 @@ AlgoForce Official Website OS/
 - FAQ section
 
 ### Contact Page (`/contact`)
-- **OTP-verified contact form** (connected to Supabase)
-- Email verification with 6-digit OTP
+- **Phone OTP-verified contact form** (connected to MongoDB)
+- SMS verification with 6-digit OTP sent to phone number
 - Inquiry types (Demo, Audit, Enterprise, Consultation)
 - Process explanation
 
 ## 🔌 API Endpoints
 
 ### Contact Routes
-- `POST /api/contact` - Submit contact form & send OTP email
-- `POST /api/contact/verify-otp` - Verify OTP code
+- `POST /api/contact/send-otp` - Send SMS OTP to phone number
+- `POST /api/contact/verify-and-save` - Verify OTP and save contact
 - `GET /api/contact` - Get all contacts (admin)
 - `GET /api/contact/:id` - Get contact by ID (admin)
 - `PUT /api/contact/:id` - Update contact status (admin)
 
 ### Health Check
 - `GET /api/health` - API health status
+
+## ☁️ Deployment Options
+
+### Northflank (Recommended)
+
+1. **Create Service**
+   - Service type: Web service
+   - Build command: `npm install`
+   - Run command: `node server.js`
+   - Port: 8080
+
+2. **Environment Variables**
+   ```
+   PORT=8080
+   NODE_ENV=production
+   MONGO_URI=your_mongodb_uri
+   TWILIO_ACCOUNT_SID=your_sid
+   TWILIO_AUTH_TOKEN=your_token
+   TWILIO_SERVICE_SID=your_service_sid
+   ```
+
+3. **Health Check**
+   - Path: `/api/health`
+   - Port: 8080
+
+**See `NORTHFLANK_MIGRATION_GUIDE.md` for complete deployment instructions.**
+
+### Alternative Platforms
+- **Render** - Still supported with PORT 8080
+- **Railway** - Easy Node.js deployment
+- **Heroku** - Classic choice
 
 ## 🎭 React Bits Components
 
@@ -217,9 +242,9 @@ To prevent 404 errors on page refresh in production:
 2. **Vite** configured for SPA builds
 3. **Backend** serves `index.html` for all non-API routes
 
-### Render Deployment Configuration
+### Northflank Deployment Configuration
 
-The project includes `render.yaml` for easy deployment to Render:
+The project is optimized for Northflank deployment with PORT 8080 and health check:
 
 ```yaml
 services:
@@ -250,8 +275,8 @@ services:
 
 Frontend uses environment variables for API endpoints:
 
-- **Development**: `VITE_API_URL=http://localhost:5000`
-- **Production**: `VITE_API_URL=https://algoforce-backend.onrender.com`
+- **Development**: `VITE_API_URL=http://localhost:8080`
+- **Production**: `VITE_API_URL=https://your-northflank-app.northflank.app`
 
 Configured in:
 - `frontend/.env.development` (local development)
@@ -285,23 +310,22 @@ npm run build
 Update backend `.env`:
 ```env
 NODE_ENV=production
-SUPABASE_SERVICE_ROLE_KEY=your_production_service_role_key
-GMAIL_USER=your_production_gmail
-GMAIL_APP_PASS=your_production_app_password
+MONGO_URI=your_production_mongodb_uri
+TWILIO_ACCOUNT_SID=your_production_twilio_sid
+TWILIO_AUTH_TOKEN=your_production_twilio_token
+TWILIO_SERVICE_SID=your_production_twilio_service_sid
 ```
-
-**CRITICAL**: Use SERVICE_ROLE_KEY, not anon key!
 
 3. **Deploy**
 - **Frontend**: Deploy `frontend/dist` folder to Vercel/Netlify
   - Netlify: Already configured in `netlify.toml` with SPA redirects
   - Vercel: Add `vercel.json` with rewrites (see below)
-- **Backend**: Deploy to Render/Railway/Heroku
+- **Backend**: Deploy to Northflank/Render/Railway/Heroku
   - Backend automatically serves frontend from `dist` folder
   - All non-API routes return `index.html`
-- **Database**: Supabase (already cloud-based)
-- **IMPORTANT**: Use SUPABASE_SERVICE_ROLE_KEY in production
-- Never expose service_role key in frontend code
+- **Database**: MongoDB (cloud-based or self-hosted)
+- **IMPORTANT**: Use MONGO_URI and Twilio credentials in production
+- Never expose database credentials in frontend code
 
 ### Vercel Configuration (if using Vercel)
 
@@ -325,20 +349,20 @@ npm run build
 cd ../backend
 npm start
 
-# Test at http://localhost:5000
+# Test at http://localhost:8080
 # Try refreshing /contact, /pricing - should work!
 ```
 
 ## 🔐 Security Notes
 
-- ✅ **Service Role Key**: Backend uses SERVICE_ROLE_KEY for database operations
-- ✅ **Row Level Security**: RLS enabled with proper policies
-- ✅ **OTP Hashing**: OTPs hashed with bcrypt before storage
+- ✅ **MongoDB Connection**: Backend uses secure MongoDB connection
+- ✅ **Twilio Verification**: Uses Twilio Verify v2 for OTP validation
+- ✅ **OTP Hashing**: OTPs hashed with bcrypt before storage (backup verification)
 - ✅ **Secure Random**: Uses crypto.randomInt for OTP generation
 - ✅ **Rate limiting**: Implemented on all API endpoints
-- ✅ **24-hour submission limit** per email
+- ✅ **24-hour submission limit** per phone/email
 - ✅ **5-minute OTP request cooldown**
-- ✅ **10-minute OTP expiration**
+- ✅ **10-minute OTP expiration** (backup verification)
 - ✅ **CORS configured** for production domains
 - ✅ **Input sanitization** with express-validator
 - ⚠️ **Add authentication** for admin routes in production
@@ -348,9 +372,9 @@ npm start
 ✅ Fully responsive design  
 ✅ Smooth animations with Framer Motion  
 ✅ Glassmorphism UI effects  
-✅ **Supabase database integration**  
-✅ **Email OTP verification system**  
-✅ **Gmail SMTP for email delivery**  
+- ✅ **MongoDB database integration**  
+✅ **Phone SMS OTP verification system**  
+✅ **Twilio Verify v2 for SMS delivery**
 ✅ Form validation (client + server)  
 ✅ Rate limiting & anti-spam protection  
 ✅ Clean component architecture  
@@ -359,11 +383,11 @@ npm start
 ✅ **SPA routing (no 404 on refresh)**  
 ✅ **Environment-based API URLs**  
 ✅ **CSS import error fixes**  
-✅ **Render deployment configuration**  
+✅ **Northflank deployment optimized**  
 
 ## 📝 Future Enhancements
 
-- [ ] Frontend OTP input UI component
+- [x] Frontend OTP input UI component
 - [ ] Admin dashboard for managing leads
 - [ ] Email notifications to admin on verified submissions
 - [ ] Analytics integration (Google Analytics/Mixpanel)
