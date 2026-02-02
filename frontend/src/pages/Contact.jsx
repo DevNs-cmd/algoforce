@@ -1,7 +1,8 @@
 import { Helmet } from "react-helmet-async"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { sendOTP, verifyAndSaveContact, API_URL } from '../services/api'
+import PhoneInput from '../components/PhoneInput'
 import { FaUser, FaBuilding, FaBriefcase, FaCheckCircle, FaLock, FaPhone } from 'react-icons/fa'
 
 const Contact = () => {
@@ -26,6 +27,22 @@ const Contact = () => {
   const [otpError, setOtpError] = useState(null)
   const [isVerified, setIsVerified] = useState(false)
   const [otpSent, setOtpSent] = useState(false)
+  const [resendCooldown, setResendCooldown] = useState(0)
+  const [verifyLoading, setVerifyLoading] = useState(false)
+  const [lastOtpTime, setLastOtpTime] = useState(null)
+
+  // Cooldown timer effect
+  useEffect(() => {
+    let interval = null;
+    if (resendCooldown > 0) {
+      interval = setInterval(() => {
+        setResendCooldown(time => time - 1);
+      }, 1000);
+    } else if (resendCooldown === 0) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [resendCooldown]);
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -37,19 +54,41 @@ const Contact = () => {
 
   const handleSendOTP = async (e) => {
     e.preventDefault()
+    
+    // Validate phone number format
+    const phoneRegex = /^\+[1-9]\d{10,14}$/
+    if (!formData.phone || !phoneRegex.test(formData.phone)) {
+      setStatus({
+        loading: false,
+        success: false,
+        error: 'Please enter a valid phone number in E.164 format (e.g., +1234567890)',
+        step: 1,
+        phone: ''
+      })
+      return;
+    }
+
+    // Check if in cooldown period
+    if (resendCooldown > 0) {
+      setStatus({
+        loading: false,
+        success: false,
+        error: `Please wait ${resendCooldown} seconds before requesting another OTP.`,
+        step: 1,
+        phone: ''
+      })
+      return;
+    }
+
     setStatus(prev => ({ ...prev, loading: true, error: null }))
 
     try {
-      // Validate phone number format
-      const phoneRegex = /^\+[1-9]\d{10,14}$/
-      if (!formData.phone || !phoneRegex.test(formData.phone)) {
-        throw new Error('Please enter a valid phone number in E.164 format (e.g., +1234567890)')
-      }
-
       const data = await sendOTP(formData.phone)
 
       if (data.success) {
         setOtpSent(true)
+        setLastOtpTime(new Date())
+        setResendCooldown(60) // 60 seconds cooldown
         setStatus({
           loading: false,
           success: false,
@@ -70,7 +109,8 @@ const Contact = () => {
   }
 
   const handleVerifyOTP = async () => {
-    setStatus(prev => ({ ...prev, loading: true, error: null }))
+    setVerifyLoading(true)
+    setStatus(prev => ({ ...prev, error: null }))
     setOtpError(null)
 
     try {
@@ -113,8 +153,22 @@ const Contact = () => {
         throw new Error(data.message || 'Invalid OTP. Please try again.')
       }
     } catch (error) {
-      setOtpError(error.response?.data?.message || error.message || 'Failed to verify OTP. Please try again.')
-      setStatus(prev => ({ ...prev, loading: false }))
+      const errorMessage = error.response?.data?.message || error.message || 'Failed to verify OTP. Please try again.'
+      
+      // Map specific error messages to user-friendly messages
+      let userFriendlyMessage = errorMessage
+      if (errorMessage.includes('already verified')) {
+        userFriendlyMessage = 'This OTP has already been verified.'
+      } else if (errorMessage.includes('expired')) {
+        userFriendlyMessage = 'This OTP has expired. Please request a new one.'
+      } else if (errorMessage.includes('invalid') || errorMessage.includes('Incorrect')) {
+        userFriendlyMessage = 'Invalid OTP. Please check and try again.'
+      }
+      
+      setOtpError(userFriendlyMessage)
+      setStatus(prev => ({ ...prev, error: userFriendlyMessage }))
+    } finally {
+      setVerifyLoading(false)
     }
   }
 
@@ -378,15 +432,15 @@ const Contact = () => {
 
                         <motion.button
                           type="submit"
-                          disabled={status.loading || otp.length !== 6}
-                          whileHover={{ scale: status.loading ? 1 : 1.02 }}
-                          whileTap={{ scale: status.loading ? 1 : 0.98 }}
-                          className={`w-full py-4 rounded-lg font-semibold text-lg transition-all ${status.loading || otp.length !== 6
+                          disabled={verifyLoading || otp.length !== 6}
+                          whileHover={{ scale: verifyLoading ? 1 : 1.02 }}
+                          whileTap={{ scale: verifyLoading ? 1 : 0.98 }}
+                          className={`w-full py-4 rounded-lg font-semibold text-lg transition-all ${verifyLoading || otp.length !== 6
                             ? 'bg-gray-400 cursor-not-allowed'
                             : 'bg-gradient-to-r from-purple-600 to-indigo-600 hover:shadow-xl text-white'
                             }`}
                         >
-                          {status.loading ? 'Verifying...' : 'Verify Phone'}
+                          {verifyLoading ? 'Verifying...' : 'Verify Phone'}
                         </motion.button>
                       </form>
 
@@ -477,21 +531,11 @@ const Contact = () => {
                         <label className="block mb-2 font-semibold text-navy-900">
                           Phone Number *
                         </label>
-                        <div className="relative">
-                          <FaPhone className="absolute text-gray-400 transform -translate-y-1/2 left-4 top-1/2" />
-                          <input
-                            type="tel"
-                            name="phone"
-                            value={formData.phone}
-                            onChange={handleChange}
-                            required
-                            placeholder="+1234567890"
-                            className="w-full py-3 pl-12 pr-4 transition-all border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                          />
-                        </div>
-                        <p className="mt-2 text-sm text-gray-500">
-                          Please use E.164 format (e.g., +1234567890)
-                        </p>
+                        <PhoneInput
+                          value={formData.phone}
+                          onChange={(value) => setFormData(prev => ({ ...prev, phone: value }))}
+                          placeholder="Enter phone number"
+                        />
                       </div>
 
                       {/* Role */}
@@ -539,15 +583,15 @@ const Contact = () => {
                       {/* Submit Button */}
                       <motion.button
                         type="submit"
-                        disabled={status.loading}
-                        whileHover={{ scale: status.loading ? 1 : 1.02 }}
-                        whileTap={{ scale: status.loading ? 1 : 0.98 }}
-                        className={`w-full py-4 rounded-lg font-semibold text-lg transition-all ${status.loading
+                        disabled={status.loading || resendCooldown > 0 || !formData.phone || formData.phone.length < 10}
+                        whileHover={{ scale: status.loading || resendCooldown > 0 || !formData.phone || formData.phone.length < 10 ? 1 : 1.02 }}
+                        whileTap={{ scale: status.loading || resendCooldown > 0 || !formData.phone || formData.phone.length < 10 ? 1 : 0.98 }}
+                        className={`w-full py-4 rounded-lg font-semibold text-lg transition-all ${(status.loading || resendCooldown > 0 || !formData.phone || formData.phone.length < 10)
                           ? 'bg-gray-400 cursor-not-allowed'
                           : 'bg-gradient-to-r from-purple-600 to-indigo-600 hover:shadow-xl text-white'
                           }`}
                       >
-                        {status.loading ? 'Sending OTP...' : 'Send Verification Code'}
+                        {status.loading ? 'Sending OTP...' : resendCooldown > 0 ? `Resend in ${resendCooldown}s` : 'Send Verification Code'}
                       </motion.button>
 
                       <p className="mt-4 text-sm text-center text-gray-500">

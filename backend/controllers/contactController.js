@@ -1,5 +1,5 @@
 import { validationResult } from 'express-validator'
-import { sendOTPSMS, validatePhoneNumber } from '../services/authService.js'
+import { sendOTPSMS, validatePhoneNumber, normalizePhoneNumber } from '../services/authService.js'
 import {
   hasRecentSubmission,
   hasRecentOTPRequest,
@@ -27,8 +27,11 @@ export const sendOTP = async (req, res) => {
 
     const { phone } = req.body
 
+    // Normalize phone number to E.164 format
+    const normalizedPhone = normalizePhoneNumber(phone);
+
     // Validate phone number
-    if (!phone || !validatePhoneNumber(phone)) {
+    if (!normalizedPhone || !validatePhoneNumber(normalizedPhone)) {
       return res.status(400).json({
         success: false,
         message: 'Valid phone number is required (E.164 format: +1234567890)'
@@ -36,7 +39,7 @@ export const sendOTP = async (req, res) => {
     }
 
     // Check if user has requested OTP within last 5 minutes (rate limiting)
-    const hasRecent5min = await hasRecentOTPRequest(phone)
+    const hasRecent5min = await hasRecentOTPRequest(normalizedPhone)
     if (hasRecent5min) {
       return res.status(429).json({
         success: false,
@@ -45,29 +48,33 @@ export const sendOTP = async (req, res) => {
     }
 
     // Send OTP via Twilio SMS
-    const smsResult = await sendOTPSMS(phone)
+    const smsResult = await sendOTPSMS(normalizedPhone)
     if (!smsResult.success) {
-      throw new Error(smsResult.message)
+      return res.status(400).json({
+        success: false,
+        message: smsResult.message
+      })
     }
 
     res.status(200).json({
       success: true,
-      message: 'OTP sent to your phone number'
+      message: 'OTP sent to your phone number',
+      phone: normalizedPhone
     })
   } catch (error) {
     console.error('Send OTP error:', error)
 
-    // Handle Twilio-specific errors
-    if (error.message.includes('Twilio') || error.message.includes('SMS')) {
-      return res.status(500).json({
+    // Handle specific error types
+    if (error.message.includes('Invalid phone number') || error.message.includes('format')) {
+      return res.status(400).json({
         success: false,
-        message: `SMS Service Error: ${error.message}`
+        message: error.message
       })
     }
 
     res.status(500).json({
       success: false,
-      message: 'Server error. Please try again later.'
+      message: error.message || 'Server error. Please try again later.'
     })
   }
 }
@@ -91,8 +98,11 @@ export const verifyAndSave = async (req, res) => {
 
     const { name, company, phone, role, problem, inquiryType, otp } = req.body
 
+    // Normalize phone number to E.164 format
+    const normalizedPhone = normalizePhoneNumber(phone);
+
     // Validate required fields
-    if (!phone || !validatePhoneNumber(phone)) {
+    if (!normalizedPhone || !validatePhoneNumber(normalizedPhone)) {
       return res.status(400).json({
         success: false,
         message: 'Valid phone number is required (E.164 format: +1234567890)'
@@ -107,7 +117,7 @@ export const verifyAndSave = async (req, res) => {
     }
 
     // Check if user has submitted within last 24 hours
-    const hasRecent24h = await hasRecentSubmission(phone)
+    const hasRecent24h = await hasRecentSubmission(normalizedPhone)
     if (hasRecent24h) {
       return res.status(429).json({
         success: false,
@@ -116,7 +126,7 @@ export const verifyAndSave = async (req, res) => {
     }
 
     // Verify OTP using Twilio
-    const verificationResult = await verifyOTPService(phone, otp)
+    const verificationResult = await verifyOTPService(normalizedPhone, otp)
     
     if (!verificationResult.success) {
       return res.status(400).json({
@@ -127,7 +137,7 @@ export const verifyAndSave = async (req, res) => {
 
     // Save contact to database after successful verification
     const contact = await createContact(
-      { name, company, phone, role, problem, inquiryType },
+      { name, company, phone: normalizedPhone, role, problem, inquiryType },
       null, // No local OTP hash needed
       null  // No local expiry needed
     )
@@ -136,24 +146,38 @@ export const verifyAndSave = async (req, res) => {
       success: true,
       message: 'Contact enquiry saved successfully',
       data: {
-        contactId: contact.id,
+        contactId: contact._id,
         name: contact.name
       }
     })
   } catch (error) {
     console.error('Verify and save error:', error)
 
-    // Handle Twilio-specific errors
-    if (error.message.includes('Twilio') || error.message.includes('verification')) {
-      return res.status(500).json({
+    // Handle specific error types
+    if (error.message.includes('already verified') || error.message.includes('already approved')) {
+      return res.status(409).json({
         success: false,
-        message: `Verification Service Error: ${error.message}`
+        message: 'This OTP has already been verified.'
+      })
+    }
+    
+    if (error.message.includes('expired') || error.message.includes('not found')) {
+      return res.status(400).json({
+        success: false,
+        message: 'This OTP has expired or is invalid.'
+      })
+    }
+    
+    if (error.message.includes('Invalid') || error.message.includes('incorrect')) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid OTP. Please check and try again.'
       })
     }
 
     res.status(500).json({
       success: false,
-      message: 'Server error. Please try again later.'
+      message: error.message || 'Server error. Please try again later.'
     })
   }
 }

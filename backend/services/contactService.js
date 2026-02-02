@@ -11,7 +11,7 @@ export const hasRecentSubmission = async (identifier) => {
   const db = getDB()
   const last24Hours = new Date(Date.now() - 24 * 60 * 60 * 1000)
 
-  // Check by phone
+  // Check by phone - use exact match for normalized phone number
   const contact = await db.collection('contacts').findOne({
     phone: identifier,
     submittedAt: { $gte: last24Hours }
@@ -29,7 +29,7 @@ export const hasRecentOTPRequest = async (identifier) => {
   const db = getDB()
   const last5Minutes = new Date(Date.now() - 5 * 60 * 1000)
 
-  // Check by phone
+  // Check by phone - use exact match for normalized phone number
   const contact = await db.collection('contacts').findOne({
     phone: identifier,
     otp_verified: false,

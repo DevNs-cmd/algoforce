@@ -49,15 +49,18 @@ export const getOTPExpiry = () => {
 }
 
 /**
- * Send OTP via Twilio SMS
- * @param {string} phoneNumber - E.164 format phone number (+1234567890)
+ * Send OTP via Twilio SMS with improved error handling
+ * @param {string} phoneNumber - Phone number to send OTP to
  * @param {string} name - User's name
  * @returns {Promise<{success: boolean, sid: string, message: string}>}
  */
 export const sendOTPSMS = async (phoneNumber, name = 'User') => {
   try {
+    // Normalize phone number to E.164 format
+    const normalizedPhone = normalizePhoneNumber(phoneNumber);
+    
     // Validate phone number format
-    if (!phoneNumber || !phoneNumber.startsWith('+')) {
+    if (!validatePhoneNumber(normalizedPhone)) {
       throw new Error('Invalid phone number format. Must be E.164 format (+1234567890)')
     }
 
@@ -72,38 +75,40 @@ export const sendOTPSMS = async (phoneNumber, name = 'User') => {
         .services(process.env.TWILIO_SERVICE_SID)
         .verifications
         .create({
-          to: phoneNumber,
+          to: normalizedPhone,
           channel: 'sms',
           locale: 'en'
         })
 
-      console.log('✅ OTP SMS sent via Twilio:', verification.sid)
+      console.log('✅ OTP SMS sent via Twilio to', normalizedPhone, ':', verification.sid)
       
       return {
         success: true,
         sid: verification.sid,
-        message: 'OTP sent successfully'
+        message: 'OTP sent successfully',
+        phoneNumber: normalizedPhone
       }
     } else {
       // Mock service for development
-      console.log('📱 Mock OTP sent to:', phoneNumber);
+      console.log('📱 Mock OTP sent to:', normalizedPhone);
       
       // In a real mock service, you'd store the OTP somewhere for verification
       // For now, we'll just return success and log the OTP for testing
       const mockOTP = generateOTP();
-      console.log(`🔐 MOCK OTP for ${phoneNumber}: ${mockOTP}`);
+      console.log(`🔐 MOCK OTP for ${normalizedPhone}: ${mockOTP}`);
       
       return {
         success: true,
         sid: `mock_${Date.now()}`,
-        message: 'OTP sent successfully (Mock Service - Check console for OTP)'
+        message: 'OTP sent successfully (Mock Service - Check console for OTP)',
+        phoneNumber: normalizedPhone
       }
     }
 
   } catch (error) {
     console.error('❌ SMS error:', error)
     
-    // Handle specific Twilio errors
+    // Handle specific Twilio errors with mapped messages
     if (error.code === 20003) {
       throw new Error('Twilio authentication failed (check credentials)')
     }
@@ -113,13 +118,21 @@ export const sendOTPSMS = async (phoneNumber, name = 'User') => {
     if (error.code === 60203) {
       throw new Error('Phone number not valid or cannot receive SMS')
     }
+    if (error.code === 20404) {
+      throw new Error('Invalid phone number or unsupported carrier')
+    }
     if (error.status === 429) {
       throw new Error('Rate limit exceeded. Please try again later')
     }
     
+    // Log the actual Twilio error code for debugging
+    if (error.code) {
+      console.error('Twilio error code:', error.code);
+    }
+    
     throw new Error('Failed to send OTP SMS')
   }
-}
+};
 
 /**
  * Verify OTP using Twilio Verify v2
@@ -214,6 +227,23 @@ export const isOTPValid = (expiryTime) => {
 }
 
 /**
+ * Normalize phone number to E.164 format
+ * @param {string} phoneNumber
+ * @returns {string}
+ */
+export const normalizePhoneNumber = (phoneNumber) => {
+  // Remove all non-digit characters except +
+  let normalized = phoneNumber.replace(/[^\d+]/g, '');
+  
+  // Ensure it starts with +
+  if (!normalized.startsWith('+')) {
+    normalized = '+' + normalized;
+  }
+  
+  return normalized;
+};
+
+/**
  * Validate phone number format (E.164)
  * @param {string} phoneNumber
  * @returns {boolean}
@@ -223,3 +253,89 @@ export const validatePhoneNumber = (phoneNumber) => {
   // Basic E.164 format validation (+ followed by 10-15 digits)
   return /^\+[1-9]\d{10,14}$/.test(phoneNumber)
 }
+
+/**
+ * Send OTP via Twilio SMS with improved error handling
+ * @param {string} phoneNumber - Phone number to send OTP to
+ * @param {string} name - User's name
+ * @returns {Promise<{success: boolean, sid: string, message: string}>}
+ */
+export const sendOTPSMS = async (phoneNumber, name = 'User') => {
+  try {
+    // Normalize phone number to E.164 format
+    const normalizedPhone = normalizePhoneNumber(phoneNumber);
+    
+    // Validate phone number format
+    if (!validatePhoneNumber(normalizedPhone)) {
+      throw new Error('Invalid phone number format. Must be E.164 format (+1234567890)')
+    }
+
+    if (twilioEnabled) {
+      // Validate environment variables
+      if (!process.env.TWILIO_ACCOUNT_SID || !process.env.TWILIO_AUTH_TOKEN || !process.env.TWILIO_SERVICE_SID) {
+        throw new Error('Twilio credentials not configured in environment variables')
+      }
+
+      // Create verification request using Twilio Verify v2
+      const verification = await client.verify.v2
+        .services(process.env.TWILIO_SERVICE_SID)
+        .verifications
+        .create({
+          to: normalizedPhone,
+          channel: 'sms',
+          locale: 'en'
+        })
+
+      console.log('✅ OTP SMS sent via Twilio to', normalizedPhone, ':', verification.sid)
+      
+      return {
+        success: true,
+        sid: verification.sid,
+        message: 'OTP sent successfully',
+        phoneNumber: normalizedPhone
+      }
+    } else {
+      // Mock service for development
+      console.log('📱 Mock OTP sent to:', normalizedPhone);
+      
+      // In a real mock service, you'd store the OTP somewhere for verification
+      // For now, we'll just return success and log the OTP for testing
+      const mockOTP = generateOTP();
+      console.log(`🔐 MOCK OTP for ${normalizedPhone}: ${mockOTP}`);
+      
+      return {
+        success: true,
+        sid: `mock_${Date.now()}`,
+        message: 'OTP sent successfully (Mock Service - Check console for OTP)',
+        phoneNumber: normalizedPhone
+      }
+    }
+
+  } catch (error) {
+    console.error('❌ SMS error:', error)
+    
+    // Handle specific Twilio errors with mapped messages
+    if (error.code === 20003) {
+      throw new Error('Twilio authentication failed (check credentials)')
+    }
+    if (error.code === 60200) {
+      throw new Error('Invalid phone number format')
+    }
+    if (error.code === 60203) {
+      throw new Error('Phone number not valid or cannot receive SMS')
+    }
+    if (error.code === 20404) {
+      throw new Error('Invalid phone number or unsupported carrier')
+    }
+    if (error.status === 429) {
+      throw new Error('Rate limit exceeded. Please try again later')
+    }
+    
+    // Log the actual Twilio error code for debugging
+    if (error.code) {
+      console.error('Twilio error code:', error.code);
+    }
+    
+    throw new Error('Failed to send OTP SMS')
+  }
+};
