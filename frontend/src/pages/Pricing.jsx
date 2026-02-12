@@ -7,7 +7,7 @@ const Pricing = () => {
   const pricingTiers = [
     {
       name: 'Starter Audit',
-      price: '$359',
+      price: '$99',
       duration: 'One-time',
       description: 'Help Startups to Start dominate in their market with AI-augmented operations',
       features: [
@@ -23,18 +23,16 @@ const Pricing = () => {
       color: 'from-blue-500 to-cyan-500'
     },
     {
-      name: 'AlgoForce OS Setup',
-      price: '$99',
+      name: 'BUSINESS AUTOMATION PACK',
+      price: '$199',
       duration: 'One-time',
       description: 'Full implementation and customization for your business.',
       features: [
-        'Everything in Audit',
-        'Complete AlgoForce installation',
-        'Custom module configuration',
-        'Data source integration',
-        'Team training & onboarding',
-        'First 3 months included',
-        'Dedicated success manager',
+        'Animated Website (5–7 pages)',
+        'AI Chatbot (Lead Generation & Support)',
+        'Basic CRM Automation',
+        'Local SEO Optimization',
+        '1 Month Free Maintenance ',
         'Priority support'
       ],
       cta: 'Get Started',
@@ -43,18 +41,17 @@ const Pricing = () => {
       badge: 'Most Popular'
     },
     {
-      name: 'Monthly Intelligence',
-      price: '$59',
+      name: 'AI DOMINATION PACK',
+      price: '$399',
       duration: 'per month',
       description: 'Ongoing optimization, learning, and strategic support.',
       features: [
-        'Continuous system optimization',
-        'Monthly intelligence reports',
-        'New module deployments',
-        'Expanding integrations',
-        'Strategic consulting hours',
-        'Priority feature requests',
-        'Quarterly business reviews',
+        'Premium Website (10+ pages, custom design)',
+        'AI Chatbot + Voice Receptionist Setup',
+        'Native Automation Workflow',
+        'Advanced SEO & Content Strategy',
+        'Monthly AI Performance Audits',
+        'business intelligence dashboards',
         'Unlimited support'
       ],
       cta: 'Subscribe',
