@@ -6,16 +6,16 @@ import { FaCheck, FaArrowRight } from 'react-icons/fa'
 const Pricing = () => {
   const pricingTiers = [
     {
-      name: 'Revenue Leak Audit',
-      price: '$29',
+      name: 'Starter Audit',
+      price: '$359',
       duration: 'One-time',
-      description: 'Discover hidden revenue losses and get a prioritized action plan.',
+      description: 'Help Startups to Start dominate in their market with AI-augmented operations',
       features: [
-        'Complete business intelligence audit',
-        'Revenue leak detection & quantification',
-        'Priority-ranked opportunity list',
-        'Custom remediation playbook',
-        '90-day implementation roadmap',
+        '5- Page Website ',
+        'Basic SEO Setup ',
+        'AI Chatbot (Lead Generation)',
+        'Google Analytics Setup',
+        '1 Month Free Support',
         'Executive presentation deck'
       ],
       cta: 'Schedule Audit',
