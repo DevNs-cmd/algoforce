@@ -104,6 +104,84 @@ export const sendOTP = async (req, res) => {
 }
 
 
+// @desc    Save contact enquiry directly (without OTP verification)
+// @route   POST /api/contact/save
+// @access  Public
+export const saveContact = async (req, res) => {
+  try {
+    // Validation
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        success: false,
+        message: 'Validation failed',
+        errors: errors.array()
+      })
+    }
+
+    const { name, company, phone, email, role, problem, inquiryType } = req.body
+
+    // Normalize phone number to E.164 format
+    const normalizedPhone = normalizePhoneNumber(phone);
+
+    // Validate required fields
+    if (!normalizedPhone || !validatePhoneNumber(normalizedPhone)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Valid phone number is required (E.164 format: +1234567890)'
+      })
+    }
+
+    // Validate email if provided
+    let normalizedEmail = '';
+    if (email) {
+      normalizedEmail = email.toLowerCase().trim();
+      if (!normalizedEmail.includes('@') || !normalizedEmail.includes('.')) {
+        return res.status(400).json({
+          success: false,
+          message: 'Valid email is required'
+        })
+      }
+    }
+
+    // Check if user has submitted within last 24 hours
+    const identifier = normalizedEmail || normalizedPhone;
+    const hasRecent24h = await hasRecentSubmission(identifier)
+    if (hasRecent24h) {
+      return res.status(429).json({
+        success: false,
+        message: 'You have already submitted a request recently. We will get back to you soon.'
+      })
+    }
+
+    // Save contact to database directly (no OTP verification)
+    const contact = await createContact(
+      { name, company, phone: normalizedPhone, email: normalizedEmail, role, problem, inquiryType },
+      null,
+      null
+    )
+
+    res.status(201).json({
+      success: true,
+      message: 'Contact enquiry saved successfully',
+      data: {
+        contactId: contact._id,
+        name: contact.name,
+        email: contact.email,
+        phone: contact.phone
+      }
+    })
+  } catch (error) {
+    console.error('Save contact error:', error)
+
+    res.status(500).json({
+      success: false,
+      message: error.message || 'Server error. Please try again later.'
+    })
+  }
+}
+
+
 // @desc    Verify OTP and save contact enquiry
 // @route   POST /api/contact/verify-and-save
 // @access  Public
