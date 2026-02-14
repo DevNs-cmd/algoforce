@@ -37,8 +37,8 @@ const FoundersVision = () => {
         {/* RIGHT — Founder card */}
         <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8">
           <p className="text-sm uppercase tracking-wider text-gray-400 mb-3">
-            From the Founder
-          </p>
+            From the Founder 
+          </p> 
 
           <p className="text-lg leading-relaxed text-gray-200">
             “I believe the next generation of companies won’t be run by dashboards,

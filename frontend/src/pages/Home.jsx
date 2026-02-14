@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async"
 import Hero from '../components/sections/Hero'
 import WhatIsAlgoForce from '../components/sections/WhatIsAlgoForce'
 import FoundersVision from '../components/sections/FoundersVision'
-import HowItWorks from '../components/sections/HowItWorks'
+// import HowItWorks from '../components/sections/HowItWorks'
 import ProductModules from '../components/sections/ProductModules'
 import WhyAlgoForce from '../components/sections/WhyAlgoForce'
 import WhoItsFor from '../components/sections/WhoItsFor'
@@ -69,7 +69,7 @@ const Home = () => {
         <Hero />
         <WhatIsAlgoForce />
         <FoundersVision />
-        <HowItWorks />
+        {/* <HowItWorks /> */}
         <ProductModules />
         <WhyAlgoForce />
         <WhoItsFor />

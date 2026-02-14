@@ -86,12 +86,12 @@ const Navigation = () => {
                 >
                   Overview
                 </button>
-                <button
+                {/* <button
                   onClick={() => scrollToSection("how-it-works")}
                   className="text-white hover:text-purple-400 transition-colors font-medium"
                 >
                   Engine
-                </button>
+                </button> */}
                 <button
                   onClick={() => scrollToSection("product-modules")}
                   className="text-white hover:text-purple-400 transition-colors font-medium"
