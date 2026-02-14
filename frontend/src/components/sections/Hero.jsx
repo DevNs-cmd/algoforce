@@ -4,34 +4,13 @@ import { FaArrowRight, FaPlay } from 'react-icons/fa'
 
 const Hero = () => {
   return (
-    <section className="relative flex items-center justify-center min-h-screen overflow-hidden bg-gradient-to-br from-navy-900 via-navy-800 to-purple-900">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, 90, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-          className="absolute bg-purple-500 rounded-full top-1/4 -left-1/4 w-96 h-96 opacity-10 blur-3xl"
-        />
-        <motion.div
-          animate={{
-            scale: [1.2, 1, 1.2],
-            rotate: [90, 0, 90],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-          className="absolute bg-blue-500 rounded-full bottom-1/4 -right-1/4 w-96 h-96 opacity-10 blur-3xl"
-        />
-      </div>
+   <section className="relative flex items-center justify-center min-h-screen overflow-hidden bg-gradient-to-b from-black via-[#050814] to-black text-white">
+
+   {/* Subtle background glow */}
+<div className="absolute inset-0 pointer-events-none">
+  <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-purple-600/20 blur-[120px]" />
+</div>
+
 
       <div className="relative z-10 px-6 py-32 mx-auto text-center max-w-7xl">
         <motion.div
@@ -46,8 +25,9 @@ const Hero = () => {
             transition={{ delay: 0.2 }}
             className="inline-block mb-6"
           >
-            <span className="px-4 py-2 text-sm font-semibold text-purple-300 border rounded-full bg-purple-500/20 backdrop-blur-sm border-purple-500/30">
-              Enterprise AI Operating System
+            <span className="px-4 py-2 text-sm tracking-wide text-gray-300 border rounded-full bg-white/10 backdrop-blur-sm border-white/10">
+
+              Your AI Business partner for unstoppable growth
             </span>
           </motion.div>
 
@@ -58,9 +38,11 @@ const Hero = () => {
             transition={{ delay: 0.4, duration: 0.8 }}
             className="mb-6 text-5xl font-bold leading-tight text-white md:text-7xl"
           >
-            The Operating System for{' '}
-            <span className="gradient-text bg-gradient-to-r from-purple-400 to-blue-400">
-              Revenue Intelligence
+            Start Using {' '}
+            <span className="bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 bg-clip-text text-transparent"
+>
+
+              AlgoForce AI
             </span>
           </motion.h1>
 
@@ -69,7 +51,8 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
-            className="max-w-3xl mx-auto mb-12 text-xl text-gray-300 md:text-2xl"
+            className="max-w-3xl mx-auto mb-12 text-xl text-gray-400 md:text-2xl"
+
           >
             Enterprise-grade AI Business OS that eliminates revenue leaks, 
             builds intelligence moats, and compounds decision-making velocity.
@@ -121,7 +104,8 @@ const Hero = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.2 + index * 0.1 }}
-                className="p-6 glass-dark rounded-xl"
+                className="p-6 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl"
+
               >
                 <div className="mb-2 text-4xl font-bold text-purple-400">{stat.value}</div>
                 <div className="text-gray-300">{stat.label}</div>
