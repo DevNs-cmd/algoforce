@@ -11,16 +11,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
+    <!-- LIBRARIES -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
                         display: ['Space Grotesk', 'sans-serif'],
                     },
                     colors: {
@@ -41,106 +45,143 @@
 
     <style>
         :root {
-            --bg-deep: #01040f;
-            --accent-violet: #8700ff;
-            --glass-white: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --glow-violet: rgba(135, 0, 255, 0.2);
+            --bg-main: #f8fafc;
+            --accent-primary: #8700ff;
+            --accent-secondary: #00d2ff;
+            --navy-900: #020617;
+            --glass-white: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --shadow-premium: 0 20px 50px rgba(0, 0, 0, 0.05);
         }
 
         body {
-            background-color: var(--bg-deep);
-            color: #f8fafc;
+            background-color: var(--bg-main);
+            color: var(--navy-900);
             overflow-x: hidden;
             scroll-behavior: smooth;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
-        /* PREMIUM GRADIENTS & PARALLAX */
-        .bg-mesh {
-            background:
-                radial-gradient(circle at 10% 10%, rgba(135, 0, 255, 0.2) 0%, transparent 40%),
-                radial-gradient(circle at 90% 90%, rgba(0, 35, 105, 0.3) 0%, transparent 40%),
-                radial-gradient(circle at 50% 50%, #01040f 0%, #000 100%);
+        /* 3D SCENE BACKGROUND */
+        .scene-3d {
             position: fixed;
             inset: 0;
             z-index: -2;
+            perspective: 1000px;
+            overflow: hidden;
         }
 
-        .parallax-bg {
-            position: fixed;
-            inset: -50px;
-            pointer-events: none;
-            z-index: -1;
-            background-image:
-                radial-gradient(1px 1px at 20px 30px, #fff, rgba(0, 0, 0, 0)),
-                radial-gradient(1px 1px at 40px 70px, #fff, rgba(0, 0, 0, 0)),
-                radial-gradient(2px 2px at 50px 160px, rgba(135, 0, 255, 0.5), rgba(0, 0, 0, 0));
-            background-repeat: repeat;
-            background-size: 200px 200px;
-            opacity: 0.2;
-            will-change: transform;
-        }
-
-        /* GLASSMORPHISM 3.0 */
-        .glass {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
-            border: 1px solid var(--glass-border);
-            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
-        }
-
-        .glass-premium {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
-            backdrop-filter: blur(32px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
-        }
-
-        /* 3D DEPTH */
-        .depth-3d {
-            transform-style: preserve-3d;
-            perspective: 1500px;
-        }
-
-        .tilt-card {
-            transition: transform 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67), box-shadow 0.2s ease;
-            transform-style: preserve-3d;
-        }
-
-        /* VOLUMETRIC LIGHT */
-        .spotlight {
+        .floating-orb {
             position: absolute;
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, var(--glow-violet) 0%, transparent 70%);
             border-radius: 50%;
-            pointer-events: none;
+            filter: blur(80px);
+            opacity: 0.15;
             z-index: -1;
-            filter: blur(100px);
+            pointer-events: none;
         }
 
-        /* ANIMATIONS */
-        @keyframes float-hero {
+        /* PREMIUM MESH */
+        .mesh-bg {
+            background:
+                radial-gradient(circle at 0% 0%, rgba(135, 0, 255, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 100% 0%, rgba(0, 210, 255, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 50% 100%, rgba(135, 0, 255, 0.05) 0%, transparent 40%),
+                #ffffff;
+            position: fixed;
+            inset: 0;
+            z-index: -3;
+        }
 
-            0%,
-            100% {
-                transform: translateY(0) rotate(-12deg);
+        /* 3D INTERACTIVE CARD */
+        .card-3d {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: transform 0.1s ease;
+        }
+
+        .card-inner {
+            background: var(--glass-white);
+            backdrop-filter: blur(25px) saturate(200%);
+            -webkit-backdrop-filter: blur(25px) saturate(200%);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-premium);
+            border-radius: 40px;
+            padding: 40px;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .card-3d:hover .card-inner {
+            border-color: var(--accent-primary);
+            box-shadow: 0 40px 100px rgba(135, 0, 255, 0.1);
+        }
+
+        /* ANIMATED GRADIENT TEXT */
+        .gradient-text-animated {
+            background: linear-gradient(-45deg, #020617, #8700ff, #00d2ff, #020617);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-flow 10s ease infinite;
+        }
+
+        @keyframes gradient-flow {
+            0% {
+                background-position: 0% 50%;
             }
 
             50% {
-                transform: translateY(-30px) rotate(-10deg);
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
             }
         }
 
-        .animate-float {
-            animation: float-hero 15s ease-in-out infinite;
+        /* 3D FLOATING ANIMATIONS */
+        @keyframes float-complex {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+
+            33% {
+                transform: translateY(-30px) rotate(2deg) scale(1.02);
+            }
+
+            66% {
+                transform: translateY(15px) rotate(-1deg) scale(0.98);
+            }
+        }
+
+        .animate-float-3d {
+            animation: float-complex 8s ease-in-out infinite;
+        }
+
+        .btn-luxury {
+            background: var(--navy-900);
+            color: white;
+            padding: 18px 45px;
+            border-radius: 20px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: inline-flex;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .btn-luxury:hover {
+            transform: translateY(-8px) scale(1.05);
+            background: var(--accent-primary);
+            box-shadow: 0 20px 40px rgba(135, 0, 255, 0.3);
         }
 
         .reveal {
-            opacity: 0;
-            transform: translateY(50px) scale(0.98);
-            transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: transform, opacity;
         }
 
         .reveal.active {
@@ -148,456 +189,660 @@
             transform: translateY(0) scale(1);
         }
 
-        /* TYPOGRAPHY */
-        .gradient-text {
-            background: linear-gradient(135deg, #fff 20%, #a78bfa 60%, #8700ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 20px rgba(135, 0, 255, 0.3));
+        /* PERSPECTIVE CLASSES */
+        .perspective-3d {
+            perspective: 2000px;
+            transform-style: preserve-3d;
         }
 
-        .nav-link {
-            position: relative;
-            transition: color 0.4s ease;
+        .object-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .nav-link::after {
-            content: '';
+        /* GLOW ELEMENTS */
+        .glow-sphere {
             position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: var(--accent-violet);
-            transition: width 0.4s ease;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        /* NOISE TEXTURE */
-        .noise {
-            position: fixed;
-            inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3BaseFilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-            opacity: 0.02;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent-primary) 0%, transparent 70%);
+            filter: blur(40px);
+            opacity: 0.3;
             pointer-events: none;
-            z-index: 100;
-        }
-
-        /* BUTTONS */
-        .btn-enterprise {
-            background: #fff;
-            color: #000;
-            font-weight: 800;
-            padding: 16px 40px;
-            border-radius: 12px;
-            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
-            display: inline-flex;
-            align-items: center;
-        }
-
-        .btn-enterprise:hover {
-            color: #fff;
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(135, 0, 255, 0.4);
-        }
-
-        .btn-enterprise::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: var(--accent-violet);
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
             z-index: -1;
         }
 
-        .btn-enterprise:hover::before {
-            transform: translateY(0);
+        /* LENIS SMOOTH SCROLL */
+        html.lenis,
+        html.lenis body {
+            height: auto;
         }
 
-        .btn-outline {
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fff;
-            font-weight: 500;
-            padding: 16px 40px;
-            border-radius: 12px;
-            transition: all 0.4s ease;
-            backdrop-filter: blur(10px);
+        .lenis.lenis-smooth {
+            scroll-behavior: auto !important;
         }
 
-        .btn-outline:hover {
-            border-color: #fff;
-            background: rgba(255, 255, 255, 0.05);
-            transform: translateY(-2px);
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
         }
 
-        /* IMAGE 3D CONTAINER */
-        .image-3d-wrap {
-            position: relative;
-            transform-style: preserve-3d;
-            border-radius: 32px;
+        .lenis.lenis-stopped {
             overflow: hidden;
-            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.8);
         }
 
-        .image-3d-wrap img {
-            transition: transform 0.5s ease;
+        .lenis.lenis-scrolling iframe {
+            pointer-events: none;
         }
 
-        .image-3d-wrap:hover img {
-            transform: scale(1.1);
+        /* STUNNING SCROLL PROGRESS */
+        .scroll-progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+            transform-origin: 0% 50%;
+            scale: 0 1;
+            z-index: 100;
         }
 
-        .image-overlay {
-            position: absolute;
+        /* MODAL STYLES */
+        .modal-overlay {
+            position: fixed;
             inset: 0;
-            background: linear-gradient(to top, var(--bg-deep), transparent 60%);
-            z-index: 1;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            background: white;
+            border-radius: 40px;
+            overflow: hidden;
+            transform: scale(0.9) translateY(40px);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .modal-close:hover {
+            background: #e2e8f0;
+            transform: rotate(90deg);
         }
     </style>
 </head>
 
 <body>
-    <div class="bg-mesh"></div>
-    <div class="parallax-bg" id="parallax-far"></div>
-    <div class="parallax-bg" id="parallax-mid" style="background-size: 300px 300px; opacity: 0.1;"></div>
-    <div class="noise"></div>
+    <!-- Course Modal -->
+    <div class="modal-overlay" id="courseModal">
+        <div class="modal-content glass-premium p-12">
+            <div class="modal-close" id="closeModal">✕</div>
+            <div id="modalBody" class="space-y-8">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+    <div class="scroll-progress-bar"></div>
+    <div class="mesh-bg"></div>
+    <div class="scene-3d">
+        <div class="floating-orb w-[800px] h-[800px] bg-violet-400/10 -top-80 -left-80 animate-pulse"></div>
+        <div class="floating-orb w-[700px] h-[700px] bg-sky-400/10 -bottom-80 -right-80 animate-pulse"
+            style="animation-delay: 2s;"></div>
+        <div
+            class="floating-orb w-[400px] h-[400px] bg-indigo-400/5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        </div>
+
+        <!-- Animated 3D Background Shapes -->
+        <div
+            class="absolute top-[20%] right-[10%] w-[200px] h-[200px] perspective-3d animate-float-3d opacity-20 hidden lg:block">
+            <div class="w-full h-full border-2 border-violet-500/30 rounded-[40px] rotate-45 transform-gpu"></div>
+        </div>
+        <div class="absolute bottom-[20%] left-[5%] w-[150px] h-[150px] perspective-3d animate-float-3d opacity-20 hidden lg:block"
+            style="animation-delay: -3s;">
+            <div class="w-full h-full border-2 border-sky-500/30 rounded-full"></div>
+        </div>
+    </div>
+    <canvas id="particleCanvas" class="fixed inset-0 z-[-1] pointer-events-none opacity-30"></canvas>
 
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-black/20 backdrop-blur-xl">
-        <div class="max-w-7xl mx-auto px-8 py-6 flex justify-between items-center">
+    <nav class="fixed top-0 left-0 right-0 z-50 border-b border-navy-900/10 bg-white/70 backdrop-blur-2xl">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <a href="/" class="flex items-center space-x-3 group">
                 <div
-                    class="w-8 h-8 rounded-lg bg-gradient-to-br from-white to-violet-500 flex items-center justify-center font-black text-black text-xs transition-transform group-hover:rotate-45">
+                    class="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-600 to-indigo-700 flex items-center justify-center font-black text-white text-lg transition-transform group-hover:rotate-45 shadow-lg shadow-violet-500/20">
                     A</div>
-                <span
-                    class="text-xl font-display font-bold tracking-tight text-white uppercase tracking-[0.2em]">AlgoForce
-                    <span class="text-violet-500 font-light">Labs</span></span>
+                <div class="flex flex-col">
+                    <span
+                        class="text-xl font-display font-black tracking-tight text-navy-900 uppercase">AlgoForce</span>
+                    <span class="text-[10px] font-bold text-violet-600 tracking-[0.3em] uppercase -mt-1">Labs</span>
+                </div>
             </a>
             <div
-                class="hidden md:flex items-center space-x-10 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">
-                <a href="/" class="nav-link hover:text-white">Home</a>
-                <a href="#capability-stack" class="nav-link hover:text-white">Capabilities</a>
-                <a href="#philosophy" class="nav-link hover:text-white">Philosophy</a>
-                <a href="/pricing" class="nav-link hover:text-white">Capital</a>
+                class="hidden md:flex items-center space-x-12 text-[11px] font-black uppercase tracking-[0.2em] text-slate-500">
+                <a href="/" class="hover:text-violet-600 transition-colors">Home</a>
+                <a href="#academy" class="hover:text-violet-600 transition-colors">Courses</a>
+                <a href="#institutional" class="hover:text-violet-600 transition-colors">Institutional</a>
+                <a href="/pricing" class="hover:text-violet-600 transition-colors">Capital</a>
             </div>
-            <div>
+            <div class="flex items-center space-x-6">
                 <a href="/contact"
-                    class="text-[11px] font-bold py-3 px-6 rounded-md border border-white/10 hover:bg-white hover:text-black transition-all uppercase tracking-widest">Partner</a>
+                    class="hidden lg:block text-[11px] font-bold py-3 px-8 rounded-2xl bg-navy-900 text-white hover:bg-violet-600 transition-all uppercase tracking-widest shadow-xl shadow-navy-900/10">Partner</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center pt-24 px-8 overflow-hidden">
-        <div class="spotlight -top-20 -left-20"></div>
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center relative z-10">
-            <div>
+    <section class="relative min-h-screen flex items-center pt-24 px-6 overflow-hidden bg-white">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center relative z-10">
+            <div class="reveal">
                 <div
-                    class="inline-flex items-center space-x-2 px-3 py-1 rounded-full glass border border-white/10 text-[10px] font-bold uppercase tracking-[0.3em] text-violet-400 mb-8">
-                    <span class="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse"></span>
-                    <span>Global Intelligence & Execution</span>
+                    class="inline-flex items-center space-x-3 px-4 py-2 rounded-2xl bg-violet-100/50 border border-violet-200 text-[10px] font-black uppercase tracking-[0.3em] text-violet-700 mb-10 shadow-sm">
+                    <span class="flex h-2 w-2 relative">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-violet-600"></span>
+                    </span>
+                    <span>Global AI & Engineering Lab</span>
                 </div>
                 <h1
-                    class="text-7xl md:text-9xl font-display font-black leading-[0.9] mb-8 gradient-text tracking-tighter">
-                    AlgoForce <br> Labs
+                    class="text-6xl md:text-8xl font-display font-black leading-[0.95] mb-8 text-navy-900 tracking-tighter">
+                    Architect Your <br> <span class="gradient-text-animated">Future Scope</span>
                 </h1>
-                <h2 class="text-2xl md:text-3xl font-light text-slate-300 mb-6 max-w-xl leading-snug">
-                    Global AI, Growth & Systems Lab for Companies That Intend to Lead.
+                <h2 class="text-2xl md:text-3xl font-medium text-slate-700 mb-8 max-w-xl leading-snug">
+                    Industry-grade <span
+                        class="text-violet-600 underline decoration-violet-200 underline-offset-8">professional
+                        courses</span> designed for global scale and execution.
                 </h2>
-                <p class="text-lg text-slate-500 mb-10 max-w-lg leading-relaxed font-light">
-                    We design intelligence, engineer revenue systems, and build digital infrastructure for startups,
-                    enterprises, and governments.
+                <p class="text-xl text-slate-500 mb-12 max-w-lg leading-relaxed font-medium">
+                    Move beyond theory. Join 5,000+ professionals learning the "AlgoForce Method" to dominate AI,
+                    Analytics, and Modern Engineering.
                 </p>
                 <div class="flex flex-wrap gap-6">
-                    <a href="/contact" class="btn-enterprise">Request Strategic Call</a>
-                    <button class="btn-outline">Explore Capabilities</button>
+                    <a href="#syllabus" class="btn-luxury">Explore Syllabus</a>
+                    <a href="/contact"
+                        class="flex items-center space-x-3 group text-sm font-black uppercase tracking-widest text-navy-900 hover:text-violet-600 transition-colors">
+                        <span>Corporate Training</span>
+                        <span
+                            class="w-8 h-px bg-navy-900 group-hover:bg-violet-600 group-hover:w-12 transition-all"></span>
+                    </a>
                 </div>
             </div>
-            <div class="relative hidden lg:block">
-                <!-- Floating Glass Elements -->
-                <div class="relative w-full aspect-square flex items-center justify-center">
+
+            <div class="relative hidden lg:block perspective-container reveal">
+                <div class="floating-window relative">
                     <div
-                        class="absolute w-80 h-[500px] glass-premium rounded-3xl animate-float -rotate-12 translate-x-[-40px]">
+                        class="w-full aspect-[4/5] bg-white rounded-[50px] shadow-2xl overflow-hidden border border-slate-100 p-2">
+                        <div class="w-full h-full rounded-[45px] overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=800"
+                                class="w-full h-full object-cover transition-transform duration-1000 hover:scale-110"
+                                alt="Advanced Learning">
+                            <div class="absolute inset-0 bg-gradient-to-t from-navy-900 via-transparent to-transparent">
+                            </div>
+                            <div class="absolute bottom-12 left-12 right-12">
+                                <span
+                                    class="text-[10px] font-black uppercase tracking-[0.4em] text-violet-400 mb-4 block">New
+                                    Launch</span>
+                                <h3 class="text-3xl font-black text-white leading-tight">Mastering Autonomous <br>
+                                    Business Systems</h3>
+                            </div>
+                        </div>
                     </div>
-                    <div class="absolute w-72 h-[450px] glass-premium rounded-3xl animate-float rotate-6 translate-x-[40px] translate-y-20"
-                        style="animation-delay: -3s;"></div>
-                    <div class="absolute w-64 h-64 glass-premium rounded-full flex items-center justify-center -translate-y-20 animate-float"
-                        style="animation-delay: -6s;">
-                        <div class="text-white/20 text-6xl">⬥</div>
+                    <!-- Advanced 3D Interactive Elements -->
+                    <div
+                        class="absolute -top-12 -right-12 w-64 h-64 bg-violet-600/10 rounded-full blur-3xl animate-pulse">
+                    </div>
+                    <div
+                        class="absolute top-1/2 -left-16 glass-card p-6 rounded-3xl animate-float-3d shadow-2xl backdrop-blur-xl border border-white/20">
+                        <div class="flex items-center space-x-4">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-violet-600 flex items-center justify-center text-white text-xl">
+                                🎓</div>
+                            <div>
+                                <div class="text-sm font-black text-navy-900">5k+ Alumni</div>
+                                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Global Reach
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Positioning Section -->
-    <section class="py-32 px-8 border-t border-white/5" id="capability-stack">
+    <!-- Master Syllabus Vertical Grid -->
+    <section class="py-32 px-6 bg-white" id="syllabus">
         <div class="max-w-7xl mx-auto">
-            <div class="grid lg:grid-cols-2 gap-12 items-end mb-24">
-                <div>
-                    <span class="text-[10px] font-black uppercase tracking-[0.4em] text-violet-500 block mb-4">Core
-                        Positioning</span>
-                    <h2 class="text-5xl md:text-7xl font-black font-display tracking-tight leading-none">The Capability
-                        <br> Stack
-                    </h2>
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-8 reveal">
+                <div class="max-w-3xl">
+                    <span class="text-[10px] font-black uppercase tracking-[0.5em] text-violet-600 block mb-6">Execution
+                        Curriculum</span>
+                    <h2 class="text-5xl md:text-8xl font-black font-display tracking-tight leading-[1] text-navy-900">
+                        Master <br> <span class="gradient-text-animated">Syllabus</span></h2>
                 </div>
-                <div class="pb-2">
-                    <p class="text-xl text-slate-400 font-light max-w-md leading-relaxed italic">
-                        “One partner. Every capability required to build, scale, and dominate global markets.”
+                <div class="max-w-sm">
+                    <p
+                        class="text-lg text-slate-500 font-medium leading-relaxed italic border-l-4 border-violet-600 pl-8">
+                        "We don't teach. We deploy talent into the most aggressive technology verticals on earth."
                     </p>
                 </div>
             </div>
 
-            <!-- Service Universe -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-                <!-- 1. Branding -->
-                <div
-                    class="tilt-card glass p-10 rounded-2xl group cursor-default hover:border-violet-500/50 transition-all duration-500">
-                    <div class="text-violet-500 mb-6 text-sm font-black tracking-widest">01 / BRANDING & IDENTITY</div>
-                    <h3 class="text-3xl font-bold mb-6 group-hover:text-violet-400 transition-colors">Global Image</h3>
-                    <div class="space-y-3">
-                        <p class="text-sm text-slate-500 font-light">• Strategy & Position</p>
-                        <p class="text-sm text-slate-500 font-light">• Visual Identity Systems</p>
-                        <p class="text-sm text-slate-500 font-light">• Messaging & Tone</p>
-                        <p class="text-sm text-slate-500 font-light">• Pitch & Investor Design</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Vertical 1: AI & Machine Learning -->
+                <div class="card-3d reveal group">
+                    <div class="card-inner p-10 h-full flex flex-col">
+                        <div class="flex items-center space-x-4 mb-8">
+                            <div
+                                class="w-14 h-14 rounded-2xl bg-violet-600 text-white flex items-center justify-center text-2xl shadow-lg shadow-violet-200 group-hover:rotate-12 transition-transform">
+                                🤖</div>
+                            <h3 class="text-2xl font-black text-navy-900 tracking-tighter">AI / ML <br> Programs</h3>
+                        </div>
+                        <div class="flex items-center space-x-2 mb-6 text-xs font-bold">
+                            <div class="flex text-amber-500">★★★★★</div>
+                            <span class="text-navy-900 font-black">4.7/5</span>
+                        </div>
+                        <ul class="space-y-4 mb-10 flex-grow">
+                            <li class="flex items-center space-x-3 text-sm font-bold text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-violet-400"></span>
+                                <span>Foundations & Math</span>
+                            </li>
+                            <li class="flex items-center space-x-3 text-sm font-bold text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-violet-400"></span>
+                                <span>Machine Learning with Python</span>
+                            </li>
+                            <li class="flex items-center space-x-3 text-sm font-bold text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-violet-400"></span>
+                                <span>Deep Learning Spec</span>
+                            </li>
+                            <li class="flex items-center space-x-3 text-sm font-bold text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-violet-400"></span>
+                                <span>Computer Vision</span>
+                            </li>
+                        </ul>
+                        <button onclick="openEnrollment('ai_ml')"
+                            class="w-full py-4 rounded-xl bg-violet-600 text-white text-center font-black uppercase text-[10px] tracking-widest hover:bg-navy-900 transition-all shadow-xl shadow-violet-200">Enroll
+                            Now</button>
                     </div>
-                    <div
-                        class="mt-8 pt-8 border-t border-white/5 text-[10px] font-bold text-slate-600 uppercase tracking-widest group-hover:text-white transition-colors">
-                        Available at Scale</div>
                 </div>
 
-                <!-- 2. Content -->
-                <div
-                    class="tilt-card glass p-10 rounded-2xl group cursor-default hover:border-violet-500/50 transition-all duration-500">
-                    <div class="text-violet-500 mb-6 text-sm font-black tracking-widest">02 / CONTENT SYSTEMS</div>
-                    <h3 class="text-3xl font-bold mb-6 group-hover:text-violet-400 transition-colors">Narrative Ops</h3>
-                    <div class="space-y-3">
-                        <p class="text-sm text-slate-500 font-light">• Viral Growth Strategy</p>
-                        <p class="text-sm text-slate-500 font-light">• Multi-channel Mgmt</p>
-                        <p class="text-sm text-slate-500 font-light">• High-end Content Prod</p>
-                        <p class="text-sm text-slate-500 font-light">• Community Engineering</p>
+                <!-- Vertical 2: Generative AI & LLMs -->
+                <div class="card-3d reveal group">
+                    <div class="card-inner p-10 h-full flex flex-col">
+                        <div class="flex items-center space-x-4 mb-8">
+                            <div
+                                class="w-14 h-14 rounded-2xl bg-sky-600 text-white flex items-center justify-center text-2xl shadow-lg shadow-sky-200 group-hover:rotate-12 transition-transform">
+                                ⚡</div>
+                            <h3 class="text-2xl font-black text-navy-900 tracking-tighter">Generative AI <br> & LLM Ops
+                            </h3>
+                        </div>
+                        <div class="flex items-center space-x-2 mb-6 text-xs font-bold">
+                            <div class="flex text-amber-500">★★★★★</div>
+                            <span class="text-navy-900 font-black">4.8/5</span>
+                        </div>
+                        <ul class="space-y-4 mb-10 flex-grow">
+                            <li class="flex items-center space-x-3 text-sm font-bold text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+                                <span>Generative Engineering</span>
+                            </li>
+                            <li class="flex items-center space-x-3 text-sm font-bold text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+                                <span>LLM Development</span>
+                            </li>
+                            <li class="flex items-center space-x-3 text-sm font-bold text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+                                <span>Prompt Engineering</span>
+                            </li>
+                            <li class="flex items-center space-x-3 text-sm font-bold text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+                                <span>RAG System Design</span>
+                            </li>
+                        </ul>
+                        <button onclick="openEnrollment('gen_ai')"
+                            class="w-full py-4 rounded-xl bg-sky-600 text-white text-center font-black uppercase text-[10px] tracking-widest hover:bg-navy-900 transition-all shadow-xl shadow-sky-200">Enroll
+                            Now</button>
                     </div>
-                    <div
-                        class="mt-8 pt-8 border-t border-white/5 text-[10px] font-bold text-slate-600 uppercase tracking-widest group-hover:text-white transition-colors">
-                        Strategic Distribution</div>
                 </div>
 
-                <!-- 3. Search -->
-                <div
-                    class="tilt-card glass p-10 rounded-2xl group cursor-default hover:border-violet-500/50 transition-all duration-500">
-                    <div class="text-violet-500 mb-6 text-sm font-black tracking-widest">03 / SEARCH & AEO</div>
-                    <h3 class="text-3xl font-bold mb-6 group-hover:text-violet-400 transition-colors">Visibility Engine
-                    </h3>
-                    <div class="space-y-3">
-                        <p class="text-sm text-slate-500 font-light">• Technical SEO</p>
-                        <p class="text-sm text-slate-500 font-light">• AI Search (AEO)</p>
-                        <p class="text-sm text-slate-500 font-light">• Local GEO Strategy</p>
-                        <p class="text-sm text-slate-500 font-light">• Sentiment Optimization</p>
+                <!-- Vertical 3: Business Analyst -->
+                <div class="card-3d reveal group">
+                    <div class="card-inner p-10 h-full flex flex-col">
+                        <div class="flex items-center space-x-4 mb-8">
+                            <div
+                                class="w-14 h-14 rounded-2xl bg-indigo-600 text-white flex items-center justify-center text-2xl shadow-lg shadow-indigo-200 group-hover:rotate-12 transition-transform">
+                                📊</div>
+                            <h3 class="text-2xl font-black text-navy-900 tracking-tighter">Business <br> Analyst</h3>
+                        </div>
+                        <div class="flex items-center space-x-2 mb-6 text-xs font-bold">
+                            <div class="flex text-amber-500">★★★★</div>
+                            <span class="text-navy-900 font-black">4.4/5</span>
+                        </div>
+                        <ul class="space-y-4 mb-10 flex-grow">
+                            <li class="flex items-center space-x-3 text-sm font-bold text-slate-600 underline">
+                                <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+                                <span>Basic to Advanced MS Excel</span>
+                            </li>
+                            <li class="flex items-center space-x-3 text-sm font-bold text-slate-600 underline">
+                                <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+                                <span>Power BI</span>
+                            </li>
+                            <li class="flex items-center space-x-3 text-sm font-bold text-slate-600 underline">
+                                <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+                                <span>Business Guidance</span>
+                            </li>
+                        </ul>
+                        <button onclick="openEnrollment('analytics')"
+                            class="w-full py-4 rounded-xl bg-indigo-600 text-white text-center font-black uppercase text-[10px] tracking-widest hover:bg-navy-900 transition-all shadow-xl shadow-indigo-200">Enroll
+                            Now</button>
                     </div>
-                    <div
-                        class="mt-8 pt-8 border-t border-white/5 text-[10px] font-bold text-slate-600 uppercase tracking-widest group-hover:text-white transition-colors">
-                        Algorithmic Dominance</div>
                 </div>
 
-                <!-- 4. Marketing -->
-                <div
-                    class="tilt-card glass p-10 rounded-2xl group cursor-default hover:border-violet-500/50 transition-all duration-500">
-                    <div class="text-violet-500 mb-6 text-sm font-black tracking-widest">04 / GROWTH OPS</div>
-                    <h3 class="text-3xl font-bold mb-6 group-hover:text-violet-400 transition-colors">Performance</h3>
-                    <div class="space-y-3">
-                        <p class="text-sm text-slate-500 font-light">• Global Paid Media</p>
-                        <p class="text-sm text-slate-500 font-light">• Funnel Architecture</p>
-                        <p class="text-sm text-slate-500 font-light">• Email Automation</p>
-                        <p class="text-sm text-slate-500 font-light">• Converstion Optim</p>
+                <!-- Vertical 4: Software Engineering -->
+                <div class="card-3d reveal group">
+                    <div class="card-inner p-10 h-full flex flex-col">
+                        <div class="flex items-center space-x-4 mb-8">
+                            <div
+                                class="w-14 h-14 rounded-2xl bg-navy-900 text-white flex items-center justify-center text-2xl shadow-lg shadow-navy-200 group-hover:rotate-12 transition-transform">
+                                💻</div>
+                            <h3 class="text-2xl font-black text-navy-900 tracking-tighter">Full Stack <br> Engineering
+                            </h3>
+                        </div>
+                        <div class="flex items-center space-x-2 mb-6 text-xs font-bold">
+                            <div class="flex text-amber-500">★★★★★</div>
+                            <span class="text-navy-900 font-black">4.5/5</span>
+                        </div>
+                        <ul class="space-y-4 mb-10 flex-grow">
+                            <li class="flex items-center space-x-3 text-sm font-bold text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-navy-400"></span>
+                                <span>Advanced Frontend (React)</span>
+                            </li>
+                            <li class="flex items-center space-x-3 text-sm font-bold text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-navy-400"></span>
+                                <span>API Engineering</span>
+                            </li>
+                            <li class="flex items-center space-x-3 text-sm font-bold text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-navy-400"></span>
+                                <span>Full Stack Web Development</span>
+                            </li>
+                            <li class="flex items-center space-x-3 text-sm font-bold text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-navy-400"></span>
+                                <span>MERN Stack Mastery</span>
+                            </li>
+                        </ul>
+                        <button onclick="openEnrollment('fullstack')"
+                            class="w-full py-4 rounded-xl bg-navy-900 text-white text-center font-black uppercase text-[10px] tracking-widest hover:bg-violet-600 transition-all shadow-xl shadow-navy-200">Enroll
+                            Now</button>
                     </div>
-                    <div
-                        class="mt-8 pt-8 border-t border-white/5 text-[10px] font-bold text-slate-600 uppercase tracking-widest group-hover:text-white transition-colors">
-                        Revenue Acceleration</div>
                 </div>
 
-                <!-- 5. Web Dev -->
-                <div
-                    class="tilt-card glass p-10 rounded-2xl group cursor-default hover:border-violet-500/50 transition-all duration-500">
-                    <div class="text-violet-500 mb-6 text-sm font-black tracking-widest">05 / WEB & SaaS</div>
-                    <h3 class="text-3xl font-bold mb-6 group-hover:text-violet-400 transition-colors">Platforms</h3>
-                    <div class="space-y-3">
-                        <p class="text-sm text-slate-500 font-light">• Custom Web Systems</p>
-                        <p class="text-sm text-slate-500 font-light">• SaaS MVP & Scale</p>
-                        <p class="text-sm text-slate-500 font-light">• Enterprise Dashboards</p>
-                        <p class="text-sm text-slate-500 font-light">• Cloud Infrastructure</p>
+                <!-- Vertical 5: Cloud & Cybersecurity -->
+                <div class="card-3d reveal group">
+                    <div class="card-inner p-10 h-full flex flex-col">
+                        <div class="flex items-center space-x-4 mb-8">
+                            <div
+                                class="w-14 h-14 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-2xl shadow-lg shadow-emerald-200 group-hover:rotate-12 transition-transform">
+                                🛡️</div>
+                            <h3 class="text-2xl font-black text-navy-900 tracking-tighter">Cloud / DevOps <br> & Cyber
+                            </h3>
+                        </div>
+                        <div class="flex items-center space-x-2 mb-6 text-xs font-bold">
+                            <div class="flex text-amber-500">★★★★★</div>
+                            <span class="text-navy-900 font-black">4.3/5</span>
+                        </div>
+                        <ul class="space-y-4 mb-10 flex-grow">
+                            <li class="flex items-center space-x-3 text-sm font-bold text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                <span>Cloud Computing (AWS)</span>
+                            </li>
+                            <li class="flex items-center space-x-3 text-sm font-bold text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                <span>DevOps & CI/CD Ops</span>
+                            </li>
+                            <li class="flex items-center space-x-3 text-sm font-bold text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                <span>Secure AI Systems</span>
+                            </li>
+                            <li class="flex items-center space-x-3 text-sm font-bold text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                <span>Cybersecurity Fundamentals</span>
+                            </li>
+                        </ul>
+                        <button onclick="openEnrollment('devops')"
+                            class="w-full py-4 rounded-xl bg-emerald-600 text-white text-center font-black uppercase text-[10px] tracking-widest hover:bg-navy-900 transition-all shadow-xl shadow-emerald-200">Enroll
+                            Now</button>
                     </div>
-                    <div
-                        class="mt-8 pt-8 border-t border-white/5 text-[10px] font-bold text-slate-600 uppercase tracking-widest group-hover:text-white transition-colors">
-                        Digital Foundations</div>
                 </div>
 
-                <!-- 6. App Dev -->
-                <div
-                    class="tilt-card glass p-10 rounded-2xl group cursor-default hover:border-violet-500/50 transition-all duration-500">
-                    <div class="text-violet-500 mb-6 text-sm font-black tracking-widest">06 / APP DEVELOPMENT</div>
-                    <h3 class="text-3xl font-bold mb-6 group-hover:text-violet-400 transition-colors">Ecosystems</h3>
-                    <div class="space-y-3">
-                        <p class="text-sm text-slate-500 font-light">• Native iOS & Android</p>
-                        <p class="text-sm text-slate-500 font-light">• Cross-Platform Apps</p>
-                        <p class="text-sm text-slate-500 font-light">• AI Native Mobile</p>
-                        <p class="text-sm text-slate-500 font-light">• Startup & Ent. MVPs</p>
+                <!-- Vertical 6: Industry Capstone Labs -->
+                <div class="card-3d reveal group">
+                    <div class="card-inner p-10 h-full flex flex-col">
+                        <div class="flex items-center space-x-4 mb-8">
+                            <div
+                                class="w-14 h-14 rounded-2xl bg-orange-600 text-white flex items-center justify-center text-2xl shadow-lg shadow-orange-200 group-hover:rotate-12 transition-transform">
+                                🚀</div>
+                            <h3 class="text-2xl font-black text-navy-900 tracking-tighter">Industry <br> Capstone Labs
+                            </h3>
+                        </div>
+                        <div class="flex items-center space-x-2 mb-6 text-xs font-bold">
+                            <div class="flex text-amber-500">★★★★★</div>
+                            <span class="text-navy-900 font-black">4.8/5</span>
+                        </div>
+                        <ul class="space-y-4 mb-10 flex-grow">
+                            <li class="flex items-center space-x-3 text-sm font-bold text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-400"></span>
+                                <span>Real-world Industry Projects</span>
+                            </li>
+                            <li class="flex items-center space-x-3 text-sm font-bold text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-400"></span>
+                                <span>AI Product Build Lab</span>
+                            </li>
+                            <li class="flex items-center space-x-3 text-sm font-bold text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-400"></span>
+                                <span>Deployment & Portfolio</span>
+                            </li>
+                            <li class="flex items-center space-x-3 text-sm font-bold text-slate-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-orange-400"></span>
+                                <span>Industry Mentorship</span>
+                            </li>
+                        </ul>
+                        <button onclick="openEnrollment('lab')"
+                            class="w-full py-4 rounded-xl bg-orange-600 text-white text-center font-black uppercase text-[10px] tracking-widest hover:bg-navy-900 transition-all shadow-xl shadow-orange-200">Enroll
+                            Now</button>
                     </div>
-                    <div
-                        class="mt-8 pt-8 border-t border-white/5 text-[10px] font-bold text-slate-600 uppercase tracking-widest group-hover:text-white transition-colors">
-                        Mobile First</div>
-                </div>
-
-                <!-- 7. AI Auto -->
-                <div
-                    class="tilt-card glass p-10 rounded-2xl group cursor-default hover:border-violet-500/50 transition-all duration-500">
-                    <div class="text-violet-500 mb-6 text-sm font-black tracking-widest">07 / AI & AUTOMATION</div>
-                    <h3 class="text-3xl font-bold mb-6 group-hover:text-violet-400 transition-colors">Intelligence</h3>
-                    <div class="space-y-3">
-                        <p class="text-sm text-slate-500 font-light">• Custom AI Agents</p>
-                        <p class="text-sm text-slate-500 font-light">• CRM / Sales Auto</p>
-                        <p class="text-sm text-slate-500 font-light">• AI Voice Systems</p>
-                        <p class="text-sm text-slate-500 font-light">• Internal Operations</p>
-                    </div>
-                    <div
-                        class="mt-8 pt-8 border-t border-white/5 text-[10px] font-bold text-slate-600 uppercase tracking-widest group-hover:text-white transition-colors">
-                        Autonomous Future</div>
-                </div>
-
-                <!-- 8. RevOps -->
-                <div
-                    class="tilt-card glass p-10 rounded-2xl group cursor-default hover:border-violet-500/50 transition-all duration-500">
-                    <div class="text-violet-500 mb-6 text-sm font-black tracking-widest">08 / REVENUE OPS</div>
-                    <h3 class="text-3xl font-bold mb-6 group-hover:text-violet-400 transition-colors">Yield</h3>
-                    <div class="space-y-3">
-                        <p class="text-sm text-slate-500 font-light">• Sales Pipelines</p>
-                        <p class="text-sm text-slate-500 font-light">• Billing & Sub Systems</p>
-                        <p class="text-sm text-slate-500 font-light">• RevAnalytics</p>
-                        <p class="text-sm text-slate-500 font-light">• Systems Consulting</p>
-                    </div>
-                    <div
-                        class="mt-8 pt-8 border-t border-white/5 text-[10px] font-bold text-slate-600 uppercase tracking-widest group-hover:text-white transition-colors">
-                        Capital Efficiency</div>
-                </div>
-
-                <!-- 9. Enterprise -->
-                <div
-                    class="tilt-card glass p-10 rounded-2xl group cursor-default border-violet-500/30 bg-violet-500/[0.05] transition-all duration-500">
-                    <div class="text-violet-400 mb-6 text-sm font-black tracking-widest">09 / STRATEGIC SERVICES</div>
-                    <h3 class="text-3xl font-bold mb-6 text-white group-hover:text-violet-300 transition-colors">
-                        Transformation</h3>
-                    <div class="space-y-3">
-                        <p class="text-sm text-slate-300 font-light">• CTO/CMO-as-Service</p>
-                        <p class="text-sm text-slate-300 font-light">• Governments & Institutions</p>
-                        <p class="text-sm text-slate-300 font-light">• White-label Infrastructure</p>
-                        <p class="text-sm text-slate-300 font-light">• Founder Mentorship</p>
-                    </div>
-                    <div
-                        class="mt-8 pt-8 border-t border-white/10 text-[10px] font-bold text-violet-400 uppercase tracking-widest">
-                        High-Side Access</div>
                 </div>
             </div>
 
-            <!-- Summary stats or note -->
-            <div class="text-center">
-                <p class="text-[11px] font-black uppercase tracking-[0.5em] text-slate-600">Total Discrete Modules: 72 |
-                    Global Availability: 24/7</p>
+            <!-- Scalable Institutional Integration -->
+            <div id="institutional"
+                class="mt-48 bg-navy-900 rounded-[60px] p-12 md:p-24 relative overflow-hidden group reveal">
+                <div
+                    class="absolute inset-0 bg-gradient-to-br from-violet-600/30 via-transparent to-indigo-600/30 opacity-0 group-hover:opacity-100 transition-opacity duration-1000">
+                </div>
+
+                <div class="relative z-10 grid lg:grid-cols-2 gap-20 items-center">
+                    <div>
+                        <span
+                            class="text-[10px] font-black uppercase tracking-[0.5em] text-violet-400 block mb-8">Industrial
+                            Partnerships</span>
+                        <h2 class="text-4xl md:text-7xl font-display font-black text-white leading-[1] mb-10">Scalable
+                            Course <br> <span class="text-violet-400">Integration</span></h2>
+                        <p class="text-xl text-slate-400 font-light mb-12 leading-relaxed">
+                            We provide white-labeled course modules and expert-led curriculum for universities and
+                            training centers globally. Transform your degree into an execution engine.
+                        </p>
+                        <div class="flex flex-wrap gap-8">
+                            <a href="/contact"
+                                class="btn-luxury bg-white text-navy-900 hover:bg-violet-600 hover:text-white">Partner
+                                Inquiry</a>
+                            <div class="flex -space-x-4 items-center">
+                                <div class="w-12 h-12 rounded-full border-2 border-navy-900 bg-slate-200"></div>
+                                <div class="w-12 h-12 rounded-full border-2 border-navy-900 bg-slate-300"></div>
+                                <div
+                                    class="w-12 h-12 rounded-full border-2 border-navy-900 bg-slate-400 text-[10px] flex items-center justify-center font-black">
+                                    +12 Labs</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hidden lg:block perspective-container">
+                        <div
+                            class="w-full aspect-square bg-white/5 border border-white/10 rounded-[60px] p-4 group-hover:rotate-2 transition-transform duration-700 relative">
+                            <div
+                                class="absolute inset-0 flex items-center justify-center text-[180px] opacity-20 filter grayscale">
+                                🏛</div>
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-navy-900/80 to-transparent flex items-end p-12">
+                                <div class="text-white">
+                                    <div class="text-5xl font-black mb-2 tracking-tighter">Enterprise L&D</div>
+                                    <div
+                                        class="text-slate-400 font-bold uppercase tracking-widest text-xs font-display">
+                                        Bespoke Scalable Learning</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Why Section -->
-    <section class="py-32 px-8 bg-neutral-950/20 relative overflow-hidden">
-        <div class="spotlight -bottom-40 right-0"></div>
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-16 items-center">
-            <div class="md:w-1/2">
-                <span class="text-[10px] font-black uppercase tracking-[0.4em] text-violet-500 block mb-6">Partnership
-                    Model</span>
-                <h2 class="text-5xl md:text-7xl font-display font-black tracking-tighter mb-8 leading-none">Why
-                    AlgoForce Labs</h2>
-                <p class="text-xl text-slate-400 font-light leading-relaxed">
-                    Systems over tactics. Intelligence over noise. We operate with the clinical precision of a top-tier
-                    management consultancy and the aggressive execution of a global technology hub.
+    <section class="py-40 px-8 bg-slate-50 overflow-hidden relative">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-24 items-center relative z-10">
+            <div class="lg:w-1/2 reveal">
+                <span class="text-[10px] font-black uppercase tracking-[0.5em] text-violet-600 block mb-6">The AlgoForce
+                    Edge</span>
+                <h2
+                    class="text-5xl md:text-7xl font-display font-black text-navy-900 leading-[1] mb-8 tracking-tighter">
+                    Why Our <br> <span class="gradient-text-animated">Programs?</span></h2>
+                <p class="text-xl text-slate-600 font-light leading-relaxed max-w-xl">
+                    We don't teach. We architect careers. Our programs are designed by the same engineers building AI
+                    systems for global enterprises.
                 </p>
             </div>
-            <div class="md:w-1/2 grid grid-cols-1 gap-6">
-                <!-- Why Cards -->
-                <div class="flex items-start gap-6 glass p-8 rounded-2xl">
-                    <div class="text-2xl pt-1">✔</div>
-                    <div>
-                        <h4 class="text-xl font-bold mb-2">Not vendors. Strategic partners.</h4>
-                        <p class="text-slate-500 font-light">We take responsibility for outcomes, not just deliverables.
-                        </p>
+            <div class="lg:w-1/2 grid grid-cols-1 gap-8">
+                <div class="card-3d reveal group">
+                    <div class="card-inner flex items-start gap-8">
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-2xl group-hover:bg-indigo-600 group-hover:text-white transition-all duration-500">
+                            🎯</div>
+                        <div>
+                            <h4 class="text-2xl font-bold text-navy-900 mb-2">Project-Driven Only</h4>
+                            <p class="text-slate-500 leading-relaxed font-medium">90% of your time is spent executing on
+                                real business problems, not watching videos.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="flex items-start gap-6 glass p-8 rounded-2xl">
-                    <div class="text-2xl pt-1 text-violet-500 font-black">AI-first, not AI-added.</div>
-                    <div>
-                        <h4 class="text-xl font-bold mb-2">Native Intelligence</h4>
-                        <p class="text-slate-500 font-light">AI is baked into the kernel of every system we architect.
-                        </p>
+                <div class="card-3d reveal group scale-105 shadow-xl shadow-slate-200">
+                    <div class="card-inner flex items-start gap-8">
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-violet-50 text-violet-600 flex items-center justify-center text-2xl group-hover:bg-violet-600 group-hover:text-white transition-all duration-500">
+                            ⚡</div>
+                        <div>
+                            <h4 class="text-2xl font-bold text-navy-900 mb-2">AI-Native Workflow</h4>
+                            <p class="text-slate-500 leading-relaxed font-medium">Learn to use AI agents to 10x your
+                                output.
+                                We don't fear AI; we engineer with it.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="flex items-start gap-6 glass p-8 rounded-2xl">
-                    <div class="text-2xl pt-1">🚀</div>
-                    <div>
-                        <h4 class="text-xl font-bold mb-2">Built for scale, not experiments.</h4>
-                        <p class="text-slate-500 font-light">Every module is stress-tested for global enterprise
-                            deployment.</p>
+                <div class="card-3d reveal group">
+                    <div class="card-inner flex items-start gap-8">
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-2xl group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">
+                            🚀</div>
+                        <div>
+                            <h4 class="text-2xl font-bold text-navy-900 mb-2">Global Network</h4>
+                            <p class="text-slate-500 leading-relaxed font-medium">Access our proprietary network of
+                                founders, scaleups, and hiring partners across the globe.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Who We Work With -->
-    <section class="py-32 px-8">
+    <!-- Career Pathways -->
+    <section class="py-32 px-8 bg-white">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-24">
-                <h2 class="text-5xl font-display font-black mb-6 tracking-tight">Ecosystem Tiers</h2>
-                <div class="h-px w-24 bg-violet-600 mx-auto opacity-50"></div>
+            <div class="text-center mb-24 reveal">
+                <h2 class="text-5xl font-display font-black text-navy-900 mb-6 tracking-tight">Placement Ecosystem</h2>
+                <div class="h-1.5 w-24 bg-gradient-to-r from-violet-600 to-indigo-600 mx-auto rounded-full"></div>
             </div>
-            <div class="grid grid-cols-2 lg:grid-cols-5 gap-8">
-                <div class="text-center group">
+            <div class="grid grid-cols-2 lg:grid-cols-5 gap-12">
+                <div class="text-center group flex flex-col items-center reveal">
                     <div
-                        class="w-16 h-16 rounded-full glass mx-auto flex items-center justify-center mb-6 group-hover:border-violet-500 transition-colors">
-                        <span class="text-lg">✦</span>
+                        class="w-24 h-24 rounded-3xl bg-slate-50 flex items-center justify-center mb-6 group-hover:bg-white group-hover:shadow-2xl group-hover:-translate-y-2 transition-all duration-500 border border-slate-100">
+                        <span class="text-4xl">🚀</span>
                     </div>
-                    <span class="text-[10px] font-black uppercase tracking-widest text-slate-500">Founders</span>
+                    <span
+                        class="text-[11px] font-black uppercase tracking-widest text-slate-400 group-hover:text-violet-600 transition-colors">AI
+                        Startups</span>
                 </div>
-                <div class="text-center group">
+                <div class="text-center group flex flex-col items-center reveal">
                     <div
-                        class="w-16 h-16 rounded-full glass mx-auto flex items-center justify-center mb-6 group-hover:border-violet-500 transition-colors">
-                        <span class="text-lg">▲</span>
+                        class="w-24 h-24 rounded-3xl bg-slate-50 flex items-center justify-center mb-6 group-hover:bg-white group-hover:shadow-2xl group-hover:-translate-y-2 transition-all duration-500 border border-slate-100">
+                        <span class="text-4xl">🏦</span>
                     </div>
-                    <span class="text-[10px] font-black uppercase tracking-widest text-slate-500">Scaleups</span>
+                    <span
+                        class="text-[11px] font-black uppercase tracking-widest text-slate-400 group-hover:text-violet-600 transition-colors">FinTech</span>
                 </div>
-                <div class="text-center group">
+                <div class="text-center group flex flex-col items-center reveal">
                     <div
-                        class="w-16 h-16 rounded-full glass mx-auto flex items-center justify-center mb-6 group-hover:border-violet-500 transition-colors">
-                        <span class="text-lg">⬢</span>
+                        class="w-24 h-24 rounded-3xl bg-slate-50 flex items-center justify-center mb-6 group-hover:bg-white group-hover:shadow-2xl group-hover:-translate-y-2 transition-all duration-500 border border-slate-100">
+                        <span class="text-4xl">📊</span>
                     </div>
-                    <span class="text-[10px] font-black uppercase tracking-widest text-slate-500">Enterprises</span>
+                    <span
+                        class="text-[11px] font-black uppercase tracking-widest text-slate-400 group-hover:text-violet-600 transition-colors">Data
+                        Corps</span>
                 </div>
-                <div class="text-center group">
+                <div class="text-center group flex flex-col items-center reveal">
                     <div
-                        class="w-16 h-16 rounded-full glass mx-auto flex items-center justify-center mb-6 group-hover:border-violet-500 transition-colors">
-                        <span class="text-lg">🏛</span>
+                        class="w-24 h-24 rounded-3xl bg-slate-50 flex items-center justify-center mb-6 group-hover:bg-white group-hover:shadow-2xl group-hover:-translate-y-2 transition-all duration-500 border border-slate-100">
+                        <span class="text-4xl">🏛</span>
                     </div>
-                    <span class="text-[10px] font-black uppercase tracking-widest text-slate-500">Governments</span>
+                    <span
+                        class="text-[11px] font-black uppercase tracking-widest text-slate-400 group-hover:text-violet-600 transition-colors">Gov-Tech</span>
                 </div>
-                <div class="text-center group">
+                <div class="text-center group flex flex-col items-center reveal">
                     <div
-                        class="w-16 h-16 rounded-full glass mx-auto flex items-center justify-center mb-6 group-hover:border-violet-500 transition-colors">
-                        <span class="text-lg">∞</span>
+                        class="w-24 h-24 rounded-3xl bg-slate-50 flex items-center justify-center mb-6 group-hover:bg-white group-hover:shadow-2xl group-hover:-translate-y-2 transition-all duration-500 border border-slate-100">
+                        <span class="text-4xl">☁</span>
                     </div>
-                    <span class="text-[10px] font-black uppercase tracking-widest text-slate-500">Agencies</span>
+                    <span
+                        class="text-[11px] font-black uppercase tracking-widest text-slate-400 group-hover:text-violet-600 transition-colors">Global
+                        SaaS</span>
                 </div>
             </div>
         </div>
@@ -605,8 +850,8 @@
 
     <!-- Philosophy -->
     <section class="py-48 px-8 relative overflow-hidden" id="philosophy">
-        <div class="max-w-7xl mx-auto text-center relative z-10">
-            <div class="inline-block glass-premium p-16 md:p-24 rounded-[40px] border-white/10 transform -rotate-1">
+        <div class="max-w-7xl mx-auto text-center relative z-10 reveal">
+            <div class="glass-card p-16 md:p-24 rounded-[40px] border-white/10 transform -rotate-1">
                 <h3
                     class="text-4xl md:text-6xl font-display font-black italic mb-12 tracking-tighter opacity-90 leading-none">
                     “Build systems that outlast trends.” <br>
@@ -621,89 +866,428 @@
     </section>
 
     <!-- CTA -->
-    <section class="py-32 px-8">
+    <section class="py-40 px-8">
         <div
-            class="max-w-5xl mx-auto glass-premium p-16 md:p-20 rounded-3xl text-center border-violet-500/20 relative overflow-hidden">
-            <div class="spotlight -top-40 left-1/2 -translate-x-1/2"></div>
-            <h2 class="text-4xl md:text-6xl font-display font-black mb-8 tracking-tighter">Ready to Build What Others
-                Can’t?</h2>
-            <p class="text-xl text-slate-400 mb-12 font-light max-w-2xl mx-auto">
-                Secure your position in the next era of digital dominance. Request a full capability audit or initiate a
-                strategic partnership.
-            </p>
-            <div class="flex flex-wrap justify-center gap-6">
-                <a href="/contact" class="btn-enterprise">Partner with AlgoForce Labs</a>
-                <a href="/contact" class="btn-outline">Request Capability Audit</a>
+            class="max-w-5xl mx-auto bg-gradient-to-br from-violet-600 to-indigo-700 p-16 md:p-24 rounded-[60px] text-center relative overflow-hidden shadow-2xl shadow-violet-500/30 reveal">
+            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10">
+            </div>
+            <div class="relative z-10">
+                <h2 class="text-4xl md:text-7xl font-display font-black mb-8 text-white tracking-tighter">Ready to <span
+                        class="text-violet-200 italic">Execute?</span></h2>
+                <p class="text-xl text-violet-100 mb-12 font-medium max-w-2xl mx-auto opacity-90">
+                    Secure your seat in the upcoming cohort. All programs include lifetime access to the AlgoForce
+                    execution network.
+                </p>
+                <div class="flex flex-wrap justify-center gap-6">
+                    <a href="#academy"
+                        class="btn-luxury bg-white text-violet-600 hover:bg-navy-900 hover:text-white">Browse
+                        All Programs</a>
+                    <a href="/contact"
+                        class="btn-luxury bg-transparent border border-white/30 text-white hover:bg-white/10">Institutional
+                        Inquiry</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="py-12 px-8 border-t border-white/5 text-center">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="text-[10px] font-bold uppercase tracking-widest text-slate-600">
-                &copy; 2026 AlgoForce AI. All Rights Reserved. Private & Confidential.
+    <!-- Massive Professional Footer -->
+    <footer class="bg-navy-900 pt-32 pb-16 px-8 text-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-16 mb-24">
+                <!-- Brand Info -->
+                <div class="lg:col-span-2">
+                    <a href="/" class="flex items-center space-x-3 mb-10">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-violet-600 flex items-center justify-center font-black text-white text-base">
+                            A</div>
+                        <span class="text-2xl font-display font-black tracking-tight uppercase">AlgoForce <span
+                                class="text-violet-500">Labs</span></span>
+                    </a>
+                    <p class="text-slate-400 text-lg font-medium leading-relaxed mb-10 max-w-sm">
+                        Global Engineering Lab specializing in AI, Autonomous Systems, and Scalable Revenue OS. We build
+                        at scale and teach exactly how we do it.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-violet-600 transition-colors">𝕏</a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-violet-600 transition-colors">in</a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-violet-600 transition-colors">IG</a>
+                    </div>
+                </div>
+
+                <!-- Vertical Tracks -->
+                <div>
+                    <h4 class="text-xs font-black uppercase tracking-[0.2em] text-violet-500 mb-8">Verticals</h4>
+                    <ul class="space-y-4 text-sm font-bold text-slate-400">
+                        <li><a href="#syllabus" class="hover:text-white transition-colors">Artificial Intelligence</a>
+                        </li>
+                        <li><a href="#syllabus" class="hover:text-white transition-colors">Generative Systems</a></li>
+                        <li><a href="#syllabus" class="hover:text-white transition-colors">Data Engineering</a></li>
+                        <li><a href="#syllabus" class="hover:text-white transition-colors">Full Stack Labs</a></li>
+                    </ul>
+                </div>
+
+                <!-- Company -->
+                <div>
+                    <h4 class="text-xs font-black uppercase tracking-[0.2em] text-violet-500 mb-8">Company</h4>
+                    <ul class="space-y-4 text-sm font-bold text-slate-400">
+                        <li><a href="/contact" class="hover:text-white transition-colors">Institutional Partners</a>
+                        </li>
+                        <li><a href="/contact" class="hover:text-white transition-colors">Corporate Training</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Placement Network</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Methodology</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div>
+                    <h4 class="text-xs font-black uppercase tracking-[0.2em] text-violet-500 mb-8">Support</h4>
+                    <ul class="space-y-4 text-sm font-bold text-slate-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Enrollment Help</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Student Dashboard</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contact Support</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="flex space-x-8 text-[10px] font-bold uppercase tracking-widest text-slate-400">
-                <a href="#" class="hover:text-white transition-colors">Privacy</a>
-                <a href="#" class="hover:text-white transition-colors">Terms</a>
-                <a href="#" class="hover:text-white transition-colors">Systems Status</a>
+
+            <!-- Trust Bar -->
+            <div class="pt-16 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-10">
+                <div class="flex items-center space-x-12 opacity-50 grayscale">
+                    <span class="text-xs font-black uppercase tracking-widest">Powered by Stripe</span>
+                    <span class="text-xs font-black uppercase tracking-widest">AWS Partner</span>
+                    <span class="text-xs font-black uppercase tracking-widest">NVIDIA Inception</span>
+                </div>
+                <div class="text-[10px] font-black uppercase tracking-widest text-slate-500">
+                    &copy; 2024 AlgoForce labs. All Rights Reserved. Global HQ.
+                </div>
             </div>
         </div>
     </footer>
 
     <script>
-        // REVEAL ANIMATION
-        const observerOptions = {
-            threshold: 0.1
+        // STRIPE PAYMENT LINKS CONFIGURATION
+        const STRIPE_LINKS = {
+            analytics: "https://buy.stripe.com/8ae7un7HefXm3Re6oo",
+            ai_ml: "https://buy.stripe.com/5kA5mfcXy7qU5ZmcMN",
+            fullstack: "https://buy.stripe.com/7sI01V7HeeTi87u6op",
+            gen_ai: "https://buy.stripe.com/5kA5mfcXy7qU5ZmcMN", // Fallback to AI link
+            devops: "https://buy.stripe.com/7sI01V7HeeTi87u6op", // Fallback to FS link
+            lab: "https://buy.stripe.com/8ae7un7HefXm3Re6oo"     // Fallback to Analytics
         };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, observerOptions);
+        const COURSE_DETAILS = {
+            ai_ml: {
+                title: "Artificial Intelligence & Machine Learning",
+                desc: "Comprehensive masterclass on building and deploying industrial AI systems.",
+                tracks: ["AI Foundations", "Machine Learning with Python", "Deep Learning Specialization", "Neural Networks & Computer Vision", "NLP", "Reinforcement Learning"],
+                link: STRIPE_LINKS.ai_ml,
+                price: "$49",
+                original: "$199"
+            },
+            gen_ai: {
+                title: "Generative AI & LLM Engineering",
+                desc: "The bleeding edge of AI engineering. Build autonomous agents and LLM-powered SaaS.",
+                tracks: ["Generative AI Engineering", "LLM Development", "Fine-Tuning & Deployment", "RAG Systems", "Autonomous Workflows", "Multimodal AI"],
+                link: STRIPE_LINKS.gen_ai,
+                price: "$55",
+                original: "$249"
+            },
+            analytics: {
+                title: "Business Analyst Certification",
+                desc: "Master the data-driven decision making core: Data manipulation with Excel and Visualization with Power BI.",
+                tracks: ["Basic to Advanced MS Excel", "Power BI Mastery & Dashboard Design", "Business Guidance", "Automating Workflows"],
+                link: "https://buy.stripe.com/test_cNibJ08gTbnEaAS7Vg0Ny01",
+                price: "$2.8",
+                original: "$49"
+            },
+            fullstack: {
+                title: "Full Stack & Software Engineering",
+                desc: "Architect scalable, industrial-grade web applications.",
+                tracks: ["Next.js Specialist", "API Engineering", "Microservices Architecture", "Database Engineering", "Design Systems", "MERN Stack"],
+                link: STRIPE_LINKS.fullstack,
+                price: "$39",
+                original: "$159"
+            },
+            devops: {
+                title: "Cloud, DevOps & Cybersecurity",
+                desc: "The infrastructure of global technology.",
+                tracks: ["Cloud Computing (AWS/Azure)", "DevOps Engineering", "Kubernetes", "Secure AI Systems", "AI Governance", "Cybersecurity Fundamentals"],
+                link: STRIPE_LINKS.devops,
+                price: "$45",
+                original: "$179"
+            },
+            lab: {
+                title: "Capstone & Industry Labs",
+                desc: "Deployment-only environment for active builders.",
+                tracks: ["Real-world Industry Projects", "AI Product Build Lab", "Startup Builder Program", "Portfolio Development", "Industry Mentorship"],
+                link: STRIPE_LINKS.lab,
+                price: "$59",
+                original: "$299"
+            }
+        };
 
-        document.querySelectorAll('section, .tilt-card').forEach(el => {
-            el.classList.add('reveal');
-            observer.observe(el);
+        function openEnrollment(courseId) {
+            const course = COURSE_DETAILS[courseId];
+            const modalBody = document.getElementById('modalBody');
+
+            modalBody.innerHTML = `
+                <div>
+                    <span class="text-[10px] font-black uppercase tracking-[0.5em] text-violet-600 block mb-4">Course Enrollment</span>
+                    <h2 class="text-4xl md:text-5xl font-black text-navy-900 leading-tight mb-6">${course.title}</h2>
+                    <p class="text-lg text-slate-500 font-medium leading-relaxed">${course.desc}</p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-xs font-black uppercase tracking-widest text-navy-900 mb-6 border-b pb-4">Syllabus Breakdown</h4>
+                        <ul class="space-y-4">
+                            ${course.tracks.map(t => `
+                                <li class="flex items-center space-x-3 text-sm font-bold text-slate-600">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-violet-400"></span>
+                                    <span>${t}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 rounded-[30px] p-8 flex flex-col justify-center">
+                        <div class="mb-10">
+                            <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Investment</div>
+                            <div class="text-5xl font-black text-navy-900">${course.price} <span class="text-sm font-bold text-slate-300 line-through">${course.original}</span></div>
+                            <div class="text-xs font-bold text-violet-600 mt-2">Special Launch Pricing Active</div>
+                        </div>
+                        <a href="${course.link}" class="w-full py-5 rounded-2xl bg-navy-900 text-white text-center font-black uppercase text-xs tracking-widest hover:bg-violet-600 transition-all shadow-2xl block">Finalize Enrollment</a>
+                        <p class="text-[10px] text-center text-slate-400 mt-6 font-bold uppercase tracking-widest">Secure Payment Processing via Stripe</p>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('courseModal').classList.add('active');
+            lenis.stop(); // Stop scroll when modal open
+        }
+
+        document.getElementById('closeModal').addEventListener('click', () => {
+            document.getElementById('courseModal').classList.remove('active');
+            lenis.start();
         });
 
-        // 3D TILT EFFECT
-        const cards = document.querySelectorAll('.tilt-card');
-        cards.forEach(card => {
+        // Close on overlay click
+        document.getElementById('courseModal').addEventListener('click', (e) => {
+            if (e.target.id === 'courseModal') {
+                document.getElementById('courseModal').classList.remove('active');
+                lenis.start();
+            }
+        });
+
+        // 1. INITIALIZE LENIS SMOOTH SCROLL
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+            infinite: false,
+        });
+
+        // Sync ScrollTrigger with Lenis
+        lenis.on('scroll', ScrollTrigger.update);
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // 2. GSAP SCROLL PROGRESS
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Ensure ScrollTrigger uses Lenis for calculations
+        gsap.ticker.add((time) => {
+            lenis.raf(time * 1000)
+        });
+        gsap.ticker.lagSmoothing(0);
+
+        gsap.to('.scroll-progress-bar', {
+            scaleX: 1,
+            ease: 'none',
+            scrollTrigger: {
+                scrub: 0.3
+            }
+        });
+
+        // 3. CINEMATIC SECTION REVEALS (GSAP)
+        document.querySelectorAll('section').forEach((section) => {
+            const reveals = section.querySelectorAll('.reveal');
+            if (reveals.length > 0) {
+                gsap.from(reveals, {
+                    y: 60,
+                    opacity: 0,
+                    scale: 0.98,
+                    duration: 1.2,
+                    stagger: 0.15,
+                    ease: "power4.out",
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 85%",
+                        toggleActions: "play none none none"
+                    }
+                });
+            }
+        });
+
+        // 4. PARALLAX EFFECTS (GSAP)
+        gsap.utils.toArray('.floating-orb').forEach((orb, i) => {
+            gsap.to(orb, {
+                y: (i + 1) * 60,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "body",
+                    start: "top top",
+                    end: "bottom bottom",
+                    scrub: 1
+                }
+            });
+        });
+
+        // HERO MOCKUP FLOATING (GSAP)
+        gsap.to('.floating-window', {
+            y: -20,
+            rotationZ: 2,
+            duration: 3,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        });
+
+        // 5. MOUSE INTERACTORS
+        document.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            const xPos = (clientX / window.innerWidth - 0.5) * 2;
+            const yPos = (clientY / window.innerHeight - 0.5) * 2;
+
+            // 3D Mockup Rotation
+            const mockup = document.querySelector('.floating-window');
+            if (mockup) {
+                gsap.to(mockup, {
+                    rotationY: xPos * 25 - 20,
+                    rotationX: -yPos * 25 + 15,
+                    duration: 0.8,
+                    ease: "power2.out"
+                });
+            }
+
+            // Mesh Gradient Reactivity
+            const mesh = document.querySelector('.mesh-bg');
+            if (mesh) {
+                gsap.to(mesh, {
+                    background: `
+                        radial-gradient(circle at ${50 + xPos * 20}% ${50 + yPos * 20}%, rgba(135, 0, 255, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at ${clientX}px ${clientY}px, rgba(0, 210, 255, 0.05) 0%, transparent 30%),
+                        #ffffff
+                    `,
+                    duration: 1
+                });
+            }
+        });
+
+        // 6. 3D CARD TILT (REFINED)
+        document.querySelectorAll('.card-3d').forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
+                const rotateX = (centerY - y) / 10;
+                const rotateY = (x - centerX) / 10;
 
-                const rotateX = (centerY - y) / 20;
-                const rotateY = (x - centerX) / 20;
+                gsap.to(card, {
+                    rotationX: rotateX,
+                    rotationY: rotateY,
+                    scale: 1.02,
+                    duration: 0.5,
+                    ease: "power2.out",
+                    transformPerspective: 1000
+                });
 
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-                card.style.boxShadow = `${-rotateY * 2}px ${rotateX * 2}px 30px rgba(135, 0, 255, 0.15)`;
+                // Card Inner Content Stagger
+                const inner = card.querySelector('.card-inner');
+                gsap.to(inner, {
+                    boxShadow: `0 40px 100px rgba(135, 0, 255, 0.15)`,
+                    duration: 0.5
+                });
             });
 
             card.addEventListener('mouseleave', () => {
-                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-                card.style.boxShadow = 'none';
+                gsap.to(card, {
+                    rotationX: 0,
+                    rotationY: 0,
+                    scale: 1,
+                    duration: 0.8,
+                    ease: "elastic.out(1, 0.3)"
+                });
+                gsap.to(card.querySelector('.card-inner'), {
+                    boxShadow: "0 20px 50px rgba(0, 0, 0, 0.05)",
+                    duration: 0.5
+                });
             });
         });
 
-        // SPOTLIGHT TRACKING
-        document.addEventListener('mousemove', (e) => {
-            const spotlights = document.querySelectorAll('.spotlight');
-            spotlights.forEach(spot => {
-                const rect = spot.parentElement.getBoundingClientRect();
-                if (rect.top < window.innerHeight && rect.bottom > 0) {
-                    // Only move if parent is somewhat visible
-                }
+        // 7. PARTICLE SYSTEM (ENHANCED)
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function initParticles() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            for (let i = 0; i < 60; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2 + 1,
+                    speedX: (Math.random() - 0.5) * 0.3,
+                    speedY: (Math.random() - 0.5) * 0.3,
+                    opacity: Math.random() * 0.4
+                });
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.x += p.speedX;
+                p.y += p.speedY;
+
+                if (p.x < 0) p.x = canvas.width;
+                if (p.x > canvas.width) p.x = 0;
+                if (p.y < 0) p.y = canvas.height;
+                if (p.y > canvas.height) p.y = 0;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(135, 0, 255, ${p.opacity})`;
+                ctx.fill();
             });
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+        window.addEventListener('resize', initParticles);
+
+        // Enroll Button Logic
+        document.querySelectorAll('.enroll-btn').forEach(btn => {
+            const program = btn.getAttribute('data-program');
+            if (STRIPE_LINKS[program]) {
+                btn.href = STRIPE_LINKS[program];
+            }
         });
     </script>
 </body>
