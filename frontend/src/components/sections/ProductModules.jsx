@@ -14,7 +14,7 @@ const ProductModules = () => {
       title: 'Revenue Leak Audit',
       description: 'Identifies hidden revenue losses across sales, operations, and customer retention. Real-time detection of pricing errors, churn signals, and missed opportunities.',
       benefits: [
-        'Automated leak detection',
+        'Automated leak detection', 
         'Priority-ranked insights',
         'ROI impact projections',
         'Actionable remediation steps'

@@ -55,7 +55,7 @@ const Contact = () => {
 
   const handleSendOTP = async (e) => {
     e.preventDefault()
-    
+
     // Validate phone number format
     const phoneRegex = /^\+[1-9]\d{10,14}$/
     if (!formData.phone || !phoneRegex.test(formData.phone)) {
@@ -141,7 +141,7 @@ const Contact = () => {
           step: 3, // Verified state
           phone: formData.phone
         })
-        
+
         // Clear form after successful verification
         setFormData({
           name: '',
@@ -157,7 +157,7 @@ const Contact = () => {
       }
     } catch (error) {
       const errorMessage = error.response?.data?.message || error.message || 'Failed to verify OTP. Please try again.'
-      
+
       // Map specific error messages to user-friendly messages
       let userFriendlyMessage = errorMessage
       if (errorMessage.includes('already verified')) {
@@ -167,7 +167,7 @@ const Contact = () => {
       } else if (errorMessage.includes('invalid') || errorMessage.includes('Incorrect')) {
         userFriendlyMessage = 'Invalid OTP. Please check and try again.'
       }
-      
+
       setOtpError(userFriendlyMessage)
       setStatus(prev => ({ ...prev, error: userFriendlyMessage }))
     } finally {
@@ -288,14 +288,39 @@ const Contact = () => {
 
         {/* Form Section */}
         <section className="py-24">
-          <div className="max-w-5xl px-6 mx-auto">
-            <div className="grid gap-12 md:grid-cols-2">
+          <div className="max-w-6xl px-6 mx-auto">
+            <div className="grid gap-12 lg:grid-cols-2">
               {/* Left: Info */}
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
               >
+                <h2 className="mb-6 text-4xl font-bold text-navy-900">
+                  Business Information
+                </h2>
+
+                <div className="p-8 mb-12 bg-white border border-purple-100 shadow-lg rounded-3xl">
+                  <div className="space-y-6">
+                    <div>
+                      <h3 className="text-sm font-bold tracking-wider text-purple-600 uppercase mb-1">Company</h3>
+                      <p className="text-2xl font-bold text-navy-900">AlgoForce</p>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-bold tracking-wider text-purple-600 uppercase mb-1">Email</h3>
+                      <a href="mailto:support@algoforceaii.com" className="text-2xl font-bold text-navy-900 hover:text-purple-600 transition-colors">
+                        support@algoforceaii.com
+                      </a>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-bold tracking-wider text-purple-600 uppercase mb-1">Website</h3>
+                      <a href="https://algoforceaii.com" target="_blank" rel="noopener noreferrer" className="text-2xl font-bold text-navy-900 hover:text-purple-600 transition-colors">
+                        https://algoforceaii.com
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
                 <h2 className="mb-6 text-4xl font-bold text-navy-900">
                   What Happens Next?
                 </h2>
