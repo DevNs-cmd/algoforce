@@ -124,20 +124,23 @@
             }
 
             .modal-content {
-                width: 95% !important;
-                height: 90vh !important;
-                margin: 20px !important;
-                padding: 24px !important;
-                border-radius: 20px !important;
+                width: 100% !important;
+                height: 100% !important;
+                max-height: 100vh !important;
+                margin: 0 !important;
+                padding: 15px !important;
+                border-radius: 0 !important;
                 overflow-y: auto !important;
-                /* Allow internal scroll */
+                -webkit-overflow-scrolling: touch;
             }
 
             .modal-close {
-                top: 15px !important;
-                right: 15px !important;
-                width: 32px !important;
-                height: 32px !important;
+                top: 10px !important;
+                right: 10px !important;
+                width: 35px !important;
+                height: 35px !important;
+                background: white !important;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             }
         }
 
@@ -328,6 +331,8 @@
             position: relative;
             scrollbar-width: none;
             /* Hide scrollbar for clean UI */
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
         }
 
         .modal-content::-webkit-scrollbar {
@@ -1164,14 +1169,14 @@
             const modalBody = document.getElementById('modalBody');
 
             modalBody.innerHTML = `
-                <div class="p-2 md:p-6">
+                <div class="py-10">
                     <div class="mb-10">
                         <span class="text-[10px] font-black uppercase tracking-[0.5em] text-violet-600 block mb-4">Course Enrollment</span>
-                        <h2 class="text-3xl md:text-5xl font-black text-navy-900 leading-tight mb-6">${course.title}</h2>
+                        <h2 class="text-3xl md:text-5xl font-black text-navy-900 leading-tight mb-4">${course.title}</h2>
                         <p class="text-base md:text-lg text-slate-500 font-medium leading-relaxed">${course.desc}</p>
                     </div>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="flex flex-col md:grid md:grid-cols-2 gap-10">
                         <div>
                             <h4 class="text-xs font-black uppercase tracking-widest text-navy-900 mb-6 border-b pb-4">Syllabus Breakdown</h4>
                             <ul class="space-y-4">
@@ -1183,16 +1188,18 @@
                                 `).join('')}
                             </ul>
                         </div>
-                        <div class="bg-slate-50 rounded-[20px] md:rounded-[30px] p-6 md:p-8 flex flex-col justify-center border border-slate-100">
-                            <div class="mb-10">
+                        <div class="bg-slate-50 rounded-[20px] md:rounded-[30px] p-6 md:p-10 flex flex-col justify-center border border-slate-100 h-fit lg:h-full">
+                            <div class="mb-8">
                                 <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Investment</div>
-                                <div class="text-4xl md:text-5xl font-black text-navy-900">${course.price} <span class="text-sm font-bold text-slate-300 line-through">${course.original}</span></div>
-                                <div class="text-xs font-bold text-violet-600 mt-2">Special Launch Pricing Active</div>
+                                <div class="text-4xl md:text-6xl font-black text-navy-900">${course.price} <span class="text-sm font-bold text-slate-300 line-through">${course.original}</span></div>
+                                <div class="text-[10px] font-bold text-violet-600 mt-2 uppercase tracking-widest">Special Launch Pricing Active</div>
                             </div>
-                            <a href="${course.link}" target="_blank" class="w-full py-4 md:py-5 rounded-2xl bg-navy-900 text-white text-center font-black uppercase text-xs tracking-widest hover:bg-violet-600 transition-all shadow-2xl block">Finalize Enrollment</a>
+                            <a href="${course.link}" target="_blank" class="w-full py-5 rounded-2xl bg-navy-900 text-white text-center font-black uppercase text-xs tracking-widest hover:bg-violet-600 transition-all shadow-2xl block">Finalize Enrollment</a>
                             <p class="text-[10px] text-center text-slate-400 mt-6 font-bold uppercase tracking-widest">Secure Payment Processing via Stripe</p>
                         </div>
                     </div>
+                    <!-- Mobile Scroll Spacer -->
+                    <div class="h-10 md:hidden"></div>
                 </div>
             `;
 
@@ -1247,7 +1254,7 @@
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             direction: 'vertical',
             gestureDirection: 'vertical',
-            smooth: !isMobile, // DISABLE ON MOBILE FOR PERFORMANCE
+            smooth: !isMobile,
             mouseMultiplier: 1,
             smoothTouch: false,
             touchMultiplier: 2,
@@ -1255,8 +1262,6 @@
         });
 
         // Sync ScrollTrigger with Lenis
-        lenis.on('scroll', ScrollTrigger.update);
-
         function raf(time) {
             lenis.raf(time);
             requestAnimationFrame(raf);
@@ -1267,10 +1272,9 @@
         gsap.registerPlugin(ScrollTrigger);
 
         // Ensure ScrollTrigger uses Lenis for calculations
-        gsap.ticker.add((time) => {
-            lenis.raf(time * 1000)
-        });
-        gsap.ticker.lagSmoothing(0);
+        if (!isMobile) {
+            gsap.ticker.lagSmoothing(0);
+        }
 
         gsap.to('.scroll-progress-bar', {
             scaleX: 1,
@@ -1300,19 +1304,21 @@
             }
         });
 
-        // 4. PARALLAX EFFECTS (GSAP)
-        gsap.utils.toArray('.floating-orb').forEach((orb, i) => {
-            gsap.to(orb, {
-                y: (i + 1) * 60,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: "body",
-                    start: "top top",
-                    end: "bottom bottom",
-                    scrub: 1
-                }
+        // 4. PARALLAX EFFECTS (GSAP - Desktop Only)
+        if (!isMobile) {
+            gsap.utils.toArray('.floating-orb').forEach((orb, i) => {
+                gsap.to(orb, {
+                    y: (i + 1) * 60,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: "body",
+                        start: "top top",
+                        end: "bottom bottom",
+                        scrub: 1
+                    }
+                });
             });
-        });
+        }
 
         // HERO MOCKUP FLOATING (GSAP)
         gsap.to('.floating-window', {
@@ -1324,112 +1330,119 @@
             ease: "sine.inOut"
         });
 
-        // 5. MOUSE INTERACTORS
-        document.addEventListener('mousemove', (e) => {
-            const { clientX, clientY } = e;
-            const xPos = (clientX / window.innerWidth - 0.5) * 2;
-            const yPos = (clientY / window.innerHeight - 0.5) * 2;
+        // 5. MOUSE INTERACTORS (Desktop Only)
+        if (!isMobile) {
+            document.addEventListener('mousemove', (e) => {
+                const { clientX, clientY } = e;
+                const xPos = (clientX / window.innerWidth - 0.5) * 2;
+                const yPos = (clientY / window.innerHeight - 0.5) * 2;
 
-            // 3D Mockup Rotation
-            const mockup = document.querySelector('.floating-window');
-            if (mockup) {
-                gsap.to(mockup, {
-                    rotationY: xPos * 25 - 20,
-                    rotationX: -yPos * 25 + 15,
-                    duration: 0.8,
-                    ease: "power2.out"
+                // 3D Mockup Rotation
+                const mockup = document.querySelector('.floating-window');
+                if (mockup) {
+                    gsap.to(mockup, {
+                        rotationY: xPos * 25 - 20,
+                        rotationX: -yPos * 25 + 15,
+                        duration: 0.8,
+                        ease: "power2.out"
+                    });
+                }
+
+                // Mesh Gradient Reactivity
+                const mesh = document.querySelector('.mesh-bg');
+                if (mesh) {
+                    gsap.to(mesh, {
+                        background: `
+                            radial-gradient(circle at ${50 + xPos * 20}% ${50 + yPos * 20}%, rgba(135, 0, 255, 0.08) 0%, transparent 50%),
+                            radial-gradient(circle at ${clientX}px ${clientY}px, rgba(0, 210, 255, 0.05) 0%, transparent 30%),
+                            #ffffff
+                        `,
+                        duration: 1
+                    });
+                }
+            });
+        }
+
+        // 6. 3D CARD TILT (REFINED - Desktop Only)
+        if (!isMobile) {
+            document.querySelectorAll('.card-3d').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (centerY - y) / 10;
+                    const rotateY = (x - centerX) / 10;
+
+                    gsap.to(card, {
+                        rotationX: rotateX,
+                        rotationY: rotateY,
+                        scale: 1.02,
+                        duration: 0.5,
+                        ease: "power2.out",
+                        transformPerspective: 1000
+                    });
+
+                    // Card Inner Content Stagger
+                    const inner = card.querySelector('.card-inner');
+                    gsap.to(inner, {
+                        boxShadow: `0 40px 100px rgba(135, 0, 255, 0.15)`,
+                        duration: 0.5
+                    });
                 });
-            }
 
-            // Mesh Gradient Reactivity
-            const mesh = document.querySelector('.mesh-bg');
-            if (mesh) {
-                gsap.to(mesh, {
-                    background: `
-                        radial-gradient(circle at ${50 + xPos * 20}% ${50 + yPos * 20}%, rgba(135, 0, 255, 0.08) 0%, transparent 50%),
-                        radial-gradient(circle at ${clientX}px ${clientY}px, rgba(0, 210, 255, 0.05) 0%, transparent 30%),
-                        #ffffff
-                    `,
-                    duration: 1
-                });
-            }
-        });
-
-        // 6. 3D CARD TILT (REFINED)
-        document.querySelectorAll('.card-3d').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                const rotateX = (centerY - y) / 10;
-                const rotateY = (x - centerX) / 10;
-
-                gsap.to(card, {
-                    rotationX: rotateX,
-                    rotationY: rotateY,
-                    scale: 1.02,
-                    duration: 0.5,
-                    ease: "power2.out",
-                    transformPerspective: 1000
-                });
-
-                // Card Inner Content Stagger
-                const inner = card.querySelector('.card-inner');
-                gsap.to(inner, {
-                    boxShadow: `0 40px 100px rgba(135, 0, 255, 0.15)`,
-                    duration: 0.5
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(card, {
+                        rotationX: 0,
+                        rotationY: 0,
+                        scale: 1,
+                        duration: 0.8,
+                        ease: "elastic.out(1, 0.3)"
+                    });
+                    gsap.to(card.querySelector('.card-inner'), {
+                        boxShadow: "0 20px 50px rgba(0, 0, 0, 0.05)",
+                        duration: 0.5
+                    });
                 });
             });
+        }
 
-            card.addEventListener('mouseleave', () => {
-                gsap.to(card, {
-                    rotationX: 0,
-                    rotationY: 0,
-                    scale: 1,
-                    duration: 0.8,
-                    ease: "elastic.out(1, 0.3)"
-                });
-                gsap.to(card.querySelector('.card-inner'), {
-                    boxShadow: "0 20px 50px rgba(0, 0, 0, 0.05)",
-                    duration: 0.5
-                });
-            });
-        });
-
-        // 7. PARTICLE SYSTEM (ENHANCED)
+        // 7. PARTICLE SYSTEM (Desktop Only Check)
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
 
         function initParticles() {
+            if (isMobile) {
+                canvas.style.display = 'none';
+                return;
+            }
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             particles = [];
-            for (let i = 0; i < 60; i++) {
+            for (let i = 0; i < 40; i++) { // Reduced count
                 particles.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
                     size: Math.random() * 2 + 1,
-                    speedX: (Math.random() - 0.5) * 0.3,
-                    speedY: (Math.random() - 0.5) * 0.3,
-                    opacity: Math.random() * 0.4
+                    speedX: (Math.random() - 0.5) * 0.2,
+                    speedY: (Math.random() - 0.5) * 0.2,
+                    opacity: Math.random() * 0.3
                 });
             }
         }
 
         function animateParticles() {
+            if (isMobile) return;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles.forEach(p => {
                 p.x += p.speedX;
                 p.y += p.speedY;
-
                 if (p.x < 0) p.x = canvas.width;
                 if (p.x > canvas.width) p.x = 0;
                 if (p.y < 0) p.y = canvas.height;
                 if (p.y > canvas.height) p.y = 0;
-
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
                 ctx.fillStyle = `rgba(135, 0, 255, ${p.opacity})`;
@@ -1438,9 +1451,14 @@
             requestAnimationFrame(animateParticles);
         }
 
-        initParticles();
-        animateParticles();
-        window.addEventListener('resize', initParticles);
+        if (!isMobile) {
+            initParticles();
+            animateParticles();
+            window.addEventListener('resize', () => {
+                clearTimeout(window.resizeTimer);
+                window.resizeTimer = setTimeout(initParticles, 250);
+            });
+        }
 
         // Enroll Button Logic
         document.querySelectorAll('.enroll-btn').forEach(btn => {
