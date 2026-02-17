@@ -28,7 +28,7 @@ const Navigation = () => {
 
   const navLinks = [
     { name: "Home", path: "/" },
-    { name: "AlgoForce Labs", path: "/algoforce-labs.html", isExternal: true },
+    { name: "AlgoForce Labs", path: "/labs" },
     { name: "Pricing", path: "/pricing" },
     { name: "Contact", path: "/contact" },
   ];
@@ -48,13 +48,13 @@ const Navigation = () => {
       transition={{ duration: 0.6 }}
       className="fixed top-0 left-0 right-0 z-50 bg-[#05050F] shadow-lg transition-all duration-300"
     >
-      <div className="max-w-7xl mx-auto px-6 py-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <motion.div
               whileHover={{ scale: 1.05 }}
-              className="text-2xl font-bold bg-white/80 px-4 py-1.5 rounded-full shadow-sm"
+              className="text-xl sm:text-2xl font-bold bg-white/80 px-3 sm:px-4 py-1.5 rounded-full shadow-sm"
             >
               <span className="text-[#0A2A43]">Algo</span>
               <span className="text-[#9A4DFF]">Force</span>
@@ -140,7 +140,7 @@ const Navigation = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-6 py-2 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition-colors"
+                className="px-4 sm:px-6 py-2 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition-colors shadow-lg shadow-purple-500/20 text-sm sm:text-base"
               >
                 Request Demo
               </motion.button>
@@ -239,9 +239,9 @@ const Navigation = () => {
                   <Link to="/pricing" onClick={() => setMobileMenuOpen(false)}>
                     Pricing
                   </Link>
-                  <a href="/algoforce-labs.html" onClick={() => setMobileMenuOpen(false)}>
+                  <Link to="/labs" onClick={() => setMobileMenuOpen(false)}>
                     AlgoForce Labs
-                  </a>
+                  </Link>
                   <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
                     Contact
                   </Link>

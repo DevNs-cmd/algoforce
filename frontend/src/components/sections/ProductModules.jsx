@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { FaSearchDollar, FaBrain, FaRocket, FaChartLine, FaCog } from 'react-icons/fa'
+import { FaBrain, FaRocket, FaCog, FaSearchDollar, FaChartLine } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 
 const ProductModules = () => {
   const [ref, inView] = useInView({
@@ -10,69 +11,69 @@ const ProductModules = () => {
 
   const modules = [
     {
-      icon: <FaSearchDollar className="w-8 h-8" />,
-      title: 'Revenue Leak Audit',
-      description: 'Identifies hidden revenue losses across sales, operations, and customer retention. Real-time detection of pricing errors, churn signals, and missed opportunities.',
-      benefits: [
-        'Automated leak detection', 
-        'Priority-ranked insights',
-        'ROI impact projections',
-        'Actionable remediation steps'
-      ],
-      outcome: 'Average 23% revenue recovery in first 90 days',
-      gradient: 'from-red-500 to-orange-500'
-    },
-    {
       icon: <FaBrain className="w-8 h-8" />,
-      title: 'Intelligence Memory',
-      description: 'Your business knowledge graph. Every interaction, decision, and outcome stored in a queryable, interconnected memory system. Institutional knowledge that never leaves.',
+      title: 'AI Chatbot Systems',
+      description: 'Custom AI bots for Website and WhatsApp. From basic FAQ handlers to advanced lead generation systems with CRM integration.',
       benefits: [
-        'Contextual search across all data',
-        'Pattern recognition over time',
-        'Team knowledge preservation',
-        'Natural language queries'
+        '24/7 Customer Support',
+        'Automated Lead Qualification',
+        'CRM & WhatsApp Integration',
+        'Multi-language Support'
       ],
-      outcome: '10x faster insight discovery',
+      outcome: '90% faster lead response time',
       gradient: 'from-purple-500 to-indigo-500'
     },
     {
       icon: <FaRocket className="w-8 h-8" />,
-      title: 'Decision Engine',
-      description: 'Autonomous decision-making for revenue-critical actions. Pre-built playbooks and custom logic that executes faster than human teams.',
+      title: 'Voice AI Receptionist',
+      description: 'AI-powered voice bots that handle incoming calls, schedule appointments, and qualify leads with human-like natural language.',
       benefits: [
-        'Real-time decision automation',
-        'Multi-factor optimization',
-        'Risk-aware execution',
-        'Human-in-loop controls'
+        'Zero Missed Calls',
+        'Automated Appointment Booking',
+        'Lead Information Capture',
+        'Seamless Human Handoff'
       ],
-      outcome: 'Decisions in seconds, not weeks',
+      outcome: '100% call handling efficiency',
       gradient: 'from-blue-500 to-cyan-500'
     },
     {
-      icon: <FaChartLine className="w-8 h-8" />,
-      title: 'Command Center',
-      description: 'Single pane of glass for business intelligence. Real-time dashboards, predictive alerts, and natural language interaction with your data.',
+      icon: <FaCog className="w-8 h-8" />,
+      title: 'Business Automation',
+      description: 'End-to-end automation of your emails, CRM workflows, and daily operations. Eliminate manual copy-pasting forever.',
       benefits: [
-        'Unified intelligence view',
-        'Predictive alerts',
-        'Custom KPI tracking',
-        'Voice/text commands'
+        'Automated Email Sequences',
+        'CRM Data Synchronization',
+        'Custom Workflow Triggers',
+        'Detailed Analytics Tracking'
       ],
-      outcome: 'Complete visibility, zero data silos',
-      gradient: 'from-green-500 to-teal-500'
+      outcome: 'Save 40+ hours of manual work weekly',
+      gradient: 'from-yellow-500 to-orange-500'
     },
     {
-      icon: <FaCog className="w-8 h-8" />,
-      title: 'Automation Layer',
-      description: 'Connects decisions to actions across your tech stack. Trigger workflows, update systems, and execute complex operations automatically.',
+      icon: <FaSearchDollar className="w-8 h-8" />,
+      title: 'Web & App Development',
+      description: 'Premium, high-speed websites and MVP applications built to convert visitors into high-paying clients.',
       benefits: [
-        'Cross-platform automation',
-        'Conditional workflows',
-        'Error handling & rollback',
-        'Audit trail & compliance'
+        'Animated Landing Pages',
+        'E-commerce Scalability',
+        'Mobile-First Design',
+        'SEO-Ready Architecture'
       ],
-      outcome: '90% reduction in manual tasks',
-      gradient: 'from-yellow-500 to-orange-500'
+      outcome: '3x higher visitor conversion rates',
+      gradient: 'from-red-500 to-orange-500'
+    },
+    {
+      icon: <FaChartLine className="w-8 h-8" />,
+      title: 'Growth & SEO / AEO',
+      description: 'Dominate search results and AI-search engines (GEO/AEO). We position your brand where your customers are looking.',
+      benefits: [
+        'Local SEO Optimization',
+        'AI Search Engine Visibility',
+        'High-Quality Backlink Strategy',
+        'Content Conversion Analysis'
+      ],
+      outcome: '200% increase in organic traffic',
+      gradient: 'from-green-500 to-teal-500'
     }
   ]
 
@@ -99,7 +100,7 @@ const ProductModules = () => {
   }
 
   return (
-    <section id="product-modules" className="py-24 bg-white">
+    <section id="services" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           ref={ref}
@@ -110,10 +111,10 @@ const ProductModules = () => {
           {/* Section Header */}
           <motion.div variants={cardVariants} className="text-center mb-16">
             <h2 className="text-5xl md:text-6xl font-bold text-navy-900 mb-6">
-              Product <span className="gradient-text">Modules</span>
+              Our <span className="gradient-text">Services</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Five interconnected systems working as one. Each module amplifies the others, creating a compounding intelligence advantage.
+              Everything you need to automate your operations and scale your revenue. Choose a service or go for our specialized combo packs.
             </p>
           </motion.div>
 
@@ -152,7 +153,7 @@ const ProductModules = () => {
                     <div className={index % 2 === 1 ? 'md:order-1' : ''}>
                       <div className="bg-white rounded-2xl p-6 shadow-inner border border-gray-100">
                         <h4 className="font-semibold text-navy-900 mb-4 text-lg">
-                          Key Capabilities
+                          Expert Solutions
                         </h4>
                         <div className="space-y-3">
                           {module.benefits.map((benefit, benefitIndex) => (
@@ -182,27 +183,24 @@ const ProductModules = () => {
             ))}
           </div>
 
-          {/* Integration Note */}
+          {/* CTA Note */}
           <motion.div
             variants={cardVariants}
             className="mt-16 glass-dark rounded-3xl p-12 text-center text-white"
           >
             <h3 className="text-3xl font-bold mb-4">
-              The Power is in the Integration
+              Not sure where to start?
             </h3>
             <p className="text-gray-300 text-lg max-w-3xl mx-auto mb-8">
-              These modules don't work in isolation. They share intelligence, compound learnings, and create a business operating system that gets smarter every day.
+              Book a free consultation and we'll audit your business to find the best automation opportunities for you.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <div className="px-6 py-3 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
-                <span className="font-semibold">Unified Data Model</span>
-              </div>
-              <div className="px-6 py-3 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
-                <span className="font-semibold">Cross-Module Intelligence</span>
-              </div>
-              <div className="px-6 py-3 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
-                <span className="font-semibold">Compounding Returns</span>
-              </div>
+              <Link to="/pricing" className="px-8 py-4 bg-purple-600 rounded-xl font-bold hover:bg-purple-700 transition-all">
+                Check Combo Packs
+              </Link>
+              <Link to="/contact" className="px-8 py-4 bg-white text-navy-900 rounded-xl font-bold hover:bg-gray-100 transition-all">
+                Book Free Audit
+              </Link>
             </div>
           </motion.div>
         </motion.div>

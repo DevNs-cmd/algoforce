@@ -11,20 +11,20 @@ const WhatIsAlgoForce = () => {
   const features = [
     {
       icon: <FaBrain className="w-8 h-8" />,
-      title: 'AI Operating System',
-      description: 'Not just software. A living, learning intelligence layer that orchestrates your entire business operations.',
+      title: 'AI Strategy',
+      description: 'Custom roadmaps to integrate AI into your specific business workflows for maximum efficiency and growth.',
       color: 'from-purple-500 to-purple-700'
     },
     {
-      icon: <FaDatabase className="w-8 h-8" />,
-      title: 'Business Memory',
-      description: 'Every decision, every outcome, every pattern. Stored, indexed, and queryable. Your competitive intelligence moat.',
+      icon: <FaCogs className="w-8 h-8" />,
+      title: 'Automation First',
+      description: 'We replace repetitive manual tasks with intelligent automated workflows, saving hundreds of hours weekly.',
       color: 'from-blue-500 to-blue-700'
     },
     {
-      icon: <FaCogs className="w-8 h-8" />,
-      title: 'Decision Engine',
-      description: 'Real-time analysis → Predictive intelligence → Autonomous execution. From signal to action in milliseconds.',
+      icon: <FaDatabase className="w-8 h-8" />,
+      title: 'Growth Systems',
+      description: 'From landing pages to complex SaaS MVPs, we build scalable digital assets that attract and convert customers.',
       color: 'from-indigo-500 to-indigo-700'
     }
   ]
@@ -52,7 +52,7 @@ const WhatIsAlgoForce = () => {
   }
 
   return (
-    <section id="what-is" className="py-24 bg-white">
+    <section id="about" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           ref={ref}
@@ -63,11 +63,11 @@ const WhatIsAlgoForce = () => {
           {/* Section Header */}
           <motion.div variants={itemVariants} className="text-center mb-16">
             <h2 className="text-5xl md:text-6xl font-bold text-navy-900 mb-6">
-              What is <span className="gradient-text">AlgoForce</span>?
+              Why <span className="gradient-text">AlgoForce</span>?
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              AlgoForce is not another SaaS tool. It's the operating system layer between your data and decisions.
-              It thinks, learns, and acts—autonomously.
+              We don't just build software. We build the intelligence infrastructure that powers your business growth.
+              Our mission is to translate enterprise AI into specialized execution for every ambitious founder.
             </p>
           </motion.div>
 
@@ -78,34 +78,34 @@ const WhatIsAlgoForce = () => {
           >
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
-                <h3 className="text-3xl font-bold mb-6">The Intelligence Layer Your Business Needs</h3>
+                <h3 className="text-3xl font-bold mb-6">The High-Growth Engine Your Business Needs</h3>
                 <p className="text-lg text-gray-300 mb-6">
-                  Traditional software requires humans to interpret data, make decisions, and take action.
-                  AlgoForce closes that loop.
+                  Traditional agencies stop at delivery. We stay for the results.
+                  Our AI-driven systems are designed to:
                 </p>
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
                     <div className="w-2 h-2 bg-purple-400 rounded-full mt-2" />
                     <p className="text-gray-300">
-                      <span className="font-semibold text-white">Ingests</span> data from every business touchpoint
+                      <span className="font-semibold text-white">Capture</span> every lead with 24/7 intelligent chatbots
                     </p>
                   </div>
                   <div className="flex items-start gap-3">
                     <div className="w-2 h-2 bg-purple-400 rounded-full mt-2" />
                     <p className="text-gray-300">
-                      <span className="font-semibold text-white">Analyzes</span> patterns invisible to human teams
+                      <span className="font-semibold text-white">Optimize</span> workflows with custom business automation
                     </p>
                   </div>
                   <div className="flex items-start gap-3">
                     <div className="w-2 h-2 bg-purple-400 rounded-full mt-2" />
                     <p className="text-gray-300">
-                      <span className="font-semibold text-white">Executes</span> revenue-critical actions autonomously
+                      <span className="font-semibold text-white">Scale</span> digital presence with premium, high-speed websites
                     </p>
                   </div>
                   <div className="flex items-start gap-3">
                     <div className="w-2 h-2 bg-purple-400 rounded-full mt-2" />
                     <p className="text-gray-300">
-                      <span className="font-semibold text-white">Learns</span> from every outcome, compounding intelligence
+                      <span className="font-semibold text-white">Convert</span> more customers through data-driven SEO strategies
                     </p>
                   </div>
                 </div>
@@ -124,8 +124,8 @@ const WhatIsAlgoForce = () => {
                 >
                   <div className="aspect-square bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-2xl backdrop-blur-sm border border-purple-500/30 p-8 flex items-center justify-center">
                     <div className="text-center">
-                      <div className="text-6xl mb-4">🧠</div>
-                      <p className="text-xl font-semibold">Autonomous Intelligence</p>
+                      <div className="text-6xl mb-4">🚀</div>
+                      <p className="text-xl font-semibold">Ready to Scale</p>
                     </div>
                   </div>
                 </motion.div>

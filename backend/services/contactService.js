@@ -77,10 +77,10 @@ export const createContact = async (contactData, hashedOTP = null, otpExpiry = n
       role,
       problem,
       inquiryType: inquiryType || 'demo',
-      status: 'pending',
+      status: contactData.status || 'pending',
       otp: hashedOTP,  // Will be null for Twilio (handled by Twilio service)
       otp_expiry: otpExpiry,  // Will be null for Twilio
-      otp_verified: false,
+      otp_verified: contactData.otp_verified || false,
       updatedAt: new Date()
     }
 
@@ -103,10 +103,10 @@ export const createContact = async (contactData, hashedOTP = null, otpExpiry = n
       role,
       problem,
       inquiryType: inquiryType || 'demo',
-      status: 'pending',
+      status: contactData.status || 'pending',
       otp: hashedOTP,  // Will be null for Twilio (handled by Twilio service)
       otp_expiry: otpExpiry,  // Will be null for Twilio
-      otp_verified: false,
+      otp_verified: contactData.otp_verified || false,
       submittedAt: new Date(),
       updatedAt: new Date()
     }
@@ -141,7 +141,7 @@ export const verifyOTP = async (phone, plainOTP) => {
   try {
     // Verify OTP using service (Twilio or mock)
     const verificationResult = await verifyOTPSMS(phone, plainOTP)
-    
+
     if (!verificationResult.success) {
       return { success: false, message: verificationResult.message }
     }

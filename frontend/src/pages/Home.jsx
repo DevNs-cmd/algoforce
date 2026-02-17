@@ -13,18 +13,18 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>AlgoForce – AI Business Operating System</title>
+        <title>AlgoForce – Premium AI Execution Partner</title>
 
         <meta
           name="description"
-          content="AlgoForce is an enterprise-grade AI Business Operating System that eliminates revenue leaks and compounds intelligence."
+          content="AlgoForce is a premium AI execution partner and growth agency. We build high-performance AI automation, SaaS MVPs, and scalable revenue systems for global clients."
         />
         <script type="application/ld+json">
           {`
 {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "AlgoForce AI",
+  "name": "AlgoForce",
   "url": "https://www.algoforceaii.com",
   "founder": {
     "@type": "Person",
@@ -44,13 +44,13 @@ const Home = () => {
         />
 
         {/* Open Graph */}
-        <meta property="og:title" content="AlgoForce – AI Business OS" />
+        <meta property="og:title" content="AlgoForce – AI Execution Partner" />
         <meta
           property="og:description"
-          content="The Operating System for Revenue Intelligence."
+          content="Premium AI Automation & Digital Growth Agency."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="AlgoForce AI" />
+        <meta property="og:site_name" content="AlgoForce" />
         <meta
           property="og:url"
           content="https://www.algoforceaii.com/"
@@ -58,10 +58,10 @@ const Home = () => {
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="AlgoForce – AI Business Operating System" />
+        <meta name="twitter:title" content="AlgoForce – AI Execution Partner" />
         <meta
           name="twitter:description"
-          content="The Operating System for Revenue Intelligence."
+          content="Premium AI Automation & Digital Growth Agency."
         />
       </Helmet>
 

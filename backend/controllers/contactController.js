@@ -156,7 +156,7 @@ export const saveContact = async (req, res) => {
 
     // Save contact to database directly (no OTP verification)
     const contact = await createContact(
-      { name, company, phone: normalizedPhone, email: normalizedEmail, role, problem, inquiryType },
+      { name, company, phone: normalizedPhone, email: normalizedEmail, role, problem, inquiryType, otp_verified: true, status: 'verified' },
       null,
       null
     )
@@ -241,7 +241,7 @@ export const verifyAndSave = async (req, res) => {
 
     // Verify OTP using Twilio
     const verificationResult = await verifyOTPService(normalizedPhone, otp)
-    
+
     if (!verificationResult.success) {
       return res.status(400).json({
         success: false,
@@ -276,14 +276,14 @@ export const verifyAndSave = async (req, res) => {
         message: 'This OTP has already been verified.'
       })
     }
-    
+
     if (error.message.includes('expired') || error.message.includes('not found')) {
       return res.status(400).json({
         success: false,
         message: 'This OTP has expired or is invalid.'
       })
     }
-    
+
     if (error.message.includes('Invalid') || error.message.includes('incorrect')) {
       return res.status(400).json({
         success: false,

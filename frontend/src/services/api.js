@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-const API_URL = (import.meta.env.VITE_API_URL || 
-                (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
-                 ? 'http://localhost:8080' 
-                 : 'https://algoforce-backend.onrender.com')).replace(/\/$/, '')
+const API_URL = (import.meta.env.VITE_API_URL ||
+    (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? 'http://localhost:8080'
+        : 'https://algoforce-backend.onrender.com')).replace(/\/$/, '')
 
 const api = axios.create({
     baseURL: `${API_URL}/api`,
@@ -21,6 +21,11 @@ export const sendOTP = async (data) => {
 
 export const verifyAndSaveContact = async (data) => {
     const response = await api.post('/contact/verify-and-save', data)
+    return response.data
+}
+
+export const submitContact = async (data) => {
+    const response = await api.post('/contact/submit', data)
     return response.data
 }
 

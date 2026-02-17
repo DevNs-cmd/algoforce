@@ -4,6 +4,7 @@ import rateLimit from 'express-rate-limit'
 import {
   sendOTP,
   verifyAndSave,
+  saveContact,
   getAllContacts,
   getContactById,
   updateContactStatus
@@ -47,6 +48,16 @@ const verifyAndSaveValidation = [
   body('otp').trim().notEmpty().withMessage('OTP is required').isLength({ min: 6, max: 6 }).withMessage('OTP must be 6 digits')
 ]
 
+const saveValidation = [
+  body('name').trim().notEmpty().withMessage('Name is required'),
+  body('company').trim().notEmpty().withMessage('Company is required'),
+  body('email').optional().isEmail().withMessage('Valid email is required if provided'),
+  body('phone').trim().notEmpty().withMessage('Phone number is required'),
+  body('role').trim().notEmpty().withMessage('Role is required'),
+  body('problem').trim().notEmpty().withMessage('Problem description is required'),
+  body('inquiryType').optional().trim()
+]
+
 /* ---------------- SEND OTP ROUTE ---------------- */
 router.post(
   '/send-otp',
@@ -62,6 +73,14 @@ router.post(
   otpVerifyLimiter,
   verifyAndSaveValidation,
   verifyAndSave
+)
+
+/* ---------------- DIRECT SUBMISSION ROUTE (NO OTP) ---------------- */
+router.post(
+  '/submit',
+  contactLimiter,
+  saveValidation,
+  saveContact
 )
 
 /* ---------------- ADMIN ROUTES (OPTIONAL) ---------------- */

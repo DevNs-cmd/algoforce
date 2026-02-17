@@ -1090,10 +1090,13 @@
 
             <!-- Trust Bar -->
             <div class="pt-16 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-10">
-                <div class="flex items-center space-x-12 opacity-50 grayscale">
-                    <span class="text-xs font-black uppercase tracking-widest">Powered by Stripe</span>
-                    <span class="text-xs font-black uppercase tracking-widest">AWS Partner</span>
-                    <span class="text-xs font-black uppercase tracking-widest">NVIDIA Inception</span>
+                <div class="flex items-center space-x-12 opacity-80">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-black uppercase tracking-widest text-violet-400">Secure Payments
+                            via</span>
+                        <img src="https://razorpay.com/favicon.png" class="w-4 h-4" alt="Razorpay">
+                        <span class="text-xs font-black uppercase tracking-widest">Razorpay</span>
+                    </div>
                 </div>
                 <div class="text-[10px] font-black uppercase tracking-widest text-slate-500">
                     &copy; 2024 AlgoForce labs. All Rights Reserved. Global HQ.
@@ -1268,7 +1271,7 @@
         }
         requestAnimationFrame(raf);
 
-        // 2. GSAP SCROLL PROGRESS
+        // 2. GSAP SCROLL PROGRESS  
         gsap.registerPlugin(ScrollTrigger);
 
         // Ensure ScrollTrigger uses Lenis for calculations

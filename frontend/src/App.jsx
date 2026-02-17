@@ -3,9 +3,10 @@ import { HelmetProvider } from 'react-helmet-async'
 
 import Navigation from './components/common/Navigation'
 import Footer from './components/common/Footer'
-import ChatBotButton from './components/ChatBotButton'
+import Chatbot from './components/chatbot/Chatbot'
 import Home from './pages/Home'
 import Pricing from './pages/Pricing'
+import Labs from './pages/Labs'
 import Contact from './pages/Contact'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsAndConditions from './pages/TermsAndConditions'
@@ -21,6 +22,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/pricing" element={<Pricing />} />
+            <Route path="/labs" element={<Labs />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
@@ -30,7 +32,7 @@ function App() {
           </Routes>
 
           <Footer />
-          <ChatBotButton />
+          <Chatbot />
         </div>
       </Router>
     </HelmetProvider>

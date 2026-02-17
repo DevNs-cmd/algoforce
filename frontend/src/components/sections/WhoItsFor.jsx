@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { FaRocket, FaBuilding, FaUsers, FaLandmark } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 
 const WhoItsFor = () => {
   const [ref, inView] = useInView({
@@ -11,64 +12,63 @@ const WhoItsFor = () => {
   const segments = [
     {
       icon: <FaRocket className="w-12 h-12" />,
-      title: 'Startups',
-      subtitle: '$1M - $10M ARR',
-      description: 'Move faster than competitors with AI-augmented operations. Build your intelligence moat from day one.',
+      title: 'Local Businesses',
+      subtitle: 'Growth Focused',
+      description: 'Brick-and-mortar stores and service businesses looking to automate bookings and capture every lead.',
       useCases: [
-        'Revenue leak detection',
-        'Automated customer intelligence',
-        'Predictive churn prevention',
-        'Sales process optimization'
+        'AI Voice Receptionist',
+        'Local SEO Dominance',
+        'Google Review Automation',
+        'Lead Generation Bots'
       ],
-      outcome: 'Scale without proportional headcount',
+      outcome: 'Double your booking rate',
       gradient: 'from-purple-500 to-pink-500',
       bgGradient: 'from-purple-50 to-pink-50'
     },
     {
       icon: <FaBuilding className="w-12 h-12" />,
-      title: 'Enterprises',
-      subtitle: '$10M - $1B+ Revenue',
-      description: 'Replace fragmented tools with unified intelligence. Turn data chaos into strategic advantage.',
+      title: 'D2C & E-commerce',
+      subtitle: 'Scale to 7-8 Figures',
+      description: 'Online brands that need automated customer support and high-converting storefronts.',
       useCases: [
-        'Enterprise-wide intelligence',
-        'Multi-department coordination',
-        'Complex workflow automation',
-        'Compliance & audit trails'
+        'WhatsApp AI Automation',
+        'Abandoned Cart Recovery',
+        'Inventory Management Bot',
+        'High-Speed Storefronts'
       ],
-      outcome: '10x decision velocity, zero data silos',
+      outcome: 'Reduces support tickets by 80%',
       gradient: 'from-blue-500 to-cyan-500',
       bgGradient: 'from-blue-50 to-cyan-50'
     },
     {
       icon: <FaUsers className="w-12 h-12" />,
-      title: 'Agencies',
-      subtitle: 'Marketing, Consulting, Services',
-      description: 'Deliver client results that compound. Your secret weapon for retention and referrals.',
+      title: 'Coaches & Experts',
+      subtitle: 'Solopreneurs & Founders',
+      description: 'Thought leaders who want to automate their sales funnel and deliver value 24/7.',
       useCases: [
-        'Client intelligence dashboard',
-        'Campaign performance AI',
-        'Automated reporting',
-        'Client health scoring'
+        'Personal Brand Websites',
+        'Automated Webinar Funnels',
+        'AI Content Strategies',
+        'Lead Nurture Flows'
       ],
-      outcome: 'Client LTV increases 3x',
+      outcome: 'Build authority while you sleep',
       gradient: 'from-green-500 to-teal-500',
       bgGradient: 'from-green-50 to-teal-50'
     },
     {
       icon: <FaLandmark className="w-12 h-12" />,
-      title: 'Governments',
-      subtitle: 'Future-Ready Institutions',
-      description: 'Public sector intelligence at private sector speed. Operational transparency meets predictive governance.',
+      title: 'Tech Founders',
+      subtitle: 'Building for the Future',
+      description: 'Founders who need a fast, reliable MVP launch to validate their idea and attract investors.',
       useCases: [
-        'Citizen service optimization',
-        'Resource allocation AI',
-        'Fraud detection systems',
-        'Policy impact modeling'
+        'SaaS MVP Development',
+        'UI/UX Design Strategy',
+        'Launch Consulting',
+        'Scale Infrastructure'
       ],
-      outcome: 'Better outcomes, lower costs',
+      outcome: 'Launch to market in 30 days',
       gradient: 'from-indigo-500 to-purple-500',
-      bgGradient: 'from-indigo-50 to-purple-50',
-      badge: 'Coming Soon'
+      bgGradient: 'from-indigo-50 to-purple-50'
     }
   ]
 
@@ -84,10 +84,10 @@ const WhoItsFor = () => {
           {/* Section Header */}
           <div className="text-center mb-16">
             <h2 className="text-5xl md:text-6xl font-bold text-navy-900 mb-6">
-              Who It's <span className="gradient-text">For</span>
+              Who We <span className="gradient-text">Serve</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              From fast-moving startups to global enterprises. If you make decisions that impact revenue, AlgoForce is built for you.
+              From local businesses to tech founders. If you want to automate and grow faster, we're your partner.
             </p>
           </div>
 
@@ -175,21 +175,21 @@ const WhoItsFor = () => {
                   <div className="text-4xl mb-3">🧠</div>
                   <h4 className="font-semibold mb-2">Think Long-Term</h4>
                   <p className="text-gray-300 text-sm">
-                    Building moats, not checking boxes
+                    Building infrastructure, not checking boxes
                   </p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
                   <div className="text-4xl mb-3">⚡</div>
                   <h4 className="font-semibold mb-2">Move Fast</h4>
                   <p className="text-gray-300 text-sm">
-                    Speed is a competitive advantage
+                    Speed is your primary competitive moat
                   </p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
                   <div className="text-4xl mb-3">📈</div>
                   <h4 className="font-semibold mb-2">Data-Driven</h4>
                   <p className="text-gray-300 text-sm">
-                    Decisions backed by intelligence
+                    Decisions backed by automated intelligence
                   </p>
                 </div>
               </div>
@@ -206,13 +206,15 @@ const WhoItsFor = () => {
             <p className="text-gray-600 mb-6">
               Not sure if AlgoForce is right for your organization?
             </p>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-purple-600 text-white rounded-lg font-semibold text-lg hover:bg-purple-700 transition-all shadow-lg hover:shadow-purple-500/50"
-            >
-              Book a Strategy Call
-            </motion.button>
+            <Link to="/contact">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-4 bg-purple-600 text-white rounded-lg font-semibold text-lg hover:bg-purple-700 transition-all shadow-lg hover:shadow-purple-500/50"
+              >
+                Book a Free AI Audit
+              </motion.button>
+            </Link>
           </motion.div>
         </motion.div>
       </div>

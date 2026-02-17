@@ -3,13 +3,82 @@
 @tailwind utilities;
 
 /* Component CSS inlined to avoid issues in production */
+/* Responsive improvements */
 .bounceCardsContainer {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 400px;
-  height: 400px;
+  width: 300px;
+  height: 300px;
+}
+
+@media (min-width: 640px) {
+  .bounceCardsContainer {
+    width: 400px;
+    height: 400px;
+  }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+  button, a, .clickable {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Responsive text sizing */
+.responsive-text-xs {
+  font-size: clamp(0.625rem, 0.6rem + 0.125vw, 0.75rem);
+}
+
+.responsive-text-sm {
+  font-size: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+}
+
+.responsive-text-base {
+  font-size: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
+}
+
+.responsive-text-lg {
+  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+}
+
+.responsive-text-xl {
+  font-size: clamp(1.125rem, 1rem + 0.625vw, 1.25rem);
+}
+
+.responsive-text-2xl {
+  font-size: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+}
+
+.responsive-text-3xl {
+  font-size: clamp(1.5rem, 1.3rem + 1vw, 1.875rem);
+}
+
+.responsive-text-4xl {
+  font-size: clamp(1.875rem, 1.6rem + 1.375vw, 2.25rem);
+}
+
+.responsive-text-5xl {
+  font-size: clamp(2.25rem, 1.9rem + 1.75vw, 3rem);
+}
+
+.responsive-text-6xl {
+  font-size: clamp(3rem, 2.5rem + 2.5vw, 4rem);
+}
+
+/* Smooth scrolling for mobile */
+@media (max-width: 768px) {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Prevent horizontal scroll */
+  body {
+    overflow-x: hidden;
+  }
 }
 
 .card {
