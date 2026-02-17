@@ -8,8 +8,8 @@ const Pricing = () => {
   const comboPackages = [
     {
       name: 'STARTUP GROWTH PACK',
-      price: '299',
-      oldPrice: '499',
+      price: '149',
+      oldPrice: '299',
       description: 'The global foundation for new businesses to establish authority and capture leads.',
       features: [
         '5-page Premium Website',
@@ -25,8 +25,8 @@ const Pricing = () => {
     },
     {
       name: 'BUSINESS AUTOMATION PACK',
-      price: '599',
-      oldPrice: '899',
+      price: '299',
+      oldPrice: '599',
       description: 'Comprehensive automation system for businesses ready to scale globally without chaos.',
       features: [
         'Business Website (7+ pages)',
@@ -42,8 +42,8 @@ const Pricing = () => {
     },
     {
       name: 'AI DOMINATION PACK',
-      price: '999',
-      oldPrice: '1,499',
+      price: '499',
+      oldPrice: '999',
       description: 'The ultimate AI growth infrastructure for high-value global business transformation.',
       features: [
         'Premium High-Conversion Website',
@@ -62,7 +62,7 @@ const Pricing = () => {
   const additionalPacks = [
     {
       name: 'E-COMMERCE GROWTH PACK',
-      price: '799',
+      price: '399',
       description: 'Industrial e-commerce setup with automated inventory and sales triggers.',
       features: [
         'Premium E-commerce Storefront',
@@ -75,7 +75,7 @@ const Pricing = () => {
     },
     {
       name: 'SAAS LAUNCH PACK',
-      price: '2,499+',
+      price: '1,299+',
       description: 'End-to-end MVP execution for tech founders and digital product builders.',
       features: [
         'Scalable SaaS MVP Development',
@@ -91,7 +91,7 @@ const Pricing = () => {
   const retainers = [
     {
       name: 'Growth Retainer',
-      price: '299',
+      price: '149',
       period: '/month',
       features: [
         'Continuous SEO/AEO Optimization',
@@ -102,7 +102,7 @@ const Pricing = () => {
     },
     {
       name: 'Automation Retainer',
-      price: '199',
+      price: '99',
       period: '/month',
       features: [
         'AI Bot Performance Tuning',
@@ -117,31 +117,31 @@ const Pricing = () => {
     {
       category: 'AI & Automation',
       items: [
-        { name: 'Basic FAQ Bot (Web/WhatsApp)', price: '$49 – $99' },
-        { name: 'Lead Gen AI Bot', price: '$99 – $199' },
-        { name: 'Advanced Bot + CRM Sync', price: '$199 – $399' },
-        { name: 'AI Voice Receptionist Setup', price: '$149 – $299' },
-        { name: 'Workflow Automation', price: '$99 – $499' }
+        { name: 'Basic FAQ Bot (Web/WhatsApp)', price: '$25 – $49' },
+        { name: 'Lead Gen AI Bot', price: '$49 – $99' },
+        { name: 'Advanced Bot + CRM Sync', price: '$99 – $199' },
+        { name: 'AI Voice Receptionist Setup', price: '$75 – $149' },
+        { name: 'Workflow Automation', price: '$49 – $249' }
       ]
     },
     {
       category: 'Web & Digital Assets',
       items: [
-        { name: 'High-Conversion Landing Page', price: '$99 – $199' },
-        { name: 'Business Website (5-7 Pages)', price: '$299 – $499' },
-        { name: 'Premium E-commerce Store', price: '$499 – $999' },
-        { name: 'Basic MVP App Build', price: '$699 – $1,499' },
-        { name: 'SaaS Platform MVP', price: '$2,499 – $4,999' }
+        { name: 'High-Conversion Landing Page', price: '$49 – $99' },
+        { name: 'Business Website (5-7 Pages)', price: '$149 – $249' },
+        { name: 'Premium E-commerce Store', price: '$249 – $499' },
+        { name: 'Basic MVP App Build', price: '$349 – $749' },
+        { name: 'SaaS Platform MVP', price: '$1,299 – $2,499' }
       ]
     },
     {
       category: 'SEO, Ads & Content',
       items: [
-        { name: 'Global SEO Setup', price: '$99 – $199' },
-        { name: 'AEO / GEO (AI Search) Setup', price: '$149 – $299' },
-        { name: 'Social Media Strategy', price: '$99 – $299' },
-        { name: 'Paid Ads Management', price: '$99' },
-        { name: 'Monthly Growth Support', price: '$149 – $499' }
+        { name: 'Global SEO Setup', price: '$49 – $99' },
+        { name: 'AEO / GEO (AI Search) Setup', price: '$75 – $149' },
+        { name: 'Social Media Strategy', price: '$49 – $149' },
+        { name: 'Paid Ads Management', price: '$49' },
+        { name: 'Monthly Growth Support', price: '$75 – $249' }
       ]
     }
   ]

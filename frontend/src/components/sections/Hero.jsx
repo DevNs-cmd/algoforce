@@ -14,10 +14,10 @@ const Hero = () => {
 
       {/* Subtle background glow */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-purple-600/20 blur-[120px]" />
+        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-purple-600/20 blur-[150px]" />
       </div>
 
-      <div className="relative z-10 px-4 sm:px-6 py-20 sm:py-32 mx-auto text-center max-w-7xl">
+      <div className="relative z-10 px-4 sm:px-6 py-24 sm:py-36 mx-auto text-center max-w-7xl flex-1 flex flex-col justify-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -28,9 +28,9 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="inline-block mb-6"
+            className="inline-block mb-8"
           >
-            <span className="px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm tracking-wide text-gray-300 border rounded-full bg-white/10 backdrop-blur-sm border-white/10">
+            <span className="px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base tracking-wide text-gray-300 border rounded-full bg-white/10 backdrop-blur-sm border-white/10">
               Global AI & Automation Agency
             </span>
           </motion.div>
@@ -40,7 +40,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-white"
+            className="mb-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight text-white"
           >
             Scale Faster with {' '}
             <span className="bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 bg-clip-text text-transparent"
@@ -55,7 +55,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
-            className="max-w-3xl mx-auto mb-8 sm:mb-12 text-base sm:text-lg md:text-xl lg:text-2xl text-gray-400"
+            className="max-w-4xl mx-auto mb-10 sm:mb-14 text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-400"
 
           >
             We build high-performance AI Chatbots, Business Automations, and Premium Websites
@@ -67,13 +67,13 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.8 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
           >
             <Link to="/pricing">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold text-white transition-all bg-purple-600 rounded-lg shadow-lg group hover:bg-purple-700 hover:shadow-purple-500/50"
+                className="flex items-center gap-2 px-8 sm:px-10 py-3 sm:py-4 text-sm sm:text-base font-semibold text-white transition-all bg-purple-600 rounded-lg shadow-lg group hover:bg-purple-700 hover:shadow-purple-500/50"
               >
                 View Combo Packs
                 <FaArrowRight className="transition-transform group-hover:translate-x-1" />
@@ -83,7 +83,7 @@ const Hero = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-3 px-10 sm:px-12 py-5 sm:py-6 text-xl sm:text-2xl font-bold text-white transition-all border rounded-xl bg-white/10 backdrop-blur-sm hover:bg-white/20 border-white/20 shadow-lg"
+                className="flex items-center gap-2 px-8 sm:px-10 py-3 sm:py-4 text-sm sm:text-base font-semibold text-white transition-all border rounded-lg bg-white/10 backdrop-blur-sm hover:bg-white/20 border-white/20 shadow-lg"
               >
                 Free AI Audit
                 <FaPlay size={18} />
@@ -93,12 +93,12 @@ const Hero = () => {
         </motion.div>
 
         {/* Stats - Now scroll-triggered */}
-        <div ref={statsRef} className="mt-20 sm:mt-32">
+        <div ref={statsRef} className="mt-20 sm:mt-28">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={statsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 0.8 }}
-            className="grid max-w-4xl grid-cols-1 gap-4 sm:gap-6 md:gap-8 mx-auto md:grid-cols-3"
+            className="grid max-w-5xl grid-cols-1 gap-6 sm:gap-8 md:gap-10 mx-auto md:grid-cols-3"
           >
             {[
               { value: '$0', label: 'Upfront Maintenance' },
@@ -110,10 +110,10 @@ const Hero = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={statsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                 transition={{ duration: 0.6, delay: statsInView ? index * 0.15 : 0 }}
-                className="p-4 sm:p-6 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl"
+                className="p-6 sm:p-8 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl"
               >
-                <div className="mb-2 text-2xl sm:text-3xl md:text-4xl font-bold text-purple-400">{stat.value}</div>
-                <div className="text-sm sm:text-base text-gray-300">{stat.label}</div>
+                <div className="mb-3 text-3xl sm:text-4xl md:text-5xl font-bold text-purple-400">{stat.value}</div>
+                <div className="text-base sm:text-lg text-gray-300">{stat.label}</div>
               </motion.div>
             ))}
           </motion.div>

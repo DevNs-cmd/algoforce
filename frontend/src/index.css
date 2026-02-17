@@ -1,3 +1,4 @@
+/* Tailwind CSS Directives - Required for Tailwind to function */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
