@@ -1,8 +1,14 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { FaArrowRight, FaPlay } from 'react-icons/fa'
+import { useInView } from 'react-intersection-observer'
 
 const Hero = () => {
+  const [statsRef, statsInView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
   return (
     <section className="relative flex items-center justify-center min-h-screen overflow-hidden bg-gradient-to-b from-black via-[#050814] to-black text-white">
 
@@ -10,7 +16,6 @@ const Hero = () => {
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-purple-600/20 blur-[120px]" />
       </div>
-
 
       <div className="relative z-10 px-4 sm:px-6 py-20 sm:py-32 mx-auto text-center max-w-7xl">
         <motion.div
@@ -78,20 +83,22 @@ const Hero = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold text-white transition-all border rounded-lg bg-white/10 backdrop-blur-sm hover:bg-white/20 border-white/20"
+                className="flex items-center gap-3 px-10 sm:px-12 py-5 sm:py-6 text-xl sm:text-2xl font-bold text-white transition-all border rounded-xl bg-white/10 backdrop-blur-sm hover:bg-white/20 border-white/20 shadow-lg"
               >
                 Free AI Audit
-                <FaPlay size={14} />
+                <FaPlay size={18} />
               </motion.button>
             </Link>
           </motion.div>
+        </motion.div>
 
-          {/* Stats */}
+        {/* Stats - Now scroll-triggered */}
+        <div ref={statsRef} className="mt-20 sm:mt-32">
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1, duration: 0.8 }}
-            className="grid max-w-4xl grid-cols-1 gap-4 sm:gap-6 md:gap-8 mx-auto mt-12 sm:mt-16 md:mt-20 md:grid-cols-3"
+            initial={{ opacity: 0, y: 50 }}
+            animate={statsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            transition={{ duration: 0.8 }}
+            className="grid max-w-4xl grid-cols-1 gap-4 sm:gap-6 md:gap-8 mx-auto md:grid-cols-3"
           >
             {[
               { value: '$0', label: 'Upfront Maintenance' },
@@ -100,18 +107,17 @@ const Hero = () => {
             ].map((stat, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.2 + index * 0.1 }}
+                initial={{ opacity: 0, y: 30 }}
+                animate={statsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                transition={{ duration: 0.6, delay: statsInView ? index * 0.15 : 0 }}
                 className="p-4 sm:p-6 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl"
-
               >
                 <div className="mb-2 text-2xl sm:text-3xl md:text-4xl font-bold text-purple-400">{stat.value}</div>
                 <div className="text-sm sm:text-base text-gray-300">{stat.label}</div>
               </motion.div>
             ))}
           </motion.div>
-        </motion.div>
+        </div>
 
         {/* Scroll Indicator */}
         <motion.div

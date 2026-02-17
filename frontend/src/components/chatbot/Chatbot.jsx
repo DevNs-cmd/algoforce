@@ -111,11 +111,37 @@ const Chatbot = () => {
                         initial={{ scale: 0, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0, opacity: 0 }}
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        whileTap={{ scale: 0.95 }}
                         onClick={() => setIsOpen(true)}
                         className="w-14 h-14 sm:w-16 sm:h-16 bg-purple-600 rounded-full shadow-2xl flex items-center justify-center text-white hover:bg-purple-700 transition-all group relative"
                     >
-                        <FaRobot size={28} className="group-hover:rotate-12 transition-transform" />
-                        <span className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-black animate-pulse" />
+                        <motion.div
+                            animate={{ 
+                                rotate: [0, 10, -10, 0],
+                                scale: [1, 1.1, 1]
+                            }}
+                            transition={{ 
+                                duration: 2,
+                                repeat: Infinity,
+                                repeatType: "reverse",
+                                ease: "easeInOut"
+                            }}
+                        >
+                            <FaRobot size={28} className="group-hover:rotate-12 transition-transform" />
+                        </motion.div>
+                        <motion.span 
+                            className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-black"
+                            animate={{
+                                scale: [1, 1.2, 1],
+                                opacity: [1, 0.7, 1]
+                            }}
+                            transition={{
+                                duration: 1.5,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                            }}
+                        />
                     </motion.button>
                 )}
             </AnimatePresence>
@@ -126,6 +152,7 @@ const Chatbot = () => {
                         initial={{ opacity: 0, y: 100, scale: 0.8 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 100, scale: 0.8 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 25 }}
                         className="w-[90vw] sm:w-[350px] max-w-[400px] h-[70vh] sm:h-[500px] max-h-[600px] bg-[#0A0D18]/95 backdrop-blur-2xl border border-white/10 rounded-3xl shadow-3xl flex flex-col overflow-hidden"
                     >
                         {/* Header */}
@@ -158,21 +185,39 @@ const Chatbot = () => {
                             {messages.map((msg, idx) => (
                                 <motion.div
                                     key={idx}
-                                    initial={{ opacity: 0, x: msg.role === 'bot' ? -10 : 10 }}
-                                    animate={{ opacity: 1, x: 0 }}
+                                    initial={{ opacity: 0, x: msg.role === 'bot' ? -20 : 20, y: 10 }}
+                                    animate={{ opacity: 1, x: 0, y: 0 }}
+                                    transition={{ 
+                                        duration: 0.4, 
+                                        delay: idx * 0.1,
+                                        type: "spring",
+                                        stiffness: 200
+                                    }}
                                     className={`flex ${msg.role === 'bot' ? 'justify-start' : 'justify-end'}`}
                                 >
-                                    <div className={`flex gap-2 max-w-[85%] ${msg.role === 'bot' ? 'flex-row' : 'flex-row-reverse'}`}>
-                                        <div className={`w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-xs ${msg.role === 'bot' ? 'bg-purple-600' : 'bg-white/10'}`}>
+                                    <motion.div 
+                                        className={`flex gap-2 max-w-[85%] ${msg.role === 'bot' ? 'flex-row' : 'flex-row-reverse'}`}
+                                        whileHover={{ scale: 1.02 }}
+                                    >
+                                        <motion.div 
+                                            className={`w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-xs ${msg.role === 'bot' ? 'bg-purple-600' : 'bg-white/10'}`}
+                                            whileHover={{ rotate: 360 }}
+                                            transition={{ duration: 0.6 }}
+                                        >
                                             {msg.role === 'bot' ? <FaRobot /> : <FaUserAlt />}
-                                        </div>
-                                        <div className={`p-3 rounded-2xl text-sm leading-relaxed whitespace-pre-line ${msg.role === 'bot'
-                                            ? 'bg-white/5 border border-white/10 text-gray-200'
-                                            : 'bg-purple-600 text-white'
-                                            }`}>
+                                        </motion.div>
+                                        <motion.div 
+                                            className={`p-3 rounded-2xl text-sm leading-relaxed whitespace-pre-line ${msg.role === 'bot'
+                                                ? 'bg-white/5 border border-white/10 text-gray-200'
+                                                : 'bg-purple-600 text-white'
+                                                }`}
+                                            initial={{ scale: 0.8 }}
+                                            animate={{ scale: 1 }}
+                                            transition={{ delay: 0.1 + idx * 0.1 }}
+                                        >
                                             {msg.content}
-                                        </div>
-                                    </div>
+                                        </motion.div>
+                                    </motion.div>
                                 </motion.div>
                             ))}
                             {isTyping && (
