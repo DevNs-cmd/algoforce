@@ -53,41 +53,40 @@ const Chatbot = () => {
         };
 
         // 1. BUYING / STARTING
-        if (matches(['buy', 'start', 'hire', 'use', 'work with', 'purchase', 'puchase', 'get starte', 'enquire'])) {
+        if (matches(['buy', 'start', 'hire', 'use', 'work with', 'purchase', 'get starte', 'enquire'])) {
             return `Execute with AlgoForce:\n\n` +
                 ALGOFORCE_KNOWLEDGE.purchaseSteps.join("\n") +
-                ` \n\nReady? [Pay Directly (Razorpay)](https://rzp.io/l/algoforce-payment) or [Contact Support](/contact)`;
+                ` \n\nReady? [Pay Directly](https://rzp.io/l/algoforce-payment) or [Contact Support](/contact)`;
+        }
+
+        // 1b. NEXUS / AI BUILDER
+        if (matches(['nexus', 'vibe', 'builder', 'ai builder', 'code', 'generate'])) {
+            return `Nexus AI Builder:\nOur proprietary "vibe coding" engine. Build SaaS, UIs, and backend APIs purely through natural language. Instantly deployable and fully customizable.`;
+        }
+
+        // 1c. LABS / EDUCATION
+        if (matches(['labs', 'learn', 'course', 'apprenticeship', 'study', 'education'])) {
+            return `AlgoForce Labs:\nWe share our internal execution secrets. Join high-end masterclasses on AI Automation and RAG architecture, or enter our apprenticeship program.`;
+        }
+
+        // 1d. ALGOFORCE GENERAL
+        if (matches(['algoforce', 'what do you', 'what is', 'services', 'offer'])) {
+            return `AlgoForce consists of:\n\n` + ALGOFORCE_KNOWLEDGE.products.join("\n\n") + `\n\nHow can we help?`;
         }
 
         // 2. Philosophy & Founder
-        if (matches(['philosophy', 'vision', 'why', 'founder', 'suman', 'dev', 'who made', 'background'])) {
-            return `AlgoForce Core:\n- Founded by Dev N Suman\n- "Revenue Infrastructure" focus\n- AI Moats: LLMs + RAG + Automation\n- 10x Deployment Speed.`;
+        if (matches(['philosophy', 'vision', 'why', 'founder', 'suman', 'dev', 'who made'])) {
+            return `AlgoForce OS:\n- Founded by Dev N Suman\n- Focus: "Revenue Infrastructure"\n- Pure iOS liquid aesthetics\n- 10x Deployment Speed.`;
         }
 
         // 3. Packages & Pricing
-        if (matches(['price', 'pricing', 'prizing', 'cost', 'how much', 'package', 'pack', 'plan', 'cheap'])) {
-            const packs = ALGOFORCE_KNOWLEDGE.packages.map(p => `- **${p.name}**: ${p.price} (${p.value})`).join("\n");
-            return `Service Packs:\n${packs}\n- **SaaS Launch**: $2,499+\n\nWhich stage? [Full Pricing](/pricing)`;
+        if (matches(['price', 'pricing', 'cost', 'how much', 'package', 'pack', 'plan'])) {
+            return `Service Packs:\n- **Startup**: $299\n- **Business**: $599\n- **Domination**: $999\n- **SaaS MVP**: $2,499+\n\nWhich stage? [Full Pricing](/pricing)`;
         }
 
         // 4. RAG/LLM Specialization
         if (matches(['rag', 'llm', 'chatbot', 'bot', 'train', 'gpt', 'intelligent', 'ai agent'])) {
-            return `Our RAG Tech:\n- Custom LLM Ingestion\n- 24/7 Support/Sales\n- Web & WhatsApp\n- Basic: $49 | ROI: High\n- Example: I am a RAG bot!`;
-        }
-
-        // 5. AEO/SEO
-        if (matches(['seo', 'aeo', 'geo', 'google', 'perplexity', 'ranking', 'search', 'optimization'])) {
-            return `Next-Gen Search:\n- AEO (Answer Engine Optimization)\n- GEO (Generative Engine Optimization)\n- Rank in ChatGPT & Perplexity\n- Dominate AI search.`;
-        }
-
-        // 6. SaaS / Apps
-        if (matches(['saas', 'mvp', 'app', 'build', 'software', 'develop', 'platform', 'startup'])) {
-            return `SaaS Build:\n- 30-Day Launch\n- MVP Architecture\n- Starting: $2,499\n- Full Tech Strategy included.`;
-        }
-
-        // 7. Support/Retainers
-        if (matches(['support', 'maintenance', 'retainer', 'monthly', 'help', 'fix', 'update'])) {
-            return `Maintenance:\n- **Growth**: $299/mo\n- **Automation**: $199/mo\n- Continuous bot/AI health.`;
+            return `Our RAG Tech:\n- Custom LLM Ingestion\n- 24/7 Support/Sales\n- Web & WhatsApp\n- Starts at $49`;
         }
 
         // 8. Contact / Audit
@@ -96,11 +95,11 @@ const Chatbot = () => {
         }
 
         // 9. Personality/Default
-        if (matches(['hello', 'hi', 'hey', 'greetings', 'sup', 'yo'])) {
-            return `Greetings. How can I help?\n- **AI Strategy**\n- **Pricing Review**\n- **Revenue Audit**`;
+        if (matches(['hello', 'hi', 'hey', 'greetings', 'sup'])) {
+            return `Greetings. How can I accelerate your vision today?\n- **Ask about Nexus**\n- **Ask about Labs**\n- **Ask about Pricing**`;
         }
 
-        return `I specialize in AlgoForce:\n- RAG bots & Automation\n- SaaS MVP builds\n- AEO (AI Search) ranking\n\nWhat's your biggest business bottleneck?`;
+        return `I specialize in AlgoForce OS:\n- Nexus (AI Vibe Coding)\n- Labs (Education)\n- Studio (Agency Builds)\n\nWhat are you looking to build?`;
     }
 
     return (
@@ -117,11 +116,11 @@ const Chatbot = () => {
                         className="w-14 h-14 sm:w-16 sm:h-16 bg-purple-600 rounded-full shadow-2xl flex items-center justify-center text-white hover:bg-purple-700 transition-all group relative"
                     >
                         <motion.div
-                            animate={{ 
+                            animate={{
                                 rotate: [0, 10, -10, 0],
                                 scale: [1, 1.1, 1]
                             }}
-                            transition={{ 
+                            transition={{
                                 duration: 2,
                                 repeat: Infinity,
                                 repeatType: "reverse",
@@ -130,7 +129,7 @@ const Chatbot = () => {
                         >
                             <FaRobot size={28} className="group-hover:rotate-12 transition-transform" />
                         </motion.div>
-                        <motion.span 
+                        <motion.span
                             className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-black"
                             animate={{
                                 scale: [1, 1.2, 1],
@@ -153,19 +152,19 @@ const Chatbot = () => {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 100, scale: 0.8 }}
                         transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                        className="w-[90vw] sm:w-[350px] max-w-[400px] h-[70vh] sm:h-[500px] max-h-[600px] bg-[#0A0D18]/95 backdrop-blur-2xl border border-white/10 rounded-3xl shadow-3xl flex flex-col overflow-hidden"
+                        className="w-[90vw] sm:w-[380px] h-[75vh] sm:h-[550px] max-h-[700px] bg-[#000000]/60 backdrop-blur-[60px] border border-white/10 rounded-[2.5rem] shadow-[0_50px_100px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden"
                     >
                         {/* Header */}
-                        <div className="p-4 border-b border-white/10 bg-gradient-to-r from-purple-900/20 to-blue-900/20 flex justify-between items-center">
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center">
-                                    <FaRobot size={20} className="text-white" />
+                        <div className="p-5 border-b border-white/5 bg-transparent flex justify-between items-center">
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 bg-white/5 border border-white/10 rounded-[1.2rem] flex items-center justify-center">
+                                    <FaRobot size={24} className="text-purple-500" />
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-white text-sm">AlgoForce AI Buddy</h3>
-                                    <div className="flex items-center gap-1.5">
-                                        <span className="w-1.5 h-1.5 bg-green-500 rounded-full" />
-                                        <span className="text-[10px] text-gray-400 font-medium uppercase tracking-widest">RAG Optimized</span>
+                                    <h3 className="font-bold text-white text-[15px] tracking-tight">AlgoForce Nexus</h3>
+                                    <div className="flex items-center gap-1.5 mt-0.5">
+                                        <span className="w-2 h-2 bg-green-500 rounded-full" />
+                                        <span className="text-[11px] text-gray-400 font-semibold uppercase tracking-widest">Online</span>
                                     </div>
                                 </div>
                             </div>
@@ -187,29 +186,29 @@ const Chatbot = () => {
                                     key={idx}
                                     initial={{ opacity: 0, x: msg.role === 'bot' ? -20 : 20, y: 10 }}
                                     animate={{ opacity: 1, x: 0, y: 0 }}
-                                    transition={{ 
-                                        duration: 0.4, 
+                                    transition={{
+                                        duration: 0.4,
                                         delay: idx * 0.1,
                                         type: "spring",
                                         stiffness: 200
                                     }}
                                     className={`flex ${msg.role === 'bot' ? 'justify-start' : 'justify-end'}`}
                                 >
-                                    <motion.div 
+                                    <motion.div
                                         className={`flex gap-2 max-w-[85%] ${msg.role === 'bot' ? 'flex-row' : 'flex-row-reverse'}`}
                                         whileHover={{ scale: 1.02 }}
                                     >
-                                        <motion.div 
+                                        <motion.div
                                             className={`w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-xs ${msg.role === 'bot' ? 'bg-purple-600' : 'bg-white/10'}`}
                                             whileHover={{ rotate: 360 }}
                                             transition={{ duration: 0.6 }}
                                         >
                                             {msg.role === 'bot' ? <FaRobot /> : <FaUserAlt />}
                                         </motion.div>
-                                        <motion.div 
-                                            className={`p-3 rounded-2xl text-sm leading-relaxed whitespace-pre-line ${msg.role === 'bot'
+                                        <motion.div
+                                            className={`p-4 rounded-3xl text-[14px] leading-relaxed whitespace-pre-line font-medium ${msg.role === 'bot'
                                                 ? 'bg-white/5 border border-white/10 text-gray-200'
-                                                : 'bg-purple-600 text-white'
+                                                : 'bg-white text-black'
                                                 }`}
                                             initial={{ scale: 0.8 }}
                                             animate={{ scale: 1 }}
@@ -241,8 +240,8 @@ const Chatbot = () => {
                                     type="text"
                                     value={input}
                                     onChange={(e) => setInput(e.target.value)}
-                                    placeholder="Ask me anything..."
-                                    className="flex-1 bg-white/10 border border-white/10 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-purple-500 text-white placeholder-gray-500"
+                                    placeholder="Type your message..."
+                                    className="flex-1 bg-white/5 border border-white/10 rounded-[1.5rem] px-5 py-3 text-[14px] font-medium focus:outline-none focus:bg-white/10 text-white placeholder-gray-500 transition-colors"
                                 />
                                 <button
                                     type="submit"

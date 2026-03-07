@@ -73,11 +73,12 @@
   font-size: clamp(3rem, 2.5rem + 2.5vw, 4rem);
 }
 
-/* Smooth scrolling for mobile */
+/* Smooth scrolling for all devices */
+html {
+  scroll-behavior: smooth;
+}
+
 @media (max-width: 768px) {
-  html {
-    scroll-behavior: smooth;
-  }
 
   /* Prevent horizontal scroll */
   body {
@@ -225,12 +226,22 @@ body {
   background: rgba(255, 255, 255, 0.2);
 }
 
-/* Glassmorphism Utility */
+/* Global Hardware Acceleration for Glassmorphism */
+[class*="backdrop-blur"] {
+  transform: translateZ(0);
+  will-change: transform, backdrop-filter;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Glassmorphism Utility with Hardware Acceleration to prevent lag */
 .glass-panel {
   background: var(--glass-bg);
-  backdrop-filter: blur(40px);
-  -webkit-backdrop-filter: blur(40px);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
   border: 1px solid var(--glass-border);
+  transform: translateZ(0);
+  will-change: backdrop-filter;
 }
 
 .glass-pill {
@@ -239,6 +250,8 @@ body {
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 9999px;
+  transform: translateZ(0);
+  will-change: backdrop-filter;
 }
 
 /* Typography Helpers - Fluid & iOS Scale */

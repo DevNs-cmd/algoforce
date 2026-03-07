@@ -123,7 +123,7 @@ const Navigation = () => {
                   <Link
                     to={link.path}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="text-6xl font-bold text-white tracking-tighter"
+                    className="text-4xl font-semibold text-white tracking-tight"
                   >
                     {link.name}
                   </Link>
@@ -139,7 +139,7 @@ const Navigation = () => {
                   <Link
                     to="/dashboard"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="text-6xl font-bold text-purple-500 tracking-tighter"
+                    className="text-4xl font-semibold text-purple-500 tracking-tight"
                   >
                     Dashboard
                   </Link>
@@ -151,14 +151,14 @@ const Navigation = () => {
               {!user ? (
                 <button
                   onClick={() => { setMobileMenuOpen(false); setAuthModalOpen(true); }}
-                  className="w-full py-6 bg-white text-black rounded-[2rem] font-bold text-lg active:scale-95 transition-all"
+                  className="w-full py-4 bg-white text-black rounded-full font-semibold text-base active:scale-95 transition-all shadow-xl"
                 >
-                  Initialize {'->'}
+                  Join
                 </button>
               ) : (
                 <button
                   onClick={logout}
-                  className="w-full py-6 border border-white/10 text-white rounded-[2rem] font-bold text-lg active:scale-95 transition-all"
+                  className="w-full py-4 border border-white/10 text-white rounded-full font-semibold text-base active:scale-95 transition-all"
                 >
                   Log Out
                 </button>

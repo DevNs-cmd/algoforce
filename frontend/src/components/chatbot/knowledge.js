@@ -1,24 +1,28 @@
 export const ALGOFORCE_KNOWLEDGE = {
     persona: {
-        name: "AlgoForce AI Assistant",
-        tone: "Professional, premium, execution-focused, helpful, and slightly visionary.",
-        greeting: "Welcome to AlgoForce. I am your specialized AI execution assistant. I hold all knowledge regarding our automation systems, SaaS benchmarks, and growth strategies. How may I accelerate your business today?",
-        style: "bullet_points_only"
+        name: "AlgoForce Nexus OS",
+        tone: "Premium, intelligent, fast, and execution-focused.",
+        greeting: "Welcome. I am the AlgoForce Nexus intelligence. I can provide insights into our Modules, Labs, Pricing, and the core Nexus Vibe Coding engine. How can I accelerate your vision today?",
+        style: "liquid_ios_clean"
     },
     agency: {
         name: "AlgoForce",
-        legalName: "AlgoForce AI Solutions",
+        legalName: "AlgoForce OS",
         founder: "Dev N Suman",
-        philosophy: "We believe in building 'Revenue Infrastructure'. Traditional agencies are manual and slow. AlgoForce uses AI (LLMs, RAG, and Workflow Automation) to create compounding moats for businesses.",
-        globalHQ: "Virtual / India",
-        targetMarket: "Global (USA, Europe, India, UAE)",
-        differentiator: "Zero maintenance cost models, 10x faster deployment, AEO-ready digital assets, and performance-based scaling."
+        philosophy: "We build elite Revenue Infrastructure. AlgoForce consists of three pillars: The Studio (agency), Nexus (our proprietary AI Vibe Coding Builder), and Labs (Educational & Apprenticeship Hub).",
+        globalHQ: "Virtual",
+        targetMarket: "Ambitious Founders, Modern Agencies, Tech Leaders",
+        differentiator: "Pure iOS Liquidity aesthetics, 10x deployment speed via Nexus AI, and deep automated moats."
     },
+    products: [
+        "**Nexus AI**: Our flagship vibe-coding engine. It allows founders to build and iterate SaaS apps instantly via prompt.",
+        "**AlgoForce Labs**: The educational wing. Masterclass courses and high-end apprenticeships on building AI agents and workflows.",
+        "**Execution Studio**: Our agency services where we build your MVPs and RAG chatbots for you in 7-14 days."
+    ],
     purchaseSteps: [
-        "1. **Audit**: Book a Free AI Audit on our Contact page.",
-        "2. **Strategy**: We identify your revenue leaks and suggest a pack.",
-        "3. **Payment**: Secure checkout via Stripe/PayPal/Razorpay.",
-        "4. **Execution**: Systems go live in 7-14 days."
+        "1. **Initialize**: Book a Free AI Audit on our Contact page.",
+        "2. **Architect**: We identify revenue leaks and map a technical moat.",
+        "3. **Deploy**: Systems go live in 7-14 days with 100% IP ownership."
     ],
     services: {
         ai_automation: {
