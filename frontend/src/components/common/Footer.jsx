@@ -10,117 +10,87 @@ const Footer = () => {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="text-white bg-navy-900">
-      <div className="px-4 sm:px-6 py-8 sm:py-12 mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-4">
+    <footer className="text-white bg-[#030308] border-t border-white/5 relative overflow-hidden">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent" />
+
+      <div className="px-6 py-20 mx-auto max-w-7xl relative z-10">
+        <div className="grid grid-cols-1 gap-16 md:grid-cols-4">
 
           {/* Brand */}
           <div className="md:col-span-2">
-            <h3 className="mb-3 sm:mb-4 text-xl sm:text-2xl font-bold gradient-text">
-              AlgoForce
+            <h3 className="mb-6 text-3xl font-black tracking-tighter text-white">
+              Algo<span className="text-purple-600">Force</span>
             </h3>
 
-            <p className="mb-4 text-sm sm:text-base text-gray-400">
-              The Operating System for Revenue Intelligence. Enterprise-grade AI
-              Business OS that eliminates revenue leaks and compounds
-              intelligence.
+            <p className="mb-8 text-gray-500 max-w-sm font-medium leading-[1.8]">
+              The premier AI execution studio for high-growth startups and
+              ambitious founders. We engineer technical equity.
             </p>
 
-            <div className="flex space-x-3 sm:space-x-4">
-              <a
-                href="https://www.linkedin.com/company/algoforceofficial/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-purple-400 transition-colors"
-              >
-                <FaLinkedin size={20} className="w-5 h-5 sm:w-[22px] sm:h-[22px]" />
-              </a>
-
-              <a
-                href="https://www.instagram.com/algo.force?igsh=MzRndng5bXJ6eHU4"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-purple-400 transition-colors"
-              >
-                <FaInstagram size={20} className="w-5 h-5 sm:w-[22px] sm:h-[22px]" />
-              </a>
-
-              <a
-                href="https://www.facebook.com/share/1BDAyoFCG1/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-purple-400 transition-colors"
-              >
-                <FaFacebook size={20} className="w-5 h-5 sm:w-[22px] sm:h-[22px]" />
-              </a>
-
-              <a
-                href="https://x.com/algoforceAF"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-purple-400 transition-colors"
-              >
-                <FaXTwitter size={20} className="w-5 h-5 sm:w-[22px] sm:h-[22px]" />
-              </a>
+            <div className="flex space-x-6">
+              {[
+                { icon: <FaLinkedin />, href: "https://www.linkedin.com/company/algoforceofficial/" },
+                { icon: <FaInstagram />, href: "https://www.instagram.com/algo.force?igsh=MzRndng5bXJ6eHU4" },
+                { icon: <FaFacebook />, href: "https://www.facebook.com/share/1BDAyoFCG1/" },
+                { icon: <FaXTwitter />, href: "https://x.com/algoforceAF" }
+              ].map((social, i) => (
+                <a
+                  key={i}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-600 hover:text-purple-500 hover:bg-white/10 transition-all border border-white/5"
+                >
+                  {social.icon}
+                </a>
+              ))}
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="mb-3 sm:mb-4 text-sm sm:text-base font-semibold">Quick Links</h4>
-            <ul className="space-y-1.5 sm:space-y-2">
-              <li>
-                <Link to="/" className="text-sm sm:text-base text-gray-400 hover:text-purple-400 transition-colors">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link to="/pricing" className="text-sm sm:text-base text-gray-400 hover:text-purple-400 transition-colors">
-                  Pricing
-                </Link>
-              </li>
-              <li>
-                <Link to="/labs" className="text-sm sm:text-base text-gray-400 hover:text-purple-400 transition-colors">
-                  AlgoForce Labs
-                </Link>
-              </li>
-              <li>
-                <Link to="/contact" className="text-sm sm:text-base text-gray-400 hover:text-purple-400 transition-colors">
-                  Contact
-                </Link>
-              </li>
+            <h4 className="mb-8 text-[10px] font-black uppercase tracking-[0.3em] text-gray-600">Structure</h4>
+            <ul className="space-y-4">
+              {[
+                { name: 'Home', path: '/' },
+                { name: 'Nexus', path: '/ai-builder' },
+                { name: 'Labs', path: '/labs' },
+                { name: 'Pricing', path: '/pricing' },
+                { name: 'Contact', path: '/contact' }
+              ].map(link => (
+                <li key={link.path}>
+                  <Link to={link.path} className="text-gray-500 hover:text-white transition-colors text-sm font-bold">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Legal */}
           <div>
-            <h4 className="mb-3 sm:mb-4 text-sm sm:text-base font-semibold">Legal</h4>
-            <ul className="space-y-1.5 sm:space-y-2 text-gray-400">
-              <li>
-                <Link to="/privacy-policy" className="text-sm sm:text-base hover:text-purple-400 transition-colors">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link to="/terms-and-conditions" className="text-sm sm:text-base hover:text-purple-400 transition-colors">
-                  Terms & Conditions
-                </Link>
-              </li>
-              <li>
-                <Link to="/refund-policy" className="text-sm sm:text-base hover:text-purple-400 transition-colors">
-                  Refund Policy
-                </Link>
-              </li>
+            <h4 className="mb-8 text-[10px] font-black uppercase tracking-[0.3em] text-gray-600">Artifacts</h4>
+            <ul className="space-y-4">
+              {[
+                { name: 'Privacy Policy', path: '/privacy-policy' },
+                { name: 'Terms & Conditions', path: '/terms-and-conditions' },
+                { name: 'Refund Policy', path: '/refund-policy' }
+              ].map(link => (
+                <li key={link.path}>
+                  <Link to={link.path} className="text-gray-500 hover:text-white transition-colors text-sm font-bold">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-6 sm:pt-8 mt-6 sm:mt-8 text-center text-gray-400 border-t border-gray-800">
-          <p className="text-sm sm:text-base">
-            ©{currentYear} AlgoForce. All rights reserved.
+        <div className="pt-16 mt-16 text-center border-t border-white/5">
+          <p className="text-[10px] font-black uppercase tracking-[0.5em] text-gray-800">
+            ©{currentYear} AlgoForce. Engineered by Dev N Suman.
           </p>
-          <p className="text-sm sm:text-base mt-1"> @Dev N Suman </p>
         </div>
       </div>
     </footer>

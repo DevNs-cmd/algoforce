@@ -125,7 +125,7 @@ const Contact = () => {
             </motion.div>
           </div>
         </section>
-
+        
         {/* Form Section */}
         <section className="py-24">
           <div className="max-w-6xl px-6 mx-auto">

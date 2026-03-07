@@ -5,6 +5,9 @@ import compression from 'compression'
 import helmet from 'helmet'
 import { connectDB } from './config/database.js'
 import contactRoutes from './routes/contactRoutes.js'
+import authRoutes from './routes/authRoutes.js'
+import aiRoutes from './routes/aiRoutes.js'
+import projectRoutes from './routes/projectRoutes.js'
 
 // Initialize Express app
 const app = express()
@@ -24,7 +27,7 @@ app.use(helmet({
       fontSrc: ["'self'", 'fonts.gstatic.com'],
       imgSrc: ["'self'", 'data:', 'https:'],
       scriptSrc: ["'self'"],
-      connectSrc: ["'self'", 'https://pagead2.googlesyndication.com']
+      connectSrc: ["'self'", 'https://pagead2.googlesyndication.com', 'https://api.openai.com', 'https://api.anthropic.com', 'https://openrouter.ai']
     }
   }
 }))
@@ -33,18 +36,18 @@ app.use(helmet({
 app.use((req, res, next) => {
   const host = req.get('Host');
   const protocol = req.secure ? 'https' : 'http';
-  
+
   // Check if the host is the non-www version
   if (host && host === 'algoforceaii.com') {
     // Redirect to www version with HTTPS
     return res.redirect(301, `https://www.algoforceaii.com${req.originalUrl}`);
   }
-  
+
   // If not HTTPS and not localhost, redirect to HTTPS
   if (!req.secure && host && !host.startsWith('localhost')) {
     return res.redirect(301, `https://www.algoforceaii.com${req.originalUrl}`);
   }
-  
+
   next();
 });
 
@@ -87,7 +90,8 @@ app.use(
       'https://algoforceaii.com',
       'https://algoforceofficial.vercel.app',
       'http://localhost:3000',
-      'http://localhost:5173'
+      'http://localhost:5173',
+      'http://localhost:4173'
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
@@ -104,6 +108,9 @@ app.use(express.urlencoded({ extended: true }))
 
 // API routes
 app.use('/api/contact', contactRoutes)
+app.use('/api/auth', authRoutes)
+app.use('/api/ai', aiRoutes)
+app.use('/api/projects', projectRoutes)
 
 // Root endpoint (keep-alive / sanity check)
 app.get('/', (req, res) => {

@@ -1,5 +1,6 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
+import { AuthProvider } from './contexts/AuthContext'
 
 import Navigation from './components/common/Navigation'
 import Footer from './components/common/Footer'
@@ -11,30 +12,46 @@ import Contact from './pages/Contact'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsAndConditions from './pages/TermsAndConditions'
 import RefundPolicy from './pages/RefundPolicy'
+import AIBuilder from './pages/AIBuilder'
+import Dashboard from './pages/Dashboard'
+
+// Conditionally show footer and chatbot (not on AI Builder page)
+const AppShell = () => {
+  const location = useLocation()
+  const isBuilderPage = location.pathname === '/ai-builder'
+
+  return (
+    <div className={isBuilderPage ? 'h-screen overflow-hidden' : 'min-h-screen bg-white'}>
+      <Navigation />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/labs" element={<Labs />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+        <Route path="/refund-policy" element={<RefundPolicy />} />
+        <Route path="/ai-builder" element={<AIBuilder />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        {/* Catch-all */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+
+      {!isBuilderPage && <Footer />}
+      {!isBuilderPage && <Chatbot />}
+    </div>
+  )
+}
 
 function App() {
   return (
     <HelmetProvider>
-      <Router>
-        <div className="min-h-screen bg-white">
-          <Navigation />
-
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/pricing" element={<Pricing />} />
-            <Route path="/labs" element={<Labs />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
-            <Route path="/refund-policy" element={<RefundPolicy />} />
-            {/* Catch-all route: redirect unknown paths to home */}
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-
-          <Footer />
-          <Chatbot />
-        </div>
-      </Router>
+      <AuthProvider>
+        <Router>
+          <AppShell />
+        </Router>
+      </AuthProvider>
     </HelmetProvider>
   )
 }

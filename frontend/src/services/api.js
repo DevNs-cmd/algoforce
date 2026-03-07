@@ -1,12 +1,15 @@
 import axios from 'axios'
 
-const API_URL = (import.meta.env.VITE_API_URL ||
-    (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-        ? 'http://localhost:8080'
-        : 'https://algoforce-backend.onrender.com')).replace(/\/$/, '')
+// In dev, Vite proxy routes /api → localhost:8080, so use relative path
+// In production, use the full backend URL from env or the deployed Render URL
+const isDev = import.meta.env.DEV
+
+const API_URL = isDev
+    ? ''
+    : (import.meta.env.VITE_API_URL || 'https://algoforce-backend.onrender.com').replace(/\/$/, '')
 
 const api = axios.create({
-    baseURL: `${API_URL}/api`,
+    baseURL: isDev ? '/api' : `${API_URL}/api`,
     headers: {
         'Content-Type': 'application/json'
     }

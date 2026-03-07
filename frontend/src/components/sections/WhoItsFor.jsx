@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { FaRocket, FaBuilding, FaUsers, FaLandmark } from 'react-icons/fa'
+import { FaRocket, FaBuilding, FaUserTie, FaMicrochip } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
 const WhoItsFor = () => {
@@ -11,212 +11,83 @@ const WhoItsFor = () => {
 
   const segments = [
     {
-      icon: <FaRocket className="w-12 h-12" />,
-      title: 'Local Businesses',
-      subtitle: 'Growth Focused',
-      description: 'Brick-and-mortar stores and service businesses looking to automate bookings and capture every lead.',
-      useCases: [
-        'AI Voice Receptionist',
-        'Local SEO Dominance',
-        'Google Review Automation',
-        'Lead Generation Bots'
-      ],
-      outcome: 'Double your booking rate',
-      gradient: 'from-purple-500 to-pink-500',
-      bgGradient: 'from-purple-50 to-pink-50'
+      icon: <FaRocket />,
+      title: 'Ambitious Founders',
+      desc: 'Entrepreneurs who need to validate their vision with a high-performance MVP in record time.',
+      color: 'bg-purple-600/20 text-purple-400'
     },
     {
-      icon: <FaBuilding className="w-12 h-12" />,
-      title: 'D2C & E-commerce',
-      subtitle: 'Scale to 7-8 Figures',
-      description: 'Online brands that need automated customer support and high-converting storefronts.',
-      useCases: [
-        'WhatsApp AI Automation',
-        'Abandoned Cart Recovery',
-        'Inventory Management Bot',
-        'High-Speed Storefronts'
-      ],
-      outcome: 'Reduces support tickets by 80%',
-      gradient: 'from-blue-500 to-cyan-500',
-      bgGradient: 'from-blue-50 to-cyan-50'
+      icon: <FaBuilding />,
+      title: 'Modern Agencies',
+      desc: 'Service-based businesses looking to automate lead capture and client reporting workflows.',
+      color: 'bg-blue-600/10 text-blue-400'
     },
     {
-      icon: <FaUsers className="w-12 h-12" />,
-      title: 'Coaches & Experts',
-      subtitle: 'Solopreneurs & Founders',
-      description: 'Thought leaders who want to automate their sales funnel and deliver value 24/7.',
-      useCases: [
-        'Personal Brand Websites',
-        'Automated Webinar Funnels',
-        'AI Content Strategies',
-        'Lead Nurture Flows'
-      ],
-      outcome: 'Build authority while you sleep',
-      gradient: 'from-green-500 to-teal-500',
-      bgGradient: 'from-green-50 to-teal-50'
+      icon: <FaUserTie />,
+      title: 'Solo Experts',
+      desc: 'High-level consultants and coaches who want to build digital equity through AI scaling.',
+      color: 'bg-green-600/10 text-green-400'
     },
     {
-      icon: <FaLandmark className="w-12 h-12" />,
-      title: 'Tech Founders',
-      subtitle: 'Building for the Future',
-      description: 'Founders who need a fast, reliable MVP launch to validate their idea and attract investors.',
-      useCases: [
-        'SaaS MVP Development',
-        'UI/UX Design Strategy',
-        'Launch Consulting',
-        'Scale Infrastructure'
-      ],
-      outcome: 'Launch to market in 30 days',
-      gradient: 'from-indigo-500 to-purple-500',
-      bgGradient: 'from-indigo-50 to-purple-50'
+      icon: <FaMicrochip />,
+      title: 'Tech Leaders',
+      desc: 'CTOs and Product Managers who need a specialized execution partner for AI-focused modules.',
+      color: 'bg-cyan-600/10 text-cyan-400'
     }
   ]
 
   return (
-    <section id="who-its-for" className="py-24 bg-white">
+    <section id="who" className="py-32 bg-[#05050F] text-white relative">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           ref={ref}
           initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.8 }}
+          animate={inView ? { opacity: 1 } : {}}
+          className="text-center mb-24"
         >
-          {/* Section Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-5xl md:text-6xl font-bold text-navy-900 mb-6">
-              Who We <span className="gradient-text">Serve</span>
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              From local businesses to tech founders. If you want to automate and grow faster, we're your partner.
-            </p>
-          </div>
-
-          {/* Segments Grid */}
-          <div className="grid md:grid-cols-2 gap-8">
-            {segments.map((segment, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 50 }}
-                animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-                transition={{ duration: 0.6, delay: index * 0.15 }}
-                whileHover={{ y: -10, transition: { duration: 0.3 } }}
-                className="group relative"
-              >
-                <div className={`bg-gradient-to-br ${segment.bgGradient} rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all border border-gray-100 h-full`}>
-                  {/* Badge if applicable */}
-                  {segment.badge && (
-                    <div className="absolute top-4 right-4">
-                      <span className="px-3 py-1 bg-purple-600 text-white text-xs font-semibold rounded-full">
-                        {segment.badge}
-                      </span>
-                    </div>
-                  )}
-
-                  {/* Icon */}
-                  <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${segment.gradient} flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform`}>
-                    {segment.icon}
-                  </div>
-
-                  {/* Title & Subtitle */}
-                  <h3 className="text-3xl font-bold text-navy-900 mb-2">
-                    {segment.title}
-                  </h3>
-                  <p className="text-sm font-semibold text-gray-500 mb-4">
-                    {segment.subtitle}
-                  </p>
-
-                  {/* Description */}
-                  <p className="text-gray-700 leading-relaxed mb-6">
-                    {segment.description}
-                  </p>
-
-                  {/* Use Cases */}
-                  <div className="mb-6">
-                    <h4 className="font-semibold text-navy-900 mb-3 text-sm uppercase tracking-wide">
-                      Key Use Cases
-                    </h4>
-                    <div className="space-y-2">
-                      {segment.useCases.map((useCase, useCaseIndex) => (
-                        <div key={useCaseIndex} className="flex items-center gap-2">
-                          <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${segment.gradient}`} />
-                          <span className="text-gray-700 text-sm">{useCase}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Outcome */}
-                  <div className={`mt-6 pt-6 border-t border-gray-200`}>
-                    <div className={`inline-block px-4 py-2 bg-gradient-to-r ${segment.gradient} text-white text-sm font-semibold rounded-lg`}>
-                      🎯 {segment.outcome}
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Common Thread */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="mt-16 glass-dark rounded-3xl p-12 text-white"
-          >
-            <div className="text-center max-w-4xl mx-auto">
-              <h3 className="text-3xl font-bold mb-6">
-                What They All Have in Common
-              </h3>
-              <p className="text-gray-300 text-lg mb-8">
-                Every organization that thrives with AlgoForce shares one characteristic: they recognize that competitive advantage in 2026 comes from compounding intelligence, not incremental tools.
-              </p>
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-                  <div className="text-4xl mb-3">🧠</div>
-                  <h4 className="font-semibold mb-2">Think Long-Term</h4>
-                  <p className="text-gray-300 text-sm">
-                    Building infrastructure, not checking boxes
-                  </p>
-                </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-                  <div className="text-4xl mb-3">⚡</div>
-                  <h4 className="font-semibold mb-2">Move Fast</h4>
-                  <p className="text-gray-300 text-sm">
-                    Speed is your primary competitive moat
-                  </p>
-                </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-                  <div className="text-4xl mb-3">📈</div>
-                  <h4 className="font-semibold mb-2">Data-Driven</h4>
-                  <p className="text-gray-300 text-sm">
-                    Decisions backed by automated intelligence
-                  </p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* CTA */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 0.8, delay: 1 }}
-            className="mt-12 text-center"
-          >
-            <p className="text-gray-600 mb-6">
-              Not sure if AlgoForce is right for your organization?
-            </p>
-            <Link to="/contact">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-purple-600 text-white rounded-lg font-semibold text-lg hover:bg-purple-700 transition-all shadow-lg hover:shadow-purple-500/50"
-              >
-                Book a Free AI Audit
-              </motion.button>
-            </Link>
-          </motion.div>
+          <h2 className="text-[10px] font-black uppercase tracking-[0.5em] text-gray-500 mb-6">Partnerships</h2>
+          <h3 className="text-5xl md:text-7xl font-black tracking-tighter mb-8 leading-none">
+            Built for <span className="text-purple-500">The 1%.</span>
+          </h3>
+          <p className="max-w-xl mx-auto text-gray-400 font-medium text-lg leading-relaxed">
+            We partner with the most ambitious leaders to forge technicalMoats and automate revenue streams.
+          </p>
         </motion.div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {segments.map((s, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={inView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ delay: i * 0.1 }}
+              className="p-10 rounded-[2.5rem] bg-white/[0.02] border border-white/5 hover:border-purple-500/30 transition-all group"
+            >
+              <div className={`w-14 h-14 rounded-2xl ${s.color} flex items-center justify-center text-xl mb-8 group-hover:scale-110 transition-transform`}>
+                {s.icon}
+              </div>
+              <h4 className="text-2xl font-bold mb-4">{s.title}</h4>
+              <p className="text-gray-500 text-sm leading-relaxed font-medium mb-12">{s.desc}</p>
+              <div className="h-px w-10 bg-gray-800" />
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Final Statement Block */}
+        <div className="mt-32 p-12 rounded-[3.5rem] bg-white text-black text-center">
+          <h4 className="text-4xl md:text-5xl font-black mb-6 tracking-tighter">Your Competitive Advantage Starts Here.</h4>
+          <p className="text-gray-600 text-lg mb-12 max-w-xl mx-auto font-medium">
+            Don't leave your execution to chance. Partner with a studio that treats your vision as its own mission.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link to="/contact">
+              <button className="px-10 py-5 bg-black text-white rounded-2xl font-black text-sm uppercase tracking-widest hover:scale-105 transition-all">Start Execution</button>
+            </Link>
+            <Link to="/pricing">
+              <button className="px-10 py-5 bg-gray-100 text-black border border-gray-200 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-white transition-all">View Pricing</button>
+            </Link>
+          </div>
+        </div>
       </div>
     </section>
   )

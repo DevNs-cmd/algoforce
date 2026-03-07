@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { FaBrain, FaDatabase, FaCogs } from 'react-icons/fa'
+import { FaBolt, FaCode, FaChartLine } from 'react-icons/fa'
 
 const WhatIsAlgoForce = () => {
   const [ref, inView] = useInView({
@@ -8,180 +8,95 @@ const WhatIsAlgoForce = () => {
     threshold: 0.1
   })
 
-  const features = [
+  const cards = [
     {
-      icon: <FaBrain className="w-8 h-8" />,
-      title: 'AI Strategy',
-      description: 'Custom roadmaps to integrate AI into your specific business workflows for maximum efficiency and growth.',
-      color: 'from-purple-500 to-purple-700'
+      icon: <FaBolt />,
+      title: 'Precision Execution',
+      description: 'We eliminate the friction between concept and deployment. Our systems are built for founders who demand speed.',
+      color: 'bg-purple-100 text-purple-600'
     },
     {
-      icon: <FaCogs className="w-8 h-8" />,
-      title: 'Automation First',
-      description: 'We replace repetitive manual tasks with intelligent automated workflows, saving hundreds of hours weekly.',
-      color: 'from-blue-500 to-blue-700'
+      icon: <FaCode />,
+      title: 'Studio Standards',
+      description: 'Engineering excellence at every layer. We build software that performs, scales, and delivers value from Day 1.',
+      color: 'bg-blue-100 text-blue-600'
     },
     {
-      icon: <FaDatabase className="w-8 h-8" />,
-      title: 'Growth Systems',
-      description: 'From landing pages to complex SaaS MVPs, we build scalable digital assets that attract and convert customers.',
-      color: 'from-indigo-500 to-indigo-700'
+      icon: <FaChartLine />,
+      title: 'Revenue Obsessed',
+      description: 'We don’t just ship code; we build machines that drive growth, capture leads, and automate revenue streams.',
+      color: 'bg-green-100 text-green-600'
     }
   ]
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    }
-  }
-
   return (
-    <section id="about" className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="what-is" className="py-32 bg-white text-black overflow-hidden relative">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         <motion.div
           ref={ref}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          variants={containerVariants}
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
         >
           {/* Section Header */}
-          <motion.div variants={itemVariants} className="text-center mb-16">
-            <h2 className="text-5xl md:text-6xl font-bold text-navy-900 mb-6">
-              Why <span className="gradient-text">AlgoForce</span>?
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We don't just build software. We build the intelligence infrastructure that powers your business growth.
-              Our mission is to translate enterprise AI into specialized execution for every ambitious founder.
-            </p>
-          </motion.div>
-
-          {/* Main Explanation */}
-          <motion.div
-            variants={itemVariants}
-            className="glass-dark rounded-3xl p-12 mb-16 text-white"
-          >
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div>
-                <h3 className="text-3xl font-bold mb-6">The High-Growth Engine Your Business Needs</h3>
-                <p className="text-lg text-gray-300 mb-6">
-                  Traditional agencies stop at delivery. We stay for the results.
-                  Our AI-driven systems are designed to:
-                </p>
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-purple-400 rounded-full mt-2" />
-                    <p className="text-gray-300">
-                      <span className="font-semibold text-white">Capture</span> every lead with 24/7 intelligent chatbots
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-purple-400 rounded-full mt-2" />
-                    <p className="text-gray-300">
-                      <span className="font-semibold text-white">Optimize</span> workflows with custom business automation
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-purple-400 rounded-full mt-2" />
-                    <p className="text-gray-300">
-                      <span className="font-semibold text-white">Scale</span> digital presence with premium, high-speed websites
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-purple-400 rounded-full mt-2" />
-                    <p className="text-gray-300">
-                      <span className="font-semibold text-white">Convert</span> more customers through data-driven SEO strategies
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="relative">
-                <motion.div
-                  animate={{
-                    y: [0, -20, 0]
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                  className="relative"
-                >
-                  <div className="aspect-square bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-2xl backdrop-blur-sm border border-purple-500/30 p-8 flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="text-6xl mb-4">🚀</div>
-                      <p className="text-xl font-semibold">Ready to Scale</p>
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
+          <div className="grid md:grid-cols-2 gap-12 items-end mb-24">
+            <div>
+              <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-purple-600 mb-6">The Methodology</h2>
+              <h3 className="text-5xl md:text-7xl font-black leading-[1] tracking-tighter">
+                Crafting the Future of <span className="text-gray-300">Software.</span>
+              </h3>
             </div>
-          </motion.div>
+            <p className="text-xl text-gray-500 font-medium leading-relaxed max-w-md">
+              AlgoForce is a specialized execution studio. We partner with innovators to build products that define markets.
+            </p>
+          </div>
 
-          {/* Core Components */}
-          <motion.div
-            variants={containerVariants}
-            className="grid md:grid-cols-3 gap-8"
-          >
-            {features.map((feature, index) => (
+          {/* Cards */}
+          <div className="grid md:grid-cols-3 gap-8">
+            {cards.map((card, idx) => (
               <motion.div
-                key={index}
-                variants={itemVariants}
-                whileHover={{ y: -10, transition: { duration: 0.3 } }}
-                className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all border border-gray-100"
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.2 + (idx * 0.1) }}
+                className="p-12 rounded-[2.5rem] bg-gray-50 border border-gray-100 hover:shadow-2xl hover:shadow-purple-500/10 transition-all group"
               >
-                <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${feature.color} flex items-center justify-center text-white mb-6`}>
-                  {feature.icon}
+                <div className={`w-14 h-14 rounded-2xl ${card.color} flex items-center justify-center text-xl mb-8 group-hover:scale-110 transition-transform`}>
+                  {card.icon}
                 </div>
-                <h3 className="text-2xl font-bold text-navy-900 mb-4">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  {feature.description}
-                </p>
+                <h4 className="text-2xl font-black mb-4">{card.title}</h4>
+                <p className="text-gray-500 font-medium leading-relaxed">{card.description}</p>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
 
-          {/* Visual Flow */}
-          <motion.div
-            variants={itemVariants}
-            className="mt-16 bg-gradient-to-r from-navy-50 to-purple-50 rounded-3xl p-12"
-          >
-            <h3 className="text-3xl font-bold text-center text-navy-900 mb-12">
-              Decision → Action → Outcome
-            </h3>
-            <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-              {['Data Input', 'AI Processing', 'Intelligent Action', 'Continuous Learning'].map((step, index) => (
-                <div key={index} className="flex items-center gap-4">
-                  <div className="flex-1 text-center">
-                    <div className="w-20 h-20 mx-auto bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mb-3">
-                      {index + 1}
-                    </div>
-                    <p className="font-semibold text-navy-900">{step}</p>
+          {/* Big Visual Block */}
+          <div className="mt-24 p-1 rounded-[3rem] bg-gradient-to-br from-purple-500/20 to-transparent">
+            <div className="bg-white rounded-[2.9rem] p-12 md:p-20 flex flex-col md:flex-row items-center gap-16 border border-white">
+              <div className="flex-1">
+                <h4 className="text-4xl md:text-5xl font-black mb-8 tracking-tighter">Engineered for Rapid Scaling.</h4>
+                <p className="text-xl text-gray-500 font-medium mb-10 leading-relaxed">
+                  Our internal toolset, including the <span className="text-black font-black">Nexus AI Engine</span>,
+                  allows us to bypass traditional development bottlenecks and ship high-performance assets in record time.
+                </p>
+                <div className="flex items-center gap-6">
+                  <div className="text-center">
+                    <div className="text-3xl font-black text-purple-600">7-14</div>
+                    <div className="text-[10px] uppercase font-black tracking-widest text-gray-400">Day Launch</div>
                   </div>
-                  {index < 3 && (
-                    <div className="hidden md:block text-purple-400 text-3xl">→</div>
-                  )}
+                  <div className="w-px h-10 bg-gray-200" />
+                  <div className="text-center">
+                    <div className="text-3xl font-black text-purple-600">100%</div>
+                    <div className="text-[10px] uppercase font-black tracking-widest text-gray-400">IP Ownership</div>
+                  </div>
                 </div>
-              ))}
+              </div>
+              <div className="w-full md:w-[400px] aspect-square bg-gray-50 rounded-3xl border border-gray-100 flex items-center justify-center relative overflow-hidden">
+                <div className="absolute inset-0 bg-purple-500/5 blur-3xl" />
+                <FaBolt className="text-8xl text-purple-100 animate-pulse" />
+              </div>
             </div>
-          </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>
