@@ -47,7 +47,7 @@ const ProductModules = () => {
           animate={inView ? { opacity: 1 } : {}}
           className="text-center mb-24"
         >
-          <h2 className="text-[10px] font-black uppercase tracking-[0.5em] text-purple-500 mb-6">Verticals</h2>
+          <h2 className="text-[12px] font-bold uppercase tracking-[0.5em] text-purple-500 mb-6">Verticals</h2>
           <h3 className="text-5xl md:text-7xl font-black tracking-tighter mb-8">
             Execution <span className="text-gray-800">Specialties.</span>
           </h3>
@@ -69,13 +69,13 @@ const ProductModules = () => {
                 <div className="w-12 h-12 rounded-xl bg-purple-600/20 text-purple-400 flex items-center justify-center text-xl group-hover:bg-purple-600 group-hover:text-white transition-all shadow-2xl">
                   {s.icon}
                 </div>
-                <span className="text-[9px] font-black uppercase tracking-widest text-gray-600">{s.tag}</span>
+                <span className="text-[11px] font-bold uppercase tracking-widest text-gray-600">{s.tag}</span>
               </div>
               <h4 className="text-xl font-bold mb-4">{s.title}</h4>
               <p className="text-gray-500 text-sm leading-relaxed font-medium mb-12 flex-grow">{s.desc}</p>
               <Link to="/contact">
-                <button className="text-[10px] font-black uppercase tracking-widest text-purple-400 group-hover:text-white flex items-center gap-2 transition-colors">
-                  Inquire Module <FaArrowRight size={8} />
+                <button className="text-[11px] font-bold uppercase tracking-widest text-purple-400 group-hover:text-white flex items-center gap-2 transition-colors">
+                  Inquire Module <FaArrowRight size={10} />
                 </button>
               </Link>
             </motion.div>
@@ -94,7 +94,7 @@ const ProductModules = () => {
             <p className="text-gray-400 text-sm font-medium">Founders using our AI modules report massive reductions in manual overhead.</p>
           </div>
           <Link to="/pricing">
-            <button className="px-10 py-5 bg-white text-black rounded-2xl font-black text-sm uppercase tracking-widest hover:scale-105 transition-all">Explore Combo Packs</button>
+            <button className="px-10 py-5 bg-white text-black rounded-2xl font-bold text-sm uppercase tracking-widest hover:scale-105 transition-all">Explore Combo Packs</button>
           </Link>
         </motion.div>
       </div>

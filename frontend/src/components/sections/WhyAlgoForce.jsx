@@ -38,7 +38,7 @@ const WhyAlgoForce = () => {
         >
           {/* Header */}
           <div className="text-center mb-24">
-            <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-purple-600 mb-6">Advantage</h2>
+            <h2 className="text-[12px] font-bold uppercase tracking-[0.4em] text-purple-600 mb-6">Advantage</h2>
             <h3 className="text-5xl md:text-7xl font-black tracking-tighter mb-8 leading-tight">
               Why Founders <br /> <span className="text-gray-300">Choose the Studio.</span>
             </h3>
@@ -57,7 +57,7 @@ const WhyAlgoForce = () => {
 
           {/* Comparison Table (Simplified & White) */}
           <div className="rounded-[3rem] bg-gray-50 border border-gray-100 overflow-hidden shadow-sm">
-            <div className="grid md:grid-cols-3 bg-black text-white p-8 font-black uppercase text-[10px] tracking-widest text-center">
+            <div className="grid md:grid-cols-3 bg-black text-white p-8 font-bold uppercase text-[12px] tracking-widest text-center">
               <div className="text-left">Factor</div>
               <div>Traditional Agency</div>
               <div className="text-purple-400">AlgoForce Studio</div>
@@ -69,9 +69,9 @@ const WhyAlgoForce = () => {
               { factor: 'Support', trad: 'Ticket Based', af: 'Dedicated Pulse' }
             ].map((row, i) => (
               <div key={i} className={`grid md:grid-cols-3 p-8 border-t border-gray-100 text-sm font-bold items-center text-center ${i % 2 === 0 ? 'bg-white' : ''}`}>
-                <div className="text-left text-gray-400 uppercase tracking-widest text-[10px]">{row.factor}</div>
+                <div className="text-left text-gray-400 uppercase tracking-widest text-[12px]">{row.factor}</div>
                 <div className="text-red-400 opacity-60 line-through decoration-black decoration-2">{row.trad}</div>
-                <div className="text-purple-600 font-black flex items-center justify-center gap-2">
+                <div className="text-purple-600 font-bold flex items-center justify-center gap-2">
                   <FaCheckCircle className="text-xs" /> {row.af}
                 </div>
               </div>
@@ -87,7 +87,7 @@ const WhyAlgoForce = () => {
                 Join the ambitious founders who have secured their technical mote with AlgoForce.
               </p>
               <Link to="/contact">
-                <button className="px-12 py-6 bg-white text-black rounded-2xl font-black text-sm uppercase tracking-widest hover:scale-105 transition-all shadow-2xl">Initiate Transmission</button>
+                <button className="px-12 py-6 bg-white text-black rounded-2xl font-bold text-sm uppercase tracking-widest hover:scale-105 transition-all shadow-2xl">Initiate Transmission</button>
               </Link>
             </div>
           </div>

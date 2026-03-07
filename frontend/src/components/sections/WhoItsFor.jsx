@@ -45,7 +45,7 @@ const WhoItsFor = () => {
           animate={inView ? { opacity: 1 } : {}}
           className="text-center mb-24"
         >
-          <h2 className="text-[10px] font-black uppercase tracking-[0.5em] text-gray-500 mb-6">Partnerships</h2>
+          <h2 className="text-[12px] font-bold uppercase tracking-[0.5em] text-gray-500 mb-6">Partnerships</h2>
           <h3 className="text-5xl md:text-7xl font-black tracking-tighter mb-8 leading-none">
             Built for <span className="text-purple-500">The 1%.</span>
           </h3>
@@ -81,10 +81,10 @@ const WhoItsFor = () => {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link to="/contact">
-              <button className="px-10 py-5 bg-black text-white rounded-2xl font-black text-sm uppercase tracking-widest hover:scale-105 transition-all">Start Execution</button>
+              <button className="px-10 py-5 bg-black text-white rounded-2xl font-bold text-sm uppercase tracking-widest hover:scale-105 transition-all">Start Execution</button>
             </Link>
             <Link to="/pricing">
-              <button className="px-10 py-5 bg-gray-100 text-black border border-gray-200 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-white transition-all">View Pricing</button>
+              <button className="px-10 py-5 bg-gray-100 text-black border border-gray-200 rounded-2xl font-bold text-sm uppercase tracking-widest hover:bg-white transition-all">View Pricing</button>
             </Link>
           </div>
         </div>

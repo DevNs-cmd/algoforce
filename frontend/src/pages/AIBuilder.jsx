@@ -23,13 +23,13 @@ const AbstractSphere = () => (
         <Float speed={3} rotationIntensity={2} floatIntensity={2}>
             <Sphere args={[1, 128, 128]} scale={2.5}>
                 <MeshDistortMaterial
-                    color="#FF4B4B"
+                    color="#9333ea"
                     speed={3}
                     distort={0.4}
                     radius={1}
                     metalness={0.9}
                     roughness={0.1}
-                    emissive="#FF0000"
+                    emissive="#6b21a8"
                     emissiveIntensity={0.3}
                 />
             </Sphere>
@@ -81,7 +81,7 @@ const ModelSelector = ({ value, onChange }) => {
                             <button
                                 key={m.id}
                                 onClick={() => { onChange(m.id); setOpen(false) }}
-                                className={`w-full flex items-center gap-3 px-3 py-2 text-left rounded-lg transition-all ${m.id === value ? 'bg-[#FF4B4B]/10 text-[#FF4B4B]' : 'text-gray-500 hover:text-gray-200 hover:bg-white/5'}`}
+                                className={`w-full flex items-center gap-3 px-3 py-2 text-left rounded-lg transition-all ${m.id === value ? 'bg-purple-600/10 text-purple-500' : 'text-gray-500 hover:text-gray-200 hover:bg-white/5'}`}
                             >
                                 <span className="text-xs">{m.icon}</span>
                                 <div className="text-[9px] font-black uppercase">{m.label}</div>
@@ -102,13 +102,13 @@ const ChatMessage = ({ message }) => {
             animate={{ opacity: 1, y: 0 }}
             className={`flex gap-4 mb-8 ${isUser ? 'flex-row-reverse' : 'flex-row'}`}
         >
-            <div className={`w-8 h-8 rounded-xl flex-shrink-0 flex items-center justify-center text-xs ${isUser ? 'bg-[#111] text-white border border-white/5' : 'bg-[#FF4B4B]/10 border border-[#FF4B4B]/20 text-[#FF4B4B]'}`}>
+            <div className={`w-8 h-8 rounded-xl flex-shrink-0 flex items-center justify-center text-xs ${isUser ? 'bg-[#111] text-white border border-white/5' : 'bg-purple-600/10 border border-[#9333ea]/20 text-purple-600'}`}>
                 {isUser ? 'U' : <FaRobot />}
             </div>
             <div className={`max-w-[85%] px-6 py-4 rounded-2xl text-[14px] leading-relaxed relative border backdrop-blur-sm ${isUser ? 'bg-[#121212]/80 text-white border-white/5' : 'bg-white/[0.02] border-white/5 text-gray-300'}`}>
                 <div className="whitespace-pre-wrap">{message.content}</div>
                 {message.streaming && (
-                    <motion.span animate={{ opacity: [0, 1, 0] }} transition={{ repeat: Infinity, duration: 0.8 }} className="inline-block w-2 h-4 ml-1 bg-[#FF4B4B] align-middle" />
+                    <motion.span animate={{ opacity: [0, 1, 0] }} transition={{ repeat: Infinity, duration: 0.8 }} className="inline-block w-2 h-4 ml-1 bg-purple-600 align-middle" />
                 )}
             </div>
         </motion.div>
@@ -234,7 +234,7 @@ const AIBuilder = () => {
     }
 
     return (
-        <div className="flex h-screen bg-[#000000] text-white overflow-hidden font-outfit selection:bg-[#FF4B4B] selection:text-white">
+        <div className="flex h-screen bg-[#000000] text-white overflow-hidden font-outfit selection:bg-purple-600 selection:text-white">
             <Helmet>
                 <title>Nexus – Vibe Coding Studio</title>
                 <meta name="description" content="Pure AI Speed. Multi-model Vibe Coding." />
@@ -245,7 +245,7 @@ const AIBuilder = () => {
                 <Canvas dpr={[1, 2]} gl={{ antialias: true }}>
                     <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={75} />
                     <ambientLight intensity={1.5} />
-                    <pointLight position={[10, 10, 10]} intensity={2} color="#FF4B4B" />
+                    <pointLight position={[10, 10, 10]} intensity={2} color="#9333ea" />
                     <Suspense fallback={null}>
                         <AbstractSphere />
                     </Suspense>
@@ -256,12 +256,12 @@ const AIBuilder = () => {
 
             {/* ── SIDE RAIL ── */}
             <aside className="hidden md:flex w-[60px] flex-col items-center py-6 gap-8 bg-[#050505]/80 border-r border-white/5 z-50 transition-all backdrop-blur-xl">
-                <button onClick={startNewChat} className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FF4B4B] to-[#FF0000] flex items-center justify-center text-white shadow-[0_0_20px_#FF4B4B44] transition-all hover:scale-105 active:scale-95 group">
+                <button onClick={startNewChat} className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#9333ea] to-[#FF0000] flex items-center justify-center text-white shadow-[0_0_20px_#9333ea44] transition-all hover:scale-105 active:scale-95 group">
                     <FaBolt size={16} />
                 </button>
                 <div className="flex flex-col gap-8 text-gray-600">
                     <button onClick={() => setAccountModalOpen(true)} className="hover:text-white transition-all transform hover:scale-110" title="Profile"><FaPlus /></button>
-                    <button onClick={() => setSidebarOpen(!sidebarOpen)} className={`transition-all transform hover:scale-110 ${sidebarOpen ? 'text-[#FF4B4B]' : 'hover:text-white'}`} title="History"><FaHistory /></button>
+                    <button onClick={() => setSidebarOpen(!sidebarOpen)} className={`transition-all transform hover:scale-110 ${sidebarOpen ? 'text-purple-600' : 'hover:text-white'}`} title="History"><FaHistory /></button>
                     <button className="hover:text-white transition-all transform hover:scale-110" title="Settings"><FaCog /></button>
                 </div>
                 <div className="mt-auto mb-4">
@@ -281,7 +281,7 @@ const AIBuilder = () => {
                         <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-gray-700 mb-10">Nexus Logs</h3>
                         <div className="flex-1 overflow-y-auto space-y-3 custom-scrollbar">
                             {conversations.map(conv => (
-                                <button key={conv._id} onClick={() => loadConversation(conv)} className={`w-full text-left p-4 rounded-2xl transition-all border ${currentProjectId === conv._id ? 'border-[#FF4B4B]/30 bg-[#FF4B4B]/5 text-white' : 'border-transparent text-gray-500 hover:bg-white/5 hover:text-white'}`}>
+                                <button key={conv._id} onClick={() => loadConversation(conv)} className={`w-full text-left p-4 rounded-2xl transition-all border ${currentProjectId === conv._id ? 'border-purple-600/30 bg-purple-600/5 text-white' : 'border-transparent text-gray-500 hover:bg-white/5 hover:text-white'}`}>
                                     <div className="text-xs font-bold truncate mb-1">{conv.name}</div>
                                     <div className="text-[9px] opacity-30 uppercase tracking-widest">{new Date(conv.updatedAt).toLocaleDateString()}</div>
                                 </button>
@@ -299,13 +299,13 @@ const AIBuilder = () => {
                     <div className="flex items-center gap-4 group cursor-pointer" onClick={() => window.location.href = '/'}>
                         <div className="block md:hidden text-gray-400 mr-2" onClick={(e) => { e.stopPropagation(); setSidebarOpen(true); }}><FaBars size={20} /></div>
                         <h2 className="text-lg md:text-xl font-black tracking-tighter uppercase italic">Nexus</h2>
-                        <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-[#FF4B4B]" />
+                        <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-purple-600" />
                     </div>
                     <div className="flex items-center gap-6 md:gap-10">
                         {['About', 'Labs'].map(t => (
                             <a key={t} href={`/${t.toLowerCase()}`} className="hidden sm:block text-[10px] font-black text-gray-500 hover:text-white transition-all uppercase tracking-[0.3em]">{t}</a>
                         ))}
-                        <button onClick={() => setAuthModalOpen(true)} className="px-4 py-2 md:px-5 md:py-2.5 rounded-full bg-white text-black text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:bg-[#FF4B4B] hover:text-white transition-all shadow-2xl">Studio</button>
+                        <button onClick={() => setAuthModalOpen(true)} className="px-4 py-2 md:px-5 md:py-2.5 rounded-full bg-white text-black text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:bg-purple-600 hover:text-white transition-all shadow-2xl">Studio</button>
                     </div>
                 </nav>
 
@@ -321,29 +321,29 @@ const AIBuilder = () => {
                                         transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
                                         className="mb-8 md:mb-12"
                                     >
-                                        <div className="w-16 h-16 md:w-24 md:h-24 bg-[#FF4B4B] rounded-[1.5rem] md:rounded-[2.5rem] flex items-center justify-center text-white shadow-[0_0_50px_#FF4B4B66] relative overflow-hidden">
+                                        <div className="w-16 h-16 md:w-24 md:h-24 bg-purple-600 rounded-[1.5rem] md:rounded-[2.5rem] flex items-center justify-center text-white shadow-[0_0_50px_#9333ea66] relative overflow-hidden">
                                             <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent" />
                                             <FaRobot className="relative z-10" size={32} />
                                         </div>
                                     </motion.div>
 
                                     <h1 className="text-4xl md:text-[6rem] font-black tracking-tighter mb-4 leading-none bg-clip-text text-transparent bg-gradient-to-b from-white to-white/40">Nexus AI</h1>
-                                    <h2 className="text-[10px] md:text-[14px] font-black uppercase tracking-[0.4em] md:tracking-[0.6em] text-[#FF4B4B] mb-8 md:mb-12 px-4">THE VIBE CODING TOOL THAT ACTUALLY WORKS.</h2>
+                                    <h2 className="text-[12px] md:text-[15px] font-bold uppercase tracking-[0.4em] md:tracking-[0.5em] text-purple-600 mb-8 md:mb-12 px-4">THE VIBE CODING TOOL THAT ACTUALLY WORKS.</h2>
 
-                                    <p className="max-w-xl text-sm md:text-xl text-gray-500 font-bold leading-relaxed mb-12 md:mb-16 px-6">
+                                    <p className="max-w-xl text-sm md:text-xl text-gray-400 font-medium leading-relaxed mb-12 md:mb-16 px-6">
                                         Nexus automates the heavy lifting. Build, deploy, and iterate through pure intuition. One prompt to rule them all.
                                     </p>
 
-                                    <div className="inline-flex items-center gap-2 md:gap-3 px-4 md:px-6 py-2 rounded-full border border-[#FF4B4B]/20 bg-[#FF4B4B]/5 text-[8px] md:text-[10px] font-black uppercase tracking-[0.1em] md:tracking-[0.2em] text-[#FF4B4B] mb-16 md:mb-24 cursor-pointer hover:bg-[#FF4B4B]/10 transition-all mx-4">
-                                        <span className="bg-[#FF4B4B] text-white px-2 py-0.5 rounded-full text-[6px] md:text-[8px]">NEW</span>
-                                        Real-time Vercel Cloud Integration <FaChevronRight size={8} />
+                                    <div className="inline-flex items-center gap-2 md:gap-3 px-5 py-2.5 rounded-full border border-[#9333ea]/20 bg-purple-600/5 text-[10px] md:text-[12px] font-bold uppercase tracking-[0.1em] md:tracking-[0.2em] text-purple-500 mb-16 md:mb-24 cursor-pointer hover:bg-purple-600/10 transition-all mx-4">
+                                        <span className="bg-purple-600 text-white px-2.5 py-1 rounded-full text-[9px] md:text-[10px] font-black">NEW</span>
+                                        Real-time Vercel Cloud Integration <FaChevronRight size={10} />
                                     </div>
 
                                     {/* INPUT BOX (Blackbox AI Style - Compact) */}
                                     <div className="w-full max-w-2xl mb-12 md:mb-20 relative group px-4">
-                                        <div className="absolute inset-x-4 inset-y-0 bg-[#FF4B4B]/10 blur-[60px] md:blur-[80px] opacity-0 group-focus-within:opacity-100 transition-all duration-1000" />
-                                        <div className="relative bg-[#0F0F0F] rounded-2xl md:rounded-full border border-white/5 p-2 flex flex-col md:flex-row items-center shadow-2xl focus-within:border-[#FF4B4B]/40 transition-all">
-                                            <div className="hidden md:flex pl-6 text-gray-600 group-focus-within:text-[#FF4B4B] transition-colors"><FaPaperclip size={18} /></div>
+                                        <div className="absolute inset-x-4 inset-y-0 bg-purple-600/10 blur-[60px] md:blur-[80px] opacity-0 group-focus-within:opacity-100 transition-all duration-1000" />
+                                        <div className="relative bg-[#0F0F0F] rounded-2xl md:rounded-full border border-white/5 p-2 flex flex-col md:flex-row items-center shadow-2xl focus-within:border-[#9333ea]/40 transition-all">
+                                            <div className="hidden md:flex pl-6 text-gray-600 group-focus-within:text-purple-600 transition-colors"><FaPaperclip size={18} /></div>
                                             <input
                                                 value={input} onChange={e => setInput(e.target.value)}
                                                 onKeyDown={e => { if (e.key === 'Enter') sendMessage(); }}
@@ -353,7 +353,7 @@ const AIBuilder = () => {
                                             <div className="w-full md:w-auto flex items-center justify-between md:justify-end gap-4 p-2 md:pr-2 border-t md:border-t-0 border-white/5 md:mt-0">
                                                 <div className="md:hidden flex pl-2 text-gray-700"><FaPaperclip size={16} /></div>
                                                 <ModelSelector value={selectedModel} onChange={setSelectedModel} />
-                                                <button onClick={sendMessage} className="w-10 h-10 rounded-xl md:rounded-full bg-white text-black flex items-center justify-center hover:bg-[#FF4B4B] hover:text-white transition-all shadow-xl">
+                                                <button onClick={sendMessage} className="w-10 h-10 rounded-xl md:rounded-full bg-white text-black flex items-center justify-center hover:bg-purple-600 hover:text-white transition-all shadow-xl">
                                                     <FaPlay size={10} />
                                                 </button>
                                             </div>
@@ -363,16 +363,16 @@ const AIBuilder = () => {
                                     {/* PILL SUGGESTIONS */}
                                     <div className="flex flex-wrap justify-center gap-4 mb-48 opacity-40">
                                         {['Agent', 'CLI', 'Web Builder', 'Desktop', 'API', 'IDE'].map(t => (
-                                            <button key={t} onClick={() => setInput(`Generate ${t} implementation...`)} className="px-6 py-2 rounded-full border border-white/10 text-[10px] font-black uppercase tracking-widest hover:border-white/30 transition-all">❯ {t}</button>
+                                            <button key={t} onClick={() => setInput(`Generate ${t} implementation...`)} className="px-6 py-2 rounded-full border border-white/10 text-[11px] font-bold uppercase tracking-widest hover:border-white/30 transition-all">{'->'} {t}</button>
                                         ))}
                                     </div>
 
                                     {/* QUICK START TERMINAL */}
                                     <div className="w-full max-w-4xl mb-32 md:mb-48 text-left px-4">
                                         <div className="inline-flex items-center gap-3 text-xl md:text-2xl font-black mb-6 md:mb-10 tracking-tighter uppercase italic px-2">
-                                            <span className="text-[#FF4B4B]">❯</span> Quick Start
+                                            <span className="text-purple-600">{'->'}</span> Quick Start
                                         </div>
-                                        <div className="bg-[#0A0A0A] rounded-[1.5rem] md:rounded-[2rem] border border-white/5 overflow-hidden shadow-2xl">
+                                        <div className="bg-[#0A0A0A] rounded-[2rem] md:rounded-[2.5rem] border border-white/5 overflow-hidden shadow-2xl">
                                             <div className="flex flex-col sm:flex-row sm:items-center p-4 md:p-6 border-b border-white/5 gap-4 md:gap-2">
                                                 <div className="flex gap-2 mr-6">
                                                     <div className="w-3 h-3 rounded-full bg-red-500/30" />
@@ -381,18 +381,18 @@ const AIBuilder = () => {
                                                 </div>
                                                 <div className="flex gap-2 overflow-x-auto pb-2 sm:pb-0 scroll-hide">
                                                     {['One-liner', 'npm', 'Hackable'].map((t, i) => (
-                                                        <button key={t} className={`whitespace-nowrap px-4 py-1.5 rounded-lg text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] transition-all ${i === 0 ? 'bg-[#FF4B4B] text-white' : 'text-gray-600 hover:text-white'}`}>{t}</button>
+                                                        <button key={t} className={`whitespace-nowrap px-4 py-1.5 rounded-lg text-[11px] font-bold uppercase tracking-[0.2em] transition-all ${i === 0 ? 'bg-purple-600 text-white' : 'text-gray-600 hover:text-white'}`}>{t}</button>
                                                     ))}
                                                 </div>
-                                                <div className="sm:ml-auto text-[9px] md:text-[10px] font-black text-gray-700 uppercase tracking-widest flex gap-4 md:gap-6 border-t sm:border-t-0 border-white/5 pt-4 sm:pt-0">
-                                                    <span>OS: <span className="text-[#FF4B4B] underline cursor-pointer">Auto</span></span>
+                                                <div className="sm:ml-auto text-[11px] font-bold text-gray-700 uppercase tracking-widest flex gap-4 md:gap-6 border-t sm:border-t-0 border-white/5 pt-4 sm:pt-0">
+                                                    <span>OS: <span className="text-purple-600 underline cursor-pointer">Auto</span></span>
                                                     <span className="px-3 py-1 bg-white/5 border border-white/10 rounded">PowerShell</span>
                                                 </div>
                                             </div>
-                                            <div className="p-8 md:p-12 font-mono text-[10px] md:text-xs leading-relaxed text-gray-500 overflow-x-auto">
+                                            <div className="p-8 md:p-12 font-mono text-[11px] md:text-sm leading-relaxed text-gray-500 overflow-x-auto">
                                                 <p className="mb-6"># Deploy Nexus Engine globally. 🦞</p>
                                                 <div className="flex items-center gap-4 text-white text-sm md:text-base min-w-max">
-                                                    <span className="text-[#FF4B4B]">$</span>
+                                                    <span className="text-purple-600">$</span>
                                                     <span className="flex-1">iwr -useb https://nexus.studio/install.ps1 | iex</span>
                                                     <button className="text-gray-700 hover:text-white" onClick={() => navigator.clipboard.writeText('iwr -useb https://nexus.studio/install.ps1 | iex')}><FaCode size={16} /></button>
                                                 </div>
@@ -403,7 +403,7 @@ const AIBuilder = () => {
                                     {/* FEATURES GRID */}
                                     <div className="w-full max-w-5xl mb-48 text-left">
                                         <div className="inline-flex items-center gap-3 text-2xl font-black mb-16 tracking-tighter uppercase italic">
-                                            <span className="text-[#FF4B4B]">❯</span> What It Does
+                                            <span className="text-purple-600">{'->'}</span> What It Does
                                         </div>
                                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                                             {[
@@ -414,8 +414,8 @@ const AIBuilder = () => {
                                                 { title: 'System Access', icon: <FaTerminal />, desc: 'Full shell and file system integration for end-to-end task automation.' },
                                                 { title: 'Engine Skills', icon: <FaPuzzlePiece />, desc: 'Extend Nexus with custom plugins or build specialized AI micro-services.' }
                                             ].map((f, i) => (
-                                                <div key={i} className="p-10 rounded-[2.5rem] bg-[#0A0A0A]/50 border border-white/5 hover:border-[#FF4B4B]/30 transition-all hover:bg-[#0F0F0F] group">
-                                                    <div className="text-[#FF4B4B] text-3xl mb-8 transform group-hover:scale-110 transition-transform">{f.icon}</div>
+                                                <div key={i} className="p-10 rounded-[2.5rem] bg-[#0A0A0A]/50 border border-white/5 hover:border-purple-600/30 transition-all hover:bg-[#0F0F0F] group">
+                                                    <div className="text-purple-600 text-3xl mb-8 transform group-hover:scale-110 transition-transform">{f.icon}</div>
                                                     <h4 className="text-xl font-bold mb-4 tracking-tighter">{f.title}</h4>
                                                     <p className="text-gray-600 text-[13px] leading-relaxed font-bold">{f.desc}</p>
                                                 </div>
@@ -425,7 +425,7 @@ const AIBuilder = () => {
 
                                     {/* INTEGRATIONS ROLL */}
                                     <div className="w-full max-w-4xl mb-48 flex flex-col items-center">
-                                        <div className="text-[10px] font-black uppercase tracking-[0.5em] text-gray-700 mb-16">Works With Everything</div>
+                                        <div className="text-[12px] font-bold uppercase tracking-[0.5em] text-gray-600 mb-16">Works With Everything</div>
                                         <div className="flex flex-wrap justify-center gap-6 opacity-30">
                                             {[FaWhatsapp, FaTelegram, FaDiscord, FaSlack, FaSignal, FaRobot, FaMicrochip, FaGlobe, FaMemory, FaGithub, FaSpotify, FaTwitter].map((Icon, i) => (
                                                 <div key={i} className="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-white/30 transition-all hover:scale-110 cursor-pointer">
@@ -433,24 +433,24 @@ const AIBuilder = () => {
                                                 </div>
                                             ))}
                                         </div>
-                                        <div className="mt-12 flex gap-10 text-[9px] font-black text-[#FF4B4B] uppercase tracking-widest">
-                                            <span className="cursor-pointer hover:underline underline-offset-4">View All Integrations ❯</span>
-                                            <span className="cursor-pointer hover:underline underline-offset-4">Read Build Reports ❯</span>
+                                        <div className="mt-12 flex flex-col md:flex-row gap-6 md:gap-10 text-[11px] font-bold text-purple-600 uppercase tracking-widest text-center">
+                                            <span className="cursor-pointer hover:underline underline-offset-4">View All Integrations {'->'}</span>
+                                            <span className="cursor-pointer hover:underline underline-offset-4">Read Build Reports {'->'}</span>
                                         </div>
                                     </div>
 
                                     {/* STAY IN THE LOOP */}
                                     <div className="w-full max-w-3xl mb-48 p-12 md:p-20 rounded-[3rem] bg-[#0A0A0A] border border-white/5 relative overflow-hidden group">
-                                        <div className="absolute inset-0 bg-gradient-to-br from-[#FF4B4B]/10 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
+                                        <div className="absolute inset-0 bg-gradient-to-br from-[#9333ea]/10 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
                                         <h3 className="text-2xl font-black mb-4 tracking-tighter uppercase italic">Stay in the Loop</h3>
                                         <p className="text-gray-500 font-bold mb-12 text-sm leading-relaxed">Get updates on new features, integrations, and engine wisdom. No spam, just speed.</p>
                                         <div className="flex flex-col sm:flex-row gap-4">
-                                            <input type="email" placeholder="email@nexus.studio" className="flex-1 bg-black border border-white/10 rounded-2xl px-8 py-5 outline-none focus:border-[#FF4B4B]/50 transition-all font-bold" />
-                                            <button className="px-10 py-5 bg-[#FF4B4B] text-white rounded-2xl font-black uppercase tracking-widest shadow-xl shadow-[#FF4B4B]/20 hover:scale-105 transition-all">Subscribe ❯</button>
+                                            <input type="email" placeholder="email@nexus.studio" className="flex-1 bg-black border border-white/10 rounded-2xl px-8 py-5 outline-none focus:border-[#9333ea]/50 transition-all font-bold" />
+                                            <button className="px-10 py-5 bg-purple-600 text-white rounded-2xl font-black uppercase tracking-widest shadow-xl shadow-[#9333ea]/20 hover:scale-105 transition-all">Subscribe {'->'}</button>
                                         </div>
                                     </div>
 
-                                    <footer className="w-full pt-10 border-t border-white/5 text-[10px] font-black uppercase tracking-[0.8em] text-gray-800">
+                                    <footer className="w-full pt-10 border-t border-white/5 text-[11px] font-bold uppercase tracking-[0.5em] text-gray-700">
                                         By using Nexus you agree to the Studio Terms and Privacy logic.
                                     </footer>
                                 </section>
@@ -472,7 +472,7 @@ const AIBuilder = () => {
                                                 placeholder="Describe iteration..."
                                                 className="flex-1 bg-transparent border-none outline-none px-6 py-4 text-sm font-bold text-white placeholder-gray-700"
                                             />
-                                            <button onClick={sendMessage} className="w-12 h-12 rounded-full bg-[#FF4B4B] text-white flex items-center justify-center mr-1 shadow-lg hover:scale-105 active:scale-95 transition-all">
+                                            <button onClick={sendMessage} className="w-12 h-12 rounded-full bg-purple-600 text-white flex items-center justify-center mr-1 shadow-lg hover:scale-105 active:scale-95 transition-all">
                                                 {isStreaming ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <FaPlay size={10} />}
                                             </button>
                                         </div>
@@ -494,16 +494,16 @@ const AIBuilder = () => {
                                                     {['editor', 'preview'].map(tab => (
                                                         <button
                                                             key={tab} onClick={() => setActiveTab(tab)}
-                                                            className={`text-[10px] font-black uppercase tracking-[0.4em] transition-all relative py-2 ${activeTab === tab ? 'text-[#FF4B4B]' : 'text-gray-600 hover:text-gray-300'}`}
+                                                            className={`text-[10px] font-black uppercase tracking-[0.4em] transition-all relative py-2 ${activeTab === tab ? 'text-purple-600' : 'text-gray-600 hover:text-gray-300'}`}
                                                         >
                                                             {tab}
-                                                            {activeTab === tab && <div className="absolute -bottom-2 left-0 right-0 h-1 bg-[#FF4B4B] rounded-full" />}
+                                                            {activeTab === tab && <div className="absolute -bottom-2 left-0 right-0 h-1 bg-purple-600 rounded-full" />}
                                                         </button>
                                                     ))}
                                                 </div>
                                                 <div className="flex items-center gap-6">
                                                     <button onClick={downloadProject} className="p-3 text-gray-500 hover:text-white transition-all transform hover:scale-110" title="Download ZIP"><FaDownload size={18} /></button>
-                                                    <button onClick={() => setRightPanelOpen(false)} className="p-3 text-gray-700 hover:text-[#FF4B4B] transition-all"><FaChevronRight size={14} /></button>
+                                                    <button onClick={() => setRightPanelOpen(false)} className="p-3 text-gray-700 hover:text-purple-600 transition-all"><FaChevronRight size={14} /></button>
                                                 </div>
                                             </div>
 
@@ -515,7 +515,7 @@ const AIBuilder = () => {
                                                         {projectFiles.map(f => (
                                                             <button
                                                                 key={f.path} onClick={() => { setActiveFile(f); setActiveTab('editor') }}
-                                                                className={`w-full text-left p-3 rounded-xl text-[11px] font-bold transition-all truncate border ${activeFile?.path === f.path ? 'bg-[#FF4B4B]/10 border-[#FF4B4B]/20 text-[#FF4B4B]' : 'border-transparent text-gray-600 hover:bg-white/5'}`}
+                                                                className={`w-full text-left p-3 rounded-xl text-[11px] font-bold transition-all truncate border ${activeFile?.path === f.path ? 'bg-purple-600/10 border-[#9333ea]/20 text-purple-600' : 'border-transparent text-gray-600 hover:bg-white/5'}`}
                                                             >
                                                                 {f.path.split('/').pop()}
                                                             </button>
@@ -558,15 +558,15 @@ const AIBuilder = () => {
                                 <button onClick={() => setAccountModalOpen(false)} className="text-gray-600 hover:text-white transition-all"><FaPlus className="rotate-45" size={20} /></button>
                             </div>
                             <div className="space-y-6">
-                                <div className="p-6 rounded-3xl bg-white/5 border border-white/5 flex items-center gap-4 group cursor-pointer hover:border-[#FF4B4B]/30 transition-all">
-                                    <div className="w-12 h-12 rounded-2xl bg-[#FF4B4B]/10 text-[#FF4B4B] flex items-center justify-center text-xl font-black">{user ? user.name?.[0] : 'N'}</div>
+                                <div className="p-6 rounded-3xl bg-white/5 border border-white/5 flex items-center gap-4 group cursor-pointer hover:border-purple-600/30 transition-all">
+                                    <div className="w-12 h-12 rounded-2xl bg-purple-600/10 text-purple-600 flex items-center justify-center text-xl font-black">{user ? user.name?.[0] : 'N'}</div>
                                     <div className="flex-1">
                                         <div className="text-sm font-bold">{user ? user.name : 'Vibe Guest'}</div>
                                         <div className="text-[10px] text-gray-600 uppercase tracking-widest">Workspace Active</div>
                                     </div>
-                                    <div className="w-2 h-2 rounded-full bg-[#FF4B4B]" />
+                                    <div className="w-2 h-2 rounded-full bg-purple-600" />
                                 </div>
-                                <button onClick={logout} className="w-full p-6 rounded-3xl bg-white/5 border border-[#FF4B4B]/20 text-[#FF4B4B] font-black uppercase text-[10px] tracking-widest hover:bg-[#FF4B4B] hover:text-white transition-all">Sign Out Engine</button>
+                                <button onClick={logout} className="w-full p-6 rounded-3xl bg-white/5 border border-[#9333ea]/20 text-purple-600 font-black uppercase text-[10px] tracking-widest hover:bg-purple-600 hover:text-white transition-all">Sign Out Engine</button>
                             </div>
                         </motion.div>
                     </div>

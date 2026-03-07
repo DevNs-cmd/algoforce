@@ -41,7 +41,7 @@ const WhatIsAlgoForce = () => {
           {/* Section Header */}
           <div className="grid md:grid-cols-2 gap-12 items-end mb-24">
             <div>
-              <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-purple-600 mb-6">The Methodology</h2>
+              <h2 className="text-[12px] font-bold uppercase tracking-[0.4em] text-purple-600 mb-6">The Methodology</h2>
               <h3 className="text-5xl md:text-7xl font-black leading-[1] tracking-tighter">
                 Crafting the Future of <span className="text-gray-300">Software.</span>
               </h3>
@@ -82,12 +82,12 @@ const WhatIsAlgoForce = () => {
                 <div className="flex items-center gap-6">
                   <div className="text-center">
                     <div className="text-3xl font-black text-purple-600">7-14</div>
-                    <div className="text-[10px] uppercase font-black tracking-widest text-gray-400">Day Launch</div>
+                    <div className="text-[11px] uppercase font-bold tracking-widest text-gray-400">Day Launch</div>
                   </div>
                   <div className="w-px h-10 bg-gray-200" />
                   <div className="text-center">
                     <div className="text-3xl font-black text-purple-600">100%</div>
-                    <div className="text-[10px] uppercase font-black tracking-widest text-gray-400">IP Ownership</div>
+                    <div className="text-[11px] uppercase font-bold tracking-widest text-gray-400">IP Ownership</div>
                   </div>
                 </div>
               </div>

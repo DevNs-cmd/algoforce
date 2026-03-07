@@ -1,6 +1,5 @@
 import { Helmet } from "react-helmet-async"
-import { motion } from 'framer-motion'
-import { FaGraduationCap, FaArrowRight, FaUsers, FaGlobe, FaCertificate, FaTv, FaBookOpen, FaHammer } from 'react-icons/fa'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 
 const Labs = () => {
@@ -8,127 +7,120 @@ const Labs = () => {
 
     const sections = {
         courses: [
-            { title: 'AI Mastery Pro', duration: '12 Weeks', learners: '1.2k', desc: 'Comprehensive full-stack AI engineering from math to model deployment.' },
-            { title: 'Data Analytics Elite', duration: '8 Weeks', learners: '2.5k', desc: 'Master business intelligence with SQL, PowerBI, and predictive modeling.' },
-            { title: 'Full Stack MERN', duration: '16 Weeks', learners: '1.5k', desc: 'Build scalable web applications using the modern industry stack.' }
+            { title: 'AI Mastery Pro', duration: '12 Weeks', slots: 'Elite', desc: 'Full-stack AI engineering from architecture to autonomous deployment.' },
+            { title: 'Data Analytics', duration: '8 Weeks', slots: 'Premium', desc: 'Predictive modeling and industrial business intelligence frameworks.' },
+            { title: 'Full Stack MERN', duration: '16 Weeks', slots: 'Standard', desc: 'Build scalable modern applications using industry extraction logic.' }
         ],
         apprenticeships: [
-            { title: 'AlgoForce Residency', duration: '6 Months', slots: '10', desc: 'Work directly with our engineering team on real client MVPs.' },
-            { title: 'AI Agent Architect', duration: '4 Months', slots: '15', desc: 'Intensive hands-on training for building autonomous business agents.' }
+            { title: 'AlgoForce Residency', duration: '6 Months', slots: '10 Left', desc: 'Work directly with our senior engineers on high-value client MVPs.' },
+            { title: 'AI Agent Architect', duration: '4 Months', slots: '15 Left', desc: 'Intensive lab training for building production-grade autonomous agents.' }
         ],
         workshops: [
-            { title: 'LLM Fine-tuning', date: 'Monthly', mode: 'Live', desc: 'One-day intensive lab on fine-tuning Llama-3 and small models.' },
-            { title: 'MVP Sprint 2.0', date: 'Bi-weekly', mode: 'Live', desc: 'Learn the AlgoForce methodology for rapid MVP development.' }
+            { title: 'LLM Fine-tuning', duration: '1 Day', slots: 'Live', desc: 'Deep dive into fine-tuning Llama-3 and small language models.' },
+            { title: 'MVP Sprint 2.0', duration: '2 Weeks', slots: 'Live', desc: 'Learn the proprietary AlgoForce methodology for rapid execution.' }
         ],
         webinars: [
-            { title: 'Future of AI 2026', type: 'Expert Panel', recording: 'Available', desc: 'Insights from industry leaders on the autonomous economy.' },
-            { title: 'Startup Funding AI', type: 'Growth Session', recording: 'Free', desc: 'How to leverage AI to attract investors for your tech startup.' }
+            { title: 'Future of AI 2026', duration: '90 Min', slots: 'Free', desc: 'Analysis of the autonomous economy and agentic landscapes.' },
+            { title: 'Startup Funding AI', duration: '60 Min', slots: 'Free', desc: 'How to leverage AI systems to secure institutional investment.' }
         ]
     }
 
     return (
         <>
             <Helmet>
-                <title>Labs – AlgoForce Academy</title>
-                <meta name="description" content="Courses, Apprenticeships, Workshops, and Webinars for the next generation of AI entrepreneurs." />
+                <title>Labs – AlgoForce Engineering Academy</title>
+                <meta name="description" content="Industrial training for the next generation of AI practitioners." />
             </Helmet>
 
-            <div className="min-h-screen bg-[#05050F] text-white pt-32 pb-20 px-6">
-                <div className="max-w-7xl mx-auto">
+            <div className="min-h-screen bg-[#020205] text-white pt-40 pb-32 px-6 relative overflow-hidden">
+                {/* Background Liquid */}
+                <div className="absolute inset-0 pointer-events-none">
+                    <div className="absolute top-0 left-0 w-[700px] h-[700px] bg-purple-600/10 blur-[150px] rounded-full" />
+                    <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-blue-600/10 blur-[120px] rounded-full" />
+                </div>
 
+                <div className="max-w-7xl mx-auto relative z-10">
                     {/* Header */}
-                    <div className="text-center mb-20">
+                    <div className="text-center mb-28">
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-600/10 border border-purple-500/30 text-purple-400 text-xs font-bold uppercase tracking-[0.2em] mb-6"
+                            className="inline-flex items-center gap-2 px-6 py-2 mb-10 rounded-full bg-white/5 border border-white/10 backdrop-blur-3xl shadow-xl"
                         >
-                            AlgoForce Labs
+                            <div className="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.6)] animate-pulse" />
+                            <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-gray-400">Practitioner Labs</span>
                         </motion.div>
-                        <h1 className="text-5xl md:text-7xl font-black mb-6 tracking-tighter">
-                            Upskill for the <span className="text-purple-500">Autonomous Era.</span>
+                        <h1 className="text-5xl md:text-8xl font-black mb-8 tracking-tight md:tracking-tighter leading-none uppercase italic">
+                            Engine <span className="text-purple-600">Upgrade.</span>
                         </h1>
-                        <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-                            We don't just teach theory. We build practitioners through courses,
-                            real-world apprenticeships, and live workshops.
+                        <p className="text-gray-400 text-sm md:text-lg max-w-2xl mx-auto font-medium">
+                            We don't teach theory. We build high-performance engineers
+                            capable of deploying autonomous infrastructure in the real-world.
                         </p>
                     </div>
 
-                    {/* Navigation Tabs */}
-                    <div className="flex flex-wrap justify-center gap-4 mb-16">
-                        {Object.keys(sections).map(tab => (
-                            <button
-                                key={tab}
-                                onClick={() => setActiveTab(tab)}
-                                className={`px-8 py-3 rounded-full font-bold text-sm uppercase tracking-widest transition-all ${activeTab === tab
-                                        ? 'bg-purple-600 text-white shadow-xl shadow-purple-600/20 scale-105'
-                                        : 'bg-white/5 text-gray-400 hover:bg-white/10'
-                                    }`}
-                            >
-                                {tab}
-                            </button>
-                        ))}
+                    {/* iOS Tab Switcher */}
+                    <div className="flex justify-center mb-20">
+                        <div className="inline-flex p-1.5 bg-white/5 border border-white/10 rounded-full backdrop-blur-2xl">
+                            {Object.keys(sections).map(tab => (
+                                <button
+                                    key={tab}
+                                    onClick={() => setActiveTab(tab)}
+                                    className={`relative px-8 py-3 rounded-full font-bold text-[13px] uppercase tracking-wide transition-all duration-500 ${activeTab === tab ? 'text-black' : 'text-gray-500 hover:text-white'
+                                        }`}
+                                >
+                                    {activeTab === tab && (
+                                        <motion.div
+                                            layoutId="active-tab-bg"
+                                            className="absolute inset-0 bg-white rounded-full -z-10 shadow-lg"
+                                        />
+                                    )}
+                                    {tab}
+                                </button>
+                            ))}
+                        </div>
                     </div>
 
-                    {/* Content Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {sections[activeTab].map((item, idx) => (
-                            <motion.div
-                                key={idx}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: idx * 0.1 }}
-                                className="p-8 rounded-[2rem] bg-white/5 border border-white/10 hover:border-purple-500/50 transition-all group"
-                            >
-                                <div className="p-3 w-fit rounded-xl bg-purple-600/20 text-purple-400 mb-6 group-hover:bg-purple-600 group-hover:text-white transition-all">
-                                    {activeTab === 'courses' && <FaBookOpen size={24} />}
-                                    {activeTab === 'apprenticeships' && <FaHammer size={24} />}
-                                    {activeTab === 'workshops' && <FaUsers size={24} />}
-                                    {activeTab === 'webinars' && <FaTv size={24} />}
-                                </div>
-                                <h3 className="text-2xl font-bold mb-3">{item.title}</h3>
-                                <p className="text-gray-400 text-sm mb-6 leading-relaxed">{item.desc}</p>
-
-                                <div className="flex items-center justify-between text-xs font-bold text-gray-500 uppercase tracking-widest pt-6 border-t border-white/5">
-                                    <div className="flex items-center gap-2">
-                                        <FaGlobe className="text-purple-500" />
-                                        <span>{item.duration || item.date || item.type}</span>
+                    {/* Liquid Cards Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <AnimatePresence mode="wait">
+                            {sections[activeTab].map((item, idx) => (
+                                <motion.div
+                                    key={item.title + activeTab}
+                                    initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.95 }}
+                                    transition={{ delay: idx * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                                    className="p-10 rounded-[2.5rem] bg-white/[0.03] border border-white/10 backdrop-blur-[60px] group hover:bg-white/[0.06] hover:scale-[1.02] transition-all duration-700 overflow-hidden cursor-default"
+                                >
+                                    <div className="mb-8">
+                                        <h3 className="text-2xl font-black mb-3 tracking-tighter uppercase italic text-white group-hover:text-purple-400 transition-colors">
+                                            {item.title}
+                                        </h3>
+                                        <p className="text-gray-400 text-sm leading-relaxed mb-8">
+                                            {item.desc}
+                                        </p>
                                     </div>
-                                    <div className="flex items-center gap-2">
-                                        <FaUsers className="text-blue-500" />
-                                        <span>{item.learners || item.slots || item.mode || item.recording}</span>
+
+                                    <div className="flex items-center justify-between text-[11px] font-bold uppercase tracking-widest text-gray-500 pt-8 border-t border-white/5 group-hover:text-gray-300 transition-colors">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-purple-600/30 group-hover:bg-purple-500 transition-colors shadow-[0_0_10px_rgba(168,85,247,0.3)]" />
+                                            <span>{item.duration}</span>
+                                        </div>
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-blue-600/30 group-hover:bg-blue-500 transition-colors shadow-[0_0_10px_rgba(59,130,246,0.3)]" />
+                                            <span>{item.slots}</span>
+                                        </div>
                                     </div>
-                                </div>
-                            </motion.div>
-                        ))}
+                                </motion.div>
+                            ))}
+                        </AnimatePresence>
                     </div>
 
-                    {/* Ecosystem Stats */}
-                    <div className="mt-32 grid grid-cols-1 md:grid-cols-4 gap-8">
-                        {[
-                            { label: 'Learners', val: '5k+', icon: <FaUsers /> },
-                            { label: 'Partners', val: '50+', icon: <FaGlobe /> },
-                            { label: 'Placements', val: '95%', icon: <FaCertificate /> },
-                            { label: 'Workshops', val: '200+', icon: <FaHammer /> }
-                        ].map((stat, i) => (
-                            <div key={i} className="text-center p-8 rounded-3xl bg-transparent border border-white/5 group hover:bg-white/5 transition-all">
-                                <div className="text-3xl text-purple-500 mb-4 flex justify-center">{stat.icon}</div>
-                                <div className="text-4xl font-black mb-1 group-hover:scale-110 transition-transform">{stat.val}</div>
-                                <div className="text-xs font-bold text-gray-500 uppercase tracking-widest">{stat.label}</div>
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* CTA */}
-                    <div className="mt-32 p-12 rounded-[3rem] bg-gradient-to-br from-purple-600 to-blue-700 text-center">
-                        <h2 className="text-4xl md:text-5xl font-black mb-6">Start Your Journey.</h2>
-                        <p className="text-lg text-white/80 mb-10 max-w-xl mx-auto">
-                            Join the AlgoForce ecosystem and get the keys to the future of high-performance tech.
-                        </p>
-                        <button className="px-10 py-5 bg-white text-black rounded-full font-bold text-lg hover:scale-105 transition-all flex items-center gap-3 mx-auto shadow-2xl">
-                            Apply for Lab Access
-                            <FaArrowRight />
-                        </button>
+                    {/* Footer Call to Action */}
+                    <div className="mt-40 text-center">
+                        <h4 className="text-[12px] font-bold uppercase tracking-[0.5em] text-gray-700 mb-8 italic">Next Enrollment: 15 MAR 2026</h4>
+                        <button className="px-12 py-6 border border-white/10 rounded-full font-bold text-[15px] text-white hover:bg-white hover:text-black transition-all">Request Lab Access {'->'}</button>
                     </div>
                 </div>
             </div>

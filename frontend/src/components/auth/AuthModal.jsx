@@ -43,36 +43,32 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'login' }) => {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     className="fixed inset-0 z-[9999] flex items-center justify-center px-4"
-                    style={{ background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(8px)' }}
+                    style={{ background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(40px)' }}
                     onClick={onClose}
                 >
                     <motion.div
-                        initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                        initial={{ scale: 0.95, opacity: 0, y: 30 }}
                         animate={{ scale: 1, opacity: 1, y: 0 }}
-                        exit={{ scale: 0.9, opacity: 0, y: 20 }}
-                        transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-                        className="relative w-full max-w-md rounded-2xl p-8"
+                        exit={{ scale: 0.95, opacity: 0, y: 30 }}
+                        className="relative w-full max-w-[380px] rounded-[3.5rem] p-12 overflow-hidden shadow-[0_50px_100px_rgba(0,0,0,0.5)] border border-white/10"
                         style={{
-                            background: 'linear-gradient(135deg, #0B0F2A 0%, #05050F 100%)',
-                            border: '1px solid rgba(154, 77, 255, 0.3)',
-                            boxShadow: '0 25px 50px rgba(135, 0, 255, 0.2)'
+                            background: 'rgba(255, 255, 255, 0.03)',
                         }}
                         onClick={e => e.stopPropagation()}
                     >
                         {/* Close */}
                         <button
                             onClick={onClose}
-                            className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors text-xl"
-                            id="auth-modal-close"
+                            className="absolute top-8 right-8 w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-white transition-all"
                         >✕</button>
 
-                        {/* Header */}
-                        <div className="mb-6">
-                            <h2 className="text-2xl font-bold gradient-text mb-1">
-                                {mode === 'login' ? 'Welcome Back' : 'Create Account'}
+                        {/* Title */}
+                        <div className="mb-12 text-center">
+                            <h2 className="text-3xl font-black tracking-tighter uppercase italic mb-2">
+                                {mode === 'login' ? 'Link' : 'Deploy'} <span className="text-purple-500">Node</span>
                             </h2>
-                            <p className="text-gray-400 text-sm">
-                                {mode === 'login' ? 'Sign in to your AlgoForce account' : 'Join AlgoForce AI Builder'}
+                            <p className="text-gray-500 font-bold text-[11px] uppercase tracking-[0.3em]">
+                                {mode === 'login' ? 'Establish Secure Link' : 'Initialize Entity Core'}
                             </p>
                         </div>
 
@@ -81,8 +77,8 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'login' }) => {
                             <motion.div
                                 initial={{ opacity: 0, y: -10 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="mb-4 p-3 rounded-lg text-sm text-red-400"
-                                style={{ background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.3)' }}
+                                className="mb-8 p-4 rounded-3xl text-[11px] uppercase font-bold tracking-widest text-red-400 text-center"
+                                style={{ background: 'rgba(239, 68, 68, 0.05)', border: '1px solid rgba(239, 68, 68, 0.1)' }}
                             >
                                 {error}
                             </motion.div>
@@ -91,111 +87,65 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'login' }) => {
                         {/* Form */}
                         <form onSubmit={handleSubmit} className="space-y-4">
                             {mode === 'register' && (
-                                <div>
-                                    <label className="block text-sm text-gray-300 mb-1.5">Full Name</label>
-                                    <input
-                                        id="auth-name"
-                                        type="text"
-                                        name="name"
-                                        value={form.name}
-                                        onChange={handleChange}
-                                        required
-                                        placeholder="John Doe"
-                                        className="w-full px-4 py-3 rounded-xl text-white placeholder-gray-500 outline-none transition-all text-sm"
-                                        style={{
-                                            background: 'rgba(255,255,255,0.05)',
-                                            border: '1px solid rgba(154, 77, 255, 0.2)',
-                                        }}
-                                        onFocus={e => e.target.style.borderColor = 'rgba(154, 77, 255, 0.6)'}
-                                        onBlur={e => e.target.style.borderColor = 'rgba(154, 77, 255, 0.2)'}
-                                    />
-                                </div>
+                                <input
+                                    id="auth-name"
+                                    type="text"
+                                    name="name"
+                                    value={form.name}
+                                    onChange={handleChange}
+                                    required
+                                    placeholder="IDENTIFIER NAME"
+                                    className="w-full px-8 py-5 rounded-[2rem] bg-white/5 border border-white/5 text-white placeholder-gray-700 outline-none transition-all text-[12px] font-bold tracking-widest focus:bg-white/10"
+                                />
                             )}
 
-                            <div>
-                                <label className="block text-sm text-gray-300 mb-1.5">Email</label>
-                                <input
-                                    id="auth-email"
-                                    type="email"
-                                    name="email"
-                                    value={form.email}
-                                    onChange={handleChange}
-                                    required
-                                    placeholder="you@example.com"
-                                    className="w-full px-4 py-3 rounded-xl text-white placeholder-gray-500 outline-none transition-all text-sm"
-                                    style={{
-                                        background: 'rgba(255,255,255,0.05)',
-                                        border: '1px solid rgba(154, 77, 255, 0.2)',
-                                    }}
-                                    onFocus={e => e.target.style.borderColor = 'rgba(154, 77, 255, 0.6)'}
-                                    onBlur={e => e.target.style.borderColor = 'rgba(154, 77, 255, 0.2)'}
-                                />
-                            </div>
+                            <input
+                                id="auth-email"
+                                type="email"
+                                name="email"
+                                value={form.email}
+                                onChange={handleChange}
+                                required
+                                placeholder="TERMINAL EMAIL"
+                                className="w-full px-8 py-5 rounded-[2rem] bg-white/5 border border-white/5 text-white placeholder-gray-700 outline-none transition-all text-[12px] font-bold tracking-widest focus:bg-white/10"
+                            />
 
-                            <div>
-                                <label className="block text-sm text-gray-300 mb-1.5">Password</label>
-                                <input
-                                    id="auth-password"
-                                    type="password"
-                                    name="password"
-                                    value={form.password}
-                                    onChange={handleChange}
-                                    required
-                                    minLength={6}
-                                    placeholder="••••••••"
-                                    className="w-full px-4 py-3 rounded-xl text-white placeholder-gray-500 outline-none transition-all text-sm"
-                                    style={{
-                                        background: 'rgba(255,255,255,0.05)',
-                                        border: '1px solid rgba(154, 77, 255, 0.2)',
-                                    }}
-                                    onFocus={e => e.target.style.borderColor = 'rgba(154, 77, 255, 0.6)'}
-                                    onBlur={e => e.target.style.borderColor = 'rgba(154, 77, 255, 0.2)'}
-                                />
-                            </div>
+                            <input
+                                id="auth-password"
+                                type="password"
+                                name="password"
+                                value={form.password}
+                                onChange={handleChange}
+                                required
+                                minLength={6}
+                                placeholder="SECURE KEY"
+                                className="w-full px-8 py-5 rounded-[2rem] bg-white/5 border border-white/5 text-white placeholder-gray-700 outline-none transition-all text-[12px] font-bold tracking-widest focus:bg-white/10"
+                            />
 
-                            <motion.button
+                            <button
                                 id="auth-submit"
                                 type="submit"
                                 disabled={loading}
-                                whileHover={{ scale: loading ? 1 : 1.02 }}
-                                whileTap={{ scale: loading ? 1 : 0.98 }}
-                                className="w-full py-3 rounded-xl font-semibold text-white transition-all text-sm"
+                                className="w-full py-6 rounded-full font-bold text-black transition-all text-[13px] uppercase tracking-[0.2em] mt-8 shadow-2xl active:scale-95 flex items-center justify-center gap-3"
                                 style={{
-                                    background: loading ? 'rgba(135, 0, 255, 0.4)' : 'linear-gradient(135deg, #8700FF 0%, #9A4DFF 100%)',
-                                    boxShadow: loading ? 'none' : '0 8px 25px rgba(135, 0, 255, 0.35)'
+                                    background: loading ? 'rgba(255, 255, 255, 0.2)' : 'white',
                                 }}
                             >
-                                {loading ? (
-                                    <span className="flex items-center justify-center gap-2">
-                                        <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
-                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                                        </svg>
-                                        {mode === 'login' ? 'Signing in...' : 'Creating account...'}
-                                    </span>
-                                ) : mode === 'login' ? 'Sign In' : 'Create Account'}
-                            </motion.button>
+                                {loading && <div className="w-4 h-4 border-2 border-black/20 border-t-black rounded-full animate-spin" />}
+                                {loading ? 'Syncing...' : mode === 'login' ? "Establish Link ->" : "Initialize Profile ->"}
+                            </button>
                         </form>
 
-                        {/* Divider */}
-                        <div className="my-5 flex items-center gap-3">
-                            <div className="flex-1 h-px" style={{ background: 'rgba(255,255,255,0.1)' }} />
-                            <span className="text-xs text-gray-500">or</span>
-                            <div className="flex-1 h-px" style={{ background: 'rgba(255,255,255,0.1)' }} />
-                        </div>
-
-                        {/* Toggle */}
-                        <p className="text-center text-sm text-gray-400">
-                            {mode === 'login' ? "Don't have an account?" : "Already have an account?"}
-                            {' '}
+                        {/* Switch */}
+                        <div className="mt-12 text-center">
                             <button
                                 id="auth-toggle"
                                 onClick={() => { setMode(m => m === 'login' ? 'register' : 'login'); setError('') }}
-                                className="text-purple-400 hover:text-purple-300 font-medium transition-colors"
+                                className="text-gray-500 hover:text-white font-bold text-[11px] uppercase tracking-widest transition-colors"
                             >
-                                {mode === 'login' ? 'Sign up' : 'Sign in'}
+                                {mode === 'login' ? 'New Entity?' : 'Existing Node?'}
                             </button>
-                        </p>
+                        </div>
                     </motion.div>
                 </motion.div>
             )}
