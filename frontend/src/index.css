@@ -229,10 +229,8 @@ body {
   background: rgba(255, 255, 255, 0.2);
 }
 
-/* Global Hardware Acceleration for Glassmorphism */
+/* Global Hardware Acceleration - only apply composite hints where needed */
 [class*="backdrop-blur"] {
-  transform: translateZ(0);
-  will-change: transform, backdrop-filter;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
