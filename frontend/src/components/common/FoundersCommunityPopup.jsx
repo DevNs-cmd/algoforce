@@ -6,17 +6,14 @@ const FoundersCommunityPopup = () => {
     const [isVisible, setIsVisible] = useState(false)
 
     useEffect(() => {
-        // Reduced frequency logic - show if not seen recently (or for testing)
-        const hasSeen = localStorage.getItem('hasSeenFoundersPopup')
-        if (!hasSeen) {
-            const timer = setTimeout(() => setIsVisible(true), 1500)
-            return () => clearTimeout(timer)
-        }
+        // Show after a short delay for smooth entry
+        const timer = setTimeout(() => setIsVisible(true), 1000)
+        return () => clearTimeout(timer)
     }, [])
 
     const handleClose = () => {
         setIsVisible(false)
-        localStorage.setItem('hasSeenFoundersPopup', 'true')
+        // Keep it ready for next page load during development
     }
 
     const whatsappLink = `https://wa.me/918448947436?text=${encodeURIComponent("Hi AlgoForce! I'm a founder and I'd love to join the Exclusive Founders Community. Please share the details.")}`
@@ -26,13 +23,13 @@ const FoundersCommunityPopup = () => {
             {isVisible && (
                 <div className="fixed inset-0 z-[100000] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md">
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                        initial={{ opacity: 0, scale: 0.9, y: 30 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        className="relative w-full max-w-[300px] sm:max-w-[340px] p-[2px] rounded-[2.5rem] sm:rounded-[3rem] overflow-hidden group shadow-[0_50px_100px_rgba(0,0,0,0.8)]"
+                        exit={{ opacity: 0, scale: 0.9, y: 30 }}
+                        className="relative w-full max-w-[300px] sm:max-w-[340px] p-[3px] rounded-[2.5rem] sm:rounded-[3rem] overflow-hidden group shadow-[0_50px_100px_rgba(0,0,0,0.8)]"
                     >
-                        {/* Animated RGB Gradient Border Background */}
-                        <div className="absolute inset-[-100%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_0deg,#ff0000,#ff8000,#ffff00,#00ff00,#00ffff,#0000ff,#8000ff,#ff00ff,#ff0000)]" />
+                        {/* High-Visibility Animated RGB Border */}
+                        <div className="absolute inset-[-150%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_0deg,#ff0000_0%,#ff8000_15%,#ffff00_30%,#00ff00_45%,#00ffff_60%,#0000ff_75%,#ff00ff_90%,#ff0000_100%)]" />
                         
                         {/* Inner Content Container */}
                         <div className="relative z-10 bg-[#0a0a0f] backdrop-blur-3xl rounded-[2.45rem] sm:rounded-[2.95rem] overflow-hidden">
