@@ -21,7 +21,7 @@ const Hero = () => {
             y: [0, 50, 0],
           }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute -top-[20%] -left-[10%] w-[800px] h-[800px] bg-purple-600/20 blur-[150px] rounded-full opacity-60"
+          className="absolute -top-[20%] -left-[10%] w-[800px] h-[800px] bg-purple-600/20 blur-[150px] rounded-full opacity-60 transform-gpu"
         />
         <motion.div
           animate={{
@@ -30,7 +30,7 @@ const Hero = () => {
             y: [0, -100, 0],
           }}
           transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute -bottom-[20%] -right-[10%] w-[900px] h-[900px] bg-blue-600/15 blur-[180px] rounded-full opacity-50"
+          className="absolute -bottom-[20%] -right-[10%] w-[900px] h-[900px] bg-blue-600/15 blur-[180px] rounded-full opacity-50 transform-gpu"
         />
       </div>
 
@@ -47,7 +47,7 @@ const Hero = () => {
             className="inline-flex items-center gap-2 px-6 py-2 mb-10 rounded-full bg-white/5 border border-white/10 backdrop-blur-3xl shadow-xl"
           >
             <div className="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.6)] animate-pulse" />
-            <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-gray-400">Startup Execution Engine</span>
+            <span className="text-[10px] font-semibold uppercase tracking-[0.4em] text-gray-500">Startup Execution Engine</span>
           </motion.div>
 
           {/* Headline - Ultra Tight Tracking */}
@@ -55,7 +55,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-5xl md:text-8xl lg:text-9xl font-black mb-10 leading-[0.85] tracking-tight md:tracking-tighter"
+            className="text-4xl md:text-6xl lg:text-7xl font-bold mb-10 leading-[1.1] tracking-tight glow-text-purple"
           >
             Build MVPs <br />
             <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-purple-400/50">
@@ -68,7 +68,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="max-w-xl mx-auto mb-16 text-sm md:text-lg text-gray-400 font-medium leading-relaxed"
+            className="max-w-xl mx-auto mb-16 text-sm md:text-base text-gray-400 font-medium leading-relaxed"
           >
             Precision engineering for the next generation of founders.
             We deploy high-performance AI systems and scalable architectures

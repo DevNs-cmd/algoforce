@@ -5,6 +5,7 @@ import { AuthProvider } from './contexts/AuthContext'
 import Navigation from './components/common/Navigation'
 import Footer from './components/common/Footer'
 import Chatbot from './components/chatbot/Chatbot'
+import ConsultancyButton from './components/common/ConsultancyButton'
 import Home from './pages/Home'
 import Pricing from './pages/Pricing'
 import Labs from './pages/Labs'
@@ -13,6 +14,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsAndConditions from './pages/TermsAndConditions'
 import RefundPolicy from './pages/RefundPolicy'
 import AIBuilder from './pages/AIBuilder'
+import Academy from './pages/Academy'
 import Dashboard from './pages/Dashboard'
 
 // Conditionally show footer and chatbot (not on AI Builder page)
@@ -33,6 +35,7 @@ const AppShell = () => {
         <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
         <Route path="/refund-policy" element={<RefundPolicy />} />
         <Route path="/ai-builder" element={<AIBuilder />} />
+        <Route path="/academy" element={<Academy />} />
         <Route path="/dashboard" element={<Dashboard />} />
         {/* Catch-all */}
         <Route path="*" element={<Navigate to="/" replace />} />
@@ -40,6 +43,7 @@ const AppShell = () => {
 
       {!isBuilderPage && <Footer />}
       {!isBuilderPage && <Chatbot />}
+      {!isBuilderPage && <ConsultancyButton />}
     </div>
   )
 }

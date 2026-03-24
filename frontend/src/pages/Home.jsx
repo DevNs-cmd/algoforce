@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async"
 
+import PaymentGateway from '../components/sections/academy/PaymentGateway'
 import Hero from '../components/sections/Hero'
 import WhatIsAlgoForce from '../components/sections/WhatIsAlgoForce'
 // import FoundersVision from '../components/sections/FoundersVision'
@@ -65,12 +66,16 @@ const Home = () => {
         />
       </Helmet>
 
-      <div className="overflow-x-hidden">
+      <div className="overflow-x-hidden animate-moving-gradient">
         <Hero />
         <WhatIsAlgoForce />
         {/* <FoundersVision /> */}
         {/* <HowItWorks /> */}
         <ProductModules />
+        <PaymentGateway 
+          title="Direct Project Funding" 
+          subtitle="Fund your vision directly. High-speed execution begins the moment you scan." 
+        />
         <WhyAlgoForce />
         <WhoItsFor />
       </div>

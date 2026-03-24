@@ -18,9 +18,14 @@ const Footer = () => {
 
           {/* Brand */}
           <div className="md:col-span-2">
-            <h3 className="mb-6 text-3xl font-black tracking-tighter text-white">
-              Algo<span className="text-purple-600">Force</span>
-            </h3>
+            <div className="flex items-center gap-4 mb-8">
+              <div className="w-10 h-10 overflow-hidden rounded-xl bg-white/5 border border-white/10">
+                <img src="/logo.png" alt="AlgoForce" className="w-full h-full object-cover" />
+              </div>
+              <h3 className="text-3xl font-black tracking-tighter text-white">
+                Algo<span className="text-purple-600">Force</span>
+              </h3>
+            </div>
 
             <p className="mb-8 text-gray-500 max-w-sm font-medium leading-[1.8]">
               The premier AI execution studio for high-growth startups and

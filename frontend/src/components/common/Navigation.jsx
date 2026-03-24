@@ -24,7 +24,7 @@ const Navigation = () => {
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Nexus", path: "/ai-builder" },
-    { name: "Labs", path: "/labs" },
+    { name: "Labs", path: "/academy" },
     { name: "Pricing", path: "/pricing" },
     { name: "Contact", path: "/contact" },
   ];
@@ -45,8 +45,15 @@ const Navigation = () => {
           `}
         >
           {/* Logo */}
-          <Link to="/" className="flex items-center group">
-            <span className="text-xl font-black text-white tracking-tighter">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-3 group">
+            <motion.div 
+              whileHover={{ scale: 1.05 }}
+              className="relative w-10 h-10 overflow-hidden rounded-full border border-white/20 bg-white/5 flex items-center justify-center transition-all duration-500 shadow-2xl"
+            >
+              <img src="/logo.png" alt="AlgoForce" className="w-full h-full object-cover" />
+            </motion.div>
+            <span className="text-xl font-black text-white tracking-tighter sm:block">
               Algo<span className="text-purple-600 group-hover:text-purple-400 transition-colors">Force</span>
             </span>
           </Link>
@@ -99,75 +106,75 @@ const Navigation = () => {
       {/* Mobile Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] bg-black/80 backdrop-blur-[60px] md:hidden flex flex-col p-8 pt-32"
-          >
-            <button
+          <div className="fixed inset-0 z-[100] md:hidden flex items-center justify-center p-6">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               onClick={() => setMobileMenuOpen(false)}
-              className="absolute top-10 right-8 w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white text-xl active:scale-90 transition-all"
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            />
+            
+            {/* Menu Card */}
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              className="relative w-full max-w-[320px] bg-[#0a0a0f] border border-white/10 rounded-[2.5rem] flex flex-col p-10 shadow-[0_50px_100px_rgba(0,0,0,0.9)] overflow-hidden"
             >
-              ✕
-            </button>
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white text-xs active:scale-90 transition-all"
+              >
+                ✕
+              </button>
 
-            <div className="flex flex-col gap-8">
-              {navLinks.map((link, i) => (
-                <motion.div
-                  key={link.path}
-                  initial={{ x: -30, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: i * 0.05 }}
-                >
-                  <Link
-                    to={link.path}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="text-4xl font-semibold text-white tracking-tight"
+              <div className="flex flex-col gap-6">
+                {navLinks.map((link, i) => (
+                  <motion.div
+                    key={link.path}
+                    initial={{ x: -20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: i * 0.05 }}
                   >
-                    {link.name}
-                  </Link>
-                </motion.div>
-              ))}
+                    <Link
+                      to={link.path}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="text-xl font-bold text-gray-400 hover:text-white transition-all duration-300"
+                    >
+                      {link.name}
+                    </Link>
+                  </motion.div>
+                ))}
 
-              {user && (
                 <motion.div
-                  initial={{ x: -30, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 }}
+                  className="mt-4"
                 >
-                  <Link
-                    to="/dashboard"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="text-4xl font-semibold text-purple-500 tracking-tight"
-                  >
-                    Dashboard
-                  </Link>
+                  {!user ? (
+                    <button
+                      onClick={() => { setMobileMenuOpen(false); setAuthModalOpen(true); }}
+                      className="w-full py-4 bg-white text-black rounded-full font-bold text-base active:scale-95 transition-all shadow-xl"
+                    >
+                      Join
+                    </button>
+                  ) : (
+                    <button
+                      onClick={logout}
+                      className="w-full py-4 border border-white/10 text-white rounded-full font-bold text-base active:scale-95 transition-all"
+                    >
+                      Log Out
+                    </button>
+                  )}
                 </motion.div>
-              )}
-            </div>
-
-            <div className="mt-auto pb-10">
-              {!user ? (
-                <button
-                  onClick={() => { setMobileMenuOpen(false); setAuthModalOpen(true); }}
-                  className="w-full py-4 bg-white text-black rounded-full font-semibold text-base active:scale-95 transition-all shadow-xl"
-                >
-                  Join
-                </button>
-              ) : (
-                <button
-                  onClick={logout}
-                  className="w-full py-4 border border-white/10 text-white rounded-full font-semibold text-base active:scale-95 transition-all"
-                >
-                  Log Out
-                </button>
-              )}
-            </div>
-          </motion.div>
+              </div>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
-
       <AuthModal isOpen={authModalOpen} onClose={() => setAuthModalOpen(false)} />
     </>
   );

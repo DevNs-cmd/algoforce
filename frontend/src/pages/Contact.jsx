@@ -145,8 +145,8 @@ const Contact = () => {
                     </div>
                     <div>
                       <h3 className="text-sm font-bold tracking-wider text-purple-600 uppercase mb-1">Email</h3>
-                      <a href="mailto:support@algoforceaii.com" className="text-2xl font-bold text-navy-900 hover:text-purple-600 transition-colors">
-                        support@algoforceaii.com
+                      <a href="mailto:af@algoforceaii.com" className="text-2xl font-bold text-navy-900 hover:text-purple-600 transition-colors">
+                        af@algoforceaii.com
                       </a>
                     </div>
                     <div>
