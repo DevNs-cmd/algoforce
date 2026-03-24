@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
-import { FaPhoneAlt, FaEnvelope, FaTimes, FaHeadset } from 'react-icons/fa'
+import { FaPhoneAlt, FaEnvelope, FaTimes, FaHeadset, FaWhatsapp } from 'react-icons/fa'
 
 const ConsultancyButton = () => {
     const [isOpen, setIsOpen] = useState(false)
@@ -41,15 +41,17 @@ const ConsultancyButton = () => {
 
                         <div className="space-y-3">
                             <motion.a
-                                href={`tel:${contactDetails.phone}`}
+                                href={`https://wa.me/91844947436?text=${encodeURIComponent("Hello AlgoForce Team, I'm interested in your consultancy services. Can you guys help me out?")}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 whileHover={{ x: 5, backgroundColor: 'rgba(255,255,255,0.1)' }}
                                 className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 transition-all group/call"
                             >
                                 <div className="w-10 h-10 rounded-xl bg-green-500/20 flex items-center justify-center text-green-400 group-hover/call:bg-green-500 group-hover/call:text-white transition-all">
-                                    <FaPhoneAlt size={14} />
+                                    <FaWhatsapp size={14} />
                                 </div>
                                 <div>
-                                    <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-0.5">Call Us</p>
+                                    <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-0.5">WhatsApp Us</p>
                                     <p className="text-xs text-white font-semibold">{contactDetails.phone}</p>
                                 </div>
                             </motion.a>

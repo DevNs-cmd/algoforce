@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FaShieldAlt, FaQrcode, FaCreditCard, FaLock, FaCheckCircle, FaTimes, FaEnvelope, FaPhoneAlt } from 'react-icons/fa'
+import { FaShieldAlt, FaQrcode, FaCreditCard, FaLock, FaCheckCircle, FaTimes, FaEnvelope, FaWhatsapp } from 'react-icons/fa'
 
 const PaymentGateway = ({ title = "Secure Payment Gateway", subtitle = "Choose your plan and start building today." }) => {
     const [selectedPlan, setSelectedPlan] = useState('startup');
@@ -60,7 +60,7 @@ const PaymentGateway = ({ title = "Secure Payment Gateway", subtitle = "Choose y
 
                     <div className="mt-8 p-4 rounded-xl bg-purple-500/5 border border-purple-500/10 inline-block">
                         <p className="text-[10px] md:text-xs text-purple-300 font-bold uppercase tracking-[0.2em]">
-                             Notice: The final amount should be paid as discussed with the owner or mentioned below.
+                            Notice: The final amount should be paid as discussed with the owner or mentioned below.
                         </p>
                     </div>
                 </div>
@@ -93,8 +93,8 @@ const PaymentGateway = ({ title = "Secure Payment Gateway", subtitle = "Choose y
                                         </div>
                                     ))}
                                 </div>
-                                
-                                <button 
+
+                                <button
                                     onClick={() => setIsModalOpen(true)}
                                     className={`w-full py-4 rounded-2xl font-bold text-sm transition-all ${selectedPlan === plan.id ? 'bg-white text-black' : 'bg-white/5 text-white border border-white/10'}`}
                                 >
@@ -135,14 +135,14 @@ const PaymentGateway = ({ title = "Secure Payment Gateway", subtitle = "Choose y
                             onClick={handleCloseModal}
                             className="absolute inset-0 bg-black/95 backdrop-blur-2xl"
                         />
-                        
+
                         <motion.div
                             initial={{ scale: 0.95, y: 30, opacity: 0 }}
                             animate={{ scale: 1, y: 0, opacity: 1 }}
                             exit={{ scale: 0.95, y: 30, opacity: 0 }}
                             className="relative w-full max-w-[340px] sm:max-w-md bg-[#0a0a0f] border border-white/10 rounded-[2.5rem] p-8 md:p-12 shadow-[0_50px_100px_rgba(0,0,0,0.8)] overflow-hidden"
                         >
-                            <button 
+                            <button
                                 onClick={handleCloseModal}
                                 className="absolute top-6 right-6 text-gray-500 hover:text-white transition-colors z-50 p-2 text-lg"
                             >
@@ -165,12 +165,12 @@ const PaymentGateway = ({ title = "Secure Payment Gateway", subtitle = "Choose y
                                             whileHover={{ scale: 1.05 }}
                                             className="relative w-48 h-48 mx-auto mb-10 p-4 bg-white rounded-[2rem] shadow-2xl overflow-hidden"
                                         >
-                                            <img 
-                                                src="/qr.jpeg" 
-                                                alt="Payment QR Code" 
+                                            <img
+                                                src="/qr.jpeg"
+                                                alt="Payment QR Code"
                                                 className="w-full h-full object-contain"
                                             />
-                                            <motion.div 
+                                            <motion.div
                                                 animate={{ top: ['0%', '100%', '0%'] }}
                                                 transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
                                                 className="absolute left-0 right-0 h-1 bg-purple-500/40 blur-[2px] z-20 pointer-events-none"
@@ -223,16 +223,18 @@ const PaymentGateway = ({ title = "Secure Payment Gateway", subtitle = "Choose y
                                         </p>
 
                                         <div className="space-y-4">
-                                            <a 
-                                                href={`tel:${contactDetails.phone.replace(/\s+/g, '')}`}
-                                                className="group flex flex-col items-center justify-center p-6 rounded-[1.5rem] bg-white/[0.03] border border-white/5 hover:border-purple-500/30 hover:bg-purple-500/5 transition-all"
+                                            <a
+                                                href={`https://wa.me/91844947436?text=${encodeURIComponent(`Hello AlgoForce Team, I have completed the payment for the ${currentPlan.name} plan. Here is my screenshot for verification.`)}`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="group flex flex-col items-center justify-center p-6 rounded-[1.5rem] bg-white/[0.03] border border-white/5 hover:border-green-500/30 hover:bg-green-500/5 transition-all"
                                             >
-                                                <FaPhoneAlt className="mb-3 text-purple-500 group-hover:scale-110 transition-transform" />
-                                                <span className="text-[9px] text-gray-500 font-bold uppercase tracking-widest mb-1">Official Support</span>
-                                                <span className="text-lg font-black text-white tracking-widest">{contactDetails.phone}</span>
+                                                <FaWhatsapp className="mb-3 text-green-500 group-hover:scale-110 transition-transform" />
+                                                <span className="text-[9px] text-gray-500 font-bold uppercase tracking-widest mb-1">DM the ScreenShot</span>
+                                                <span className="text-lg font-black text-white tracking-widest">WhatsApp Support</span>
                                             </a>
 
-                                            <a 
+                                            <a
                                                 href={`mailto:${contactDetails.email}`}
                                                 className="group flex flex-col items-center justify-center p-6 rounded-[1.5rem] bg-white/[0.03] border border-white/5 hover:border-blue-500/30 hover:bg-blue-500/5 transition-all"
                                             >
@@ -242,7 +244,7 @@ const PaymentGateway = ({ title = "Secure Payment Gateway", subtitle = "Choose y
                                             </a>
                                         </div>
 
-                                        <button 
+                                        <button
                                             onClick={() => setIsVerifying(false)}
                                             className="mt-8 text-xs font-bold text-gray-600 hover:text-white transition-colors flex items-center justify-center gap-2 mx-auto"
                                         >
