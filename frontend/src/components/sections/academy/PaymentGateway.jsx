@@ -35,7 +35,7 @@ const PaymentGateway = ({ title = "Secure Payment Gateway", subtitle = "Choose y
     };
 
     const contactDetails = {
-        phone: "844947436",
+        phone: "8448947436",
         email: "af@algoforceaii.com"
     };
 

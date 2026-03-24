@@ -6,7 +6,7 @@ const ConsultancyButton = () => {
     const [isOpen, setIsOpen] = useState(false)
 
     const contactDetails = {
-        phone: "844947436",
+        phone: "8448947436",
         email: "af@algoforceaii.com"
     }
 
