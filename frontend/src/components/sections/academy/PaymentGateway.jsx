@@ -224,7 +224,7 @@ const PaymentGateway = ({ title = "Secure Payment Gateway", subtitle = "Choose y
 
                                         <div className="space-y-4">
                                             <a
-                                                href={`https://wa.me/${contactDetails.phone.replace(/\+/g, '').replace(/\s+/g, '')}?text=${encodeURIComponent(`Hello AlgoForce Team, I have completed the payment for the ${currentPlan.name} plan. Here is my screenshot for verification.`)}`}
+                                                href={`https://wa.me/91${contactDetails.phone.replace(/\+/g, '').replace(/\s+/g, '')}?text=${encodeURIComponent(`Hello AlgoForce Team, I have completed the payment for the ${currentPlan.name} plan. Here is my screenshot for verification.`)}`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="group flex flex-col items-center justify-center p-6 rounded-[1.5rem] bg-white/[0.03] border border-white/5 hover:border-green-500/30 hover:bg-green-500/5 transition-all"

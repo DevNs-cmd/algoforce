@@ -41,7 +41,7 @@ const ConsultancyButton = () => {
 
                         <div className="space-y-3">
                             <motion.a
-                                href={`https://wa.me/${contactDetails.phone.replace(/\+/g, '').replace(/\s+/g, '')}?text=${encodeURIComponent("Hello AlgoForce Team, I'm interested in your consultancy services. Can you guys help me out?")}`}
+                                href={`https://wa.me/91${contactDetails.phone.replace(/\+/g, '').replace(/\s+/g, '')}?text=${encodeURIComponent("Hello AlgoForce Team, I'm interested in your consultancy services. Can you guys help me out?")}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 whileHover={{ x: 5, backgroundColor: 'rgba(255,255,255,0.1)' }}
