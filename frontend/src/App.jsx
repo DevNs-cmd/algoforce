@@ -6,6 +6,7 @@ import Navigation from './components/common/Navigation'
 import Footer from './components/common/Footer'
 import Chatbot from './components/chatbot/Chatbot'
 import ConsultancyButton from './components/common/ConsultancyButton'
+import FoundersCommunityPopup from './components/common/FoundersCommunityPopup'
 import Home from './pages/Home'
 import Pricing from './pages/Pricing'
 import Labs from './pages/Labs'
@@ -44,6 +45,7 @@ const AppShell = () => {
       {!isBuilderPage && <Footer />}
       {!isBuilderPage && <Chatbot />}
       {!isBuilderPage && <ConsultancyButton />}
+      {!isBuilderPage && <FoundersCommunityPopup />}
     </div>
   )
 }
