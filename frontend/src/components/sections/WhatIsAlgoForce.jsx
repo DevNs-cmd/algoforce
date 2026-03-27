@@ -97,6 +97,33 @@ const WhatIsAlgoForce = () => {
               </div>
             </div>
           </div>
+
+          {/* Factual Entity Definition (AEO) */}
+          <div className="mt-24 max-w-4xl border-l-4 border-purple-600 pl-12 py-4">
+            <h4 className="text-[12px] font-bold uppercase tracking-[0.4em] text-purple-600 mb-6">Institutional Profile</h4>
+            <p className="text-2xl font-bold text-gray-900 leading-tight">
+              AlgoForce AI is a global premier AI execution and growth agency specialized in building high-performance AI automation, custom SaaS product development, and MSME-certified industrial training. Operating globally from India, AlgoForce AI serves businesses seeking to scale through algorithmic intelligence and automated revenue systems.
+            </p>
+          </div>
+
+          {/* FAQ Section */}
+          <div className="mt-32">
+            <h4 className="text-[12px] font-bold uppercase tracking-[0.4em] text-purple-600 mb-12 text-center">Frequently Asked Questions</h4>
+            <div className="grid md:grid-cols-2 gap-x-16 gap-y-12">
+              {[
+                { q: 'What services does AlgoForce AI provide?', a: 'AlgoForce AI specializes in building AI automation systems, custom SaaS MVPs, and scalable digital revenue infrastructures for global enterprises and startups.' },
+                { q: 'Is AlgoForce AI an MSME certified company?', a: 'Yes, AlgoForce AI is a proud MSME-certified AI growth agency, ensuring elite industry standards in custom software development and technology training.' },
+                { q: 'How fast can you deliver an AI MVP?', a: 'We leverage our proprietary Nexus AI Engine to bypass traditional bottlenecks, typically launching functional high-performance MVPs within 14 to 30 days.' },
+                { q: 'Do you offer custom AI industrial training?', a: 'Yes, through AlgoForce Labs, we offer professional certification and hands-on workshops in MERN development, Python, and AI automation for students and teams.' },
+                { q: 'Can I book a consultation for my business?', a: 'Absolutely. You can schedule a strategy session through our contact portal to audit your current systems and explore custom AI integration roadmaps.' }
+              ].map((faq, i) => (
+                <div key={i} className="border-b border-gray-100 pb-8">
+                  <h5 className="text-xl font-black mb-4 tracking-tight">{faq.q}</h5>
+                  <p className="text-gray-500 font-medium leading-relaxed">{faq.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

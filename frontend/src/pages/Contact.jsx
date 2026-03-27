@@ -89,21 +89,21 @@ const Contact = () => {
   return (
     <>
       <Helmet>
-        <title>Contact AlgoForce – Book a Demo or Consultation</title>
+        <title>Contact AlgoForce AI – Book a Demo or AI System Audit | AlgoForce AI</title>
         <meta
           name="description"
-          content="Contact AlgoForce to request a demo, revenue audit, or enterprise AI consultation."
+          content="Schedule a 30-minute AI strategy consultation or request a custom revenue audit with AlgoForce AI. Reach out to our execution experts within 24 hours for global AI solutions."
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.algoforceaii.com/contact" />
-        <meta property="og:title" content="Contact AlgoForce – Book a Demo or Consultation" />
-        <meta property="og:description" content="Contact AlgoForce to request a demo, revenue audit, or enterprise AI consultation." />
+        <meta property="og:title" content="Contact AlgoForce AI – Book a Demo or Consultation" />
+        <meta property="og:description" content="Contact AlgoForce AI to request a demo, revenue audit, or enterprise AI consultation." />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="AlgoForce AI" />
         <meta property="og:url" content="https://www.algoforceaii.com/contact" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Contact AlgoForce – Book a Demo or Consultation" />
-        <meta name="twitter:description" content="Contact AlgoForce to request a demo, revenue audit, or enterprise AI consultation." />
+        <meta name="twitter:title" content="Contact AlgoForce AI – Book a Demo or Consultation" />
+        <meta name="twitter:description" content="Contact AlgoForce AI to request a demo, revenue audit, or enterprise AI consultation." />
       </Helmet>
 
       <div className="min-h-screen pt-24 bg-gradient-to-b from-navy-50 to-white">

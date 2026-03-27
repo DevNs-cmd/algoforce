@@ -14,8 +14,13 @@ const Academy = () => {
     return (
         <>
             <Helmet>
-                <title>AlgoForce Labs – Learn AI & Product Engineering</title>
-                <meta name="description" content="Build real AI products. AlgoForce Labs offers hands-on courses, live workshops, and mentorship for builders and engineers." />
+                <title>AlgoForce Academy – Professional AI Development Courses & Certification | AlgoForce AI</title>
+                <meta name="description" content="AlgoForce Academy offers hands-on courses in AI product engineering, MERN development, and prompt engineering. Build career-ready skills with mentored projects and certifications." />
+                <link rel="canonical" href="https://www.algoforceaii.com/academy" />
+                <meta property="og:title" content="AlgoForce Academy – Master AI & Product Engineering" />
+                <meta property="og:description" content="Comprehensive courses and mentorship for AI builders and full-stack developers." />
+                <meta property="og:image" content="https://www.algoforceaii.com/og-academy.png" />
+                <meta name="twitter:card" content="summary_large_image" />
             </Helmet>
 
             <div className="overflow-x-hidden pt-20 animate-moving-gradient">

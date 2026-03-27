@@ -138,8 +138,13 @@ const Labs = () => {
     return (
         <div ref={containerRef} className="relative min-h-screen bg-[#0A0A0A]">
             <Helmet>
-                <title>Programs – AlgoForce (MSME Certified)</title>
-                <meta name="description" content="Industrial training for BTech/BCA students. Professional certification programs." />
+                <title>AlgoForce Labs – MSME Certified AI Training & Industrial Internships | AlgoForce AI</title>
+                <meta name="description" content="AlgoForce Labs provides industry-leading AI training, BTech/BCA internships, and professional certification programs. Master MERN, Python, and AI automation with MSME certification." />
+                <link rel="canonical" href="https://www.algoforceaii.com/labs" />
+                <meta property="og:title" content="AlgoForce Labs – Industrial AI Training & Internships" />
+                <meta property="og:description" content="Professional AI certification and industrial internship programs for BTech/BCA students." />
+                <meta property="og:image" content="https://www.algoforceaii.com/og-labs.png" />
+                <meta name="twitter:card" content="summary_large_image" />
             </Helmet>
 
             {/* Dynamic 3D Liquid Background */}

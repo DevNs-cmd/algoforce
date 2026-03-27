@@ -17,6 +17,9 @@ import RefundPolicy from './pages/RefundPolicy'
 import AIBuilder from './pages/AIBuilder'
 import Academy from './pages/Academy'
 import Dashboard from './pages/Dashboard'
+import Blog from './pages/Blog'
+import LanguagePlaceholder from './pages/LanguagePlaceholder'
+import Breadcrumbs from './components/common/Breadcrumbs'
 
 // Conditionally show footer and chatbot (not on AI Builder page)
 const AppShell = () => {
@@ -26,6 +29,7 @@ const AppShell = () => {
   return (
     <div className={isBuilderPage ? 'h-screen overflow-hidden' : 'min-h-screen bg-black'}>
       <Navigation />
+      {!isBuilderPage && location.pathname !== '/' && <Breadcrumbs />}
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -38,6 +42,10 @@ const AppShell = () => {
         <Route path="/ai-builder" element={<AIBuilder />} />
         <Route path="/academy" element={<Academy />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/es" element={<LanguagePlaceholder />} />
+        <Route path="/fr" element={<LanguagePlaceholder />} />
+        <Route path="/de" element={<LanguagePlaceholder />} />
         {/* Catch-all */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
