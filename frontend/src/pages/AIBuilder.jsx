@@ -20,12 +20,12 @@ import {
 // ─── 3D Visuals ─────────────────────────────────────────────────────────────
 const AbstractSphere = () => (
     <group>
-        <Float speed={3} rotationIntensity={2} floatIntensity={2}>
-            <Sphere args={[1, 128, 128]} scale={2.5}>
+        <Float speed={2} rotationIntensity={1} floatIntensity={1}>
+            <Sphere args={[1, 64, 64]} scale={2.5}>
                 <MeshDistortMaterial
                     color="#9333ea"
-                    speed={3}
-                    distort={0.4}
+                    speed={2}
+                    distort={0.3}
                     radius={1}
                     metalness={0.9}
                     roughness={0.1}
@@ -34,7 +34,7 @@ const AbstractSphere = () => (
                 />
             </Sphere>
         </Float>
-        <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
+        <Stars radius={100} depth={50} count={3000} factor={4} saturation={0} fade speed={1} />
     </group>
 )
 

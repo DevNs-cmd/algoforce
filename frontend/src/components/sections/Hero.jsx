@@ -41,14 +41,26 @@ const Hero = () => {
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
         >
           {/* Tagline - Soft and Small */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-6 py-2 mb-10 rounded-full bg-white/5 border border-white/10 backdrop-blur-3xl shadow-xl"
-          >
-            <div className="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.6)] animate-pulse" />
-            <span className="text-[10px] font-semibold uppercase tracking-[0.4em] text-gray-500">Startup Execution Engine</span>
-          </motion.div>
+          <div className="flex flex-wrap justify-center items-center gap-3 mb-10">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-3xl shadow-xl"
+            >
+              <div className="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.6)] animate-pulse" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.4em] text-gray-500">Startup Execution Engine</span>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-3xl shadow-xl"
+            >
+              <div className="w-1.5 h-1.5 rounded-full bg-[#22c55e] shadow-[0_0_10px_#22c55e] animate-pulse" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.4em] text-gray-500">Govt Registered MSME</span>
+            </motion.div>
+          </div>
 
           {/* Headline - Ultra Tight Tracking */}
           <motion.h1

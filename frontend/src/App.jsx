@@ -24,7 +24,7 @@ const AppShell = () => {
   const isBuilderPage = location.pathname === '/ai-builder'
 
   return (
-    <div className={isBuilderPage ? 'h-screen overflow-hidden' : 'min-h-screen bg-white'}>
+    <div className={isBuilderPage ? 'h-screen overflow-hidden' : 'min-h-screen bg-black'}>
       <Navigation />
 
       <Routes>
