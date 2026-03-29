@@ -121,13 +121,13 @@ const Hero = () => {
             transition={{ delay: 0.6 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-5"
           >
-            <Link to="/academy">
+            <Link to="/labs">
               <motion.button
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 className="px-14 py-5 bg-white text-black rounded-full font-black text-[15px] flex items-center gap-4 shadow-[0_20px_40px_rgba(255,255,255,0.1)] active:bg-gray-100 transition-all uppercase tracking-widest"
               >
-                Join Academy {'->'}
+                Explore Labs {'->'}
               </motion.button>
             </Link>
             <Link to="/nexus">

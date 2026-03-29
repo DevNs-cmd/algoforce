@@ -59,7 +59,7 @@ const Footer = () => {
             <h4 className="mb-8 text-[10px] font-black uppercase tracking-[0.3em] text-gray-600 italic">Navigation</h4>
             <ul className="space-y-4">
               {[
-                { name: 'Academy', path: '/academy' },
+                // { name: 'Academy', path: '/academy' },
                 { name: 'Labs', path: '/labs' },
                 { name: 'Pricing', path: '/pricing' },
                 { name: 'What is AlgoForce?', path: '/what-is-algoforce' },

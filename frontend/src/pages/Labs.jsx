@@ -3,6 +3,7 @@ import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { FaCheck, FaWhatsapp, FaPhoneAlt, FaTimes, FaHtml5, FaCss3Alt, FaJs, FaReact, FaNodeJs, FaAws, FaDocker, FaGitAlt, FaGithub, FaDatabase, FaJava, FaPython, FaGraduationCap, FaCode, FaChartBar, FaRobot, FaKeyboard, FaGlobe, FaFileExcel, FaBrain, FaRocket } from 'react-icons/fa'
 import { SiC, SiCplusplus, SiMongodb, SiFirebase, SiMysql, SiTailwindcss, SiNextdotjs } from 'react-icons/si'
+import { Link } from 'react-router-dom'
 
 const SECTIONS = {
     mega: [

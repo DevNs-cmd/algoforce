@@ -81,11 +81,11 @@ const AICourse = () => {
                             Learn the engineering behind OpenAI, Claude, and Agentic Workflows.
                         </p>
                         <div className="flex flex-wrap justify-center gap-6">
-                            <Link to="/academy" className="px-10 py-5 bg-white text-black rounded-full font-black text-[14px] uppercase tracking-widest hover:scale-105 transition-all shadow-2xl">
-                                Join Academy
+                            <Link to="/labs" className="px-10 py-5 bg-white text-black rounded-full font-black text-[14px] uppercase tracking-widest hover:scale-105 transition-all shadow-2xl">
+                                Explore Labs
                             </Link>
-                            <Link to="/labs" className="px-10 py-5 border border-white/10 rounded-full font-black text-[14px] uppercase tracking-widest hover:bg-white/5 transition-all">
-                                View Proof
+                            <Link to="/nexus" className="px-10 py-5 border border-white/10 rounded-full font-black text-[14px] uppercase tracking-widest hover:bg-white/5 transition-all">
+                                Try Nexus
                             </Link>
                         </div>
                     </motion.div>
@@ -147,12 +147,12 @@ const AICourse = () => {
                         </p>
                         <div className="p-10 rounded-[3.5rem] bg-purple-600/10 border border-purple-500/20 text-center relative overflow-hidden group">
                             <div className="absolute top-0 right-0 p-6">
-                                <span className="bg-red-500/20 text-red-500 text-[9px] font-black uppercase tracking-widest px-4 py-1 rounded-full border border-red-500/20 animate-pulse">Limited Batch</span>
+                                <span className="bg-red-500/20 text-red-500 text-[9px] font-black uppercase tracking-widest px-4 py-1 rounded-full border border-red-500/20 animate-pulse">Limited Lab Slots</span>
                             </div>
                             <h4 className="text-3xl font-black mb-4">Ready to Build the Future?</h4>
-                            <p className="text-gray-400 mb-10 italic">Next batch starts <span className="text-white font-bold">April 5</span>. We only accept 20 builders per cohort.</p>
-                            <Link to="/academy" className="inline-block px-12 py-5 bg-white text-black rounded-full font-black uppercase tracking-widest hover:scale-105 transition-all shadow-2xl">
-                                Secure Your Seat
+                            <p className="text-gray-400 mb-10 italic">Next cohort starts <span className="text-white font-bold">April 5</span>. We only accept 20 builders per cohort.</p>
+                            <Link to="/labs" className="inline-block px-12 py-5 bg-white text-black rounded-full font-black uppercase tracking-widest hover:scale-105 transition-all shadow-2xl">
+                                Secure Lab Seat
                             </Link>
                         </div>
                     </section>
