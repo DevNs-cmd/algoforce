@@ -9,7 +9,7 @@ const AcademyHero = () => {
     const y2 = useTransform(scrollY, [0, 500], [0, 100]);
 
     return (
-        <section ref={containerRef} className="relative flex items-center justify-center min-h-screen overflow-hidden bg-[#020205] text-white py-20 px-6">
+        <section ref={containerRef} className="relative flex items-center justify-center min-h-[90vh] md:min-h-screen overflow-hidden bg-[#020205] text-white pt-20 md:pt-28 pb-12 md:pb-20 px-6">
             
             {/* iOS Dynamic Lighting */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -97,7 +97,7 @@ const AcademyHero = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.5 }}
-                        className="max-w-xl mx-auto mb-16 text-sm md:text-lg text-gray-400 font-medium leading-relaxed italic"
+                        className="max-w-xl mx-auto mb-12 md:mb-16 text-sm md:text-lg text-gray-400 font-medium leading-relaxed italic"
                     >
                         The ultimate engineering bootcamp for the next generation of founders & builders. 
                         Skip the boring slides. Deploy production-grade AI systems in weeks.

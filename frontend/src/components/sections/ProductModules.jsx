@@ -37,7 +37,7 @@ const ProductModules = () => {
   ]
 
   return (
-    <section id="services" className="py-32 bg-[#05050F] text-white relative">
+    <section id="services" className="py-12 md:py-16 bg-[#05050F] text-white relative">
       <div className="absolute inset-0 bg-purple-600/[0.02] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -45,7 +45,7 @@ const ProductModules = () => {
           ref={ref}
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
-          className="text-center mb-24"
+          className="text-center mb-10 md:mb-16"
         >
           <h2 className="text-[12px] font-bold uppercase tracking-[0.5em] text-purple-500 mb-6">Verticals</h2>
           <h3 className="text-5xl md:text-7xl font-black tracking-tighter mb-8">
@@ -86,7 +86,7 @@ const ProductModules = () => {
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={inView ? { opacity: 1, scale: 1 } : {}}
-          className="mt-24 p-12 rounded-[3.5rem] bg-gradient-to-br from-[#1A1A2E] to-transparent border border-white/10 flex flex-col md:flex-row justify-between items-center gap-12"
+          className="mt-12 md:mt-16 p-8 md:p-12 rounded-[3.5rem] bg-gradient-to-br from-[#1A1A2E] to-transparent border border-white/10 flex flex-col md:flex-row justify-between items-center gap-12"
         >
           <div className="text-left">
             <div className="text-purple-500 text-3xl mb-4 font-black">75%</div>

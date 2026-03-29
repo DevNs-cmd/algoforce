@@ -37,16 +37,16 @@ const WhoItsFor = () => {
   ]
 
   return (
-    <section id="who" className="py-32 bg-[#05050F] text-white relative">
+    <section id="who" className="py-16 md:py-24 bg-[#05050F] text-white relative">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           ref={ref}
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
-          className="text-center mb-24"
+          className="text-center mb-10 md:mb-16"
         >
           <h2 className="text-[12px] font-bold uppercase tracking-[0.5em] text-gray-500 mb-6">Partnerships</h2>
-          <h3 className="text-5xl md:text-7xl font-black tracking-tighter mb-8 leading-none">
+          <h3 className="text-4xl md:text-7xl font-black tracking-tighter mb-8 leading-none">
             Built for <span className="text-purple-500">The 1%.</span>
           </h3>
           <p className="max-w-xl mx-auto text-gray-400 font-medium text-lg leading-relaxed">
@@ -74,7 +74,7 @@ const WhoItsFor = () => {
         </div>
 
         {/* Final Statement Block */}
-        <div className="mt-32 p-12 rounded-[3.5rem] bg-white text-black text-center">
+        <div className="relative z-10 pt-10 md:pt-16 pb-12 md:pb-14 selection:bg-purple-500/30 rounded-[2.5rem] md:rounded-[3.5rem] bg-white text-black text-center">
           <h4 className="text-4xl md:text-5xl font-black mb-6 tracking-tighter">Your Competitive Advantage Starts Here.</h4>
           <p className="text-gray-600 text-lg mb-12 max-w-xl mx-auto font-medium">
             Don't leave your execution to chance. Partner with a studio that treats your vision as its own mission.

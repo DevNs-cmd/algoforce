@@ -4,6 +4,7 @@ import {
   FaInstagram,
   FaFacebook,
   FaXTwitter,
+  FaWhatsapp,
 } from "react-icons/fa6"
 
 const Footer = () => {
@@ -13,7 +14,7 @@ const Footer = () => {
     <footer className="text-white bg-[#030308] border-t border-white/5 relative overflow-hidden">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent" />
 
-      <div className="px-6 py-20 mx-auto max-w-7xl relative z-10">
+      <div className="px-6 py-12 md:py-20 mx-auto max-w-7xl relative z-10">
         <div className="grid grid-cols-1 gap-16 md:grid-cols-4">
 
           {/* Brand */}
@@ -37,7 +38,8 @@ const Footer = () => {
                 { icon: <FaLinkedin />, href: "https://www.linkedin.com/company/algoforceofficial/" },
                 { icon: <FaInstagram />, href: "https://www.instagram.com/algo.force?igsh=MzRndng5bXJ6eHU4" },
                 { icon: <FaFacebook />, href: "https://www.facebook.com/share/1BDAyoFCG1/" },
-                { icon: <FaXTwitter />, href: "https://x.com/algoforceAF" }
+                { icon: <FaXTwitter />, href: "https://x.com/algoforceAF" },
+                { icon: <FaWhatsapp />, href: "https://wa.me/918448947436" }
               ].map((social, i) => (
                 <a
                   key={i}

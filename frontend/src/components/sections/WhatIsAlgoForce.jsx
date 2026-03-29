@@ -30,7 +30,7 @@ const WhatIsAlgoForce = () => {
   ]
 
   return (
-    <section id="what-is" className="py-32 bg-white text-black overflow-hidden relative">
+    <section id="what-is" className="py-16 md:py-24 bg-white text-black overflow-hidden relative">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <motion.div
           ref={ref}
@@ -39,7 +39,7 @@ const WhatIsAlgoForce = () => {
           transition={{ duration: 0.8 }}
         >
           {/* Section Header */}
-          <div className="grid md:grid-cols-2 gap-12 items-end mb-24">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-end mb-10 md:mb-16">
             <div>
               <h2 className="text-[12px] font-bold uppercase tracking-[0.4em] text-purple-600 mb-6">The Methodology</h2>
               <h3 className="text-5xl md:text-7xl font-black leading-[1] tracking-tighter">
@@ -71,7 +71,7 @@ const WhatIsAlgoForce = () => {
           </div>
 
           {/* Big Visual Block */}
-          <div className="mt-24 p-1 rounded-[3rem] bg-gradient-to-br from-purple-500/20 to-transparent">
+          <div className="mt-12 md:mt-16 p-1 rounded-[3rem] bg-gradient-to-br from-purple-500/20 to-transparent">
             <div className="bg-white rounded-[2.9rem] p-12 md:p-20 flex flex-col md:flex-row items-center gap-16 border border-white">
               <div className="flex-1">
                 <h4 className="text-4xl md:text-5xl font-black mb-8 tracking-tighter">Engineered for Rapid Scaling.</h4>
@@ -99,7 +99,7 @@ const WhatIsAlgoForce = () => {
           </div>
 
           {/* Factual Entity Definition (AEO) */}
-          <div className="mt-24 max-w-4xl border-l-4 border-purple-600 pl-12 py-4">
+          <div className="mt-16 md:mt-24 max-w-4xl border-l-4 border-purple-600 pl-8 md:pl-12 py-4">
             <h4 className="text-[12px] font-bold uppercase tracking-[0.4em] text-purple-600 mb-6">Institutional Profile</h4>
             <p className="text-2xl font-bold text-gray-900 leading-tight">
               AlgoForce AI is a global premier AI execution and growth agency specialized in building high-performance AI automation, custom SaaS product development, and MSME-certified industrial training. Operating globally from India, AlgoForce AI serves businesses seeking to scale through algorithmic intelligence and automated revenue systems.
@@ -107,7 +107,7 @@ const WhatIsAlgoForce = () => {
           </div>
 
           {/* FAQ Section */}
-          <div className="mt-32">
+          <div className="mt-12 md:mt-20">
             <h4 className="text-[12px] font-bold uppercase tracking-[0.4em] text-purple-600 mb-12 text-center">Frequently Asked Questions</h4>
             <div className="grid md:grid-cols-2 gap-x-16 gap-y-12">
               {[

@@ -57,8 +57,8 @@ const FeaturedCourses = () => {
     ]
 
     return (
-        <section id="courses" className="bg-[#020205] py-24 px-6 relative overflow-hidden">
-            <div className="max-w-7xl mx-auto mb-20 text-center relative z-10">
+        <section id="courses" className="bg-[#020205] py-16 md:py-24 px-6 relative overflow-hidden">
+            <div className="max-w-7xl mx-auto mb-12 md:mb-20 text-center relative z-10">
                 <motion.div 
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}

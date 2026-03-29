@@ -2,61 +2,79 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.algoforceaii.com/</loc>
-    <lastmod>2026-03-27T23:45:00+00:00</lastmod>
+    <lastmod>2026-03-28T10:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.algoforceaii.com/labs</loc>
-    <lastmod>2026-03-27T23:45:00+00:00</lastmod>
+    <loc>https://www.algoforceaii.com/ai-builder</loc>
+    <lastmod>2026-03-27T14:30:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.algoforceaii.com/academy</loc>
-    <lastmod>2026-03-27T23:45:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.algoforceaii.com/ai-builder</loc>
-    <lastmod>2026-03-27T23:45:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.algoforceaii.com/pricing</loc>
-    <lastmod>2026-03-27T23:45:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.algoforceaii.com/contact</loc>
-    <lastmod>2026-03-27T23:45:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.algoforceaii.com/blog</loc>
-    <lastmod>2026-03-27T23:45:00+00:00</lastmod>
+    <lastmod>2026-03-28T08:15:00+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://www.algoforceaii.com/labs</loc>
+    <lastmod>2026-03-26T12:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.algoforceaii.com/pricing</loc>
+    <lastmod>2026-03-25T11:45:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.algoforceaii.com/blog</loc>
+    <lastmod>2026-03-28T12:00:00+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.algoforceaii.com/about</loc>
+    <lastmod>2026-03-28T09:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.algoforceaii.com/team</loc>
+    <lastmod>2026-03-28T09:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.algoforceaii.com/contact</loc>
+    <lastmod>2026-03-24T16:20:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.algoforceaii.com/faq</loc>
+    <lastmod>2026-03-28T10:30:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.algoforceaii.com/privacy-policy</loc>
-    <lastmod>2026-03-27T23:45:00+00:00</lastmod>
+    <lastmod>2026-03-01T00:00:00+00:00</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://www.algoforceaii.com/terms-and-conditions</loc>
-    <lastmod>2026-03-27T23:45:00+00:00</lastmod>
+    <lastmod>2026-03-01T00:00:00+00:00</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://www.algoforceaii.com/refund-policy</loc>
-    <lastmod>2026-03-27T23:45:00+00:00</lastmod>
+    <lastmod>2026-03-01T00:00:00+00:00</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

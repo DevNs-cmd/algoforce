@@ -10,7 +10,7 @@ const Hero = () => {
   });
 
   return (
-    <section className="relative flex items-center justify-center min-h-screen overflow-hidden bg-[#020205] text-white pt-32 pb-20">
+    <section className="relative flex items-center justify-center min-h-[85vh] md:min-h-screen overflow-hidden bg-[#020205] text-white pt-20 md:pt-28 pb-12 md:pb-16">
 
       {/* iOS Liquid Background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -41,7 +41,7 @@ const Hero = () => {
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
         >
           {/* Tagline - Soft and Small */}
-          <div className="flex flex-wrap justify-center items-center gap-3 mb-10">
+          <div className="flex flex-wrap justify-center items-center gap-3 mb-6 md:mb-10">
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -116,7 +116,7 @@ const Hero = () => {
         </motion.div>
 
         {/* Feature Island - iOS Glassmorphism */}
-        <div ref={statsRef} className="mt-32 grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+        <div ref={statsRef} className="mt-12 md:mt-24 grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
           {[
             {
               title: 'Engineering',

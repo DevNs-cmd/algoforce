@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { FaShieldAlt, FaQrcode, FaCreditCard, FaLock, FaCheckCircle, FaTimes, FaEnvelope, FaWhatsapp } from 'react-icons/fa'
 
@@ -7,6 +7,18 @@ const PaymentGateway = ({ title = "Secure Payment Gateway", subtitle = "Choose y
     const [selectedPlan, setSelectedPlan] = useState('startup');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isVerifying, setIsVerifying] = useState(false);
+    
+    // Add scroll lock for modal
+    useEffect(() => {
+        if (isModalOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isModalOpen]);
 
     const plans = [
         {
@@ -40,13 +52,13 @@ const PaymentGateway = ({ title = "Secure Payment Gateway", subtitle = "Choose y
     };
 
     return (
-        <section id="payment" className="bg-[#020205] py-24 px-6 relative overflow-hidden">
+        <section id="payment" className="bg-[#020205] py-16 md:py-24 px-6 relative overflow-hidden">
             {/* Background Gradient */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-purple-600/5 blur-[150px] rounded-full pointer-events-none" />
 
             <div className="max-w-7xl mx-auto relative z-10">
 
-                <div className="text-center mb-16">
+                <div className="text-center mb-10 md:mb-16">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -95,7 +107,7 @@ const PaymentGateway = ({ title = "Secure Payment Gateway", subtitle = "Choose y
                                 </div>
 
                                 <button
-                                    onClick={() => setIsModalOpen(true)}
+                                    onClick={(e) => { e.stopPropagation(); setIsModalOpen(true); }}
                                     className={`w-full py-4 rounded-2xl font-bold text-sm transition-all ${selectedPlan === plan.id ? 'bg-white text-black' : 'bg-white/5 text-white border border-white/10'}`}
                                 >
                                     {selectedPlan === plan.id ? 'Proceed to Pay' : 'Select Plan'}
@@ -127,7 +139,7 @@ const PaymentGateway = ({ title = "Secure Payment Gateway", subtitle = "Choose y
             {/* PAYMENT MODAL */}
             <AnimatePresence>
                 {isModalOpen && (
-                    <div className="fixed inset-0 z-[100] flex items-center justify-center sm:p-6">
+                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
@@ -140,7 +152,7 @@ const PaymentGateway = ({ title = "Secure Payment Gateway", subtitle = "Choose y
                             initial={{ scale: 0.95, y: 30, opacity: 0 }}
                             animate={{ scale: 1, y: 0, opacity: 1 }}
                             exit={{ scale: 0.95, y: 30, opacity: 0 }}
-                            className="relative w-full max-w-[340px] sm:max-w-md bg-[#0a0a0f] border border-white/10 rounded-[2.5rem] p-8 md:p-12 shadow-[0_50px_100px_rgba(0,0,0,0.8)] overflow-hidden"
+                            className="relative w-full max-w-[340px] sm:max-w-md bg-[#0a0a0f] border border-white/10 rounded-[2.5rem] p-6 sm:p-12 shadow-[0_50px_100px_rgba(0,0,0,0.8)] overflow-hidden my-auto"
                         >
                             <button
                                 onClick={handleCloseModal}

@@ -28,7 +28,7 @@ const WhyAlgoForce = () => {
   ]
 
   return (
-    <section id="why" className="py-32 bg-white text-black relative">
+    <section id="why" className="py-16 md:py-24 bg-white text-black relative">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           ref={ref}
@@ -37,15 +37,15 @@ const WhyAlgoForce = () => {
           transition={{ duration: 0.8 }}
         >
           {/* Header */}
-          <div className="text-center mb-24">
+          <div className="text-center mb-10 md:mb-16 px-2">
             <h2 className="text-[12px] font-bold uppercase tracking-[0.4em] text-purple-600 mb-6">Advantage</h2>
-            <h3 className="text-5xl md:text-7xl font-black tracking-tighter mb-8 leading-tight">
+            <h3 className="text-4xl md:text-7xl font-black tracking-tighter mb-8 leading-tight">
               Why Founders <br /> <span className="text-gray-300">Choose the Studio.</span>
             </h3>
           </div>
 
           {/* Core Advantages */}
-          <div className="grid md:grid-cols-3 gap-12 mb-32">
+          <div className="grid md:grid-cols-3 gap-12 mb-12 md:mb-20">
             {advantages.map((adv, i) => (
               <div key={i} className="group">
                 <div className="text-3xl text-purple-600 mb-8 flex justify-center group-hover:scale-125 transition-transform">{adv.icon}</div>
@@ -79,7 +79,7 @@ const WhyAlgoForce = () => {
           </div>
 
           {/* Final Call to Action in White Section */}
-          <div className="mt-24 p-16 rounded-[4rem] bg-[#05050F] text-white text-center relative overflow-hidden group">
+          <div className="mt-12 md:mt-20 p-8 md:p-16 rounded-[2.5rem] md:rounded-[4rem] bg-[#05050F] text-white text-center relative overflow-hidden group">
             <div className="absolute inset-0 bg-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity" />
             <div className="relative z-10">
               <h4 className="text-4xl md:text-5xl font-black mb-8 tracking-tighter">Ready to Deploy Your Vision?</h4>

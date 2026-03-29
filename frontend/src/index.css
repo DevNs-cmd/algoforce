@@ -1,189 +1,15 @@
-/* Tailwind CSS Directives - Required for Tailwind to function */
+/* Tailwind CSS Directives */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Component CSS inlined to avoid issues in production */
-/* Responsive improvements */
-.bounceCardsContainer {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 300px;
-  height: 300px;
-}
-
-@media (min-width: 640px) {
-  .bounceCardsContainer {
-    width: 400px;
-    height: 400px;
-  }
-}
-
-/* Touch-friendly improvements */
-@media (hover: none) and (pointer: coarse) {
-
-  button,
-  a,
-  .clickable {
-    min-height: 44px;
-    min-width: 44px;
-  }
-}
-
-/* Responsive text sizing */
-.responsive-text-xs {
-  font-size: clamp(0.625rem, 0.6rem + 0.125vw, 0.75rem);
-}
-
-.responsive-text-sm {
-  font-size: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
-}
-
-.responsive-text-base {
-  font-size: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
-}
-
-.responsive-text-lg {
-  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
-}
-
-.responsive-text-xl {
-  font-size: clamp(1.125rem, 1rem + 0.625vw, 1.25rem);
-}
-
-.responsive-text-2xl {
-  font-size: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
-}
-
-.responsive-text-3xl {
-  font-size: clamp(1.5rem, 1.3rem + 1vw, 1.875rem);
-}
-
-.responsive-text-4xl {
-  font-size: clamp(1.875rem, 1.6rem + 1.375vw, 2.25rem);
-}
-
-.responsive-text-5xl {
-  font-size: clamp(2.25rem, 1.9rem + 1.75vw, 3rem);
-}
-
-.responsive-text-6xl {
-  font-size: clamp(3rem, 2.5rem + 2.5vw, 4rem);
-}
-
-/* Smooth scrolling for all devices */
-html {
-  scroll-behavior: smooth;
-  height: 100%;
-}
-
-@media (max-width: 768px) {
-
-  /* Prevent horizontal scroll */
-  body {
-    overflow-x: hidden;
-  }
-}
-
-.card {
-  position: absolute;
-  width: 200px;
-  aspect-ratio: 1;
-  border: 5px solid #fff;
-  border-radius: 25px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.card .image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.circular-gallery {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  cursor: grab;
-}
-
-.circular-gallery:active {
-  cursor: grabbing;
-}
-
-.dock-outer {
-  margin: 0 0.5rem;
-  display: flex;
-  max-width: 100%;
-  align-items: center;
-}
-
-.dock-panel {
-  position: absolute;
-  bottom: 0.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: flex-end;
-  width: fit-content;
-  gap: 1rem;
-  border-radius: 1rem;
-  background-color: #060010;
-  border: 1px solid #222;
-  padding: 0 0.5rem 0.5rem;
-}
-
-.dock-item {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  background-color: #060010;
-  border: 1px solid #222;
-  box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  cursor: pointer;
-  outline: none;
-}
-
-.dock-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.dock-label {
-  position: absolute;
-  top: -1.5rem;
-  left: 50%;
-  width: fit-content;
-  white-space: pre;
-  border-radius: 0.375rem;
-  border: 1px solid #222;
-  background-color: #060010;
-  padding: 0.125rem 0.5rem;
-  font-size: 0.75rem;
-  color: #fff;
-  transform: translateX(-50%);
-}
-
-.scroll-reveal {
-  margin: 20px 0;
-}
-
-.scroll-reveal-text {
-  font-size: clamp(1.6rem, 4vw, 3rem);
-  line-height: 1.5;
-  font-weight: 600;
-}
-
-.word {
-  display: inline-block;
+/* Global Layout & Performance */
+:root {
+  --background: #020205;
+  --foreground: #ffffff;
+  --accent: #8700ff;
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.1);
 }
 
 * {
@@ -192,12 +18,9 @@ html {
   box-sizing: border-box;
 }
 
-:root {
-  --background: #020205;
-  --foreground: #ffffff;
-  --accent: #8700ff;
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-border: rgba(255, 255, 255, 0.1);
+html {
+  scroll-behavior: smooth;
+  height: 100%;
 }
 
 body {
@@ -229,42 +52,10 @@ body {
   background: rgba(255, 255, 255, 0.2);
 }
 
-/* Global Hardware Acceleration - only apply composite hints where needed */
-[class*="backdrop-blur"] {
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-}
-
-/* Glassmorphism Utility with Hardware Acceleration to prevent lag */
-.glass-panel {
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  transform: translateZ(0);
-  will-change: backdrop-filter;
-}
-
-.glass-pill {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 9999px;
-  transform: translateZ(0);
-  will-change: backdrop-filter;
-}
-
-/* Typography Helpers - Fluid & iOS Scale */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+/* Typography Helpers */
+h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.04em;
-  line-height: 0.95;
+  line-height: 1;
 }
 
 .text-meta {
@@ -275,36 +66,92 @@ h6 {
   color: #666;
 }
 
+/* Glassmorphism Utilities */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+}
+
 /* Animations */
+@keyframes movingGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-moving-gradient {
+  background: linear-gradient(-45deg, #020205, #080112, #0d011f, #020205);
+  background-size: 200% 200%;
+  animation: movingGradient 20s ease-in-out infinite;
+  /* Removed transform: translateZ(0) to fix fixed positioning bugs */
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  animation: marquee 20s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+.animate-marquee-fast {
+  display: flex;
+  animation: marquee 12s linear infinite;
+}
+
 @keyframes liquid {
-  0% {
-    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-  }
-
-  50% {
-    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
-  }
-
-  100% {
-    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-  }
+  0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+  100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
 }
 
 .liquid-blob {
   animation: liquid 15s ease-in-out infinite;
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1.01); }
+  50% { transform: translateY(-10px) scale(0.99); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Scrollbar Visibility Utility */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
 
-/* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
   -ms-overflow-style: none;
-  /* IE and Edge */
   scrollbar-width: none;
-  /* Firefox */
-}@keyframes movingGradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } } .animate-moving-gradient { background: linear-gradient(-45deg, #020205, #080112, #0d011f, #020205); background-size: 200% 200%; animation: movingGradient 20s ease-in-out infinite; transform: translateZ(0); } .glow-text-purple { text-shadow: 0 0 20px rgba(168, 85, 247, 0.4); } .glow-border-purple { box-shadow: 0 0 30px rgba(168, 85, 247, 0.2); } .glow-icon-blue { filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.5)); } @keyframes neonPulse { 0%, 100% { opacity: 1; filter: brightness(1); } 50% { opacity: 0.8; filter: brightness(1.2); } } .neon-pulse { animation: neonPulse 3s ease-in-out infinite; } @keyframes float { 0%, 100% { transform: translateY(0) scale(1.01); } 50% { transform: translateY(-10px) scale(0.99); } } .animate-float { animation: float 6s ease-in-out infinite; }
-@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } } .animate-marquee { display: flex; animation: marquee 20s linear infinite; } .animate-marquee:hover { animation-play-state: paused; }
-.animate-marquee-fast { display: flex; animation: marquee 12s linear infinite; }
+}
+
+/* Fixed positioning fix for backdrop-blur parents */
+[class*="backdrop-blur"] {
+  will-change: backdrop-filter;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+}

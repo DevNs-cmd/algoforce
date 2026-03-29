@@ -22,11 +22,11 @@ const LiveWorkshops = () => {
     ]
 
     return (
-        <section id="workshops" className="bg-black py-24 px-6 relative overflow-hidden">
+        <section id="workshops" className="bg-black py-16 md:py-24 px-6 relative overflow-hidden">
              {/* Glowing light effect */}
              <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-500/10 blur-[150px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/2" />
 
-             <div className="max-w-7xl mx-auto mb-16 px-4">
+             <div className="max-w-7xl mx-auto mb-10 md:mb-16 px-4">
                 <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">Live Workshops & Cohorts.</h2>
                 <p className="text-gray-400 font-medium">Join real-time sessions and build alongside industry experts.</p>
             </div>

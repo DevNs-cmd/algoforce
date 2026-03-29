@@ -35,7 +35,7 @@ const Home = () => {
                   "logo": "https://www.algoforceaii.com/logo.png",
                   "contactPoint": {
                     "@type": "ContactPoint",
-                    "telephone": "+919315575744",
+                    "telephone": "+918448947436",
                     "contactType": "Sales",
                     "areaServed": "Global"
                   },

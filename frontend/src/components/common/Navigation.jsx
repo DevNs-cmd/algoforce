@@ -23,7 +23,7 @@ const Navigation = () => {
 
   const navLinks = [
     { name: "Home", path: "/" },
-    { name: "Nexus", path: "/ai-builder" },
+    { name: "Nexus", path: "/nexus" },
     { name: "Labs", path: "/labs" },
     { name: "Pricing", path: "/pricing" },
     { name: "Contact", path: "/contact" },

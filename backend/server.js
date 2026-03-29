@@ -8,6 +8,7 @@ import contactRoutes from './routes/contactRoutes.js'
 import authRoutes from './routes/authRoutes.js'
 import aiRoutes from './routes/aiRoutes.js'
 import projectRoutes from './routes/projectRoutes.js'
+import nexusRoutes from './routes/nexus.js'
 
 // Initialize Express app
 const app = express()
@@ -107,6 +108,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // API routes
+app.use('/api/nexus', nexusRoutes)
 app.use('/api/contact', contactRoutes)
 app.use('/api/auth', authRoutes)
 app.use('/api/ai', aiRoutes)

@@ -21,15 +21,18 @@ import Blog from './pages/Blog'
 import LanguagePlaceholder from './pages/LanguagePlaceholder'
 import Breadcrumbs from './components/common/Breadcrumbs'
 
-// Conditionally show footer and chatbot (not on AI Builder page)
+import Nexus from './pages/Nexus'
+
+// Conditionally show footer and chatbot (not on AI Builder or Nexus page)
 const AppShell = () => {
   const location = useLocation()
   const isBuilderPage = location.pathname === '/ai-builder'
+  const isNexusPage = location.pathname === '/nexus'
 
   return (
-    <div className={isBuilderPage ? 'h-screen overflow-hidden' : 'min-h-screen bg-black'}>
+    <div className={(isBuilderPage || isNexusPage) ? 'h-screen overflow-hidden' : 'min-h-screen bg-black'}>
       <Navigation />
-      {!isBuilderPage && location.pathname !== '/' && <Breadcrumbs />}
+      {!isBuilderPage && !isNexusPage && location.pathname !== '/' && <Breadcrumbs />}
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -40,6 +43,7 @@ const AppShell = () => {
         <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
         <Route path="/refund-policy" element={<RefundPolicy />} />
         <Route path="/ai-builder" element={<AIBuilder />} />
+        <Route path="/nexus" element={<Nexus />} />
         <Route path="/academy" element={<Academy />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/blog" element={<Blog />} />
@@ -50,10 +54,10 @@ const AppShell = () => {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
 
-      {!isBuilderPage && <Footer />}
-      {!isBuilderPage && <Chatbot />}
-      {!isBuilderPage && <ConsultancyButton />}
-      {!isBuilderPage && <FoundersCommunityPopup />}
+      {!isBuilderPage && !isNexusPage && <Footer />}
+      {!isBuilderPage && !isNexusPage && <Chatbot />}
+      {!isBuilderPage && !isNexusPage && <ConsultancyButton />}
+      {!isBuilderPage && !isNexusPage && <FoundersCommunityPopup />}
     </div>
   )
 }

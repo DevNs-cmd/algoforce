@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { submitContact } from '../services/api'
 import PhoneInput from '../components/PhoneInput'
-import { FaUser, FaBuilding, FaBriefcase, FaCheckCircle, FaPhone, FaEnvelope } from 'react-icons/fa'
+import { FaUser, FaBuilding, FaBriefcase, FaCheckCircle, FaPhone, FaEnvelope, FaWhatsapp } from 'react-icons/fa'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -147,6 +147,12 @@ const Contact = () => {
                       <h3 className="text-sm font-bold tracking-wider text-purple-600 uppercase mb-1">Email</h3>
                       <a href="mailto:af@algoforceaii.com" className="text-2xl font-bold text-navy-900 hover:text-purple-600 transition-colors">
                         af@algoforceaii.com
+                      </a>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-bold tracking-wider text-purple-600 uppercase mb-1">WhatsApp</h3>
+                      <a href="https://wa.me/918448947436" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-2xl font-bold text-navy-900 hover:text-green-600 transition-colors">
+                        <FaWhatsapp className="text-[#25D366]" /> 8448947436
                       </a>
                     </div>
                     <div>

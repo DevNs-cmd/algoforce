@@ -30,6 +30,17 @@ const FoundersCommunityPopup = () => {
         return () => clearTimeout(timer)
     }, [])
 
+    useEffect(() => {
+        if (isVisible) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isVisible]);
+
     const handleClose = () => setIsVisible(false)
 
     const whatsappLink = `https://wa.me/918448947436?text=${encodeURIComponent("Hi AlgoForce! I'm a founder and I'd love to join the Exclusive Founders Community. Please share the details.")}`

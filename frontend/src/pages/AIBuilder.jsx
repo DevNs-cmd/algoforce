@@ -8,7 +8,7 @@ import { useAuth } from '../contexts/AuthContext'
 import { streamChat, AI_MODELS } from '../services/aiService'
 import api from '../services/api'
 import AuthModal from '../components/auth/AuthModal'
-import { v4 as uuidv4 } from 'uuid'
+const genId = () => (typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2))
 import {
     FaRobot, FaCode, FaRocket, FaChevronRight,
     FaDownload, FaPlus, FaPlay,
@@ -42,7 +42,7 @@ const AbstractSphere = () => (
 const SESSION_KEY = 'af_session_id'
 const getSessionId = () => {
     let id = localStorage.getItem(SESSION_KEY)
-    if (!id) { id = uuidv4(); localStorage.setItem(SESSION_KEY, id) }
+    if (!id) { id = genId(); localStorage.setItem(SESSION_KEY, id) }
     return id
 }
 
