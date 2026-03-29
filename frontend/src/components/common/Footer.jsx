@@ -56,19 +56,17 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="mb-8 text-[10px] font-black uppercase tracking-[0.3em] text-gray-600">Structure</h4>
+            <h4 className="mb-8 text-[10px] font-black uppercase tracking-[0.3em] text-gray-600 italic">Navigation</h4>
             <ul className="space-y-4">
               {[
-                { name: 'Home', path: '/' },
-                { name: 'Nexus', path: '/ai-builder' },
                 { name: 'Academy', path: '/academy' },
                 { name: 'Labs', path: '/labs' },
-                { name: 'Blog', path: '/blog' },
                 { name: 'Pricing', path: '/pricing' },
-                { name: 'Contact', path: '/contact' }
+                { name: 'What is AlgoForce?', path: '/what-is-algoforce' },
+                { name: 'Blog Insights', path: '/blog' }
               ].map(link => (
                 <li key={link.path}>
-                  <Link to={link.path} className="text-gray-500 hover:text-white transition-colors text-sm font-bold">
+                  <Link to={link.path} className="text-gray-500 hover:text-white transition-colors text-sm font-bold italic">
                     {link.name}
                   </Link>
                 </li>
@@ -76,23 +74,39 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Legal */}
+          {/* SEO Pillars */}
           <div>
-            <h4 className="mb-8 text-[10px] font-black uppercase tracking-[0.3em] text-gray-600">Artifacts</h4>
+            <h4 className="mb-8 text-[10px] font-black uppercase tracking-[0.3em] text-purple-600 italic">Industrial Proof</h4>
             <ul className="space-y-4">
               {[
-                { name: 'Privacy Policy', path: '/privacy-policy' },
-                { name: 'Terms & Conditions', path: '/terms-and-conditions' },
-                { name: 'Refund Policy', path: '/refund-policy' }
+                { name: 'AI Course for Beginners', path: '/ai-course' },
+                { name: 'AI Projects for Students', path: '/ai-course-for-students' },
+                { name: 'Build AI App No-Code', path: '/build-ai-app-without-coding' },
+                { name: 'AI Certification India', path: '/ai-certification-india' }
               ].map(link => (
                 <li key={link.path}>
-                  <Link to={link.path} className="text-gray-500 hover:text-white transition-colors text-sm font-bold">
+                  <Link to={link.path} className="text-gray-500 hover:text-white transition-colors text-sm font-bold italic">
                     {link.name}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
+
+          {/* Legal Section moved to Bottom or separate grid */}
+        </div>
+
+        <div className="pt-16 mt-16 flex flex-wrap justify-center gap-10 border-t border-white/5 opacity-50">
+             {[
+                { name: 'Nexus AI IDE', path: '/nexus' },
+                { name: 'Privacy', path: '/privacy-policy' },
+                { name: 'Terms', path: '/terms-and-conditions' },
+                { name: 'Refunds', path: '/refund-policy' }
+              ].map(link => (
+                <Link key={link.path} to={link.path} className="text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition-all">
+                  {link.name}
+                </Link>
+              ))}
         </div>
 
         {/* Bottom bar */}

@@ -5,54 +5,54 @@ import { FaCalendar, FaUser, FaClock, FaArrowRight } from 'react-icons/fa'
 
 const BLOG_POSTS = [
     {
-        id: 'ai-automation-for-small-business',
-        title: 'AI Automation Services for Small Business: A 2025 Growth Guide',
-        excerpt: 'Discover how small businesses are leveraging AI automation to reduce operational costs by 40% and scale 10x faster.',
-        date: 'March 25, 2025',
-        author: 'Dev N Suman',
-        readTime: '8 min read',
-        category: 'Automation',
-        image: '/blog/automation.jpg'
-    },
-    {
-        id: 'custom-ai-development-company',
-        title: 'Choosing a Custom AI Development Company: What Founders Must Know',
-        excerpt: 'Not all AI agencies are equal. Learn the key criteria for selecting an execution partner that delivers real business value.',
-        date: 'March 20, 2025',
-        author: 'AlgoForce Team',
-        readTime: '12 min read',
-        category: 'Development',
-        image: '/blog/dev.jpg'
-    },
-    {
-        id: 'how-to-automate-business-processes',
-        title: 'How to Automate Business Processes with AI in 5 Simple Steps',
-        excerpt: 'A comprehensive roadmap to identifying friction in your business and eliminating it with custom AI workflow automation.',
-        date: 'March 15, 2025',
+        id: 'how-to-build-ai-app-without-coding',
+        title: 'How to build AI app without coding: A 2025 Execution Guide',
+        excerpt: 'Build and deploy a functional AI app in under 2 hours without writing a single line of code. Learn the 2025 no-code AI stack.',
+        date: 'March 29, 2025',
         author: 'Dev N Suman',
         readTime: '10 min read',
-        category: 'Strategy',
-        image: '/blog/process.jpg'
+        category: 'Execution',
+        image: '/blog/nocode.jpg'
     },
     {
-        id: 'algorithmic-ai-solutions-for-enterprises',
-        title: 'Algorithmic AI Solutions for Enterprises: Scaling Revenue In 2025',
-        excerpt: 'How Fortune 500 companies are using algorithmic intelligence to optimize supply chains and customer acquisition.',
-        date: 'March 10, 2025',
+        id: 'best-ai-projects-for-students',
+        title: '7 Best AI Projects for Students to Fast-Track Placements',
+        excerpt: 'From autonomous agents to predictive dashboards, build these 7 projects to secure a high-paying AI role in 2025.',
+        date: 'March 28, 2025',
+        author: 'AlgoForce Team',
+        readTime: '12 min read',
+        category: 'Career',
+        image: '/blog/students.jpg'
+    },
+    {
+        id: 'top-ai-certifications-in-india',
+        title: 'Top AI Certifications in India: Why MSME Registration Matters',
+        excerpt: 'Navigate the crowded certification market. Discover which AI credentials actually hold value in the Indian industrial sector.',
+        date: 'March 27, 2025',
         author: 'AlgoForce Strategy',
         readTime: '15 min read',
-        category: 'Enterprise',
-        image: '/blog/enterprise.jpg'
+        category: 'Certification',
+        image: '/blog/cert.jpg'
     },
     {
-        id: 'ai-consulting-services-2025',
-        title: 'Top AI Consulting Services in 2025: Navigating the Intelligence Revolution',
-        excerpt: 'Why consulting is the first step toward successful AI integration and how to avoid common implementation pitfalls.',
-        date: 'March 5, 2025',
+        id: 'how-to-earn-using-ai-tools',
+        title: 'Efficiency as an Asset: How to Earn Using AI Tools in 2025',
+        excerpt: 'Stop being a user. Start being an executor. Learn how to monetize AI automation services for local and global clients.',
+        date: 'March 26, 2025',
         author: 'Dev N Suman',
-        readTime: '7 min read',
-        category: 'Consulting',
-        image: '/blog/consulting.jpg'
+        readTime: '14 min read',
+        category: 'Revenue',
+        image: '/blog/earn.jpg'
+    },
+    {
+        id: 'ai-tools-every-student-must-learn',
+        title: 'Top 5 AI Tools Every Student Must Learn for Industrial Impact',
+        excerpt: 'Beyond ChatGPT. Master the tools that actually define the modern AI workforce including Cursor, Make, and LangChain.',
+        date: 'March 25, 2025',
+        author: 'AlgoForce Team',
+        readTime: '8 min read',
+        category: 'Tools',
+        image: '/blog/tools.jpg'
     }
 ];
 

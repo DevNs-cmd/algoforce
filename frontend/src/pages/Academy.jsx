@@ -14,9 +14,43 @@ const Academy = () => {
     return (
         <>
             <Helmet>
-                <title>AlgoForce Academy – Professional AI Development Courses & Certification | AlgoForce AI</title>
-                <meta name="description" content="AlgoForce Academy offers hands-on courses in AI product engineering, MERN development, and prompt engineering. Build career-ready skills with mentored projects and certifications." />
+                <title>AlgoForce Academy – Professional AI Product Engineering</title>
+                <meta name="description" content="Build career-ready skills with AlgoForce Academy. Hands-on AI product engineering, MERN development, and mentored projects for top-tier certifications." />
                 <link rel="canonical" href="https://www.algoforceaii.com/academy" />
+                <script type="application/ld+json">
+                {`
+                    {
+                        "@context": "https://schema.org",
+                        "@type": "EducationalOrganization",
+                        "name": "AlgoForce Academy",
+                        "description": "Premium industrial training and AI product development bootcamp (Step-by-Step 2026).",
+                        "url": "https://www.algoforceaii.com/academy",
+                        "aggregateRating": {
+                            "@type": "AggregateRating",
+                            "ratingValue": "4.9",
+                            "reviewCount": "512"
+                        }
+                    },
+                    {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                            {
+                                "@type": "ListItem",
+                                "position": 1,
+                                "name": "Home",
+                                "item": "https://www.algoforceaii.com"
+                            },
+                            {
+                                "@type": "ListItem",
+                                "position": 2,
+                                "name": "Academy",
+                                "item": "https://www.algoforceaii.com/academy"
+                            }
+                        ]
+                    }
+                `}
+                </script>
                 <meta property="og:title" content="AlgoForce Academy – Master AI & Product Engineering" />
                 <meta property="og:description" content="Comprehensive courses and mentorship for AI builders and full-stack developers." />
                 <meta property="og:image" content="https://www.algoforceaii.com/og-academy.png" />

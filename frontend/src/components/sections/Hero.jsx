@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { FaArrowRight } from 'react-icons/fa'
 import { useInView } from 'react-intersection-observer'
+import TrustBadges from './common/TrustBadges'
 
 const Hero = () => {
   const [statsRef, statsInView] = useInView({
@@ -48,7 +48,7 @@ const Hero = () => {
               className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-3xl shadow-xl"
             >
               <div className="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.6)] animate-pulse" />
-              <span className="text-[10px] font-semibold uppercase tracking-[0.4em] text-gray-500">Startup Execution Engine</span>
+              <span className="text-[10px] font-semibold uppercase tracking-[0.4em] text-gray-500">AI Education & Execution</span>
             </motion.div>
 
             <motion.div
@@ -69,10 +69,11 @@ const Hero = () => {
             transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="text-4xl md:text-6xl lg:text-7xl font-bold mb-10 leading-[1.1] tracking-tight glow-text-purple"
           >
-            Build MVPs <br />
+            Build Real AI Products <br />
             <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-purple-400/50">
-              at Engine Speed.
+              In 2 Hours.
             </span>
+            <div className="text-2xl md:text-4xl lg:text-5xl text-gray-500 font-medium mt-4 italic tracking-normal">No Coding Required.</div>
           </motion.h1>
 
           {/* Description - Modern Clarity */}
@@ -80,12 +81,38 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="max-w-xl mx-auto mb-16 text-sm md:text-base text-gray-400 font-medium leading-relaxed"
+            className="max-w-2xl mx-auto mb-16 text-sm md:text-xl text-gray-400 font-medium leading-relaxed italic"
           >
-            Precision engineering for the next generation of founders.
-            We deploy high-performance AI systems and scalable architectures
-            to turn bold visions into market reality.
+            MSME-certified AI training with real-world projects, execution labs, and job-ready skills. <br />
+            <span className="text-white font-bold opacity-100 italic">Join 500+ students already building AI apps today.</span>
           </motion.p>
+
+          {/* NEW: Live Stats & Demo Preview */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="mb-16 max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-center"
+          >
+            <div className="p-8 rounded-[2.5rem] bg-white/[0.03] border border-white/5 backdrop-blur-3xl flex items-center justify-around">
+                <div className="text-center">
+                    <div className="text-3xl font-black text-white italic tracking-tighter">500+</div>
+                    <div className="text-[10px] uppercase font-black tracking-widest text-gray-600">Students Trained</div>
+                </div>
+                <div className="w-px h-12 bg-white/5" />
+                <div className="text-center">
+                    <div className="text-3xl font-black text-white italic tracking-tighter">1,200+</div>
+                    <div className="text-[10px] uppercase font-black tracking-widest text-gray-600">Projects Built</div>
+                </div>
+            </div>
+            <div className="group relative aspect-video rounded-[2.5rem] overflow-hidden border border-white/10 bg-indigo-950/20 flex items-center justify-center cursor-pointer shadow-2xl">
+                 <div className="absolute inset-0 bg-gradient-to-tr from-purple-600/20 via-transparent to-blue-600/10 opacity-40 group-hover:opacity-60 transition-opacity" />
+                 <div className="w-16 h-16 rounded-full bg-white text-black flex items-center justify-center pl-1 shadow-[0_0_40px_rgba(255,255,255,0.3)] group-hover:scale-110 transition-transform">
+                    <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+                 </div>
+                 <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-[9px] font-black uppercase tracking-[0.4em] text-white/40 group-hover:text-white transition-colors">See how it works in 60s</div>
+            </div>
+          </motion.div>
 
           {/* Action CTAs - iOS Pill Style */}
           <motion.div
@@ -94,43 +121,48 @@ const Hero = () => {
             transition={{ delay: 0.6 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-5"
           >
-            <Link to="/ai-builder">
+            <Link to="/academy">
               <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="px-12 py-5 bg-white text-black rounded-full font-bold text-[15px] flex items-center gap-4 shadow-[0_20px_40px_rgba(255,255,255,0.1)] active:bg-gray-100 transition-all"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-14 py-5 bg-white text-black rounded-full font-black text-[15px] flex items-center gap-4 shadow-[0_20px_40px_rgba(255,255,255,0.1)] active:bg-gray-100 transition-all uppercase tracking-widest"
               >
-                Launch Nexus {'->'}
+                Join Academy {'->'}
               </motion.button>
             </Link>
-            <Link to="/contact">
+            <Link to="/nexus">
               <motion.button
-                whileHover={{ scale: 1.02, backgroundColor: 'rgba(255,255,255,0.08)' }}
-                whileTap={{ scale: 0.98 }}
-                className="px-12 py-5 border border-white/10 rounded-full font-bold text-[15px] text-white hover:border-white/30 backdrop-blur-xl transition-all"
+                whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.08)' }}
+                whileTap={{ scale: 0.95 }}
+                className="px-14 py-5 border border-white/10 rounded-full font-black text-[15px] text-white hover:border-white/30 backdrop-blur-xl transition-all uppercase tracking-widest"
               >
-                Request Audit
+                Try Demo
               </motion.button>
             </Link>
           </motion.div>
+
+          {/* Trust Badges */}
+          <div className="mt-20">
+            <TrustBadges />
+          </div>
         </motion.div>
 
         {/* Feature Island - iOS Glassmorphism */}
         <div ref={statsRef} className="mt-12 md:mt-24 grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
           {[
             {
-              title: 'Engineering',
-              desc: 'Rapid prototype cycles.',
+              title: 'Learn',
+              desc: 'Master AI automation & product engineering.',
               gradient: 'from-purple-500/20 to-transparent'
             },
             {
-              title: 'Inference',
-              desc: 'Autonomous AI orchestration.',
+              title: 'Build',
+              desc: 'Deploy real-world AI systems in hours.',
               gradient: 'from-blue-500/20 to-transparent'
             },
             {
-              title: 'Scaling',
-              desc: 'Strategic revenue logic.',
+              title: 'Certify',
+              desc: 'Official Govt MSME certification.',
               gradient: 'from-white/10 to-transparent'
             }
           ].map((item, idx) => (

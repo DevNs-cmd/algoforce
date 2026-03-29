@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { useRef } from 'react'
+import TrustBadges from '../../common/TrustBadges'
 
 const AcademyHero = () => {
     const containerRef = useRef(null);
@@ -87,8 +88,8 @@ const AcademyHero = () => {
                         <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-purple-400/50">
                             AI Products.
                         </span>
-                        <div className="text-3xl md:text-5xl lg:text-6xl text-gray-500 font-medium mt-6 tracking-normal">
-                             Not Just Learn Theory.
+                        <div className="text-3xl md:text-5xl lg:text-7xl text-gray-500 font-medium mt-6 tracking-normal">
+                             In 2 Hours. No Coding.
                         </div>
                     </motion.h1>
 
@@ -97,10 +98,10 @@ const AcademyHero = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.5 }}
-                        className="max-w-xl mx-auto mb-12 md:mb-16 text-sm md:text-lg text-gray-400 font-medium leading-relaxed italic"
+                        className="max-w-2xl mx-auto mb-12 md:mb-16 text-sm md:text-xl text-gray-400 font-medium leading-relaxed italic"
                     >
-                        The ultimate engineering bootcamp for the next generation of founders & builders. 
-                        Skip the boring slides. Deploy production-grade AI systems in weeks.
+                        MSME-certified AI training with real-world projects, execution labs, and job-ready skills. 
+                        Skip the boring slides. Deploy production-grade AI systems in hours.
                     </motion.p>
 
                     {/* Action CTAs */}
@@ -111,18 +112,22 @@ const AcademyHero = () => {
                                 whileTap={{ scale: 0.95 }}
                                 className="px-12 py-5 bg-white text-black rounded-full font-bold text-[15px] shadow-[0_20px_40px_rgba(255,255,255,0.1)] transition-all"
                             >
-                                Explore Courses {'->'}
+                                Start Building AI {'->'}
                             </motion.button>
                         </Link>
-                        <Link to="#workshops">
+                        <Link to="/labs">
                             <motion.button
                                 whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.08)' }}
                                 whileTap={{ scale: 0.95 }}
                                 className="px-10 py-5 border border-white/10 rounded-full font-bold text-[15px] hover:border-white/30 backdrop-blur-xl transition-all"
                             >
-                                Join Live Workshop
+                                View Labs Proof
                             </motion.button>
                         </Link>
+                    </div>
+
+                    <div className="mt-20">
+                        <TrustBadges />
                     </div>
                 </motion.div>
             </div>

@@ -89,10 +89,10 @@ const Contact = () => {
   return (
     <>
       <Helmet>
-        <title>Contact AlgoForce AI – Book a Demo or AI System Audit | AlgoForce AI</title>
+        <title>Contact AlgoForce AI – Book AI Strategy Consultation</title>
         <meta
           name="description"
-          content="Schedule a 30-minute AI strategy consultation or request a custom revenue audit with AlgoForce AI. Reach out to our execution experts within 24 hours for global AI solutions."
+          content="Schedule a 30-minute AI strategy consultation or request a custom revenue audit with AlgoForce AI experts. Global solutions for high-growth enterprises."
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.algoforceaii.com/contact" />

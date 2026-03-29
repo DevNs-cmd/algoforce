@@ -25,6 +25,7 @@ const Navigation = () => {
     { name: "Home", path: "/" },
     { name: "Nexus", path: "/nexus" },
     { name: "Labs", path: "/labs" },
+    { name: "Academy", path: "/academy" },
     { name: "Pricing", path: "/pricing" },
     { name: "Contact", path: "/contact" },
   ];
@@ -51,7 +52,7 @@ const Navigation = () => {
               whileHover={{ scale: 1.05 }}
               className="relative w-10 h-10 overflow-hidden rounded-full border border-white/20 bg-white/5 flex items-center justify-center transition-all duration-500 shadow-2xl"
             >
-              <img src="/logo.png" alt="AlgoForce" className="w-full h-full object-cover" />
+              <img src="/logo.png" alt="AlgoForce" loading="lazy" className="w-full h-full object-cover" />
             </motion.div>
             <span className="text-xl font-black text-white tracking-tighter sm:block">
               Algo<span className="text-purple-600 group-hover:text-purple-400 transition-colors">Force</span>

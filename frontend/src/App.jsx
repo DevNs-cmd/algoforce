@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
 import { HelmetProvider } from 'react-helmet-async'
 import { AuthProvider } from './contexts/AuthContext'
 
@@ -20,14 +21,33 @@ import Dashboard from './pages/Dashboard'
 import Blog from './pages/Blog'
 import LanguagePlaceholder from './pages/LanguagePlaceholder'
 import Breadcrumbs from './components/common/Breadcrumbs'
+import StickyCTA from './components/common/StickyCTA'
 
 import Nexus from './pages/Nexus'
+import AICourse from './pages/AICourse'
+import AICourseForStudents from './pages/AICourseForStudents'
+import BuildAIApp from './pages/BuildAIApp'
+import AICertificationIndia from './pages/AICertificationIndia'
+import BlogPost from './pages/BlogPost'
 
 // Conditionally show footer and chatbot (not on AI Builder or Nexus page)
 const AppShell = () => {
   const location = useLocation()
   const isBuilderPage = location.pathname === '/ai-builder'
   const isNexusPage = location.pathname === '/nexus'
+
+  useEffect(() => {
+    // Technical SEO: Force Domain Canonicalization (www + https)
+    const host = window.location.host;
+    const protocol = window.location.protocol;
+    
+    // In production, we force www.algoforceaii.com and https
+    if (process.env.NODE_ENV === 'production') {
+      if (host === 'algoforceaii.com' || protocol === 'http:') {
+          window.location.replace(`https://www.algoforceaii.com${location.pathname}${location.search}${location.hash}`);
+      }
+    }
+  }, [location]);
 
   return (
     <div className={(isBuilderPage || isNexusPage) ? 'h-screen overflow-hidden' : 'min-h-screen bg-black'}>
@@ -47,6 +67,14 @@ const AppShell = () => {
         <Route path="/academy" element={<Academy />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:id" element={<BlogPost />} />
+        
+        {/* SEO Landing Pages */}
+        <Route path="/ai-course" element={<AICourse />} />
+        <Route path="/ai-course-for-students" element={<AICourseForStudents />} />
+        <Route path="/build-ai-app-without-coding" element={<BuildAIApp />} />
+        <Route path="/ai-certification-india" element={<AICertificationIndia />} />
+
         <Route path="/es" element={<LanguagePlaceholder />} />
         <Route path="/fr" element={<LanguagePlaceholder />} />
         <Route path="/de" element={<LanguagePlaceholder />} />
@@ -57,6 +85,7 @@ const AppShell = () => {
       {!isBuilderPage && !isNexusPage && <Footer />}
       {!isBuilderPage && !isNexusPage && <Chatbot />}
       {!isBuilderPage && !isNexusPage && <ConsultancyButton />}
+      <StickyCTA />
       {!isBuilderPage && !isNexusPage && <FoundersCommunityPopup />}
     </div>
   )

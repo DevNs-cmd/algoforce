@@ -22,14 +22,21 @@ const CourseCategories = () => {
                 {categories.map((cat, idx) => (
                     <motion.div
                         key={idx}
-                        whileHover={{ scale: 1.05 }}
-                        className="flex-shrink-0 w-[240px] md:w-[280px] p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] bg-white/[0.03] border border-white/10 backdrop-blur-2xl hover:bg-white/[0.06] transition-all cursor-pointer group"
+                        whileHover={{ 
+                            scale: 1.05, 
+                            y: -5,
+                            boxShadow: "0 20px 40px rgba(168, 85, 247, 0.15)"
+                        }}
+                        className="flex-shrink-0 w-[240px] md:w-[280px] p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] bg-white/[0.03] border border-white/10 backdrop-blur-2xl hover:bg-white/[0.06] transition-all cursor-pointer group relative overflow-hidden"
                     >
-                        <div className="p-4 rounded-3xl bg-white/5 border border-white/5 w-fit mb-6 group-hover:bg-purple-500/10 transition-colors">
-                            <cat.icon className="text-2xl text-purple-400 group-hover:text-purple-300 transition-colors" />
+                        <div className="absolute inset-0 bg-gradient-to-br from-purple-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <div className="relative z-10">
+                            <div className="p-4 rounded-3xl bg-white/5 border border-white/5 w-fit mb-6 group-hover:bg-purple-500/10 transition-colors">
+                                <cat.icon className="text-2xl text-purple-400 group-hover:text-purple-300 transition-colors" />
+                            </div>
+                            <h3 className="text-xl font-bold mb-4 group-hover:text-white transition-colors tracking-tight italic">{cat.title}</h3>
+                            <p className="text-sm text-gray-500 leading-relaxed font-medium group-hover:text-gray-400 transition-colors italic opacity-70 italic">{cat.desc}</p>
                         </div>
-                        <h3 className="text-xl font-bold mb-4">{cat.title}</h3>
-                        <p className="text-sm text-gray-500 leading-relaxed font-medium">{cat.desc}</p>
                     </motion.div>
                 ))}
             </div>

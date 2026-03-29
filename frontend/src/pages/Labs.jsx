@@ -92,6 +92,45 @@ const SECTIONS = {
     ]
 };
 
+const PROJECTS = [
+    {
+        title: "Autonomous AI Support Agent",
+        tools: ["OpenAI API", "Node.js", "Redis"],
+        outcome: "Reduce support tickets by 80% with human-like reasoning.",
+        achievement: "Deploy logic in 120 mins",
+        transformation: "Manual Support → Autonomous AI",
+        image: "/projects/agent.jpg",
+        courseLink: "/academy"
+    },
+    {
+        title: "Multi-Agent Research System",
+        tools: ["LangChain", "Python", "Vector DBs"],
+        outcome: "Generate 50-page reports from raw URLs in 60 seconds.",
+        achievement: "Knowledge graph build in 90 mins",
+        transformation: "Hours of Manual Research → Seconds of AI Insight",
+        image: "/projects/research.jpg",
+        courseLink: "/academy"
+    },
+    {
+        title: "Predictive Analytics Dashboard",
+        tools: ["React", "D3.js", "ML Models"],
+        outcome: "Visualize revenue leaks and customer churn in real-time.",
+        achievement: "Data orchestration in 120 mins",
+        transformation: "Static Excel Sheets → Real-time Predictive BI",
+        image: "/projects/dashboard.jpg",
+        courseLink: "/academy"
+    },
+    {
+        title: "AI Voice-to-Action Bot",
+        tools: ["Whisper", "Twilio", "FastAPI"],
+        outcome: "Voice-controlled inventory management for retail giants.",
+        achievement: "Voice-to-API logic in 120 mins",
+        transformation: "Slow UI Tapping → Pure Voice Interaction",
+        image: "/projects/voice.jpg",
+        courseLink: "/academy"
+    }
+];
+
 const Labs = () => {
     const [activeTab, setActiveTab] = useState('single');
     const [isScrolled, setIsScrolled] = useState(false);
@@ -161,9 +200,24 @@ const Labs = () => {
     return (
         <div ref={containerRef} className="relative min-h-screen bg-[#0A0A0A]">
             <Helmet>
-                <title>AlgoForce Labs – MSME Certified AI Training & Industrial Internships | AlgoForce AI</title>
-                <meta name="description" content="AlgoForce Labs provides industry-leading AI training, BTech/BCA internships, and professional certification programs. Master MERN, Python, and AI automation with MSME certification." />
+                <title>AlgoForce Labs – MSME Certified AI Training & Internships</title>
+                <meta name="description" content="AlgoForce Labs provides MSME-certified AI training, BTech/BCA internships, and professional certifications. Master MERN, Python, and AI automation now." />
                 <link rel="canonical" href="https://www.algoforceaii.com/labs" />
+                <script type="application/ld+json">
+                {`
+                    {
+                    "@context": "https://schema.org",
+                    "@type": "Course",
+                    "name": "BTech / BCA Complete Pack",
+                    "description": "Full software engineering roadmap from logic to deployment.",
+                    "provider": {
+                        "@type": "Organization",
+                        "name": "AlgoForce Labs",
+                        "sameAs": "https://www.algoforceaii.com/labs"
+                    }
+                    }
+                `}
+                </script>
                 <meta property="og:title" content="AlgoForce Labs – Industrial AI Training & Internships" />
                 <meta property="og:description" content="Professional AI certification and industrial internship programs for BTech/BCA students." />
                 <meta property="og:image" content="https://www.algoforceaii.com/og-labs.png" />
@@ -236,31 +290,31 @@ const Labs = () => {
                                 </motion.div>
                             </div>
 
-                            <h1 className="text-4xl md:text-6xl font-semibold tracking-tight text-white mb-6 leading-tight">
-                                Industry-level <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-300 to-white">programs.</span>
+                            <h1 className="text-4xl md:text-7xl font-bold tracking-tight text-white mb-8 leading-none">
+                                Real AI Projects <br />
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-300 to-white italic">You Will Build.</span>
                             </h1>
-                            <p className="text-sm md:text-lg text-gray-400 max-w-xl mx-auto lg:mx-0 font-medium opacity-80 leading-relaxed mb-10">
-                                Professional certification for engineering students. <br className="hidden md:block" />
-                                Learn how to build, ship, and scale your career assets.
+                            <p className="text-sm md:text-xl text-gray-400 max-w-xl mx-auto lg:mx-0 font-medium opacity-80 leading-relaxed mb-12 italic">
+                                Stop following tutorials. Start building production-grade AI systems. <br className="hidden md:block" />
+                                Master tools like OpenAI, LangChain, and MERN with hands-on labs.
                             </p>
 
                             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mt-6">
                                 <motion.button
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
-                                    onClick={() => document.getElementById('pricing-grid').scrollIntoView({ behavior: 'smooth' })}
-                                    className="w-full sm:w-auto px-10 py-4 bg-gradient-to-br from-[#7C3AED] to-[#A855F7] rounded-full font-semibold text-[15px] shadow-[0_10px_30px_rgba(124,58,237,0.3)] transition-all"
+                                    onClick={() => document.getElementById('featured-projects').scrollIntoView({ behavior: 'smooth' })}
+                                    className="w-full sm:w-auto px-12 py-5 bg-white text-black rounded-full font-bold text-[15px] shadow-[0_20px_40px_rgba(255,255,255,0.1)] transition-all"
                                 >
-                                    Explore Programs
+                                    View Proof-of-Work
                                 </motion.button>
                                 <motion.button
-                                    whileHover={{ scale: 1.05 }}
+                                    whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.08)' }}
                                     whileTap={{ scale: 0.95 }}
                                     onClick={() => document.getElementById('pricing-grid').scrollIntoView({ behavior: 'smooth' })}
-                                    className="w-full sm:w-auto px-10 py-4 bg-white/5 backdrop-blur-md border border-white/10 text-white rounded-full font-semibold text-[15px] transition-all"
+                                    className="w-full sm:w-auto px-12 py-5 border border-white/10 text-white rounded-full font-bold text-[15px] transition-all"
                                 >
-                                    View Pricing
+                                    Check Programs
                                 </motion.button>
                             </div>
                         </motion.div>
@@ -294,7 +348,83 @@ const Labs = () => {
                     </div>
                 </div>
 
-                {/* Tab Switcher - Apple Style Sticky */}
+                {/* NEW: FEATURED PROJECTS (PROOF ENGINE) */}
+                <section id="featured-projects" className="max-w-7xl mx-auto px-6 py-20 md:py-32">
+                    <div className="text-center mb-16 md:mb-24">
+                        <h2 className="text-12px font-black uppercase tracking-[0.4em] text-purple-600 mb-6 font-bold">The Proof of Excellence</h2>
+                        <h2 className="text-4xl md:text-6xl font-black mb-10 tracking-tighter uppercase italic leading-none">
+                            Real AI Projects <span className="text-gray-600">You Will Build.</span>
+                        </h2>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {PROJECTS.map((project, idx) => (
+                            <motion.div
+                                key={idx}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: idx * 0.1 }}
+                                className="group p-8 rounded-[3rem] bg-[#141414]/40 border border-white/5 backdrop-blur-3xl hover:border-purple-600/30 transition-all duration-700"
+                            >
+                                <div className="aspect-square rounded-[2rem] bg-gray-900 mb-8 overflow-hidden relative shadow-2xl">
+                                    <div className="absolute inset-0 bg-gradient-to-tr from-purple-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10" />
+                                    <div className="w-full h-full bg-gradient-to-br from-indigo-900/40 to-black animate-pulse flex items-center justify-center text-4xl">{idx + 1}</div>
+                                </div>
+                                <div className="space-y-4 mb-8">
+                                    <h3 className="text-xl font-bold text-white uppercase italic tracking-tight">{project.title}</h3>
+                                    <div className="flex items-center gap-3 py-2 border-y border-white/5">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_10px_#10b981]" />
+                                        <span className="text-[10px] font-black uppercase text-emerald-500 tracking-widest">{project.achievement}</span>
+                                    </div>
+                                </div>
+                                <div className="flex flex-wrap gap-2 mb-6">
+                                    {project.tools.map(tool => (
+                                        <span key={tool} className="px-3 py-1 bg-white/5 rounded-full text-[9px] font-black tracking-widest text-gray-500 uppercase">{tool}</span>
+                                    ))}
+                                </div>
+                                <div className="mb-8 p-4 bg-white/5 rounded-2xl border border-white/5">
+                                    <p className="text-[10px] uppercase font-black text-gray-500 tracking-widest mb-2">The Transformation</p>
+                                    <p className="text-[12px] text-white font-bold italic">{project.transformation}</p>
+                                </div>
+                                <p className="text-[12px] text-gray-400 mb-8 font-medium leading-relaxed italic opacity-70">
+                                    {project.outcome}
+                                </p>
+                                <Link to="/academy" className="inline-flex items-center gap-2 text-purple-500 text-[11px] font-black uppercase tracking-[0.2em] group-hover:gap-4 transition-all pb-2 border-b-2 border-transparent hover:border-purple-600">
+                                    Learn to build this <FaArrowRight />
+                                </Link>
+                            </motion.div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* Imagine Section */}
+                <section className="max-w-4xl mx-auto px-6 py-20 bg-purple-600/10 border border-purple-500/20 rounded-[3rem] text-center shadow-[0_50px_100px_rgba(0,0,0,0.5)] mb-32 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-tr from-purple-600/10 to-transparent opacity-30" />
+                    <div className="relative z-10">
+                        <h2 className="text-3xl md:text-5xl font-black mb-8 tracking-tighter uppercase italic leading-none">
+                            Imagine building this yourself <br />
+                            <span className="text-white">In under 2 Hours.</span>
+                        </h2>
+                        <p className="text-xl text-gray-400 font-medium leading-relaxed mb-12 italic opacity-80 max-w-2xl mx-auto">
+                            No coding required. No technical headaches. Just pure AI product engineering at engine speed.
+                        </p>
+                        <div className="flex flex-wrap justify-center gap-6">
+                            <Link to="/academy" className="px-10 py-5 bg-white text-black rounded-full font-black text-[13px] uppercase tracking-widest shadow-2xl hover:scale-105 transition-all">
+                                Join the Elite Track
+                            </Link>
+                            <Link to="/ai-course" className="px-10 py-5 border border-white/10 rounded-full font-black text-[13px] uppercase tracking-widest hover:bg-white/5 transition-all">
+                                Browse Topics
+                            </Link>
+                        </div>
+                    </div>
+                </section>
+
+                <div className="text-center mb-12">
+                    <h2 className="text-3xl md:text-5xl font-black mb-10 tracking-tighter uppercase italic text-gray-500">
+                        Choose Your <span className="text-white">Track.</span>
+                    </h2>
+                </div>
                 <div className={`sticky top-20 z-50 flex justify-center px-4 mb-4 md:mb-8 transition-all duration-500 ${isScrolled ? 'opacity-100 scale-95' : 'opacity-100'}`}>
                     <div className="bg-[#141414]/60 backdrop-blur-3xl border border-white/5 rounded-[2rem] p-1.5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-x-auto no-scrollbar max-w-full">
                         <div className="flex items-center min-w-max gap-1 px-1">

@@ -3,8 +3,8 @@ import { Helmet } from "react-helmet-async"
 import PaymentGateway from '../components/sections/academy/PaymentGateway'
 import Hero from '../components/sections/Hero'
 import WhatIsAlgoForce from '../components/sections/WhatIsAlgoForce'
-// import FoundersVision from '../components/sections/FoundersVision'
-// import HowItWorks from '../components/sections/HowItWorks'
+import FounderSection from '../components/sections/home/FounderSection'
+import SocialProof from '../components/sections/home/SocialProof'
 import ProductModules from '../components/sections/ProductModules'
 import WhyAlgoForce from '../components/sections/WhyAlgoForce'
 import WhoItsFor from '../components/sections/WhoItsFor'
@@ -14,10 +14,10 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>AlgoForce AI – Premium AI Execution Partner | Automated Systems for High-Growth Companies</title>
+        <title>AlgoForce AI – Custom AI Automation & SaaS Execution Partner</title>
         <meta
           name="description"
-          content="AlgoForce AI builds custom AI automation, SaaS MVPs, and scalable digital revenue systems for worldwide enterprises. MSME certified AI growth agency in India."
+          content="AlgoForce AI specializes in custom AI automation, SaaS execution, and automated revenue systems. MSME-certified AI agency for high-growth enterprises worldwide."
         />
         <meta name="keywords" content="AI automation services, custom AI development, AI execution partner, business automation AI, SaaS development India, AI consulting 2025" />
         
@@ -55,6 +55,27 @@ const Home = () => {
                     "target": "https://www.algoforceaii.com/search?q={search_term_string}",
                     "query-input": "required name=search_term_string"
                   }
+                },
+                {
+                  "@type": "AggregateRating",
+                  "itemReviewed": {
+                    "@type": "Course",
+                    "name": "Industrial AI Professional Program"
+                  },
+                  "ratingValue": "4.9",
+                  "bestRating": "5",
+                  "reviewCount": "512"
+                },
+                {
+                  "@type": "BreadcrumbList",
+                  "itemListElement": [
+                    {
+                      "@type": "ListItem",
+                      "position": 1,
+                      "name": "Home",
+                      "item": "https://www.algoforceaii.com"
+                    }
+                  ]
                 },
                 {
                   "@type": "FAQPage",
@@ -117,8 +138,8 @@ const Home = () => {
       <div className="overflow-x-hidden animate-moving-gradient">
         <Hero />
         <WhatIsAlgoForce />
-        {/* <FoundersVision /> */}
-        {/* <HowItWorks /> */}
+        <FounderSection />
+        <SocialProof />
         <ProductModules />
         <PaymentGateway 
           title="Direct Project Funding" 
