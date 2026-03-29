@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { useInView } from 'react-intersection-observer'
-import TrustBadges from './common/TrustBadges'
+import TrustBadges from '../common/TrustBadges'
 
 const Hero = () => {
   const [statsRef, statsInView] = useInView({
