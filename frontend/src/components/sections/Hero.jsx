@@ -69,11 +69,11 @@ const Hero = () => {
             transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="text-4xl md:text-6xl lg:text-7xl font-bold mb-10 leading-[1.1] tracking-tight glow-text-purple"
           >
-            Build Real AI Products <br />
+            Join AlgoForce   <br />
             <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-purple-400/50">
-              In 2 Hours.
+              AI
             </span>
-            <div className="text-2xl md:text-4xl lg:text-5xl text-gray-500 font-medium mt-4 italic tracking-normal">No Coding Required.</div>
+            <div className="text-2xl md:text-4xl lg:text-5xl text-gray-500 font-medium mt-4 italic tracking-normal"> Build MVP</div>
           </motion.h1>
 
           {/* Description - Modern Clarity */}
@@ -83,34 +83,34 @@ const Hero = () => {
             transition={{ delay: 0.4 }}
             className="max-w-2xl mx-auto mb-16 text-sm md:text-xl text-gray-400 font-medium leading-relaxed italic"
           >
-            MSME-certified AI training with real-world projects, execution labs, and job-ready skills. <br />
-            <span className="text-white font-bold opacity-100 italic">Join 500+ students already building AI apps today.</span>
+            {/* MSME-certified AI training & Start your Entrepreneur journey , execution labs, and job-ready skills. <br /> */}
+            <span className="text-white font-bold opacity-100 italic">500+ students already AlgoForce Certified </span>
           </motion.p>
 
           {/* NEW: Live Stats & Demo Preview */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
             className="mb-16 max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-center"
           >
             <div className="p-8 rounded-[2.5rem] bg-white/[0.03] border border-white/5 backdrop-blur-3xl flex items-center justify-around">
-                <div className="text-center">
-                    <div className="text-3xl font-black text-white italic tracking-tighter">500+</div>
-                    <div className="text-[10px] uppercase font-black tracking-widest text-gray-600">Students Trained</div>
-                </div>
-                <div className="w-px h-12 bg-white/5" />
-                <div className="text-center">
-                    <div className="text-3xl font-black text-white italic tracking-tighter">1,200+</div>
-                    <div className="text-[10px] uppercase font-black tracking-widest text-gray-600">Projects Built</div>
-                </div>
+              <div className="text-center">
+                <div className="text-3xl font-black text-white italic tracking-tighter">500+</div>
+                <div className="text-[10px] uppercase font-black tracking-widest text-gray-600">Students Trained</div>
+              </div>
+              <div className="w-px h-12 bg-white/5" />
+              <div className="text-center">
+                <div className="text-3xl font-black text-white italic tracking-tighter">50+</div>
+                <div className="text-[10px] uppercase font-black tracking-widest text-gray-600">Startup Build</div>
+              </div>
             </div>
             <div className="group relative aspect-video rounded-[2.5rem] overflow-hidden border border-white/10 bg-indigo-950/20 flex items-center justify-center cursor-pointer shadow-2xl">
-                 <div className="absolute inset-0 bg-gradient-to-tr from-purple-600/20 via-transparent to-blue-600/10 opacity-40 group-hover:opacity-60 transition-opacity" />
-                 <div className="w-16 h-16 rounded-full bg-white text-black flex items-center justify-center pl-1 shadow-[0_0_40px_rgba(255,255,255,0.3)] group-hover:scale-110 transition-transform">
-                    <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
-                 </div>
-                 <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-[9px] font-black uppercase tracking-[0.4em] text-white/40 group-hover:text-white transition-colors">See how it works in 60s</div>
+              <div className="absolute inset-0 bg-gradient-to-tr from-purple-600/20 via-transparent to-blue-600/10 opacity-40 group-hover:opacity-60 transition-opacity" />
+              <div className="w-16 h-16 rounded-full bg-white text-black flex items-center justify-center pl-1 shadow-[0_0_40px_rgba(255,255,255,0.3)] group-hover:scale-110 transition-transform">
+                <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+              </div>
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-[9px] font-black uppercase tracking-[0.4em] text-white/40 group-hover:text-white transition-colors">See how it works in 60s</div>
             </div>
           </motion.div>
 

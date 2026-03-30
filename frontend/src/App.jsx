@@ -21,7 +21,6 @@ import Dashboard from './pages/Dashboard'
 import Blog from './pages/Blog'
 import LanguagePlaceholder from './pages/LanguagePlaceholder'
 import Breadcrumbs from './components/common/Breadcrumbs'
-import StickyCTA from './components/common/StickyCTA'
 
 import Nexus from './pages/Nexus'
 import AICourse from './pages/AICourse'
@@ -85,7 +84,6 @@ const AppShell = () => {
       {!isBuilderPage && !isNexusPage && <Footer />}
       {!isBuilderPage && !isNexusPage && <Chatbot />}
       {!isBuilderPage && !isNexusPage && <ConsultancyButton />}
-      <StickyCTA />
       {!isBuilderPage && !isNexusPage && <FoundersCommunityPopup />}
     </div>
   )

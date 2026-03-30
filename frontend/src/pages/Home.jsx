@@ -3,8 +3,6 @@ import { Helmet } from "react-helmet-async"
 import PaymentGateway from '../components/sections/academy/PaymentGateway'
 import Hero from '../components/sections/Hero'
 import WhatIsAlgoForce from '../components/sections/WhatIsAlgoForce'
-import FounderSection from '../components/sections/home/FounderSection'
-import SocialProof from '../components/sections/home/SocialProof'
 import ProductModules from '../components/sections/ProductModules'
 import WhyAlgoForce from '../components/sections/WhyAlgoForce'
 import WhoItsFor from '../components/sections/WhoItsFor'
@@ -14,13 +12,13 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>AlgoForce AI – Custom AI Automation & SaaS Execution Partner</title>
+        <title>AlgoForce AI – Custom AI Automation & Growth Partner</title>
         <meta
           name="description"
           content="AlgoForce AI specializes in custom AI automation, SaaS execution, and automated revenue systems. MSME-certified AI agency for high-growth enterprises worldwide."
         />
         <meta name="keywords" content="AI automation services, custom AI development, AI execution partner, business automation AI, SaaS development India, AI consulting 2025" />
-        
+
         {/* JSON-LD Structured Data */}
         <script type="application/ld+json">
           {`
@@ -138,12 +136,10 @@ const Home = () => {
       <div className="overflow-x-hidden animate-moving-gradient">
         <Hero />
         <WhatIsAlgoForce />
-        <FounderSection />
-        <SocialProof />
         <ProductModules />
-        <PaymentGateway 
-          title="Direct Project Funding" 
-          subtitle="Fund your vision directly. High-speed execution begins the moment you scan." 
+        <PaymentGateway
+          title="Direct Project Funding"
+          subtitle="Fund your vision directly. High-speed execution begins the moment you scan."
         />
         <WhyAlgoForce />
         <WhoItsFor />
