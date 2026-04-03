@@ -1,7 +1,26 @@
 User-agent: *
 Allow: /
+Content-Signal: search=yes, ai-train=no
 
-# Keep crawl paths open for all major search engines and AI crawlers
-# No disallow rules to avoid accidental blocks
+User-agent: Googlebot
+Allow: /
+
+User-agent: bingbot
+Allow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
 
 Sitemap: https://www.algoforceaii.com/sitemap.xml

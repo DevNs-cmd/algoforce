@@ -52,7 +52,10 @@ const Dashboard = () => {
     if (!user) {
         return (
             <>
-                <Helmet><title>Dashboard – AlgoForce</title></Helmet>
+                <Helmet>
+                    <title>Dashboard – AlgoForce</title>
+                    <meta name="robots" content="noindex, nofollow" />
+                </Helmet>
                 <AuthModal isOpen={authModalOpen} onClose={() => setAuthModalOpen(false)} />
                 <div className="min-h-screen flex items-center justify-center pt-20 px-4"
                     style={{ background: 'linear-gradient(135deg, #05050F 0%, #0B0F2A 100%)' }}>
@@ -91,6 +94,7 @@ const Dashboard = () => {
             <Helmet>
                 <title>Dashboard – AlgoForce</title>
                 <meta name="description" content="Manage your AI-generated projects and chat history on AlgoForce." />
+                <meta name="robots" content="noindex, nofollow" />
             </Helmet>
 
             <div className="min-h-screen pt-20 pb-12 px-4 sm:px-6"
