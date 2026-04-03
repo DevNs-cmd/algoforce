@@ -123,14 +123,14 @@ const Home = () => {
         <meta property="og:url" content="https://www.algoforceaii.com/" />
         <meta property="og:title" content="AlgoForce AI – Premium AI Execution Partner | Automated Systems" />
         <meta property="og:description" content="AlgoForce AI builds custom AI automation, SaaS MVPs, and scalable digital revenue systems for worldwide enterprises." />
-        <meta property="og:image" content="https://www.algoforceaii.com/og-image.png" />
+        <meta property="og:image" content="https://www.algoforceaii.com/logo.png" />
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:url" content="https://www.algoforceaii.com/" />
         <meta name="twitter:title" content="AlgoForce AI – Premium AI Execution Partner" />
         <meta name="twitter:description" content="AlgoForce AI builds custom AI automation and scalable revenue systems for high-growth companies." />
-        <meta name="twitter:image" content="https://www.algoforceaii.com/og-image.png" />
+        <meta name="twitter:image" content="https://www.algoforceaii.com/logo.png" />
       </Helmet>
 
       <div className="overflow-x-hidden animate-moving-gradient">

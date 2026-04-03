@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'r
 import { useEffect } from 'react'
 import { HelmetProvider } from 'react-helmet-async'
 import { AuthProvider } from './contexts/AuthContext'
+import SeoHead from './components/common/SeoHead'
 
 import Navigation from './components/common/Navigation'
 import Footer from './components/common/Footer'
@@ -37,19 +38,25 @@ const AppShell = () => {
 
   useEffect(() => {
     // Technical SEO: Force Domain Canonicalization (www + https)
-    const host = window.location.host;
-    const protocol = window.location.protocol;
-    
-    // In production, we force www.algoforceaii.com and https
+    const host = window.location.host
+    const protocol = window.location.protocol
+
     if (process.env.NODE_ENV === 'production') {
       if (host === 'algoforceaii.com' || protocol === 'http:') {
-          window.location.replace(`https://www.algoforceaii.com${location.pathname}${location.search}${location.hash}`);
+        window.location.replace(`https://www.algoforceaii.com${location.pathname}${location.search}${location.hash}`)
       }
     }
-  }, [location]);
+  }, [location])
+
+  useEffect(() => {
+    // Apply lazy-loading to images by default to improve LCP/CLS
+    const images = document.querySelectorAll('img:not([loading])')
+    images.forEach((img) => img.setAttribute('loading', 'lazy'))
+  }, [location])
 
   return (
     <div className={(isBuilderPage || isNexusPage) ? 'h-screen overflow-hidden' : 'min-h-screen bg-black'}>
+      <SeoHead path={location.pathname} />
       <Navigation />
       {!isBuilderPage && !isNexusPage && location.pathname !== '/' && <Breadcrumbs />}
 

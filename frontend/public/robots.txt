@@ -1,45 +1,7 @@
-# AlgoForce AI Robots.txt - Optimized for SEO & AI Crawlers
-
 User-agent: *
 Allow: /
-Disallow: /admin/
-Disallow: /dashboard/
-Disallow: /api/
-Disallow: /auth/
-Disallow: /tmp/
 
-# Explicitly Allow Major Search Engines
-User-agent: Googlebot
-Allow: /
+# Keep crawl paths open for all major search engines and AI crawlers
+# No disallow rules to avoid accidental blocks
 
-User-agent: Bingbot
-Allow: /
-
-User-agent: Yandex
-Allow: /
-
-User-agent: Baiduspider
-Allow: /
-
-# Allow AI Data Crawlers (Essential for AEO - Answer Engine Optimization)
-User-agent: GPTBot
-Allow: /
-
-User-agent: Claude-Web
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: YouBot
-Allow: /
-
-User-agent: OAI-SearchBot
-Allow: /
-
-# Sitemap Location
 Sitemap: https://www.algoforceaii.com/sitemap.xml
-

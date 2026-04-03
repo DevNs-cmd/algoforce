@@ -140,6 +140,18 @@ const BlogPost = () => {
                 <title>{post.title} (Step-by-Step Guide 2026) | AlgoForce</title>
                 <meta name="description" content={post.excerpt || post.title} />
                 <link rel="canonical" href={`https://www.algoforceaii.com/blog/${id}`} />
+                <meta name="robots" content="index, follow" />
+
+                <meta property="og:type" content="article" />
+                <meta property="og:title" content={post.title} />
+                <meta property="og:description" content={post.excerpt || post.title} />
+                <meta property="og:url" content={`https://www.algoforceaii.com/blog/${id}`} />
+                <meta property="og:image" content="https://www.algoforceaii.com/logo.png" />
+
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content={post.title} />
+                <meta name="twitter:description" content={post.excerpt || post.title} />
+                <meta name="twitter:image" content="https://www.algoforceaii.com/logo.png" />
                 
                 {/* AEO Schema (Article) */}
                 <script type="application/ld+json">

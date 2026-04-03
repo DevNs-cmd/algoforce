@@ -1,4 +1,12 @@
 {
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "algoforceaii.com" }],
+      "destination": "https://www.algoforceaii.com/:path*",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     { "source": "/:path*", "destination": "/index.html" }
   ]
