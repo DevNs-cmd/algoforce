@@ -17,6 +17,7 @@ const LanguagePlaceholder = () => {
         <div className="min-h-screen bg-white text-black pt-40 pb-20 flex flex-col items-center justify-center text-center px-6">
             <Helmet>
                 <title>{config.title} | AlgoForce AI</title>
+                <meta name="robots" content="index, follow" />
                 <link rel="alternate" hreflang="en" href="https://www.algoforceaii.com/" />
                 <link rel="alternate" hreflang={lang} href={`https://www.algoforceaii.com/${lang}`} />
             </Helmet>

@@ -12,12 +12,13 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>AlgoForce AI – Custom AI Automation & Growth Partner</title>
+        <title>AlgoForce AI — AI Courses, MVP Development & Startup Growth India</title>
         <meta
           name="description"
-          content="AlgoForce AI specializes in custom AI automation, SaaS execution, and automated revenue systems. MSME-certified AI agency for high-growth enterprises worldwide."
+          content="Learn AI with hands-on courses, build your startup MVP fast, and get expert guidance. AlgoForce AI is India's platform for students and early-stage founders."
         />
-        <meta name="keywords" content="AI automation services, custom AI development, AI execution partner, business automation AI, SaaS development India, AI consulting 2025" />
+        <meta name="robots" content="index, follow" />
+        <meta name="keywords" content="AI courses India, AI MVP development India, startup growth AI, AI builder India, AI education students India" />
 
         {/* JSON-LD Structured Data */}
         <script type="application/ld+json">
@@ -121,15 +122,15 @@ const Home = () => {
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.algoforceaii.com/" />
-        <meta property="og:title" content="AlgoForce AI – Premium AI Execution Partner | Automated Systems" />
-        <meta property="og:description" content="AlgoForce AI builds custom AI automation, SaaS MVPs, and scalable digital revenue systems for worldwide enterprises." />
+        <meta property="og:title" content="AlgoForce AI — AI Courses & MVP Builder for Indian Students and Startups" />
+        <meta property="og:description" content="Learn AI with hands-on courses, build your startup MVP fast, and get expert guidance. AlgoForce AI is India's platform for students and early-stage founders." />
         <meta property="og:image" content="https://www.algoforceaii.com/logo.png" />
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:url" content="https://www.algoforceaii.com/" />
-        <meta name="twitter:title" content="AlgoForce AI – Premium AI Execution Partner" />
-        <meta name="twitter:description" content="AlgoForce AI builds custom AI automation and scalable revenue systems for high-growth companies." />
+        <meta name="twitter:title" content="AlgoForce AI — AI Courses, MVP Development & Startup Growth India" />
+        <meta name="twitter:description" content="Learn AI with hands-on courses, build your startup MVP fast, and get expert guidance. AlgoForce AI is India's platform for students and early-stage founders." />
         <meta name="twitter:image" content="https://www.algoforceaii.com/logo.png" />
       </Helmet>
 

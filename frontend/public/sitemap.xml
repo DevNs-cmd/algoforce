@@ -121,21 +121,51 @@
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://www.algoforceaii.com/es</loc>
+    <loc>https://www.algoforceaii.com/founder</loc>
     <lastmod>2026-04-03</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.algoforceaii.com/fr</loc>
+    <loc>https://www.algoforceaii.com/blog/how-to-build-ai-startup-mvp-india</loc>
     <lastmod>2026-04-03</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.algoforceaii.com/de</loc>
+    <loc>https://www.algoforceaii.com/blog/best-free-ai-courses-students-india-2026</loc>
     <lastmod>2026-04-03</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.algoforceaii.com/blog/dev-suman-algoforce-ai-founder-story</loc>
+    <lastmod>2026-04-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.algoforceaii.com/blog/ai-certification-india-worth-it-2026</loc>
+    <lastmod>2026-04-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.algoforceaii.com/blog/earn-money-ai-tools-student-india</loc>
+    <lastmod>2026-04-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.algoforceaii.com/blog/no-code-mvp-builder-india-startups</loc>
+    <lastmod>2026-04-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.algoforceaii.com/blog/algoforce-ai-review-platform</loc>
+    <lastmod>2026-04-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>

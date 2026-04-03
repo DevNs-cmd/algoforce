@@ -29,6 +29,7 @@ import AICourseForStudents from './pages/AICourseForStudents'
 import BuildAIApp from './pages/BuildAIApp'
 import AICertificationIndia from './pages/AICertificationIndia'
 import BlogPost from './pages/BlogPost'
+import Founder from './pages/Founder'
 
 // Conditionally show footer and chatbot (not on AI Builder or Nexus page)
 const AppShell = () => {
@@ -74,6 +75,7 @@ const AppShell = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:id" element={<BlogPost />} />
+        <Route path="/founder" element={<Founder />} />
         
         {/* SEO Landing Pages */}
         <Route path="/ai-course" element={<AICourse />} />

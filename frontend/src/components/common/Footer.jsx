@@ -62,6 +62,7 @@ const Footer = () => {
                 // { name: 'Academy', path: '/academy' },
                 { name: 'Labs', path: '/labs' },
                 { name: 'Pricing', path: '/pricing' },
+                { name: 'Meet Our Founder', path: '/founder' },
                 { name: 'What is AlgoForce?', path: '/what-is-algoforce' },
                 { name: 'Blog Insights', path: '/blog' }
               ].map(link => (

@@ -20,13 +20,15 @@ const SeoHead = ({ path }) => {
   const description = meta.description || seoConfig.default.description;
   const image = meta.image || seoConfig.default.image;
   const type = meta.type || "website";
+  const robots = meta.robots || "index, follow";
+  const canonical = meta.canonical || url;
 
   return (
     <Helmet>
       <title>{title}</title>
       <meta name="description" content={description} />
-      <meta name="robots" content="index, follow" />
-      <link rel="canonical" href={url} />
+      <meta name="robots" content={robots} />
+      <link rel="canonical" href={canonical} />
 
       <meta property="og:type" content={type} />
       <meta property="og:title" content={title} />

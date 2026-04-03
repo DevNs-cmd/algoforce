@@ -2,10 +2,12 @@ const ogImage = "https://www.algoforceaii.com/logo.png";
 
 const seoConfig = {
   "/": {
-    title: "AlgoForce AI – Custom AI Automation & Growth Partner",
+    title: "AlgoForce AI — AI Courses, MVP Development & Startup Growth India",
     description:
-      "MSME-certified AI agency delivering custom automation, SaaS execution, and revenue systems for founders and enterprises. Built for speed, security, and measurable ROI.",
+      "Learn AI with hands-on courses, build your startup MVP fast, and get expert guidance. AlgoForce AI is India's platform for students and early-stage founders.",
     image: ogImage,
+    robots: "index, follow",
+    canonical: "https://www.algoforceaii.com/",
   },
   "/pricing": {
     title: "Pricing | AlgoForce AI Execution Models",
@@ -72,6 +74,8 @@ const seoConfig = {
     description:
       "Deep dives on AI automation, revenue intelligence, no-code stacks, and industrial training—built for founders and operators.",
     image: ogImage,
+    robots: "index, follow",
+    canonical: "https://www.algoforceaii.com/blog",
   },
   "/blog/:id": {
     title: "AlgoForce Blog Article",
@@ -79,6 +83,7 @@ const seoConfig = {
       "Tactical AI guides and execution playbooks from the AlgoForce team. Read the full article for steps, stacks, and templates.",
     image: ogImage,
     type: "article",
+    robots: "index, follow",
   },
   "/ai-course": {
     title: "AI Course | Industrial AI Professional Program",
@@ -103,6 +108,15 @@ const seoConfig = {
     description:
       "Obtain government-registered MSME AI certification with production-grade projects and lab hours validated by AlgoForce.",
     image: ogImage,
+    robots: "index, follow",
+  },
+  "/founder": {
+    title: "Dev N Suman — Founder of AlgoForce AI",
+    description:
+      "Dev N Suman is the Founder & CEO of AlgoForce AI, an AI education and startup MVP platform for students and early founders in India.",
+    image: ogImage,
+    robots: "index, follow",
+    canonical: "https://www.algoforceaii.com/founder",
   },
   "/es": {
     title: "AlgoForce AI (ES) | Versión en preparación",
@@ -127,6 +141,7 @@ const seoConfig = {
     description:
       "AlgoForce builds AI automation, SaaS execution, and revenue intelligence systems for fast-scaling teams.",
     image: ogImage,
+    robots: "index, follow",
   },
 };
 

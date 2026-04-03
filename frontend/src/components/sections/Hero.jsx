@@ -61,10 +61,7 @@ const Hero = () => {
             transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight tracking-tight text-white/95"
           >
-            Join AlgoForce{' '}
-            <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400 animate-gradient-x px-1 font-extrabold">
-              AI
-            </span>
+            Edtech solutions  & MVP Builder for Startups
           </motion.h1>
 
           {/* Description - Modern Clarity */}
