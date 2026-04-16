@@ -1,58 +1,19 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { motion } from 'framer-motion';
 import { 
-  Send, Mic, Paperclip, Sparkles, FileCode, Zap
+  Send, Mic, Paperclip, Sparkles, FileCode, Zap, 
+  Layout, Smartphone, Monitor, ChevronDown, 
+  Globe, Settings, ArrowUp, Cpu, FileText 
 } from 'lucide-react';
 import { useNexus } from '../../contexts/NexusContext';
 import { fetchStream, parseFileBlocks } from '../../services/nexusAI';
-
-// Simple markdown-like code block renderer (no external dep)
-const MessageContent = ({ content }) => {
-  const parts = content.split(/(```[\s\S]*?```|<file[\s\S]*?<\/file>)/g);
-  return (
-    <div className="text-sm leading-relaxed whitespace-pre-wrap break-words">
-      {parts.map((part, i) => {
-        if (part.startsWith('```') && part.endsWith('```')) {
-          const lines = part.slice(3, -3).split('\n');
-          const lang = lines[0] || '';
-          const code = lines.slice(1).join('\n');
-          return (
-            <pre key={i} className="my-2 p-3 bg-black/40 rounded-lg border border-white/10 text-xs font-mono overflow-x-auto text-cyan-300">
-              {lang && <div className="text-[10px] text-slate-500 mb-1 uppercase tracking-widest">{lang}</div>}
-              {code}
-            </pre>
-          );
-        }
-        if (part.startsWith('<file') && part.endsWith('</file>')) {
-          const pathMatch = part.match(/path=['"]([^'"]+)['"]/);
-          const path = pathMatch?.[1] || 'file';
-          return (
-            <div key={i} className="my-2 p-2 bg-cyan-500/10 border border-cyan-500/20 rounded-lg flex items-center gap-2">
-              <FileCode className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0" />
-              <span className="text-xs font-mono text-cyan-400 truncate">{path}</span>
-              <span className="text-[10px] text-cyan-600 ml-auto">generated</span>
-            </div>
-          );
-        }
-        return part ? <span key={i}>{part}</span> : null;
-      })}
-    </div>
-  );
-};
-
-const QUICK_PROMPTS = [
-  "Create a hero section",
-  "Add dark mode toggle",
-  "Build a login page",
-  "Fix API errors"
-];
 
 const NexusChat = () => {
   const { state, dispatch } = useNexus();
   const [input, setInput] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
-  const messagesEndRef = useRef(null);
   const textareaRef = useRef(null);
-  const streamRef = useRef('');
+  const messagesEndRef = useRef(null);
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -67,32 +28,30 @@ const NexusChat = () => {
 
     const userMessage = {
       role: 'user',
-      content: input.trim(),
+      content: input,
       timestamp: new Date().toISOString()
     };
 
     dispatch({ type: 'ADD_MESSAGE', payload: userMessage });
     setInput('');
     setIsGenerating(true);
-    streamRef.current = '';
     dispatch({ type: 'SET_AI_STATE', payload: { isGenerating: true, streamBuffer: '' } });
 
     try {
       await fetchStream(
         {
-          messages: [...state.ai.messages, userMessage],
-          model: state.ai.model,
-          projectFiles: state.project.files,
-          agentMode: state.ai.agentMode,
-          sessionId: state.ai.sessionId
+          prompt: input,
+          messages: state.ai.messages,
+          projectId: state.project.id
         },
         (token) => {
-          streamRef.current += token;
-          dispatch({ type: 'SET_AI_STATE', payload: { streamBuffer: streamRef.current } });
+          dispatch({ 
+            type: 'SET_AI_STATE', 
+            payload: { streamBuffer: state.ai.streamBuffer + token } 
+          });
         },
         async (fullContent) => {
           const fileBlocks = await parseFileBlocks(fullContent);
-
           const aiMessage = {
             role: 'assistant',
             content: fullContent,
@@ -120,184 +79,147 @@ const NexusChat = () => {
         }
       );
     } catch (err) {
-      console.error(err);
+      console.error('Nexux Engine Connection Error:', err);
       setIsGenerating(false);
       dispatch({ type: 'SET_AI_STATE', payload: { isGenerating: false, streamBuffer: '' } });
-      dispatch({
-        type: 'ADD_MESSAGE',
-        payload: {
-          role: 'assistant',
-          content: `⚠️ Connection error: ${err.message}. Make sure the backend is running on port 8080.`,
-          timestamp: new Date().toISOString(),
-          filesModified: 0
-        }
-      });
-    }
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSend();
     }
   };
 
   return (
-    <div className="h-full flex flex-col bg-[#0f0f1a] overflow-hidden">
-      {/* Decorative background */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/5 blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-cyan-600/5 blur-[100px] pointer-events-none" />
+    <div className="h-full flex flex-col bg-black/40 overflow-hidden backdrop-blur-3xl relative">
+      {/* Decorative background gradients */}
+      <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-purple-600/5 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-1/4 left-0 w-[500px] h-[500px] bg-cyan-600/5 blur-[120px] pointer-events-none" />
 
-      {/* Messages */}
-      <div className="flex-grow overflow-y-auto px-4 py-4 space-y-4 relative" style={{ scrollbarWidth: 'thin', scrollbarColor: '#1a1a2e transparent' }}>
-        {state.ai.messages.length === 0 && !isGenerating && (
-          <div className="h-full flex items-center justify-center p-6 min-h-[200px]">
-            <div className="text-center">
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500/10 to-purple-600/10 border border-white/10 flex items-center justify-center mx-auto mb-5">
-                <Sparkles className="w-7 h-7 text-cyan-400" />
-              </div>
-              <h2 className="text-lg font-bold text-white mb-2">Build anything with Nexus AI</h2>
-              <p className="text-xs text-slate-500 mb-6 max-w-xs mx-auto">Describe your vision and Nexus will build it file by file.</p>
-              <div className="grid grid-cols-2 gap-2 max-w-sm mx-auto">
-                {QUICK_PROMPTS.map((prompt) => (
-                  <button
-                    key={prompt}
-                    onClick={() => setInput(prompt)}
-                    className="p-2.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 bg-white/5 border border-white/5 rounded-lg hover:bg-white/10 hover:border-cyan-500/30 transition-all hover:text-cyan-400 text-left"
-                  >
-                    {prompt}
-                  </button>
-                ))}
-              </div>
-            </div>
+      {/* Main Content Area */}
+      <div className="flex-grow flex flex-col items-center justify-start pt-20 md:pt-32 p-4 sm:p-6 relative z-10">
+        
+        {/* Boutique Heading Section */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="text-center mb-10 md:mb-20"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.03] border border-white/10 backdrop-blur-xl mb-8">
+            <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.6)] animate-pulse" />
+            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-white/40">Nexus Vibe 4.5</span>
           </div>
-        )}
-
-        {state.ai.messages.map((msg, i) => (
-          <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-            <div className={`max-w-[88%] rounded-2xl p-3.5 border shadow-lg ${
-              msg.role === 'user'
-                ? 'bg-gradient-to-br from-cyan-600/20 to-cyan-800/20 border-cyan-500/20 text-white'
-                : 'bg-[#1a1a2e] border-[#2a2a44] text-slate-300'
-            }`}>
-              <div className="flex items-center gap-2 mb-2">
-                <div className={`w-4 h-4 rounded-full flex items-center justify-center ${msg.role === 'user' ? 'bg-cyan-500' : 'bg-purple-600'}`}>
-                  {msg.role === 'user'
-                    ? <div className="w-2 h-2 bg-white rounded-full" />
-                    : <Zap className="w-2.5 h-2.5 text-white" />
-                  }
-                </div>
-                <span className="text-[9px] uppercase tracking-widest font-bold opacity-40">
-                  {msg.role === 'user' ? 'You' : 'Nexus AI'}
-                </span>
-                {msg.filesModified > 0 && (
-                  <span className="ml-auto text-[9px] text-cyan-400 bg-cyan-500/10 px-1.5 py-0.5 rounded-full font-bold">
-                    {msg.filesModified} file{msg.filesModified > 1 ? 's' : ''} updated
-                  </span>
-                )}
-              </div>
-              <MessageContent content={msg.content} />
-            </div>
-          </div>
-        ))}
-
-        {/* Streaming buffer */}
-        {isGenerating && state.ai.streamBuffer && (
-          <div className="flex justify-start">
-            <div className="max-w-[88%] rounded-2xl p-3.5 bg-[#1a1a2e] border border-[#2a2a44] text-slate-300 shadow-lg">
-              <div className="flex items-center gap-2 mb-2">
-                <div className="w-4 h-4 rounded-full bg-purple-600 flex items-center justify-center shadow-[0_0_10px_#7c3aed]">
-                  <Sparkles className="w-2.5 h-2.5 text-white animate-pulse" />
-                </div>
-                <span className="text-[9px] uppercase tracking-widest font-bold opacity-40">Nexus AI</span>
-                <span className="ml-auto flex gap-1">
-                  {[0,1,2].map(d => (
-                    <div key={d} className="w-1 h-1 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: `${d * 0.15}s` }} />
-                  ))}
-                </span>
-              </div>
-              <MessageContent content={state.ai.streamBuffer} />
-            </div>
-          </div>
-        )}
-
-        {/* Typing indicator (no buffer yet) */}
-        {isGenerating && !state.ai.streamBuffer && (
-          <div className="flex justify-start">
-            <div className="rounded-2xl p-3.5 bg-[#1a1a2e] border border-[#2a2a44] shadow-lg">
-              <div className="flex items-center gap-1.5 px-1">
-                {[0,1,2].map(d => (
-                  <div key={d} className="w-2 h-2 bg-slate-500 rounded-full animate-bounce" style={{ animationDelay: `${d * 0.2}s` }} />
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        <div ref={messagesEndRef} />
-      </div>
-
-      {/* Input Area */}
-      <div className="px-3 pb-3 pt-2 border-t border-[#1a1a2e] bg-[#0a0a14] flex-shrink-0">
-        <div className={`relative flex flex-col bg-[#1a1a2e] border rounded-xl transition-all ${
-          isGenerating ? 'opacity-60 border-[#2a2a44]' : 'border-[#2a2a44] focus-within:border-cyan-500/40'
-        }`}>
-          <textarea
-            ref={textareaRef}
-            placeholder="Describe what you want to build..."
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            disabled={isGenerating}
-            rows={2}
-            className="w-full pt-3 pb-2 px-4 bg-transparent border-none focus:outline-none focus:ring-0 text-white placeholder-slate-600 resize-none text-sm font-medium"
-          />
-          <div className="flex items-center justify-between px-3 pb-2">
-            <div className="flex items-center gap-1.5">
-              <button className="p-1.5 rounded-lg text-slate-600 hover:text-slate-300 hover:bg-[#2a2a44] transition-all">
-                <Paperclip className="w-3.5 h-3.5" />
-              </button>
-              <button className="p-1.5 rounded-lg text-slate-600 hover:text-slate-300 hover:bg-[#2a2a44] transition-all">
-                <Mic className="w-3.5 h-3.5" />
-              </button>
-              <div className="flex items-center gap-1 bg-black/20 px-2 py-1 rounded-full text-[9px] font-bold text-slate-500 uppercase tracking-widest">
-                <Zap className="w-2.5 h-2.5 text-purple-500" />
-                Smart Mode
-              </div>
-            </div>
-            <button
-              onClick={handleSend}
-              disabled={isGenerating || !input.trim()}
-              className={`p-1.5 rounded-lg flex items-center justify-center transition-all ${
-                input.trim() && !isGenerating
-                  ? 'bg-gradient-to-r from-cyan-500 to-purple-600 text-white shadow-lg hover:scale-110 active:scale-95'
-                  : 'bg-[#0f0f1a] text-slate-600'
-              }`}
-            >
-              <Send className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
-        <div className="mt-2 text-center">
-          <p className="text-[9px] font-bold text-slate-700 uppercase tracking-widest flex items-center justify-center gap-1.5">
-            <FileCode className="w-2.5 h-2.5" />
-            Nexus Engine V1
+          
+          <h1 className="text-3xl md:text-5xl lg:text-5xl font-bold tracking-[-0.03em] text-white mb-6 leading-[0.95]">
+            Your Vibe, <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600">Encoded.</span>
+          </h1>
+          
+          <p className="text-slate-400 text-xs md:text-sm max-w-sm mx-auto font-medium tracking-wide opacity-30 leading-relaxed uppercase">
+            Autonomous intelligence with human intent.
           </p>
-        </div>
+        </motion.div>
+        
+        {/* Chat Messages (Only if present) */}
+        {state.ai.messages.length > 0 && (
+          <div className="absolute inset-0 overflow-y-auto px-6 py-20 space-y-6" style={{ scrollbarWidth: 'thin' }}>
+            {state.ai.messages.map((msg, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+              >
+                <div className={`max-w-[80%] rounded-2xl p-4 ${
+                  msg.role === 'user' 
+                    ? 'bg-gradient-to-br from-cyan-500/20 to-purple-600/20 border border-white/10' 
+                    : 'bg-white/[0.03] border border-white/5'
+                }`}>
+                  <div className="flex items-center gap-2 mb-2 opacity-50">
+                    <span className="text-[10px] font-black uppercase tracking-widest">
+                      {msg.role === 'user' ? 'Constructor' : 'Nexux AI'}
+                    </span>
+                  </div>
+                  <p className="text-sm md:text-base text-slate-200 leading-relaxed whitespace-pre-wrap">{msg.content}</p>
+                </div>
+              </motion.div>
+            ))}
+            {isGenerating && (
+              <div className="flex justify-start">
+                <div className="bg-white/[0.03] border border-white/5 rounded-2xl p-4 max-w-[80%]">
+                  <div className="flex items-center gap-2 mb-2 opacity-50">
+                    <span className="text-[10px] font-black uppercase tracking-widest">Nexux AI</span>
+                  </div>
+                  <p className="text-sm text-slate-300 animate-pulse">Generating vibe engine architecture...</p>
+                </div>
+              </div>
+            )}
+            <div ref={messagesEndRef} />
+          </div>
+        )}
+
+        {/* Innovative Vibe Artifact */}
+        <motion.div
+          layout
+          className={`w-full max-w-4xl transition-all duration-1000 ${
+            state.ai.messages.length === 0 ? 'mt-0' : 'fixed bottom-10 px-6'
+          }`}
+        >
+          <div className="relative group p-1">
+            {/* Outer Aura Glow */}
+            <div className="absolute -inset-2 bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-blue-500/20 rounded-full blur-2xl opacity-10 group-hover:opacity-30 transition-opacity duration-1000" />
+            
+            <div className="relative bg-[#08080c]/60 backdrop-blur-[60px] border border-white/10 rounded-full h-18 md:h-24 px-4 md:px-7 flex items-center shadow-[0_50px_100px_-20px_rgba(0,0,0,0.9)] transition-all duration-700 group-hover:border-white/20">
+              {/* Inner Spectral Line */}
+              <div className="absolute inset-x-20 top-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent pointer-events-none" />
+              
+              <div className="flex items-center gap-2 md:gap-4">
+                <button className="w-10 h-10 md:w-14 md:h-14 rounded-full text-slate-500 hover:text-white hover:bg-white/5 transition-all flex items-center justify-center group/icon">
+                  <Paperclip className="w-5 h-5 md:w-6 md:h-6 group-hover/icon:scale-110 transition-transform" />
+                </button>
+                <button className="w-10 h-10 md:w-14 md:h-14 rounded-full text-slate-500 hover:text-white hover:bg-white/5 transition-all flex items-center justify-center group/icon">
+                  <Mic className="w-5 h-5 md:w-6 md:h-6 group-hover/icon:scale-110 transition-transform" />
+                </button>
+              </div>
+
+              <div className="h-8 md:h-12 w-[1px] bg-white/10 mx-3 md:mx-6" />
+
+              <div className="flex items-center justify-center px-4 md:px-6 h-9 md:h-12 rounded-full bg-white/[0.04] border border-white/5 whitespace-nowrap overflow-hidden relative">
+                <div className="w-4 h-4 text-cyan-400 relative z-10">
+                  <Zap className="w-4 h-4 md:w-5 md:h-5 fill-current animate-pulse shadow-[0_0_15px_rgba(34,211,238,0.7)]" />
+                </div>
+                <span className="hidden sm:inline text-[9px] md:text-[11px] font-black uppercase tracking-[0.4em] text-white/40 ml-4 relative z-10">Vibe 2.0</span>
+              </div>
+
+              <input
+                type="text"
+                placeholder="Vibe something amazing..."
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+                className="flex-grow bg-transparent border-none focus:outline-none focus:ring-0 text-white placeholder-slate-700 text-base md:text-xl font-medium px-4 md:px-10 tracking-tight min-w-0"
+              />
+
+              <div className="flex items-center gap-3 pr-2 md:pr-4">
+                <div className="hidden lg:flex items-center gap-3 px-5 h-10 rounded-full bg-white/[0.02] border border-white/5 hover:border-white/20 transition-all cursor-pointer group/model group-hover:bg-white/5">
+                  <span className="text-[10px] font-bold text-slate-600 group-hover/model:text-slate-300">Claude 4.5</span>
+                  <ChevronDown className="w-3.5 h-3.5 text-slate-800 transition-transform group-hover/model:translate-y-0.5" />
+                </div>
+
+                <button
+                  onClick={handleSend}
+                  disabled={!input.trim() || isGenerating}
+                  className={`relative w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center transition-all ${
+                    input.trim()
+                      ? 'bg-white text-black shadow-[0_0_40px_rgba(255,255,255,0.4)] hover:scale-110 active:scale-95'
+                      : 'bg-white/[0.03] text-slate-800'
+                  }`}
+                >
+                  {isGenerating ? (
+                    <div className="w-6 h-6 border-2 border-black/20 border-t-black rounded-full animate-spin" />
+                  ) : (
+                    <Send className="w-6 h-6 md:w-8 md:h-8 rotate-[-15deg] translate-x-0.5" />
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </div>
-
-      {/* Progress bar */}
-      {isGenerating && (
-        <div className="absolute top-0 left-0 right-0 h-0.5 overflow-hidden">
-          <div className="h-full bg-gradient-to-r from-cyan-500 via-purple-500 to-cyan-500 w-[200%]"
-            style={{ animation: 'marquee 2s linear infinite' }}
-          />
-        </div>
-      )}
-
-      <style>{`
-        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-      `}</style>
     </div>
   );
 };

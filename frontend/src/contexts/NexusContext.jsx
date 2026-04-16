@@ -121,6 +121,8 @@ export const NexusProvider = ({ children }) => {
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
+        // Clean up messages for a fresh start
+        if (parsed.ai) parsed.ai.messages = [];
         dispatch({ type: 'LOAD_STATE', payload: parsed });
       } catch (e) {
         console.error('Failed to parse saved state', e);

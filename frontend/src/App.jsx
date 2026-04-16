@@ -56,7 +56,7 @@ const AppShell = () => {
   }, [location])
 
   return (
-    <div className={(isBuilderPage || isNexusPage) ? 'h-screen overflow-hidden' : 'min-h-screen bg-black'}>
+    <div className={(isBuilderPage) ? 'h-screen overflow-hidden' : 'min-h-screen bg-black'}>
       <SeoHead path={location.pathname} />
       <Navigation />
       {!isBuilderPage && !isNexusPage && location.pathname !== '/' && <Breadcrumbs />}
