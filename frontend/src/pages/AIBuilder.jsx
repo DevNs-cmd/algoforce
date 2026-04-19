@@ -104,7 +104,7 @@ const ModelSelector = ({ value, onChange }) => {
         <div className="relative" ref={ref}>
             <button
                 onClick={() => setOpen(o => !o)}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all"
+                className="flex items-center gap-2 px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-wider bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all"
             >
                 <span>{selected.label}</span>
                 <span className="opacity-40 text-[8px]">{open ? '▲' : '▼'}</span>
@@ -355,7 +355,7 @@ const AIBuilder = () => {
                         {['About', 'Labs'].map(t => (
                             <a key={t} href={`/${t.toLowerCase()}`} className="hidden sm:block text-[10px] font-black text-gray-500 hover:text-white transition-all uppercase tracking-[0.3em]">{t}</a>
                         ))}
-                        <button onClick={() => setAuthModalOpen(true)} className="px-4 py-2 md:px-5 md:py-2.5 rounded-full bg-white text-black text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:bg-purple-600 hover:text-white transition-all shadow-2xl">Studio</button>
+                        <button onClick={() => setAuthModalOpen(true)} className="px-6 py-3 md:px-8 md:py-3.5 rounded-full bg-white text-black text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:bg-purple-600 hover:text-white transition-all shadow-2xl">Studio</button>
                     </div>
                 </nav>
 
@@ -396,18 +396,18 @@ const AIBuilder = () => {
                                     {/* INPUT BOX (Blackbox AI Style - Compact) */}
                                     <div className="w-full max-w-2xl mb-12 md:mb-20 relative group px-4">
                                         <div className="absolute inset-x-4 inset-y-0 bg-purple-600/10 blur-[60px] md:blur-[80px] opacity-0 group-focus-within:opacity-100 transition-all duration-1000" />
-                                        <div className="relative bg-[#0F0F0F] rounded-2xl md:rounded-full border border-white/5 p-2 flex flex-col md:flex-row items-center shadow-2xl focus-within:border-[#9333ea]/40 transition-all">
-                                            <div className="hidden md:flex pl-6 text-gray-600 group-focus-within:text-purple-600 transition-colors"><FaPaperclip size={18} /></div>
+                                        <div className="relative bg-[#0F0F0F] rounded-[2.5rem] md:rounded-full border border-white/5 p-2.5 flex flex-col md:flex-row items-center shadow-2xl focus-within:border-[#9333ea]/40 transition-all">
+                                            <div className="hidden md:flex pl-8 text-gray-600 group-focus-within:text-purple-600 transition-colors"><FaPaperclip size={18} /></div>
                                             <input
                                                 value={input} onChange={e => setInput(e.target.value)}
                                                 onKeyDown={e => { if (e.key === 'Enter') sendMessage(); }}
                                                 placeholder="Build me a modern SaaS dashboard..."
-                                                className="w-full md:flex-1 bg-transparent border-none outline-none px-4 md:px-6 py-3 md:py-4 text-sm md:text-base text-white placeholder-gray-800 font-bold"
+                                                className="w-full md:flex-1 bg-transparent border-none outline-none px-6 md:px-8 py-4 md:py-5 text-sm md:text-base text-white placeholder-gray-800 font-bold"
                                             />
-                                            <div className="w-full md:w-auto flex items-center justify-between md:justify-end gap-4 p-2 md:pr-2 border-t md:border-t-0 border-white/5 md:mt-0">
-                                                <div className="md:hidden flex pl-2 text-gray-700"><FaPaperclip size={16} /></div>
+                                            <div className="w-full md:w-auto flex items-center justify-between md:justify-end gap-6 p-2 md:pr-3 border-t md:border-t-0 border-white/5 md:mt-0">
+                                                <div className="md:hidden flex pl-4 text-gray-700"><FaPaperclip size={16} /></div>
                                                 <ModelSelector value={selectedModel} onChange={setSelectedModel} />
-                                                <button onClick={sendMessage} className="w-10 h-10 rounded-xl md:rounded-full bg-white text-black flex items-center justify-center hover:bg-purple-600 hover:text-white transition-all shadow-xl">
+                                                <button onClick={sendMessage} className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-white text-black flex items-center justify-center hover:bg-purple-600 hover:text-white transition-all shadow-xl">
                                                     <FaPlay size={10} />
                                                 </button>
                                             </div>
@@ -468,7 +468,7 @@ const AIBuilder = () => {
                                                 { title: 'System Access', icon: <FaTerminal />, desc: 'Full shell and file system integration for end-to-end task automation.' },
                                                 { title: 'Engine Skills', icon: <FaPuzzlePiece />, desc: 'Extend Nexus with custom plugins or build specialized AI micro-services.' }
                                             ].map((f, i) => (
-                                                <div key={i} className="p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] bg-[#0A0A0A]/50 border border-white/5 hover:border-purple-600/30 transition-all hover:bg-[#0F0F0F] group text-center sm:text-left">
+                                                <div key={i} className="p-8 md:p-12 rounded-[3rem] bg-[#0A0A0A]/50 border border-white/5 hover:border-purple-600/30 transition-all hover:bg-[#0F0F0F] group text-center sm:text-left">
                                                     <div className="text-purple-600 text-2xl md:text-3xl mb-4 md:mb-8 transform group-hover:scale-110 transition-transform mx-auto sm:mx-0">{f.icon}</div>
                                                     <h4 className="text-lg md:text-xl font-bold mb-2 md:mb-4 tracking-tighter">{f.title}</h4>
                                                     <p className="text-gray-600 text-[11px] md:text-[13px] leading-relaxed font-bold">{f.desc}</p>
@@ -499,8 +499,8 @@ const AIBuilder = () => {
                                         <h3 className="text-2xl font-black mb-4 tracking-tighter uppercase italic">Stay in the Loop</h3>
                                         <p className="text-gray-500 font-bold mb-12 text-sm leading-relaxed">Get updates on new features, integrations, and engine wisdom. No spam, just speed.</p>
                                         <div className="flex flex-col sm:flex-row gap-4">
-                                            <input type="email" placeholder="email@nexus.studio" className="flex-1 bg-black border border-white/10 rounded-2xl px-8 py-5 outline-none focus:border-[#9333ea]/50 transition-all font-bold" />
-                                            <button className="px-10 py-5 bg-purple-600 text-white rounded-2xl font-black uppercase tracking-widest shadow-xl shadow-[#9333ea]/20 hover:scale-105 transition-all">Subscribe {'->'}</button>
+                                            <input type="email" placeholder="email@nexus.studio" className="flex-1 bg-black border border-white/10 rounded-full px-10 py-6 outline-none focus:border-[#9333ea]/50 transition-all font-bold" />
+                                            <button className="px-12 py-6 bg-purple-600 text-white rounded-full font-black uppercase tracking-widest shadow-xl shadow-[#9333ea]/20 hover:scale-105 transition-all">Subscribe {'->'}</button>
                                         </div>
                                     </div>
 
