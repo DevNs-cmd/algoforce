@@ -61,3 +61,15 @@ yarn-error.log*
 .DS_Store
 Thumbs.db
 
+
+# Local caches
+.npm-cache/
+frontend/.npm-cache/
+backend/.npm-cache/
+.antigravity/
+.claude/
+query
+*.mp4
+*.mp3
+*.glb
+!frontend/public/*.glb

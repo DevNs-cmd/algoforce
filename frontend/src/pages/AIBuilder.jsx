@@ -2,8 +2,8 @@ import { useState, useRef, useEffect, useCallback, Suspense } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { motion, AnimatePresence } from 'framer-motion'
 import MonacoEditor from '@monaco-editor/react'
-import { Canvas } from '@react-three/fiber'
-import { Float, Sphere, MeshDistortMaterial, Stars, PerspectiveCamera } from '@react-three/drei'
+import { Canvas, useFrame } from '@react-three/fiber'
+import { Float, Sphere, MeshDistortMaterial, Stars, PerspectiveCamera, useGLTF, Environment, ContactShadows, PresentationControls } from '@react-three/drei'
 import { useAuth } from '../contexts/AuthContext'
 import { streamChat, AI_MODELS } from '../services/aiService'
 import api from '../services/api'
@@ -18,23 +18,64 @@ import {
 } from 'react-icons/fa'
 
 // ─── 3D Visuals ─────────────────────────────────────────────────────────────
-const AbstractSphere = () => (
+const PixelLabsModel = ({ scrollProgress }) => {
+    const { scene } = useGLTF('/pixellabs.glb')
+    const meshRef = useRef()
+
+    useFrame((state) => {
+        const t = state.clock.getElapsedTime()
+        const { x, y } = state.mouse
+        if (meshRef.current) {
+            // Smoothly interpolate rotation based on scroll + mouse
+            meshRef.current.rotation.y = t * 0.2 + (scrollProgress.current * Math.PI * 2) + (x * 0.5)
+            meshRef.current.rotation.x = Math.sin(t * 0.5) * 0.2 + (scrollProgress.current * 0.5) - (y * 0.5)
+            meshRef.current.position.y = Math.sin(t * 0.8) * 0.2 + (y * 0.2)
+            meshRef.current.position.x = x * 0.2
+            
+            // Dynamic scale pulse
+            const s = 1.8 + Math.sin(t * 1.5) * 0.05 + (scrollProgress.current * 0.5)
+            meshRef.current.scale.set(s, s, s)
+        }
+    })
+
+    return (
+        <primitive 
+            ref={meshRef} 
+            object={scene} 
+            rotation={[0, -Math.PI / 4, 0]}
+        />
+    )
+}
+
+const AbstractSphere = ({ scrollProgress }) => (
     <group>
         <Float speed={2} rotationIntensity={1} floatIntensity={1}>
-            <Sphere args={[1, 64, 64]} scale={2.5}>
+            <Suspense fallback={null}>
+                <PixelLabsModel scrollProgress={scrollProgress} />
+            </Suspense>
+            {/* Ultra-realistic glass bubble */}
+            <Sphere args={[1, 128, 128]} scale={1.8} transparent>
                 <MeshDistortMaterial
-                    color="#9333ea"
+                    color="#ffffff"
                     speed={2}
-                    distort={0.3}
+                    distort={0.15}
                     radius={1}
-                    metalness={0.9}
-                    roughness={0.1}
-                    emissive="#6b21a8"
-                    emissiveIntensity={0.3}
+                    metalness={0.05}
+                    roughness={0}
+                    transmission={1}
+                    thickness={2}
+                    ior={1.2}
+                    reflectivity={0.8}
+                    clearcoat={1}
+                    clearcoatRoughness={0}
+                    transparent
+                    opacity={0.3}
                 />
             </Sphere>
         </Float>
-        <Stars radius={100} depth={50} count={3000} factor={4} saturation={0} fade speed={1} />
+        <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
+        <Environment preset="city" />
+        <ContactShadows position={[0, -2.5, 0]} opacity={0.4} scale={10} blur={2} far={4.5} />
     </group>
 )
 
@@ -233,6 +274,14 @@ const AIBuilder = () => {
         return fileContents[htmlFile.path] ?? htmlFile.code
     }
 
+    const scrollProgress = useRef(0)
+    const scrollContainerRef = useRef(null)
+
+    const handleScroll = (e) => {
+        const { scrollTop, scrollHeight, clientHeight } = e.target
+        scrollProgress.current = scrollTop / (scrollHeight - clientHeight)
+    }
+
     return (
         <div className="flex h-screen bg-[#000000] text-white overflow-hidden font-outfit selection:bg-purple-600 selection:text-white">
             <Helmet>
@@ -242,15 +291,16 @@ const AIBuilder = () => {
 
             {/* ── 3D Visuals ── */}
             <div className="fixed inset-0 pointer-events-none z-0">
-                <Canvas dpr={[1, 2]} gl={{ antialias: true }}>
-                    <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={75} />
-                    <ambientLight intensity={1.5} />
-                    <pointLight position={[10, 10, 10]} intensity={2} color="#9333ea" />
+                <Canvas dpr={[1, 2]} gl={{ antialias: true, alpha: true }}>
+                    <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={50} />
+                    <ambientLight intensity={1} />
+                    <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1.5} color="#ffffff" />
+                    <pointLight position={[-10, -10, -10]} intensity={0.5} color="#ffffff" />
                     <Suspense fallback={null}>
-                        <AbstractSphere />
+                        <AbstractSphere scrollProgress={scrollProgress} />
                     </Suspense>
                 </Canvas>
-                <div className="absolute inset-0 bg-[#000]/40 backdrop-blur-[1px]" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60 backdrop-blur-[1px]" />
                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.1] mix-blend-overlay" />
             </div>
 
@@ -309,7 +359,11 @@ const AIBuilder = () => {
                     </div>
                 </nav>
 
-                <div className="flex-1 overflow-y-auto custom-scrollbar relative">
+                <div 
+                    ref={scrollContainerRef}
+                    onScroll={handleScroll}
+                    className="flex-1 overflow-y-auto custom-scrollbar relative"
+                >
                     <AnimatePresence mode="wait">
                         {isLanding ? (
                             <motion.div key="landing" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col items-center">

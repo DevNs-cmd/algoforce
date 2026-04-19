@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useEffect } from 'react';
+import React, { useRef, useMemo, useEffect, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { 
   Float, 
@@ -6,13 +6,30 @@ import {
   Environment, 
   PerspectiveCamera,
   ContactShadows,
-  Preload
+  Preload,
+  useGLTF
 } from '@react-three/drei';
 import * as THREE from 'three';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
+
+const Model = () => {
+  const { scene } = useGLTF('/pixellabs.glb');
+  const meshRef = useRef();
+
+  useFrame((state) => {
+    const { x, y } = state.mouse;
+    if (meshRef.current) {
+      // Gentle cursor follow
+      meshRef.current.rotation.y = THREE.MathUtils.lerp(meshRef.current.rotation.y, x * 0.4, 0.1);
+      meshRef.current.rotation.x = THREE.MathUtils.lerp(meshRef.current.rotation.x, -y * 0.4, 0.1);
+    }
+  });
+
+  return <primitive ref={meshRef} object={scene} scale={1.8} />;
+};
 
 // Efficient Blob Component
 const LiquidBlob = ({ position, scale, color, speed, distort, opacity = 1, highQuality = false }) => {
@@ -35,13 +52,15 @@ const LiquidBlob = ({ position, scale, color, speed, distort, opacity = 1, highQ
           speed={speed}
           distort={distort}
           radius={1}
-          transmission={0.9}
-          ior={1.1}
+          transmission={1}
+          ior={1.15}
           thickness={highQuality ? 2 : 1}
-          roughness={0.05}
+          roughness={0}
           metalness={0.05}
-          envMapIntensity={2}
-          clearcoat={highQuality ? 0.5 : 0}
+          reflectivity={1}
+          clearcoat={1}
+          clearcoatRoughness={0}
+          envMapIntensity={2.5}
           opacity={opacity}
           transparent={true}
         />
@@ -104,13 +123,18 @@ const VibeGlassScene = () => {
   return (
     <>
       <PerspectiveCamera makeDefault position={[0, 0, 15]} fov={30} />
-      <Environment preset="night" /> {/*night is cheaper than studio*/}
-      <ambientLight intensity={0.4} />
-      <pointLight position={[10, 10, 10]} intensity={1.5} color="#00f2ff" />
+      <Environment preset="city" /> 
+      <ambientLight intensity={1} />
+      <pointLight position={[10, 10, 10]} intensity={1.5} color="#ffffff" />
+      <spotLight position={[-10, 10, 20]} intensity={1} color="#ffffff" />
       
       <group ref={groupRef}>
-        <Float speed={1} rotationIntensity={0.2} floatIntensity={0.3}>
-          <LiquidBlob position={[0, 0, 0]} scale={2.8} color="#ffffff" speed={1.2} distort={0.2} highQuality={true} />
+        <Float speed={1} rotationIntensity={0.5} floatIntensity={0.5}>
+          <Suspense fallback={null}>
+            <Model />
+          </Suspense>
+          {/* Neutral crystal glow core */}
+          <LiquidBlob position={[0, 0, 0]} scale={2.5} color="#ffffff" speed={2} distort={0.1} opacity={0.1} highQuality={true} />
         </Float>
 
         {droplets.map((d, i) => (
