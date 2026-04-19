@@ -47,11 +47,36 @@ const PixelLabsModel = ({ scrollProgress }) => {
     )
 }
 
+const PotionModel = ({ scrollProgress }) => {
+    const { scene } = useGLTF('/potion.glb')
+    const meshRef = useRef()
+
+    useFrame((state) => {
+        const t = state.clock.getElapsedTime()
+        const { x, y } = state.mouse
+        if (meshRef.current) {
+            // Independent orbit with scroll/mouse response
+            meshRef.current.position.x = Math.sin(t * 0.5) * 3 + (x * 0.5)
+            meshRef.current.position.y = Math.cos(t * 0.5) * 2 + Math.sin(t * 1.2) * 0.5 - (y * 0.5)
+            meshRef.current.position.z = Math.sin(t * 0.5) * 2 - 2
+            
+            meshRef.current.rotation.y = t * 1.5 + (scrollProgress.current * Math.PI)
+            meshRef.current.rotation.z = Math.sin(t * 0.8) * 0.5
+            
+            const s = 1.0 + Math.sin(t * 2) * 0.05
+            meshRef.current.scale.set(s, s, s)
+        }
+    })
+
+    return <primitive ref={meshRef} object={scene} />
+}
+
 const AbstractSphere = ({ scrollProgress }) => (
     <group>
         <Float speed={2} rotationIntensity={1} floatIntensity={1}>
             <Suspense fallback={null}>
                 <PixelLabsModel scrollProgress={scrollProgress} />
+                <PotionModel scrollProgress={scrollProgress} />
             </Suspense>
             {/* Ultra-realistic glass bubble */}
             <Sphere args={[1, 128, 128]} scale={1.8} transparent>
