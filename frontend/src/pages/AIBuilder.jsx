@@ -381,16 +381,16 @@ const AIBuilder = () => {
                                         </div>
                                     </motion.div>
 
-                                    <h1 className="text-4xl md:text-[6rem] font-black tracking-tighter mb-4 leading-none bg-clip-text text-transparent bg-gradient-to-b from-white to-white/40">Nexus AI</h1>
-                                    <h2 className="text-[12px] md:text-[15px] font-bold uppercase tracking-[0.4em] md:tracking-[0.5em] text-purple-600 mb-8 md:mb-12 px-4">THE VIBE CODING TOOL THAT ACTUALLY WORKS.</h2>
+                                    <h1 className="text-5xl sm:text-6xl md:text-[5rem] lg:text-[7rem] font-black tracking-tighter mb-4 leading-[0.9] bg-clip-text text-transparent bg-gradient-to-b from-white to-white/40">Nexus AI</h1>
+                                    <h2 className="text-[10px] sm:text-[12px] md:text-[14px] font-bold uppercase tracking-[0.3em] md:tracking-[0.5em] text-purple-600 mb-6 md:mb-12 px-4 shadow-sm">THE VIBE CODING TOOL THAT ACTUALLY WORKS.</h2>
 
-                                    <p className="max-w-xl text-sm md:text-xl text-gray-400 font-medium leading-relaxed mb-12 md:mb-16 px-6">
+                                    <p className="max-w-2xl text-xs sm:text-sm md:text-lg text-gray-400 font-medium leading-relaxed mb-10 md:mb-16 px-6">
                                         Nexus automates the heavy lifting. Build, deploy, and iterate through pure intuition. One prompt to rule them all.
                                     </p>
 
-                                    <div className="inline-flex items-center gap-2 md:gap-3 px-5 py-2.5 rounded-full border border-[#9333ea]/20 bg-purple-600/5 text-[10px] md:text-[12px] font-bold uppercase tracking-[0.1em] md:tracking-[0.2em] text-purple-500 mb-16 md:mb-24 cursor-pointer hover:bg-purple-600/10 transition-all mx-4">
-                                        <span className="bg-purple-600 text-white px-2.5 py-1 rounded-full text-[9px] md:text-[10px] font-black">NEW</span>
-                                        Real-time Vercel Cloud Integration <FaChevronRight size={10} />
+                                    <div className="inline-flex items-center gap-2 md:gap-3 px-4 py-2 md:px-5 md:py-2.5 rounded-full border border-[#9333ea]/20 bg-purple-600/5 text-[9px] md:text-[11px] font-bold uppercase tracking-[0.1em] md:tracking-[0.2em] text-purple-500 mb-12 md:mb-24 cursor-pointer hover:bg-purple-600/10 transition-all mx-4">
+                                        <span className="bg-purple-600 text-white px-2 py-0.5 md:px-2.5 md:py-1 rounded-full text-[8px] md:text-[9px] font-black">NEW</span>
+                                        Real-time Vercel Cloud Integration <FaChevronRight size={8} />
                                     </div>
 
                                     {/* INPUT BOX (Blackbox AI Style - Compact) */}
@@ -459,7 +459,7 @@ const AIBuilder = () => {
                                         <div className="inline-flex items-center gap-3 text-2xl font-black mb-16 tracking-tighter uppercase italic">
                                             <span className="text-purple-600">{'->'}</span> What It Does
                                         </div>
-                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
                                             {[
                                                 { title: 'Local Speed', icon: <FaDesktop />, desc: 'Works on your machine. Latency-free generation and local execution.' },
                                                 { title: 'Vibe Chat', icon: <FaGlobe />, desc: 'Communicate with Nexus on Discord, Telegram, or our native terminal.' },
@@ -468,10 +468,10 @@ const AIBuilder = () => {
                                                 { title: 'System Access', icon: <FaTerminal />, desc: 'Full shell and file system integration for end-to-end task automation.' },
                                                 { title: 'Engine Skills', icon: <FaPuzzlePiece />, desc: 'Extend Nexus with custom plugins or build specialized AI micro-services.' }
                                             ].map((f, i) => (
-                                                <div key={i} className="p-10 rounded-[2.5rem] bg-[#0A0A0A]/50 border border-white/5 hover:border-purple-600/30 transition-all hover:bg-[#0F0F0F] group">
-                                                    <div className="text-purple-600 text-3xl mb-8 transform group-hover:scale-110 transition-transform">{f.icon}</div>
-                                                    <h4 className="text-xl font-bold mb-4 tracking-tighter">{f.title}</h4>
-                                                    <p className="text-gray-600 text-[13px] leading-relaxed font-bold">{f.desc}</p>
+                                                <div key={i} className="p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] bg-[#0A0A0A]/50 border border-white/5 hover:border-purple-600/30 transition-all hover:bg-[#0F0F0F] group text-center sm:text-left">
+                                                    <div className="text-purple-600 text-2xl md:text-3xl mb-4 md:mb-8 transform group-hover:scale-110 transition-transform mx-auto sm:mx-0">{f.icon}</div>
+                                                    <h4 className="text-lg md:text-xl font-bold mb-2 md:mb-4 tracking-tighter">{f.title}</h4>
+                                                    <p className="text-gray-600 text-[11px] md:text-[13px] leading-relaxed font-bold">{f.desc}</p>
                                                 </div>
                                             ))}
                                         </div>
@@ -517,16 +517,16 @@ const AIBuilder = () => {
                                         {messages.map((m, i) => <ChatMessage key={i} message={m} />)}
                                         <div ref={messagesEndRef} />
                                     </div>
-                                    <div className="p-6 md:p-14 z-30">
-                                        <div className="max-w-2xl mx-auto bg-[#0F0F0F] rounded-full border border-white/10 p-2 flex items-center shadow-2xl transition-all">
-                                            <div className="pl-6 text-gray-600"><FaPaperclip size={16} /></div>
+                                    <div className="p-4 sm:p-6 md:p-14 z-30">
+                                        <div className="max-w-2xl mx-auto bg-[#0F0F0F] rounded-full border border-white/10 p-1 md:p-2 flex items-center shadow-2xl transition-all">
+                                            <div className="hidden sm:flex pl-6 text-gray-600"><FaPaperclip size={16} /></div>
                                             <input
                                                 value={input} onChange={e => setInput(e.target.value)}
                                                 onKeyDown={e => { if (e.key === 'Enter') sendMessage(); }}
-                                                placeholder="Describe iteration..."
-                                                className="flex-1 bg-transparent border-none outline-none px-6 py-4 text-sm font-bold text-white placeholder-gray-700"
+                                                placeholder={currentProjectId ? "Describe iteration..." : "Ask Nexus to build something..."}
+                                                className="flex-1 bg-transparent border-none outline-none px-4 md:px-6 py-2.5 md:py-4 text-xs md:text-sm font-bold text-white placeholder-gray-700"
                                             />
-                                            <button onClick={sendMessage} className="w-12 h-12 rounded-full bg-purple-600 text-white flex items-center justify-center mr-1 shadow-lg hover:scale-105 active:scale-95 transition-all">
+                                            <button onClick={sendMessage} className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-purple-600 text-white flex items-center justify-center mr-1 shadow-lg hover:scale-105 active:scale-95 transition-all">
                                                 {isStreaming ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <FaPlay size={10} />}
                                             </button>
                                         </div>
