@@ -79,9 +79,6 @@ const PixelLabsModel = ({ scrollProgress }) => {
     return <primitive ref={meshRef} object={scene} />
 }
 
-    return <primitive ref={meshRef} object={scene} />
-}
-
 const AbstractSphere = ({ scrollProgress }) => (
     <group>
         <CameraRig scrollProgress={scrollProgress} />
