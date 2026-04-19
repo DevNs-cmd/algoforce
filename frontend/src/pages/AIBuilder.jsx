@@ -2,8 +2,10 @@ import { useState, useRef, useEffect, useCallback, Suspense } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { motion, AnimatePresence } from 'framer-motion'
 import MonacoEditor from '@monaco-editor/react'
-import { Canvas, useFrame } from '@react-three/fiber'
-import { Float, Sphere, MeshDistortMaterial, Stars, PerspectiveCamera, useGLTF, Environment, ContactShadows, PresentationControls } from '@react-three/drei'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { Float, Sphere, MeshDistortMaterial, Stars, PerspectiveCamera, useGLTF, Environment, ContactShadows, PresentationControls, Stage } from '@react-three/drei'
+import { EffectComposer, Bloom, Noise, Vignette, ChromaticAberration } from '@react-three/postprocessing'
+import * as THREE from 'three'
 import { useAuth } from '../contexts/AuthContext'
 import { streamChat, AI_MODELS } from '../services/aiService'
 import api from '../services/api'
@@ -18,89 +20,114 @@ import {
 } from 'react-icons/fa'
 
 // ─── 3D Visuals ─────────────────────────────────────────────────────────────
+
+const CameraRig = ({ scrollProgress }) => {
+    useFrame((state) => {
+        const t = state.clock.getElapsedTime()
+        const s = scrollProgress.current
+        
+        // Dynamic camera tracking
+        // Entry zoom-in (0.0 -> 0.2)
+        // Focus drift (0.2 -> 0.8)
+        // Exit recede (0.8 -> 1.0)
+        const targetZ = s < 0.2 ? 8 - (s * 15) : 5 + Math.sin(t * 0.2) * 0.2
+        const targetY = s > 0.8 ? (s - 0.8) * 10 : Math.cos(t * 0.1) * 0.1
+        
+        state.camera.position.z = THREE.MathUtils.lerp(state.camera.position.z, targetZ, 0.05)
+        state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, targetY, 0.05)
+        state.camera.position.x = Math.sin(t * 0.1) * 0.5
+        state.camera.lookAt(0, 0, 0)
+    })
+    return null
+}
+
 const PixelLabsModel = ({ scrollProgress }) => {
     const { scene } = useGLTF('/pixellabs.glb')
     const meshRef = useRef()
 
+    useEffect(() => {
+        scene.traverse((node) => {
+            if (node.isMesh) {
+                node.material.envMapIntensity = 2.5
+                node.material.roughness = 0.05
+                node.material.metalness = 1
+                if (node.name.toLowerCase().includes('glow') || node.name.toLowerCase().includes('light')) {
+                    node.material.emissive = new THREE.Color('#9333ea')
+                    node.material.emissiveIntensity = 3
+                }
+            }
+        })
+    }, [scene])
+
     useFrame((state) => {
         const t = state.clock.getElapsedTime()
         const { x, y } = state.mouse
+        const s = scrollProgress.current
+        
         if (meshRef.current) {
-            // Smoothly interpolate rotation based on scroll + mouse
-            meshRef.current.rotation.y = t * 0.2 + (scrollProgress.current * Math.PI * 2) + (x * 0.5)
-            meshRef.current.rotation.x = Math.sin(t * 0.5) * 0.2 + (scrollProgress.current * 0.5) - (y * 0.5)
-            meshRef.current.position.y = Math.sin(t * 0.8) * 0.2 + (y * 0.2)
+            meshRef.current.rotation.y = t * 0.15 + (s * Math.PI * 4) + (x * 0.3)
+            meshRef.current.rotation.x = Math.sin(t * 0.4) * 0.1 + (s * Math.PI * 0.5) - (y * 0.3)
+            
+            // Interaction depth and breathing
+            const baseScale = s < 0.2 ? s * 10 : 2
+            meshRef.current.scale.setScalar(baseScale * (1.0 + Math.sin(t * 2) * 0.02))
+            meshRef.current.position.y = Math.sin(t * 1.5) * 0.1 + (y * 0.1)
             meshRef.current.position.x = x * 0.2
-            
-            // Dynamic scale pulse
-            const s = 1.8 + Math.sin(t * 1.5) * 0.05 + (scrollProgress.current * 0.5)
-            meshRef.current.scale.set(s, s, s)
-        }
-    })
-
-    return (
-        <primitive 
-            ref={meshRef} 
-            object={scene} 
-            rotation={[0, -Math.PI / 4, 0]}
-        />
-    )
-}
-
-const PotionModel = ({ scrollProgress }) => {
-    const { scene } = useGLTF('/potion.glb')
-    const meshRef = useRef()
-
-    useFrame((state) => {
-        const t = state.clock.getElapsedTime()
-        const { x, y } = state.mouse
-        if (meshRef.current) {
-            // Independent orbit with scroll/mouse response
-            meshRef.current.position.x = Math.sin(t * 0.5) * 3 + (x * 0.5)
-            meshRef.current.position.y = Math.cos(t * 0.5) * 2 + Math.sin(t * 1.2) * 0.5 - (y * 0.5)
-            meshRef.current.position.z = Math.sin(t * 0.5) * 2 - 2
-            
-            meshRef.current.rotation.y = t * 1.5 + (scrollProgress.current * Math.PI)
-            meshRef.current.rotation.z = Math.sin(t * 0.8) * 0.5
-            
-            const s = 1.0 + Math.sin(t * 2) * 0.05
-            meshRef.current.scale.set(s, s, s)
         }
     })
 
     return <primitive ref={meshRef} object={scene} />
 }
 
+    return <primitive ref={meshRef} object={scene} />
+}
+
 const AbstractSphere = ({ scrollProgress }) => (
     <group>
-        <Float speed={2} rotationIntensity={1} floatIntensity={1}>
+        <CameraRig scrollProgress={scrollProgress} />
+        
+        <Float speed={1.5} rotationIntensity={0.5} floatIntensity={0.5}>
             <Suspense fallback={null}>
                 <PixelLabsModel scrollProgress={scrollProgress} />
-                <PotionModel scrollProgress={scrollProgress} />
             </Suspense>
-            {/* Ultra-realistic glass bubble */}
-            <Sphere args={[1, 128, 128]} scale={1.8} transparent>
+
+            {/* Cinematic Glass Core */}
+            <Sphere args={[1, 128, 128]} scale={1.85} transparent>
                 <MeshDistortMaterial
                     color="#ffffff"
-                    speed={2}
-                    distort={0.15}
+                    speed={1.5}
+                    distort={0.12}
                     radius={1}
-                    metalness={0.05}
+                    metalness={0.1}
                     roughness={0}
                     transmission={1}
-                    thickness={2}
-                    ior={1.2}
-                    reflectivity={0.8}
+                    thickness={4}
+                    ior={1.45}
+                    reflectivity={1}
                     clearcoat={1}
-                    clearcoatRoughness={0}
                     transparent
-                    opacity={0.3}
+                    opacity={0.15}
                 />
             </Sphere>
         </Float>
-        <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
+        
+        <Stars radius={200} depth={60} count={9000} factor={7} saturation={0} fade speed={0.4} />
+        
+        <ambientLight intensity={0.2} />
+        <spotLight position={[30, 30, 30]} angle={0.15} penumbra={1} intensity={2.5} color="#ffffff" castShadow />
+        <pointLight position={[-15, -15, -15]} intensity={1.5} color="#4f46e5" />
+        <pointLight position={[15, -15, 15]} intensity={1.5} color="#9333ea" />
+        <pointLight position={[0, 10, -15]} intensity={5} color="#ffffff" />
+        
         <Environment preset="city" />
-        <ContactShadows position={[0, -2.5, 0]} opacity={0.4} scale={10} blur={2} far={4.5} />
+        <ContactShadows position={[0, -4.5, 0]} opacity={0.5} scale={20} blur={3} far={5} />
+        
+        <EffectComposer disableNormalPass>
+            <Bloom luminanceThreshold={1} luminanceSmoothing={0.9} height={300} intensity={2} />
+            <Noise opacity={0.04} />
+            <Vignette eskil={false} offset={0.1} darkness={1.2} />
+            <ChromaticAberration offset={[0.0008, 0.0008]} />
+        </EffectComposer>
     </group>
 )
 
@@ -316,17 +343,12 @@ const AIBuilder = () => {
 
             {/* ── 3D Visuals ── */}
             <div className="fixed inset-0 pointer-events-none z-0">
-                <Canvas dpr={[1, 2]} gl={{ antialias: true, alpha: true }}>
-                    <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={50} />
-                    <ambientLight intensity={1} />
-                    <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1.5} color="#ffffff" />
-                    <pointLight position={[-10, -10, -10]} intensity={0.5} color="#ffffff" />
+                <Canvas dpr={[1, 2]} gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }} shadows>
                     <Suspense fallback={null}>
                         <AbstractSphere scrollProgress={scrollProgress} />
                     </Suspense>
                 </Canvas>
-                <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60 backdrop-blur-[1px]" />
-                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.1] mix-blend-overlay" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/80" />
             </div>
 
             {/* ── SIDE RAIL ── */}
