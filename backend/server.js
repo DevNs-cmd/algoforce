@@ -63,11 +63,11 @@ console.log('🔧 Validating environment variables...');
 const PORT = process.env.PORT || 8080;
 console.log(`🔌 Port: ${PORT}`);
 
-// Check for MongoDB configuration
-if (process.env.MONGODB_URI || process.env.MONGO_URI) {
-  console.log('✅ MongoDB URI configured');
+// Check for Supabase configuration
+if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+  console.log('Supabase configured');
 } else {
-  console.log('⚠️  MongoDB URI not set, will use local development default');
+  console.log('Supabase not configured - set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY');
 }
 
 // Check for Twilio configuration

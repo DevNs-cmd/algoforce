@@ -80,30 +80,30 @@ const Contact = () => {
   }
 
   const inquiryTypes = [
-    { value: 'demo', label: 'Request Demo' },
-    { value: 'audit', label: 'Revenue Leak Audit' },
-    { value: 'enterprise', label: 'Enterprise Solution' },
-    { value: 'consultation', label: 'Strategy Consultation' }
+    { value: 'services', label: 'AlgoForce AI Services' },
+    { value: 'labs', label: 'AlgoForce Labs Cohort' },
+    { value: 'crucible', label: 'Crucible Founder Program' },
+    { value: 'partnership', label: 'Partnership / Sponsorship' }
   ]
 
   return (
     <>
       <Helmet>
-        <title>Contact AlgoForce AI – Book AI Strategy Consultation</title>
+        <title>Contact AlgoForce AI - Services, Labs & Crucible</title>
         <meta
           name="description"
-          content="Schedule a 30-minute AI strategy consultation or request a custom revenue audit with AlgoForce AI experts. Global solutions for high-growth enterprises."
+          content="Contact AlgoForce AI for consulting retainers, Labs cohorts, Crucible founder programs, corporate training, partnerships, and sponsorships."
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.algoforceaii.com/contact" />
-        <meta property="og:title" content="Contact AlgoForce AI – Book a Demo or Consultation" />
-        <meta property="og:description" content="Contact AlgoForce AI to request a demo, revenue audit, or enterprise AI consultation." />
+        <meta property="og:title" content="Contact AlgoForce AI - Enter the Ecosystem" />
+        <meta property="og:description" content="Reach AlgoForce AI for services, Labs, Crucible, training, partnerships, and events." />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="AlgoForce AI" />
         <meta property="og:url" content="https://www.algoforceaii.com/contact" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Contact AlgoForce AI – Book a Demo or Consultation" />
-        <meta name="twitter:description" content="Contact AlgoForce AI to request a demo, revenue audit, or enterprise AI consultation." />
+        <meta name="twitter:title" content="Contact AlgoForce AI - Services, Labs & Crucible" />
+        <meta name="twitter:description" content="Reach AlgoForce AI for consulting, cohorts, founder programs, and partnerships." />
       </Helmet>
 
       <div className="min-h-screen pt-24 bg-gradient-to-b from-navy-50 to-white">
@@ -116,11 +116,11 @@ const Contact = () => {
               transition={{ duration: 0.8 }}
             >
               <h1 className="mb-6 text-5xl font-bold md:text-6xl">
-                Let's Talk <span className="gradient-text bg-gradient-to-r from-purple-400 to-blue-400">Intelligence</span>
+                Enter the <span className="gradient-text bg-gradient-to-r from-purple-400 to-blue-400">Ecosystem</span>
               </h1>
               <p className="max-w-3xl mx-auto text-xl text-gray-300">
-                Schedule a demo, audit consultation, or strategic discussion.
-                We'll show you exactly where revenue is leaking and how to stop it.
+                Tell us whether you need AI services, Labs training, Crucible founder support, or a strategic partnership.
+                The right team will map the next step.
               </p>
             </motion.div>
           </div>
@@ -136,7 +136,7 @@ const Contact = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
               >
-                <h2 className="mb-6 text-3xl sm:text-4xl font-bold text-navy-900">Business Information</h2>
+                <h2 className="mb-6 text-3xl sm:text-4xl font-bold text-navy-900">AlgoForce Contact</h2>
                 <div className="p-6 sm:p-8 mb-8 sm:mb-12 bg-white border border-purple-100 shadow-lg rounded-2xl sm:rounded-3xl">
                   <div className="space-y-6">
                     <div>
@@ -167,10 +167,10 @@ const Contact = () => {
                 <h2 className="mb-6 text-4xl font-bold text-navy-900">What Happens Next?</h2>
                 <div className="space-y-6">
                   {[
-                    { title: 'Initial Assessment', desc: 'We review your submission and respond within 24 hours.' },
-                    { title: 'Discovery Call', desc: '30-minute conversation to understand your business gaps.' },
-                    { title: 'Custom Demonstration', desc: 'See AlgoForce in action with relevant industry examples.' },
-                    { title: 'Implementation Plan', desc: 'A custom roadmap with clear milestones and ROI projections.' }
+                    { title: 'Route Your Request', desc: 'We identify whether your best entry point is Services, Labs, Crucible, or Partnerships.' },
+                    { title: 'Discovery Call', desc: 'A focused conversation around goals, budget, timeline, and expected outcome.' },
+                    { title: 'Custom Roadmap', desc: 'You receive a practical next-step plan with the right offer and scope.' },
+                    { title: 'Execution Kickoff', desc: 'We move into onboarding, payment, cohort admission, event access, or partner setup.' }
                   ].map((step, i) => (
                     <div key={i} className="flex gap-4">
                       <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 font-bold text-white rounded-full bg-gradient-to-br from-purple-600 to-blue-600">
@@ -212,7 +212,7 @@ const Contact = () => {
                     </motion.div>
                   ) : (
                     <form onSubmit={handleSubmit} className="p-8 bg-white border border-gray-100 shadow-xl rounded-3xl">
-                      <h3 className="mb-6 text-2xl font-bold text-navy-900">Get in Touch</h3>
+                      <h3 className="mb-6 text-2xl font-bold text-navy-900">Start Your Request</h3>
 
                       <div className="grid md:grid-cols-2 gap-6">
                         <div className="mb-4">
@@ -262,8 +262,8 @@ const Contact = () => {
                       </div>
 
                       <div className="mb-6">
-                        <label className="block mb-2 font-semibold text-navy-900 text-sm">Challenge Description *</label>
-                        <textarea name="problem" value={formData.problem} onChange={handleChange} required rows="4" placeholder="Tell us about your challenges..." className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none resize-none" />
+                        <label className="block mb-2 font-semibold text-navy-900 text-sm">What do you want to build, learn, or partner on? *</label>
+                        <textarea name="problem" value={formData.problem} onChange={handleChange} required rows="4" placeholder="Tell us your goal, timeline, and which part of AlgoForce you are interested in." className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none resize-none" />
                       </div>
 
                       {status.error && <div className="p-4 mb-6 text-red-700 bg-red-50 border border-red-200 rounded-xl text-sm">{status.error}</div>}
@@ -275,7 +275,7 @@ const Contact = () => {
                         whileTap={{ scale: 0.99 }}
                         className={`w-full py-4 rounded-xl font-bold text-lg text-white transition-all ${status.loading || !formData.phone ? 'bg-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-purple-600 to-indigo-600 shadow-lg hover:shadow-purple-500/20'}`}
                       >
-                        {status.loading ? 'Submitting...' : 'Submit Request'}
+                        {status.loading ? 'Submitting...' : 'Submit Ecosystem Request'}
                       </motion.button>
                       <p className="mt-4 text-xs text-center text-gray-400 italic">No verification required. Fast-track your enquiry.</p>
                     </form>

@@ -1,224 +1,230 @@
-import { verifyOTPSMS, verifyOTPHash } from './authService.js'
-import { getDB } from '../config/database.js'
-import { v4 as uuidv4 } from 'uuid'
+import { verifyOTPSMS } from './authService.js'
+import { getSupabase } from '../config/database.js'
 
-/**
- * Check if user has submitted a contact form in the last 24 hours
- * @param {string} identifier - User phone number or email
- * @returns {Promise<boolean>}
- */
-export const hasRecentSubmission = async (identifier) => {
-  const db = getDB()
-  const last24Hours = new Date(Date.now() - 24 * 60 * 60 * 1000)
+const toContact = (row) => {
+  if (!row) return null
 
-  // Check by phone or email
-  const contact = await db.collection('contacts').findOne({
-    $or: [
-      { phone: identifier },
-      { email: identifier.toLowerCase() }
-    ],
-    submittedAt: { $gte: last24Hours }
-  })
-
-  return !!contact
-}
-
-/**
- * Check if user has requested OTP in the last 5 minutes (rate limiting)
- * @param {string} identifier - User phone number or email
- * @returns {Promise<boolean>}
- */
-export const hasRecentOTPRequest = async (identifier) => {
-  const db = getDB()
-  const last5Minutes = new Date(Date.now() - 5 * 60 * 1000)
-
-  // Check by phone or email for recent OTP requests
-  const contact = await db.collection('contacts').findOne({
-    $or: [
-      { phone: identifier },
-      { email: identifier.toLowerCase() }
-    ],
-    otp_verified: false,
-    submittedAt: { $gte: last5Minutes }
-  })
-
-  return !!contact
-}
-
-/**
- * Create a new contact entry or update existing one
- * @param {Object} contactData - Contact form data
- * @param {string} hashedOTP - Hashed OTP (optional for Twilio)
- * @param {Date} otpExpiry - OTP expiry time (optional for Twilio)
- * @returns {Promise<Object>} - Created/updated contact record
- */
-export const createContact = async (contactData, hashedOTP = null, otpExpiry = null) => {
-  const db = getDB()
-  const { name, company, phone, email, role, problem, inquiryType } = contactData
-
-  // Normalize email to lowercase
-  const normalizedEmail = email ? email.toLowerCase().trim() : ''
-
-  // Check if a contact with same phone or email already exists
-  const existingContact = await db.collection('contacts').findOne({
-    $or: [
-      { phone: phone },
-      { email: normalizedEmail }
-    ]
-  })
-
-  if (existingContact) {
-    // Update existing contact
-    const updatedContact = {
-      name,
-      company,
-      phone,
-      email: normalizedEmail,
-      role,
-      problem,
-      inquiryType: inquiryType || 'demo',
-      status: contactData.status || 'pending',
-      otp: hashedOTP,  // Will be null for Twilio (handled by Twilio service)
-      otp_expiry: otpExpiry,  // Will be null for Twilio
-      otp_verified: contactData.otp_verified || false,
-      updatedAt: new Date()
-    }
-
-    await db.collection('contacts').updateOne(
-      { _id: existingContact._id },
-      { $set: updatedContact }
-    )
-
-    // Fetch the updated contact to return
-    const result = await db.collection('contacts').findOne({ _id: existingContact._id })
-    return result
-  } else {
-    // Create new contact
-    const newContact = {
-      _id: uuidv4(),
-      name,
-      company,
-      phone,
-      email: normalizedEmail,
-      role,
-      problem,
-      inquiryType: inquiryType || 'demo',
-      status: contactData.status || 'pending',
-      otp: hashedOTP,  // Will be null for Twilio (handled by Twilio service)
-      otp_expiry: otpExpiry,  // Will be null for Twilio
-      otp_verified: contactData.otp_verified || false,
-      submittedAt: new Date(),
-      updatedAt: new Date()
-    }
-
-    await db.collection('contacts').insertOne(newContact)
-    return newContact
+  return {
+    _id: row.id,
+    id: row.id,
+    name: row.name,
+    company: row.company,
+    phone: row.phone,
+    email: row.email,
+    role: row.role,
+    problem: row.problem,
+    inquiryType: row.inquiry_type,
+    status: row.status,
+    otp: row.otp,
+    otp_expiry: row.otp_expiry,
+    otp_verified: row.otp_verified,
+    submittedAt: row.submitted_at,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at
   }
 }
 
-/**
- * Verify OTP using Twilio and update contact status
- * @param {string} phone - User phone number
- * @param {string} plainOTP - Plain text OTP from user
- * @returns {Promise<Object>} - Verification result
- */
-export const verifyOTP = async (phone, plainOTP) => {
-  const db = getDB()
+const findContactByIdentifier = async (identifier) => {
+  const supabase = getSupabase()
+  const normalized = (identifier || '').toLowerCase().trim()
 
-  // Find unverified contact with matching phone
-  const contact = await db.collection('contacts').find({
+  const queries = []
+  if (identifier) {
+    queries.push(
+      supabase
+        .from('contacts')
+        .select('*')
+        .eq('phone', identifier)
+        .order('submitted_at', { ascending: false })
+        .limit(1)
+        .maybeSingle()
+    )
+  }
+  if (normalized && normalized.includes('@')) {
+    queries.push(
+      supabase
+        .from('contacts')
+        .select('*')
+        .eq('email', normalized)
+        .order('submitted_at', { ascending: false })
+        .limit(1)
+        .maybeSingle()
+    )
+  }
+
+  for (const query of queries) {
+    const { data, error } = await query
+    if (error) throw error
+    if (data) return data
+  }
+
+  return null
+}
+
+const findExistingContact = async (phone, email) => {
+  const supabase = getSupabase()
+  const normalizedEmail = email ? email.toLowerCase().trim() : ''
+
+  const phoneResult = phone
+    ? await supabase.from('contacts').select('*').eq('phone', phone).limit(1).maybeSingle()
+    : { data: null, error: null }
+  if (phoneResult.error) throw phoneResult.error
+  if (phoneResult.data) return phoneResult.data
+
+  if (normalizedEmail) {
+    const emailResult = await supabase.from('contacts').select('*').eq('email', normalizedEmail).limit(1).maybeSingle()
+    if (emailResult.error) throw emailResult.error
+    if (emailResult.data) return emailResult.data
+  }
+
+  return null
+}
+
+export const hasRecentSubmission = async (identifier) => {
+  const contact = await findContactByIdentifier(identifier)
+  if (!contact?.submitted_at) return false
+
+  const submittedAt = new Date(contact.submitted_at).getTime()
+  return submittedAt >= Date.now() - 24 * 60 * 60 * 1000
+}
+
+export const hasRecentOTPRequest = async (identifier) => {
+  const contact = await findContactByIdentifier(identifier)
+  if (!contact?.submitted_at || contact.otp_verified) return false
+
+  const submittedAt = new Date(contact.submitted_at).getTime()
+  return submittedAt >= Date.now() - 5 * 60 * 1000
+}
+
+export const createContact = async (contactData, hashedOTP = null, otpExpiry = null) => {
+  const supabase = getSupabase()
+  const { name, company, phone, email, role, problem, inquiryType } = contactData
+  const normalizedEmail = email ? email.toLowerCase().trim() : ''
+  const existingContact = await findExistingContact(phone, normalizedEmail)
+
+  const payload = {
+    name,
+    company,
     phone,
-    otp_verified: false
-  })
-    .sort({ submittedAt: -1 })
-    .limit(1)
-    .next()
+    email: normalizedEmail,
+    role,
+    problem,
+    inquiry_type: inquiryType || 'demo',
+    status: contactData.status || 'pending',
+    otp: hashedOTP,
+    otp_expiry: otpExpiry ? otpExpiry.toISOString() : null,
+    otp_verified: contactData.otp_verified || false,
+    updated_at: new Date().toISOString()
+  }
 
+  if (existingContact) {
+    const { data, error } = await supabase
+      .from('contacts')
+      .update(payload)
+      .eq('id', existingContact.id)
+      .select()
+      .single()
+
+    if (error) throw error
+    return toContact(data)
+  }
+
+  const { data, error } = await supabase
+    .from('contacts')
+    .insert({
+      ...payload,
+      submitted_at: new Date().toISOString()
+    })
+    .select()
+    .single()
+
+  if (error) throw error
+  return toContact(data)
+}
+
+export const verifyOTP = async (phone, plainOTP) => {
+  const supabase = getSupabase()
+  const { data: contact, error } = await supabase
+    .from('contacts')
+    .select('*')
+    .eq('phone', phone)
+    .eq('otp_verified', false)
+    .order('submitted_at', { ascending: false })
+    .limit(1)
+    .maybeSingle()
+
+  if (error) throw error
   if (!contact) {
     return { success: false, message: 'Invalid phone number or OTP already verified' }
   }
 
   try {
-    // Verify OTP using service (Twilio or mock)
     const verificationResult = await verifyOTPSMS(phone, plainOTP)
-
     if (!verificationResult.success) {
       return { success: false, message: verificationResult.message }
     }
 
-    // Update contact to verified status
-    await db.collection('contacts').updateOne(
-      { _id: contact._id },
-      {
-        $set: {
-          otp_verified: true,
-          status: 'verified',
-          updatedAt: new Date()
-        },
-        $unset: { otp: "", otp_expiry: "" } // Remove OTP fields after successful verification
-      }
-    )
+    const { error: updateError } = await supabase
+      .from('contacts')
+      .update({
+        otp_verified: true,
+        status: 'verified',
+        otp: null,
+        otp_expiry: null,
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', contact.id)
+
+    if (updateError) throw updateError
 
     return {
       success: true,
       message: 'Phone verified successfully. We will get back to you soon!',
       data: {
-        id: contact._id,
+        id: contact.id,
         name: contact.name,
         phone: contact.phone,
         email: contact.email
       }
     }
-
   } catch (error) {
     console.error('OTP verification service error:', error)
     return { success: false, message: 'Verification service error. Please try again.' }
   }
 }
 
-/**
- * Get all contacts (Admin function)
- * @returns {Promise<Array>}
- */
 export const getAllContacts = async () => {
-  const db = getDB()
-  const contacts = await db.collection('contacts')
-    .find({})
-    .sort({ submittedAt: -1 })
-    .toArray()
+  const supabase = getSupabase()
+  const { data, error } = await supabase
+    .from('contacts')
+    .select('*')
+    .order('submitted_at', { ascending: false })
 
-  return contacts
+  if (error) throw error
+  return (data || []).map(toContact)
 }
 
-/**
- * Get contact by ID (Admin function)
- * @param {string} id - Contact ID
- * @returns {Promise<Object|null>}
- */
 export const getContactById = async (id) => {
-  const db = getDB()
-  const contact = await db.collection('contacts').findOne({ _id: id })
-  return contact
+  const supabase = getSupabase()
+  const { data, error } = await supabase
+    .from('contacts')
+    .select('*')
+    .eq('id', id)
+    .maybeSingle()
+
+  if (error) throw error
+  return toContact(data)
 }
 
-/**
- * Update contact status (Admin function)
- * @param {string} id - Contact ID
- * @param {string} status - New status
- * @returns {Promise<Object>}
- */
 export const updateContactStatus = async (id, status) => {
-  const db = getDB()
+  const supabase = getSupabase()
+  const { data, error } = await supabase
+    .from('contacts')
+    .update({ status, updated_at: new Date().toISOString() })
+    .eq('id', id)
+    .select()
+    .single()
 
-  const result = await db.collection('contacts').findOneAndUpdate(
-    { _id: id },
-    { $set: { status, updatedAt: new Date() } },
-    { returnDocument: 'after' }
-  )
-
-  if (!result.value) {
-    throw new Error('Contact not found')
-  }
-
-  return result.value
+  if (error) throw error
+  return toContact(data)
 }

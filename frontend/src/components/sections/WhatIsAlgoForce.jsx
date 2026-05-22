@@ -11,22 +11,30 @@ const WhatIsAlgoForce = () => {
   const cards = [
     {
       icon: <FaBolt />,
-      title: 'Precision Execution',
-      description: 'We eliminate the friction between concept and deployment. Our systems are built for founders who demand speed.',
+      title: 'Services Engine',
+      description: 'AlgoForce AI delivers consulting, lead generation, CRM systems, web and app builds, and AI automation for businesses.',
       color: 'bg-purple-100 text-purple-600'
     },
     {
       icon: <FaCode />,
-      title: 'Studio Standards',
-      description: 'Engineering excellence at every layer. We build software that performs, scales, and delivers value from Day 1.',
+      title: 'Talent Engine',
+      description: 'AlgoForce Labs trains professionals through cohorts, certifications, capstones, apprenticeships, and placement pathways.',
       color: 'bg-blue-100 text-blue-600'
     },
     {
       icon: <FaChartLine />,
-      title: 'Revenue Obsessed',
-      description: 'We don’t just ship code; we build machines that drive growth, capture leads, and automate revenue streams.',
+      title: 'Innovation Engine',
+      description: 'Crucible brings founders into hackathons, incubator cohorts, demo days, investor rooms, and venture opportunities.',
       color: 'bg-green-100 text-green-600'
     }
+  ]
+
+  const faqs = [
+    { q: 'What are the three parts of AlgoForce AI?', a: 'AlgoForce AI for services, AlgoForce Labs for education and talent, and Crucible for founders, hackathons, incubation, and venture pipeline.' },
+    { q: 'What does AlgoForce AI Core do?', a: 'It provides AI consulting, lead generation, branding, web and app development, CRM implementation, and automation for businesses.' },
+    { q: 'What is AlgoForce Labs?', a: 'Labs runs AI courses, live cohorts, certifications, apprenticeships, career tracks, and placement support for students and professionals.' },
+    { q: 'What is Crucible?', a: 'Crucible is the founder ecosystem: hackathons, community, incubator cohorts, demo days, mentor access, and startup pipeline.' },
+    { q: 'How does the business model work?', a: 'Revenue comes from retainers, projects, Labs cohorts, SaaS products, events, memberships, placements, corporate training, and venture upside.' }
   ]
 
   return (
@@ -38,20 +46,18 @@ const WhatIsAlgoForce = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          {/* Section Header */}
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-end mb-10 md:mb-16">
             <div>
-              <h2 className="text-[12px] font-bold uppercase tracking-[0.4em] text-purple-600 mb-6">The Methodology</h2>
+              <h2 className="text-[12px] font-bold uppercase tracking-[0.4em] text-purple-600 mb-6">The Ecosystem</h2>
               <h3 className="text-5xl md:text-7xl font-black leading-[1] tracking-tighter">
-                Crafting the Future of <span className="text-gray-300">Software.</span>
+                Services, Labs & <span className="text-gray-300">Crucible.</span>
               </h3>
             </div>
             <p className="text-xl text-gray-500 font-medium leading-relaxed max-w-md">
-              AlgoForce is a specialized execution studio. We partner with innovators to build products that define markets.
+              AlgoForce AI is a full-stack AI-powered growth ecosystem for businesses, professionals, and founders.
             </p>
           </div>
 
-          {/* Cards */}
           <div className="grid md:grid-cols-3 gap-8">
             {cards.map((card, idx) => (
               <motion.div
@@ -70,24 +76,22 @@ const WhatIsAlgoForce = () => {
             ))}
           </div>
 
-          {/* Big Visual Block */}
           <div className="mt-12 md:mt-16 p-1 rounded-[3rem] bg-gradient-to-br from-purple-500/20 to-transparent">
             <div className="bg-white rounded-[2.9rem] p-12 md:p-20 flex flex-col md:flex-row items-center gap-16 border border-white">
               <div className="flex-1">
-                <h4 className="text-4xl md:text-5xl font-black mb-8 tracking-tighter">Engineered for Rapid Scaling.</h4>
+                <h4 className="text-4xl md:text-5xl font-black mb-8 tracking-tighter">Engineered as a Flywheel.</h4>
                 <p className="text-xl text-gray-500 font-medium mb-10 leading-relaxed">
-                  Our internal toolset, including the <span className="text-black font-black">Crucible Engine</span>,
-                  allows us to bypass traditional development bottlenecks and ship high-performance assets in record time.
+                  Services revenue funds Labs. Labs creates talent. Crucible creates startups. Startups become clients, SaaS users, and portfolio upside.
                 </p>
                 <div className="flex items-center gap-6">
                   <div className="text-center">
-                    <div className="text-3xl font-black text-purple-600">7-14</div>
-                    <div className="text-[11px] uppercase font-bold tracking-widest text-gray-400">Day Launch</div>
+                    <div className="text-3xl font-black text-purple-600">3</div>
+                    <div className="text-[11px] uppercase font-bold tracking-widest text-gray-400">Core Pillars</div>
                   </div>
                   <div className="w-px h-10 bg-gray-200" />
                   <div className="text-center">
-                    <div className="text-3xl font-black text-purple-600">100%</div>
-                    <div className="text-[11px] uppercase font-bold tracking-widest text-gray-400">IP Ownership</div>
+                    <div className="text-3xl font-black text-purple-600">10+</div>
+                    <div className="text-[11px] uppercase font-bold tracking-widest text-gray-400">Revenue Lines</div>
                   </div>
                 </div>
               </div>
@@ -98,25 +102,17 @@ const WhatIsAlgoForce = () => {
             </div>
           </div>
 
-          {/* Factual Entity Definition (AEO) */}
           <div className="mt-16 md:mt-24 max-w-4xl border-l-4 border-purple-600 pl-8 md:pl-12 py-4">
             <h4 className="text-[12px] font-bold uppercase tracking-[0.4em] text-purple-600 mb-6">Institutional Profile</h4>
             <p className="text-2xl font-bold text-gray-900 leading-tight">
-              AlgoForce AI is a global premier AI execution and growth agency specialized in building high-performance AI automation, custom SaaS product development, and MSME-certified industrial training. Operating globally from India, AlgoForce AI serves businesses seeking to scale through algorithmic intelligence and automated revenue systems.
+              AlgoForce AI combines premium AI consulting, AlgoForce Labs education, and Crucible founder incubation under one unified brand.
             </p>
           </div>
 
-          {/* FAQ Section */}
           <div className="mt-12 md:mt-20">
             <h4 className="text-[12px] font-bold uppercase tracking-[0.4em] text-purple-600 mb-12 text-center">Frequently Asked Questions</h4>
             <div className="grid md:grid-cols-2 gap-x-16 gap-y-12">
-              {[
-                { q: 'What services does AlgoForce AI provide?', a: 'AlgoForce AI specializes in building AI automation systems, custom SaaS MVPs, and scalable digital revenue infrastructures for global enterprises and startups.' },
-                { q: 'Is AlgoForce AI an MSME certified company?', a: 'Yes, AlgoForce AI is a proud MSME-certified AI growth agency, ensuring elite industry standards in custom software development and technology training.' },
-                { q: 'How fast can you deliver an AI MVP?', a: 'We leverage our proprietary Crucible Engine to bypass traditional bottlenecks, typically launching functional high-performance MVPs within 14 to 30 days.' },
-                { q: 'Do you offer custom AI industrial training?', a: 'Yes, through AlgoForce Labs, we offer professional certification and hands-on workshops in MERN development, Python, and AI automation for students and teams.' },
-                { q: 'Can I book a consultation for my business?', a: 'Absolutely. You can schedule a strategy session through our contact portal to audit your current systems and explore custom AI integration roadmaps.' }
-              ].map((faq, i) => (
+              {faqs.map((faq, i) => (
                 <div key={i} className="border-b border-gray-100 pb-8">
                   <h5 className="text-xl font-black mb-4 tracking-tight">{faq.q}</h5>
                   <p className="text-gray-500 font-medium leading-relaxed">{faq.a}</p>

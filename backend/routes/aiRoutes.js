@@ -1,8 +1,7 @@
 import express from 'express'
 import rateLimit from 'express-rate-limit'
-import { body, validationResult } from 'express-validator'
 import jwt from 'jsonwebtoken'
-import Project from '../models/Project.js'
+import { createProject, getProjectById, updateProject } from '../services/projectService.js'
 
 const router = express.Router()
 
@@ -178,36 +177,40 @@ router.post('/chat', aiLimiter, optionalAuth, async (req, res) => {
             }
         } catch (_) { }
 
-        // Save to DB if we have a project or user
+        // Save to Supabase if we have a project or user/session
         let savedProjectId = projectId
         if (project || req.userId || sessionId) {
             try {
                 const userMessage = messages[messages.length - 1]
                 if (projectId) {
-                    const proj = await Project.findById(projectId)
+                    const proj = await getProjectById(projectId)
                     if (proj) {
-                        proj.messages.push({ role: 'user', content: userMessage.content })
-                        proj.messages.push({ role: 'assistant', content: fullResponse })
-                        if (project) {
-                            proj.files = project.files
-                            proj.name = project.project_name || proj.name
-                        }
-                        await proj.save()
+                        const nextMessages = [
+                            ...(proj.messages || []),
+                            { role: 'user', content: userMessage.content, timestamp: new Date().toISOString() },
+                            { role: 'assistant', content: fullResponse, timestamp: new Date().toISOString() }
+                        ]
+                        await updateProject(projectId, {
+                            messages: nextMessages,
+                            files: project ? project.files : proj.files,
+                            name: project?.project_name || proj.name,
+                            description: project?.description || proj.description,
+                            model
+                        })
                     }
                 } else {
-                    const newProject = new Project({
+                    const newProject = await createProject({
                         userId: req.userId || undefined,
                         sessionId: sessionId || undefined,
                         name: project?.project_name || 'New Chat',
                         description: project?.description || '',
                         files: project?.files || [],
                         messages: [
-                            { role: 'user', content: userMessage.content },
-                            { role: 'assistant', content: fullResponse }
+                            { role: 'user', content: userMessage.content, timestamp: new Date().toISOString() },
+                            { role: 'assistant', content: fullResponse, timestamp: new Date().toISOString() }
                         ],
                         model
                     })
-                    await newProject.save()
                     savedProjectId = newProject._id
                 }
             } catch (dbErr) {

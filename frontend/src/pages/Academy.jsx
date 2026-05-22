@@ -14,8 +14,8 @@ const Academy = () => {
     return (
         <>
             <Helmet>
-                <title>AlgoForce Academy – Professional AI Product Engineering</title>
-                <meta name="description" content="Build career-ready skills with AlgoForce Academy. Hands-on AI product engineering, MERN development, and mentored projects for top-tier certifications." />
+                <title>AlgoForce Academy - Labs Cohorts & AI Career Tracks</title>
+                <meta name="description" content="Build career-ready AI skills through AlgoForce Labs cohorts, capstone projects, certification, apprenticeship pathways, and placement-focused learning." />
                 <link rel="canonical" href="https://www.algoforceaii.com/academy" />
                 <script type="application/ld+json">
                 {`
@@ -51,8 +51,8 @@ const Academy = () => {
                     }
                 `}
                 </script>
-                <meta property="og:title" content="AlgoForce Academy – Master AI & Product Engineering" />
-                <meta property="og:description" content="Comprehensive courses and mentorship for AI builders and full-stack developers." />
+                <meta property="og:title" content="AlgoForce Academy - AI Cohorts & Career Tracks" />
+                <meta property="og:description" content="Cohort-based AI learning, real projects, certifications, apprenticeships, and placement pathways." />
                 <meta property="og:image" content="https://www.algoforceaii.com/og-academy.png" />
                 <meta name="twitter:card" content="summary_large_image" />
             </Helmet>
@@ -65,7 +65,10 @@ const Academy = () => {
                 <LiveWorkshops />
                 <Webinars />
                 <LearningPaths />
-                <PaymentGateway />
+                <PaymentGateway
+                    title="Labs Cohort Payments"
+                    subtitle="Scan to reserve your seat for an AlgoForce Labs cohort, workshop, certification, or apprenticeship track."
+                />
                 <Testimonials />
                 <FinalCTA />
             </div>

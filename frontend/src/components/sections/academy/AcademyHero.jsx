@@ -86,10 +86,10 @@ const AcademyHero = () => {
                     >
                         <span className="block text-white mb-2">Build Real</span>
                         <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-purple-400/50">
-                            AI Products.
+                            AI Systems.
                         </span>
                         <div className="text-3xl md:text-5xl lg:text-7xl text-gray-500 font-medium mt-6 tracking-normal">
-                             In 2 Hours. No Coding.
+                             Cohorts. Projects. Placement.
                         </div>
                     </motion.h1>
 
@@ -100,8 +100,8 @@ const AcademyHero = () => {
                         transition={{ delay: 0.5 }}
                         className="max-w-2xl mx-auto mb-12 md:mb-16 text-sm md:text-xl text-gray-400 font-medium leading-relaxed italic"
                     >
-                        MSME-certified AI training with real-world projects, execution labs, and job-ready skills. 
-                        Skip the boring slides. Deploy production-grade AI systems in hours.
+                        Cohort-based AI training with real-world projects, certification, apprenticeships, and job-ready portfolio proof.
+                        Learn inside the talent engine that powers the AlgoForce ecosystem.
                     </motion.p>
 
                     {/* Action CTAs */}
@@ -112,7 +112,7 @@ const AcademyHero = () => {
                                 whileTap={{ scale: 0.95 }}
                                 className="px-12 py-5 bg-white text-black rounded-full font-bold text-[15px] shadow-[0_20px_40px_rgba(255,255,255,0.1)] transition-all"
                             >
-                                Start Building AI {'->'}
+                                Join a Cohort {'->'}
                             </motion.button>
                         </Link>
                         <Link to="/labs">
@@ -121,7 +121,7 @@ const AcademyHero = () => {
                                 whileTap={{ scale: 0.95 }}
                                 className="px-10 py-5 border border-white/10 rounded-full font-bold text-[15px] hover:border-white/30 backdrop-blur-xl transition-all"
                             >
-                                View Labs Proof
+                                View Labs Tracks
                             </motion.button>
                         </Link>
                     </div>

@@ -1,14 +1,9 @@
 -- =====================================================
 -- AlgoForce AI Supabase Backend Setup
 -- =====================================================
--- Run this in the Supabase SQL Editor, then set:
--- SUPABASE_URL
--- SUPABASE_SERVICE_ROLE_KEY
--- =====================================================
 
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
--- Shared updated_at trigger
 CREATE OR REPLACE FUNCTION public.update_updated_at_column()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -16,10 +11,6 @@ BEGIN
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
-
--- =====================================================
--- Contacts: public enquiries, OTP state, admin pipeline
--- =====================================================
 
 CREATE TABLE IF NOT EXISTS public.contacts (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -51,10 +42,6 @@ BEFORE UPDATE ON public.contacts
 FOR EACH ROW
 EXECUTE FUNCTION public.update_updated_at_column();
 
--- =====================================================
--- App users: JWT auth for website dashboard and AI builder
--- =====================================================
-
 CREATE TABLE IF NOT EXISTS public.app_users (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   name TEXT NOT NULL,
@@ -76,10 +63,6 @@ CREATE TRIGGER update_app_users_updated_at
 BEFORE UPDATE ON public.app_users
 FOR EACH ROW
 EXECUTE FUNCTION public.update_updated_at_column();
-
--- =====================================================
--- Projects: AI builder history, generated files, messages
--- =====================================================
 
 CREATE TABLE IF NOT EXISTS public.projects (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -103,10 +86,6 @@ CREATE TRIGGER update_projects_updated_at
 BEFORE UPDATE ON public.projects
 FOR EACH ROW
 EXECUTE FUNCTION public.update_updated_at_column();
-
--- =====================================================
--- RLS: backend uses service role; public browser reads blocked
--- =====================================================
 
 ALTER TABLE public.contacts ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.app_users ENABLE ROW LEVEL SECURITY;

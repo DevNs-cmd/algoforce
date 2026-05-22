@@ -7,52 +7,52 @@ const FeaturedCourses = () => {
 
     const courses = [
         {
-            title: "BTech / BCA Complete Tech Pack",
+            title: "AI for Business Founders",
             instructor: "Dev N Suman",
-            duration: "6 Months",
-            level: "All Levels",
-            price: "₹7,999",
-            originalPrice: "₹45,000",
+            duration: "8 Weeks",
+            level: "Founders",
+            price: "Rs 15,000",
+            originalPrice: "Rs 45,000",
             badge: "Best Seller",
             badgeColor: "bg-purple-600",
-            details: "Detailed masterclass for engineering students covering C, C++, Java, Python, DSA, and MERN Stack. includes 5+ Industrial projects.",
-            perks: ["Internship Certificate", "Placement Prep", "Live Mentorship", "Source Code Access"]
+            details: "Founder cohort covering AI roadmaps, automation use-cases, funnel systems, and practical business deployment.",
+            perks: ["AI Roadmap", "Automation Playbooks", "Live Mentorship", "Capstone Build"]
         },
         {
-            title: "Full Stack MERN Mastery",
-            instructor: "Alex Rivera",
-            duration: "4 Months",
-            level: "Intermediate",
-            price: "₹8,999",
-            originalPrice: "₹35,000",
+            title: "Full-Stack AI Developer",
+            instructor: "Dev N Suman",
+            duration: "16 Weeks",
+            level: "Developer",
+            price: "Rs 35,000",
+            originalPrice: "Rs 75,000",
             badge: "Popular",
             badgeColor: "bg-blue-600",
-            details: "Comprehensive bootcamp covering MERN stack with modern UI/UX principles and enterprise-grade deployment logic.",
-            perks: ["Portfolio Building", "Resume Review", "API Mastery", "Cloud Hosting"]
+            details: "Full-stack program for engineers building AI-enabled web apps, APIs, automations, and deployment-ready portfolios.",
+            perks: ["Portfolio Building", "API Mastery", "Cloud Deployment", "AI Integrations"]
         },
         {
             title: "Data Analytics + AI Systems",
             instructor: "Dev N Suman",
-            duration: "4 Months",
-            level: "Intermediate",
-            price: "₹6,999",
-            originalPrice: "₹30,000",
+            duration: "12 Weeks",
+            level: "Analyst",
+            price: "Rs 25,000",
+            originalPrice: "Rs 60,000",
             badge: "Trending",
             badgeColor: "bg-green-600",
-            details: "Learn Excel, SQL, Python, Power BI, and basics of ML. Build industrial business intelligence frameworks.",
-            perks: ["Advanced Excel", "Power BI / Tableau", "Machine Learning", "Real Dashboards"]
+            details: "Analytics cohort covering SQL, Python, dashboards, AI insight generation, and executive reporting systems.",
+            perks: ["SQL + Python", "Power BI", "AI Insights", "Real Dashboards"]
         },
         {
-            title: "AI + Future Tech Starter",
+            title: "AI Automation Engineer",
             instructor: "Dev N Suman",
-            duration: "3 Months",
-            level: "Intermediate",
-            price: "₹5,999",
-            originalPrice: "₹25,000",
+            duration: "14 Weeks",
+            level: "Automation",
+            price: "Rs 30,000",
+            originalPrice: "Rs 65,000",
             badge: "Premium",
             badgeColor: "bg-orange-600",
-            details: "Prompt Engineering, ChatGPT Automation, and AI Startup building. The ultimate agentic workflow course.",
-            perks: ["AI Tool Mastery", "Automation Workflows", "Startup Basics", "Agentic Logic"]
+            details: "Hands-on cohort for n8n, Make, Zapier, prompt systems, AI agents, and client-ready process automation.",
+            perks: ["AI Agents", "n8n + Make", "Prompt Systems", "Client Workflows"]
         }
     ]
 
@@ -65,7 +65,7 @@ const FeaturedCourses = () => {
                     className="inline-flex items-center gap-2 px-4 py-1.5 mb-8 rounded-full bg-white/5 border border-white/10 backdrop-blur-3xl"
                 >
                     <div className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse" />
-                    <span className="text-[10px] font-black uppercase tracking-[0.4em] text-gray-500">Student Pricing Model</span>
+                    <span className="text-[10px] font-black uppercase tracking-[0.4em] text-gray-500">Labs Cohort Model</span>
                 </motion.div>
                 <motion.h2 
                     initial={{ opacity: 0, scale: 0.95 }}
@@ -75,7 +75,7 @@ const FeaturedCourses = () => {
                     Featured <span className="text-purple-600">Labs</span>
                 </motion.h2>
                 <p className="text-gray-400 font-medium max-w-2xl mx-auto text-sm md:text-lg italic px-4">
-                    MSME Government Registered Certification Programs for the next generation of BTech/BCA engineers.
+                    Cohort programs designed for founders, developers, analysts, marketers, and automation builders.
                 </p>
             </div>
 
@@ -188,7 +188,7 @@ const FeaturedCourses = () => {
                                                 <div className="h-full bg-purple-600 w-[98%]" />
                                             </div>
                                             <p className="text-[11px] text-gray-600 font-bold uppercase tracking-widest italic leading-relaxed">
-                                                All students receive valid Govt MSME registration certificate upon successful completion.
+                                                Learners graduate with portfolio proof, certification, and a path into apprenticeship or placement.
                                             </p>
                                         </div>
                                     </div>

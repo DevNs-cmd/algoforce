@@ -1,8 +1,8 @@
 import express from 'express'
 import archiver from 'archiver'
 import jwt from 'jsonwebtoken'
-import Project from '../models/Project.js'
 import rateLimit from 'express-rate-limit'
+import { deleteProject, getProjectById, listProjects } from '../services/projectService.js'
 
 const router = express.Router()
 
@@ -23,48 +23,38 @@ const downloadLimiter = rateLimit({
     message: { success: false, message: 'Too many download requests.' }
 })
 
-// GET /api/projects — list projects for current user/session
 router.get('/', optionalAuth, async (req, res) => {
     try {
         const { sessionId } = req.query
-        const query = {}
-        if (req.userId) query.userId = req.userId
-        else if (sessionId) query.sessionId = sessionId
-        else return res.json({ success: true, projects: [] })
-
-        const projects = await Project.find(query)
-            .select('name description createdAt updatedAt model files')
-            .sort({ updatedAt: -1 })
-            .limit(50)
-
+        const projects = await listProjects({ userId: req.userId, sessionId })
         res.json({ success: true, projects })
     } catch (err) {
+        console.error('Project list error:', err.message)
         res.status(500).json({ success: false, message: 'Failed to fetch projects' })
     }
 })
 
-// GET /api/projects/:id — get a single project with full messages
 router.get('/:id', optionalAuth, async (req, res) => {
     try {
-        const project = await Project.findById(req.params.id)
+        const project = await getProjectById(req.params.id)
         if (!project) return res.status(404).json({ success: false, message: 'Project not found' })
         res.json({ success: true, project })
     } catch (err) {
+        console.error('Project fetch error:', err.message)
         res.status(500).json({ success: false, message: 'Failed to fetch project' })
     }
 })
 
-// DELETE /api/projects/:id
 router.delete('/:id', optionalAuth, async (req, res) => {
     try {
-        await Project.findByIdAndDelete(req.params.id)
+        await deleteProject(req.params.id)
         res.json({ success: true, message: 'Project deleted' })
     } catch (err) {
+        console.error('Project delete error:', err.message)
         res.status(500).json({ success: false, message: 'Failed to delete project' })
     }
 })
 
-// POST /api/projects/download — bundle files into ZIP
 router.post('/download', downloadLimiter, async (req, res) => {
     const { files, projectName = 'algoforce-project' } = req.body
 

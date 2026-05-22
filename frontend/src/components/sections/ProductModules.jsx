@@ -12,27 +12,27 @@ const ProductModules = () => {
   const services = [
     {
       icon: <FaRobot />,
-      title: 'AI Intelligence',
-      desc: 'Autonomous agents and chatbots designed to capture leads 24/7 and eliminate repetitive manual tasks.',
-      tag: 'Automation'
+      title: 'AlgoForce AI Core',
+      desc: 'AI consulting, lead generation, branding, web/app development, CRM systems, and automation retainers for businesses.',
+      tag: 'Services'
     },
     {
       icon: <FaCode />,
-      title: 'MVP Engineering',
-      desc: 'Rapid prototyping and full-stack development for startups. Go from concept to deployment in 14 days.',
-      tag: 'Development'
+      title: 'AlgoForce Labs',
+      desc: 'Cohort programs, certifications, apprenticeships, and a hiring pipeline that turns learners into client-ready builders.',
+      tag: 'Education'
     },
     {
       icon: <FaMobileAlt />,
-      title: 'Elite Web Ops',
-      desc: 'High-conversion, premium websites built with modern frameworks and pixel-perfect design standards.',
-      tag: 'Web Design'
+      title: 'Crucible',
+      desc: 'Founder community, hackathons, demo days, incubator cohorts, mentor access, and startup venture pipeline.',
+      tag: 'Founders'
     },
     {
       icon: <FaChartBar />,
-      title: 'Growth Engines',
-      desc: 'Strategic SEO, AEO, and automation systems engineered to compound your business revenue.',
-      tag: 'Scale'
+      title: 'SaaS Roadmap',
+      desc: 'AlgoLeads, AlgoContent, AlgoCRM, and analytics products designed to turn delivery IP into recurring revenue.',
+      tag: 'Products'
     }
   ]
 
@@ -47,12 +47,12 @@ const ProductModules = () => {
           animate={inView ? { opacity: 1 } : {}}
           className="text-center mb-10 md:mb-16"
         >
-          <h2 className="text-[12px] font-bold uppercase tracking-[0.5em] text-purple-500 mb-6">Verticals</h2>
+          <h2 className="text-[12px] font-bold uppercase tracking-[0.5em] text-purple-500 mb-6">Three Engines</h2>
           <h3 className="text-5xl md:text-7xl font-black tracking-tighter mb-8">
-            Execution <span className="text-gray-800">Specialties.</span>
+            One <span className="text-gray-800">Ecosystem.</span>
           </h3>
           <p className="max-w-xl mx-auto text-gray-400 font-medium text-lg leading-relaxed">
-            Everything you need to automate your operations and scale your revenue through specialized AI engineering.
+            Services create revenue, Labs creates talent, and Crucible creates founders. Each engine strengthens the next.
           </p>
         </motion.div>
 
@@ -75,7 +75,7 @@ const ProductModules = () => {
               <p className="text-gray-500 text-sm leading-relaxed font-medium mb-12 flex-grow">{s.desc}</p>
               <Link to="/contact">
                 <button className="text-[11px] font-bold uppercase tracking-widest text-purple-400 group-hover:text-white flex items-center gap-2 transition-colors">
-                  Inquire Module <FaArrowRight size={10} />
+                  Explore Engine <FaArrowRight size={10} />
                 </button>
               </Link>
             </motion.div>
@@ -89,12 +89,12 @@ const ProductModules = () => {
           className="mt-12 md:mt-16 p-8 md:p-12 rounded-[3.5rem] bg-gradient-to-br from-[#1A1A2E] to-transparent border border-white/10 flex flex-col md:flex-row justify-between items-center gap-12"
         >
           <div className="text-left">
-            <div className="text-purple-500 text-3xl mb-4 font-black">75%</div>
-            <h4 className="text-2xl font-bold mb-2">Efficiency Boost.</h4>
-            <p className="text-gray-400 text-sm font-medium">Founders using our AI modules report massive reductions in manual overhead.</p>
+            <div className="text-purple-500 text-3xl mb-4 font-black">10+</div>
+            <h4 className="text-2xl font-bold mb-2">Revenue Streams.</h4>
+            <p className="text-gray-400 text-sm font-medium">Retainers, projects, Labs cohorts, SaaS tools, events, memberships, placements, training, and venture upside.</p>
           </div>
           <Link to="/pricing">
-            <button className="px-10 py-5 bg-white text-black rounded-2xl font-bold text-sm uppercase tracking-widest hover:scale-105 transition-all">Explore Combo Packs</button>
+            <button className="px-10 py-5 bg-white text-black rounded-2xl font-bold text-sm uppercase tracking-widest hover:scale-105 transition-all">Explore Pricing</button>
           </Link>
         </motion.div>
       </div>

@@ -15,12 +15,12 @@ const AcademyFinalCTA = () => {
                     transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                  >
                     <h2 className="text-4xl md:text-7xl lg:text-8xl font-black mb-8 leading-tight tracking-tight">
-                        Start <span className="text-transparent bg-clip-text bg-gradient-to-br from-purple-400 to-blue-500">Building</span>.<br />
-                        <span className="text-gray-400">Stop Just Watching Tutorials.</span>
+                        Join <span className="text-transparent bg-clip-text bg-gradient-to-br from-purple-400 to-blue-500">Labs</span>.<br />
+                        <span className="text-gray-400">Graduate Into Real Work.</span>
                     </h2>
 
                     <p className="max-w-2xl mx-auto mb-16 text-sm md:text-lg text-gray-500 font-medium leading-relaxed tracking-tight italic">
-                        The era of passive learning is over. Join 5,000+ builders worldwide who are engineering the future of AI.
+                        Build portfolio proof, earn certification, enter apprenticeships, and connect with the wider AlgoForce ecosystem.
                     </p>
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
@@ -30,7 +30,7 @@ const AcademyFinalCTA = () => {
                                 whileTap={{ scale: 0.95 }}
                                 className="px-12 py-5 bg-white text-black rounded-full font-bold text-sm shadow-[0_20px_40px_rgba(255,255,255,0.1)] transition-all flex items-center gap-4"
                             >
-                                <FaGraduationCap className="text-lg" /> Browse Courses
+                                <FaGraduationCap className="text-lg" /> Browse Cohorts
                             </motion.button>
                         </Link>
                         <Link to="#community">
@@ -39,7 +39,7 @@ const AcademyFinalCTA = () => {
                                 whileTap={{ scale: 0.95 }}
                                 className="px-12 py-5 border border-white/10 rounded-full font-bold text-sm text-white hover:border-white/30 backdrop-blur-xl transition-all flex items-center gap-4"
                             >
-                                <FaDiscord className="text-lg text-[#5865F2]" /> Join Community
+                                <FaDiscord className="text-lg text-[#5865F2]" /> Enter Crucible
                             </motion.button>
                         </Link>
                     </div>

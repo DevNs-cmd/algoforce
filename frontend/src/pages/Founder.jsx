@@ -35,10 +35,10 @@ const Founder = () => {
             Meet the Founder
           </p>
           <h1 className="text-4xl md:text-5xl font-black tracking-tight">
-            Dev N Suman — Founder & CEO of AlgoForce AI
+            Dev N Suman - Founder & CEO of AlgoForce AI
           </h1>
           <p className="text-lg text-gray-400 max-w-3xl mx-auto leading-relaxed">
-            Dev N Suman leads AlgoForce AI, an Indian platform that teaches artificial intelligence through hands-on courses and helps early-stage startups build their MVPs with AI-powered tools, expert guidance, and a builder-first mindset.
+            Dev N Suman leads AlgoForce AI as a full-stack AI growth ecosystem combining premium consulting, AlgoForce Labs education, and Crucible founder incubation.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
             <a
@@ -59,23 +59,24 @@ const Founder = () => {
         </section>
 
         <section className="bg-white/5 border border-white/10 rounded-3xl p-10 space-y-6 leading-relaxed text-gray-200">
-          <h2 className="text-2xl font-extrabold text-white">The Story</h2>
+          <h2 className="text-2xl font-extrabold text-white">The Ecosystem Story</h2>
           <p>
-            Dev N Suman is the founder and CEO of AlgoForce AI, an Indian AI platform that helps students learn artificial intelligence through hands-on courses and helps early-stage startups build their MVPs with AI-powered tools and expert guidance.
+            Dev N Suman is building AlgoForce AI as a three-engine company: AlgoForce AI Core for services, AlgoForce Labs for talent, and Crucible for founders.
           </p>
           <p>
-            Dev started AlgoForce AI with a mission to make AI education accessible to every student in India and to help the next generation of founders build faster, smarter, and leaner using AI.
+            The mission is to give businesses AI execution, give professionals job-ready AI capability, and give founders a serious community for validation, demo days, and investor readiness.
           </p>
           <p>
-            With a background in technology and a deep passion for building real-world AI products, Dev has helped multiple startups go from idea to working product through AlgoForce AI's Labs and consulting services.
+            With a background in technology and a builder-first mindset, Dev shaped the model so every service, course, hackathon, SaaS product, and startup relationship strengthens the same flywheel.
           </p>
           <p>
-            AlgoForce AI today offers AI courses, an AI builder platform, startup MVP development, and a growing community of students and founders across India.
+            AlgoForce AI today covers consulting retainers, project-based AI delivery, Labs cohorts, apprenticeships, Crucible hackathons, founder memberships, SaaS products, and venture pipeline.
           </p>
           <div className="flex flex-wrap gap-3 pt-4">
             <Link to="/academy" className="text-purple-400 font-bold underline">Explore Academy</Link>
             <Link to="/ai-builder" className="text-purple-400 font-bold underline">Try AI Builder</Link>
             <Link to="/labs" className="text-purple-400 font-bold underline">Visit Labs</Link>
+            <a href="https://crucible-website-omega.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-purple-400 font-bold underline">Enter Crucible</a>
             <Link to="/blog/dev-suman-algoforce-ai-founder-story" className="text-purple-400 font-bold underline">Read the Founder Story</Link>
           </div>
         </section>

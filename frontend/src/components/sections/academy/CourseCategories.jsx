@@ -3,19 +3,19 @@ import { FaRobot, FaLayerGroup, FaRocket, FaGlobe, FaDatabase, FaServer } from '
 
 const CourseCategories = () => {
     const categories = [
-        { icon: FaRobot, title: "AI & Machine Learning", desc: "Build generative AI, LLMs & agents." },
-        { icon: FaLayerGroup, title: "Full Stack Development", desc: "Modern stack for robust engineering." },
-        { icon: FaRocket, title: "Startup & Product Building", desc: "From idea to market validation." },
-        { icon: FaGlobe, title: "Web3 & Blockchain", desc: "Decentralized future engineering." },
-        { icon: FaDatabase, title: "Data Science", desc: "Extract insights from raw data." },
-        { icon: FaServer, title: "DevOps & Cloud", desc: "Deploy & scale infrastructure." }
+        { icon: FaRobot, title: "AI Automation", desc: "Agents, workflows, prompts, and integrations." },
+        { icon: FaLayerGroup, title: "Full-Stack AI", desc: "Modern apps with AI-native product logic." },
+        { icon: FaRocket, title: "Founder AI", desc: "Use AI for validation, operations, and growth." },
+        { icon: FaGlobe, title: "AI Marketing", desc: "Content systems, funnels, and lead generation." },
+        { icon: FaDatabase, title: "Data Analytics", desc: "Dashboards, SQL, Python, and AI insights." },
+        { icon: FaServer, title: "Apprenticeship", desc: "Move from cohort work to client projects." }
     ]
 
     return (
         <section className="bg-black py-24 px-6 overflow-hidden">
             <div className="max-w-7xl mx-auto mb-16 px-4">
-                <h2 className="text-3xl md:text-5xl font-bold mb-4">Choose Your Track.</h2>
-                <p className="text-gray-400 font-medium">Focused learning paths to accelerate your career.</p>
+                <h2 className="text-3xl md:text-5xl font-bold mb-4">Choose Your Labs Track.</h2>
+                <p className="text-gray-400 font-medium">Focused learning paths connected to the AlgoForce talent pipeline.</p>
             </div>
 
             <div className="flex overflow-x-auto no-scrollbar gap-5 px-6 md:gap-8 md:px-24">

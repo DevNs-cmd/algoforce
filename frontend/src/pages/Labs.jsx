@@ -8,87 +8,87 @@ import { Link } from 'react-router-dom'
 const SECTIONS = {
     mega: [
         { 
-            title: 'BTech / BCA Complete Pack', 
-            description: 'Full software engineering roadmap.',
-            price: '₹7,999', 
-            originalPrice: '₹45,000',
+            title: 'AI for Business Founders', 
+            description: '8-week cohort for founders and CEOs using AI to grow operations.',
+            price: 'Rs 15,000', 
+            originalPrice: 'Rs 45,000',
             label: 'Popular',
             icon: FaGraduationCap,
             color: '#A855F7',
-            features: ['Internship certificate', 'Placement support', '5+ projects', 'Portfolio building']
+            features: ['AI roadmap', 'Business automation', 'Founder playbooks', 'Capstone project']
         },
         { 
-            title: 'Full Stack MERN Pack', 
-            description: 'Master architecture to deployment.',
-            price: '₹8,999', 
-            originalPrice: '₹35,000',
+            title: 'Full-Stack AI Developer', 
+            description: '16-week track for engineers building AI-enabled products.',
+            price: 'Rs 35,000', 
+            originalPrice: 'Rs 75,000',
             label: 'Trending',
             icon: FaCode,
             color: '#00FF87',
-            features: ['MERN certification', 'Cloud deployment', 'API patterns', 'Database logic']
+            features: ['MERN + AI stack', 'Cloud deployment', 'API patterns', 'Portfolio build']
         },
         { 
-            title: 'Data Analytics + AI', 
-            description: 'Data engineering & AI insights.',
-            price: '₹6,999', 
-            originalPrice: '₹30,000',
+            title: 'Data Analytics & AI', 
+            description: '12-week program for analysts building AI dashboards and insights.',
+            price: 'Rs 25,000', 
+            originalPrice: 'Rs 60,000',
             label: 'High ROI',
             icon: FaChartBar,
             color: '#00D2FF',
-            features: ['BI mastery', 'SQL architecture', 'ML foundations', 'Power BI']
+            features: ['BI dashboards', 'SQL architecture', 'ML foundations', 'Decision reports']
         },
         { 
-            title: 'AI + Future Tech', 
-            description: 'Agentic automation and LLMs.',
-            price: '₹5,999', 
-            originalPrice: '₹25,000',
+            title: 'AI Automation Engineer', 
+            description: '14-week cohort for ops and tech teams building AI workflows.',
+            price: 'Rs 30,000', 
+            originalPrice: 'Rs 65,000',
             label: 'Advanced',
             icon: FaRobot,
             color: '#FF00CC',
-            features: ['Agentic workflows', 'Prompt engineering', 'AI automations', 'Startup logic']
+            features: ['Agentic workflows', 'Prompt systems', 'n8n and Make', 'Client delivery']
         }
     ],
     mini: [
-        { title: 'Programming Starter', description: 'Foundation logic.', price: '₹2,499', originalPrice: '₹8,000', icon: FaKeyboard, color: '#00D2FF' },
-        { title: 'Web Dev Starter', description: 'Core web technologies.', price: '₹2,999', originalPrice: '₹10,000', icon: FaGlobe, color: '#00FF87' },
-        { title: 'Python + SQL Pack', description: 'Data science basics.', price: '₹3,499', originalPrice: '₹12,000', icon: FaPython, color: '#FF8C00' },
-        { title: 'Excel + Power BI', description: 'Business analytics.', price: '₹2,999', originalPrice: '₹9,000', icon: FaFileExcel, color: '#00D2FF' },
-        { title: 'Java + DSA Pack', description: 'Advanced logic.', price: '₹3,999', originalPrice: '₹15,000', icon: FaBrain, color: '#A855F7' }
+        { title: 'No-Code AI Builder', description: '6-week bootcamp for non-technical builders.', price: 'Rs 10,000', originalPrice: 'Rs 25,000', icon: FaKeyboard, color: '#00D2FF' },
+        { title: 'AI Marketing Specialist', description: '10-week cohort for AI-led content and funnels.', price: 'Rs 18,000', originalPrice: 'Rs 40,000', icon: FaGlobe, color: '#00FF87' },
+        { title: 'Python + SQL for AI', description: 'Data foundations for AI workflows.', price: 'Rs 12,000', originalPrice: 'Rs 30,000', icon: FaPython, color: '#FF8C00' },
+        { title: 'Excel + Power BI AI', description: 'Business analytics with AI reporting.', price: 'Rs 9,000', originalPrice: 'Rs 22,000', icon: FaFileExcel, color: '#00D2FF' },
+        { title: 'Prompt + Agent Systems', description: 'AI agents, prompts, and automation logic.', price: 'Rs 15,000', originalPrice: 'Rs 35,000', icon: FaBrain, color: '#A855F7' }
     ],
     single: {
         Programming: [
-            { name: 'C Programming', price: '₹999', icon: SiC, color: '#00D2FF' },
-            { name: 'C++ Mastery', price: '₹1,499', icon: SiCplusplus, color: '#00D2FF' },
-            { name: 'Java Core', price: '₹1,999', icon: FaJava, color: '#00D2FF' },
-            { name: 'Python Pro', price: '₹1,999', icon: FaPython, color: '#00D2FF' }
+            { name: 'C Programming', price: 'Rs 999', icon: SiC, color: '#00D2FF' },
+            { name: 'C++ Mastery', price: 'Rs 1,499', icon: SiCplusplus, color: '#00D2FF' },
+            { name: 'Java Core', price: 'Rs 1,999', icon: FaJava, color: '#00D2FF' },
+            { name: 'Python Pro', price: 'Rs 1,999', icon: FaPython, color: '#00D2FF' }
         ],
         Development: [
-            { name: 'HTML + CSS', price: '₹999', icon: FaHtml5, color: '#00FF87' },
-            { name: 'JavaScript', price: '₹1,499', icon: FaJs, color: '#00FF87' },
-            { name: 'React.js', price: '₹2,499', icon: FaReact, color: '#00FF87' },
-            { name: 'Node.js', price: '₹2,499', icon: FaNodeJs, color: '#00FF87' }
+            { name: 'HTML + CSS', price: 'Rs 999', icon: FaHtml5, color: '#00FF87' },
+            { name: 'JavaScript', price: 'Rs 1,499', icon: FaJs, color: '#00FF87' },
+            { name: 'React.js', price: 'Rs 2,499', icon: FaReact, color: '#00FF87' },
+            { name: 'Node.js', price: 'Rs 2,499', icon: FaNodeJs, color: '#00FF87' }
         ],
         Cloud: [
-            { name: 'AWS Basics', price: '₹1,499', icon: FaAws, color: '#FF8C00' },
-            { name: 'Docker + K8s', price: '₹2,499', icon: FaDocker, color: '#FF8C00' },
-            { name: 'Git + GitHub', price: '₹999', icon: FaGithub, color: '#FF8C00' }
+            { name: 'AWS Basics', price: 'Rs 1,499', icon: FaAws, color: '#FF8C00' },
+            { name: 'Docker + K8s', price: 'Rs 2,499', icon: FaDocker, color: '#FF8C00' },
+            { name: 'Git + GitHub', price: 'Rs 999', icon: FaGithub, color: '#FF8C00' }
         ],
         Database: [
-            { name: 'SQL Mastery', price: '₹1,499', icon: FaDatabase, color: '#FF00CC' },
-            { name: 'MongoDB', price: '₹1,999', icon: SiMongodb, color: '#FF00CC' },
-            { name: 'Firebase', price: '₹1,499', icon: SiFirebase, color: '#FF00CC' }
+            { name: 'SQL Mastery', price: 'Rs 1,499', icon: FaDatabase, color: '#FF00CC' },
+            { name: 'MongoDB', price: 'Rs 1,999', icon: SiMongodb, color: '#FF00CC' },
+            { name: 'Firebase', price: 'Rs 1,499', icon: SiFirebase, color: '#FF00CC' }
         ]
     },
     premium: [
         { 
-            title: 'Founders Execution Track', 
-            description: 'For students building startups.',
-            price: '₹14,999', 
-            originalPrice: '₹65,000',
+            title: 'Labs Apprenticeship Track', 
+            description: 'For top learners moving into paid client work.',
+            price: 'Rs 50,000', 
+            originalPrice: 'Rs 95,000',
             label: 'Premium',
             icon: FaRocket,
             color: '#A855F7',
-            features: ['Career mentorship', 'Industry projects', 'Mock interviews', 'Internship']
+            features: ['Client projects', 'Portfolio case studies', 'Placement support', 'Alumni network']
         }
     ]
 };
@@ -163,8 +163,8 @@ const Labs = () => {
     return (
         <div ref={containerRef} className="relative min-h-screen bg-[#0A0A0A]">
             <Helmet>
-                <title>AlgoForce Labs – MSME Certified AI Training & Internships</title>
-                <meta name="description" content="AlgoForce Labs provides MSME-certified AI training, BTech/BCA internships, and professional certifications. Master MERN, Python, and AI automation now." />
+                <title>AlgoForce Labs - AI Cohorts, Certifications & Talent Pipeline</title>
+                <meta name="description" content="AlgoForce Labs runs AI cohorts, certifications, apprenticeships, portfolio projects, and placement pathways for students and professionals." />
                 <link rel="canonical" href="https://www.algoforceaii.com/labs" />
                 <script type="application/ld+json">
                 {`
@@ -181,8 +181,8 @@ const Labs = () => {
                     }
                 `}
                 </script>
-                <meta property="og:title" content="AlgoForce Labs – Industrial AI Training & Internships" />
-                <meta property="og:description" content="Professional AI certification and industrial internship programs for BTech/BCA students." />
+                <meta property="og:title" content="AlgoForce Labs - AI Cohorts & Talent Pipeline" />
+                <meta property="og:description" content="Cohort-based AI training, apprenticeships, certifications, and placement pathways." />
                 <meta property="og:image" content="https://www.algoforceaii.com/og-labs.png" />
                 <meta name="twitter:card" content="summary_large_image" />
             </Helmet>
@@ -239,7 +239,7 @@ const Labs = () => {
                                     className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-3xl shadow-xl"
                                 >
                                     <div className="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.6)] animate-pulse" />
-                                    <span className="text-[10px] font-semibold uppercase tracking-[0.4em] text-gray-500 whitespace-nowrap">Startup Execution Engine</span>
+                                    <span className="text-[10px] font-semibold uppercase tracking-[0.4em] text-gray-500 whitespace-nowrap">Talent Pipeline Engine</span>
                                 </motion.div>
 
                                 <motion.div
@@ -249,17 +249,17 @@ const Labs = () => {
                                     className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-3xl shadow-xl"
                                 >
                                     <div className="w-1.5 h-1.5 rounded-full bg-[#22c55e] shadow-[0_0_10px_#22c55e] animate-pulse" />
-                                    <span className="text-[10px] font-semibold uppercase tracking-[0.4em] text-gray-500 whitespace-nowrap">Govt Registered MSME</span>
+                                    <span className="text-[10px] font-semibold uppercase tracking-[0.4em] text-gray-500 whitespace-nowrap">Cohorts + Apprenticeships</span>
                                 </motion.div>
                             </div>
 
                             <h1 className="text-4xl md:text-7xl font-bold tracking-tight text-white mb-8 leading-none">
-                                Real AI Projects <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-300 to-white italic">You Will Build.</span>
+                                Learn AI by <br />
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-300 to-white italic">Building Real Systems.</span>
                             </h1>
                             <p className="text-sm md:text-xl text-gray-400 max-w-xl mx-auto lg:mx-0 font-medium opacity-80 leading-relaxed mb-12 italic">
-                                Stop following tutorials. Start building production-grade AI systems. <br className="hidden md:block" />
-                                Master tools like OpenAI, LangChain, and MERN with hands-on labs.
+                                Move from learning to portfolio, certification, apprenticeship, and placement. <br className="hidden md:block" />
+                                AlgoForce Labs is the talent engine powering the full ecosystem.
                             </p>
 
                         </motion.div>
@@ -297,7 +297,7 @@ const Labs = () => {
 
                 <div className="text-center mb-12">
                     <h2 className="text-3xl md:text-5xl font-black mb-10 tracking-tighter uppercase italic text-gray-500">
-                        Choose Your <span className="text-white">Track.</span>
+                        Choose Your <span className="text-white">Labs Track.</span>
                     </h2>
                 </div>
                 <div className={`sticky top-20 z-50 flex justify-center px-4 mb-4 md:mb-8 transition-all duration-500 ${isScrolled ? 'opacity-100 scale-95' : 'opacity-100'}`}>

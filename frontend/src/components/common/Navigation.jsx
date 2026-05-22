@@ -23,12 +23,11 @@ const Navigation = () => {
 
   const navLinks = [
     { name: "Home", path: "/" },
+    { name: "Services", path: "/contact" },
+    { name: "Labs", path: "/labs" },
     { name: "Crucible", path: "https://crucible-website-omega.vercel.app/", isExternal: true },
     { name: "Founder", path: "/founder" },
-    { name: "Labs", path: "/labs" },
-    // { name: "Academy", path: "/academy" },
     { name: "Pricing", path: "/pricing" },
-    { name: "Contact", path: "/contact" },
   ];
 
   return (
@@ -141,7 +140,7 @@ const Navigation = () => {
                 onClick={() => setMobileMenuOpen(false)}
                 className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white text-xs active:scale-90 transition-all"
               >
-                ✕
+                X
               </button>
 
               <div className="flex flex-col gap-6">

@@ -7,130 +7,30 @@ import ProductModules from '../components/sections/ProductModules'
 import WhyAlgoForce from '../components/sections/WhyAlgoForce'
 import WhoItsFor from '../components/sections/WhoItsFor'
 
-
 const Home = () => {
   return (
     <>
       <Helmet>
-        <title>AlgoForce AI — AI Courses, MVP Development & Startup Growth India</title>
+        <title>AlgoForce AI - Services, Labs and Crucible Ecosystem</title>
         <meta
           name="description"
-          content="Learn AI with hands-on courses, build your startup MVP fast, and get expert guidance. AlgoForce AI is India's platform for students and early-stage founders."
+          content="AlgoForce AI combines AI consulting, AlgoForce Labs education, and Crucible founder incubation into one AI-powered business growth ecosystem."
         />
         <meta name="robots" content="index, follow" />
-        <meta name="keywords" content="AI courses India, AI MVP development India, startup growth AI, AI builder India, AI education students India" />
-
-        {/* JSON-LD Structured Data */}
-        <script type="application/ld+json">
-          {`
-            {
-              "@context": "https://schema.org",
-              "@graph": [
-                {
-                  "@type": "Organization",
-                  "@id": "https://www.algoforceaii.com/#organization",
-                  "name": "AlgoForce AI",
-                  "url": "https://www.algoforceaii.com",
-                  "logo": "https://www.algoforceaii.com/logo.png",
-                  "contactPoint": {
-                    "@type": "ContactPoint",
-                    "telephone": "+918448947436",
-                    "contactType": "Sales",
-                    "areaServed": "Global"
-                  },
-                  "sameAs": [
-                    "https://www.linkedin.com/in/dev-n-suman-3616a6377"
-                  ]
-                },
-                {
-                  "@type": "WebSite",
-                  "@id": "https://www.algoforceaii.com/#website",
-                  "url": "https://www.algoforceaii.com",
-                  "name": "AlgoForce AI",
-                  "description": "Premium AI Execution & Growth Partner",
-                  "publisher": { "@id": "https://www.algoforceaii.com/#organization" },
-                  "potentialAction": {
-                    "@type": "SearchAction",
-                    "target": "https://www.algoforceaii.com/search?q={search_term_string}",
-                    "query-input": "required name=search_term_string"
-                  }
-                },
-                {
-                  "@type": "AggregateRating",
-                  "itemReviewed": {
-                    "@type": "Course",
-                    "name": "Industrial AI Professional Program"
-                  },
-                  "ratingValue": "4.9",
-                  "bestRating": "5",
-                  "reviewCount": "512"
-                },
-                {
-                  "@type": "BreadcrumbList",
-                  "itemListElement": [
-                    {
-                      "@type": "ListItem",
-                      "position": 1,
-                      "name": "Home",
-                      "item": "https://www.algoforceaii.com"
-                    }
-                  ]
-                },
-                {
-                  "@type": "FAQPage",
-                  "mainEntity": [
-                    {
-                      "@type": "Question",
-                      "name": "What does AlgoForce AI do?",
-                      "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "AlgoForce AI specializes in building high-performance AI automation, custom SaaS product development, and automated revenue systems to help businesses scale efficiently."
-                      }
-                    },
-                    {
-                      "@type": "Question",
-                      "name": "Is AlgoForce AI MSME certified?",
-                      "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Yes, AlgoForce AI is a proud MSME-certified AI agency operating worldwide from India, ensuring elite standards in technology and industrial training."
-                      }
-                    },
-                    {
-                      "@type": "Question",
-                      "name": "Do you offer custom AI training?",
-                      "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Yes, through our industrial training division, AlgoForce Labs, we provide professional certification and hands-on AI development workshops for students and teams."
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          `}
-        </script>
-
+        <meta name="keywords" content="AlgoForce AI, AlgoForce Labs, Crucible, AI consulting India, AI courses, startup incubation, AI automation" />
         <link rel="canonical" href="https://www.algoforceaii.com/" />
-        <link rel="alternate" hreflang="en" href="https://www.algoforceaii.com/" />
-        <link rel="alternate" hreflang="es" href="https://www.algoforceaii.com/es" />
-        <link rel="alternate" hreflang="fr" href="https://www.algoforceaii.com/fr" />
-        <link rel="alternate" hreflang="de" href="https://www.algoforceaii.com/de" />
-        <link rel="alternate" hreflang="x-default" href="https://www.algoforceaii.com/" />
-
         <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 
-        {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.algoforceaii.com/" />
-        <meta property="og:title" content="AlgoForce AI — AI Courses & MVP Builder for Indian Students and Startups" />
-        <meta property="og:description" content="Learn AI with hands-on courses, build your startup MVP fast, and get expert guidance. AlgoForce AI is India's platform for students and early-stage founders." />
+        <meta property="og:title" content="AlgoForce AI - AI Services, Labs and Crucible" />
+        <meta property="og:description" content="A full-stack AI growth ecosystem for businesses, students, and founders." />
         <meta property="og:image" content="https://www.algoforceaii.com/logo.png" />
 
-        {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:url" content="https://www.algoforceaii.com/" />
-        <meta name="twitter:title" content="AlgoForce AI — AI Courses, MVP Development & Startup Growth India" />
-        <meta name="twitter:description" content="Learn AI with hands-on courses, build your startup MVP fast, and get expert guidance. AlgoForce AI is India's platform for students and early-stage founders." />
+        <meta name="twitter:title" content="AlgoForce AI - Services, Labs and Crucible" />
+        <meta name="twitter:description" content="AI consulting, talent creation, and founder incubation under one ecosystem." />
         <meta name="twitter:image" content="https://www.algoforceaii.com/logo.png" />
       </Helmet>
 
@@ -139,8 +39,8 @@ const Home = () => {
         <WhatIsAlgoForce />
         <ProductModules />
         <PaymentGateway
-          title="Direct Project Funding"
-          subtitle="Fund your vision directly. High-speed execution begins the moment you scan."
+          title="Direct Project, Cohort & Event Funding"
+          subtitle="Scan the QR code to fund consulting projects, Labs seats, Crucible memberships, or event passes."
         />
         <WhyAlgoForce />
         <WhoItsFor />

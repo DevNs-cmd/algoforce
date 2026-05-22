@@ -8,59 +8,59 @@ const Pricing = () => {
 
   const comboPackages = [
     {
-      name: 'Startup Growth Pack',
-      price: '149',
-      oldPrice: '299',
-      description: 'The foundation for new businesses to establish authority.',
-      features: ['5-page Premium Website', 'Global SEO Setup', 'AI Chatbot (Lead Gen)', 'Google Analytics 4', '1 Month Support'],
+      name: 'Starter Retainer',
+      price: '25K-75K/mo',
+      oldPrice: 'Audit',
+      description: 'A focused entry plan for businesses starting with AI-led growth.',
+      features: ['2 AI services', 'Monthly reporting', 'Email support', 'Basic automation'],
       badge: 'Starter'
     },
     {
-      name: 'Business Automation',
-      price: '299',
-      oldPrice: '599',
-      description: 'Comprehensive automation system for ready-to-scale entities.',
-      features: ['Business Website (7+ pages)', 'Advanced AI Chatbot', 'Core CRM Automation', 'Global SEO Opt', 'Systems Maintenance'],
+      name: 'Growth Retainer',
+      price: '75K-2L/mo',
+      oldPrice: 'Scale',
+      description: 'The core monthly engagement for teams ready to automate and grow.',
+      features: ['5 AI services', 'Weekly reporting', 'Priority support', 'Advanced AI flows'],
       badge: 'Popular',
       highlight: true
     },
     {
-      name: 'AI Domination Pack',
-      price: '499',
-      oldPrice: '999',
-      description: 'Ultimate AI infrastructure for global transformation.',
-      features: ['High-Conversion Website', 'AI + Voice Receptionist', 'Advanced Workflows', 'Industrial SEO', 'Performance Opt'],
+      name: 'Scale Retainer',
+      price: '2L-8L/mo',
+      oldPrice: 'Custom',
+      description: 'Full ecosystem execution for companies that need a dedicated AI growth team.',
+      features: ['Full ecosystem stack', 'Dedicated team', '24/7 support', 'Custom AI systems'],
       badge: 'Industrial'
     }
   ];
 
   const specialized = [
     {
-      name: 'E-Commerce Growth',
-      price: '399',
-      desc: 'Industrial storefront with automated triggers.',
-      features: ['Premium Storefront', 'Global Payments', 'Ad Strategy', 'Cart Recovery']
+      name: 'Project-Based Services',
+      price: '50K-5L',
+      desc: 'Branding, web, automation, CRM, MVP, and AI workflow projects.',
+      features: ['Brand + web', 'AI automation', 'CRM setup', 'MVP delivery']
     },
     {
-      name: 'SaaS Launch MVP',
-      price: '1,299+',
-      desc: 'End-to-end execution for tech founders.',
-      features: ['Scalable MVP Build', 'UI/UX Strategy', 'Landing Page', 'Founder Consultation']
+      name: 'Corporate Training',
+      price: '2L-20L/qtr',
+      desc: 'Enterprise AI training programs for teams, colleges, and partner companies.',
+      features: ['Custom curriculum', 'Live sessions', 'Team projects', 'Certification']
     }
   ];
 
   const individualServices = [
-    { category: 'AI & Chatbots', price: '$49', items: ['Basic AI Chatbot', 'Advanced AI Voice', 'CRM Integration'] },
-    { category: 'Web & SaaS', price: '$99', items: ['Landing Page', 'Multi-page Web', 'SaaS MVP Component'] },
-    { category: 'SEO & Growth', price: '$49', items: ['Industrial SEO', 'AEO AI Strategy', 'Social Meta'] },
-    { category: 'Automation', price: '$75', items: ['E-mail Workflow', 'Data Scraping', 'API Integration'] }
+    { category: 'Labs Cohorts', price: 'Rs 5K+', items: ['AI courses', 'Live cohorts', 'Certifications'] },
+    { category: 'Crucible', price: 'Rs 10K+', items: ['Memberships', 'Hackathons', 'Demo days'] },
+    { category: 'SaaS Tools', price: 'Rs 1K+', items: ['AlgoLeads', 'AlgoContent', 'AlgoCRM'] },
+    { category: 'Placements', price: 'Rs 50K+', items: ['Apprenticeships', 'Hiring pipeline', 'Partner fees'] }
   ];
 
   return (
     <>
       <Helmet>
-        <title>Pricing – AlgoForce AI Efficiency</title>
-        <meta name="description" content="Premium AI and SaaS execution pricing for global founders." />
+        <title>Pricing - AlgoForce AI Services, Labs & Crucible</title>
+        <meta name="description" content="AlgoForce AI pricing for consulting retainers, project-based services, Labs cohorts, Crucible memberships, SaaS products, and corporate training." />
       </Helmet>
 
       <div className="min-h-screen bg-[#020205] text-white pt-40 pb-32 relative overflow-hidden">
@@ -87,14 +87,14 @@ const Pricing = () => {
               className="inline-flex items-center gap-2 px-4 py-1.5 mb-8 rounded-full bg-white/5 border border-white/10 backdrop-blur-3xl"
             >
               <div className="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.5)]" />
-              <span className="text-[9px] font-black uppercase tracking-[0.4em] text-gray-400">Execution Pricing Models</span>
+              <span className="text-[9px] font-black uppercase tracking-[0.4em] text-gray-400">Ecosystem Pricing Models</span>
             </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="text-5xl md:text-8xl font-black mb-8 tracking-tight md:tracking-tighter leading-none"
             >
-              Scale <span className="italic text-purple-600/80">Pure</span> Speed.
+              Build <span className="italic text-purple-600/80">With</span> Clarity.
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -102,7 +102,7 @@ const Pricing = () => {
               transition={{ delay: 0.1 }}
               className="text-gray-400 text-sm md:text-lg max-w-2xl mx-auto font-medium"
             >
-              Transparent, performance-driven investment models for founders building the next dimension of technology.
+              Clear entry points for AI consulting, project builds, Labs cohorts, Crucible memberships, SaaS tools, and enterprise training.
             </motion.p>
           </div>
 
@@ -125,8 +125,8 @@ const Pricing = () => {
 
                 <h3 className="text-2xl font-black mb-2 tracking-tighter italic uppercase text-white">{pkg.name}</h3>
                 <div className="flex items-baseline gap-2 mb-8">
-                  <span className="text-5xl font-black tracking-tighter">${pkg.price}</span>
-                  <span className="text-gray-600 text-[13px] font-bold uppercase tracking-widest italic line-through">${pkg.oldPrice}</span>
+                  <span className="text-5xl font-black tracking-tighter">Rs {pkg.price}</span>
+                  <span className="text-gray-600 text-[13px] font-bold uppercase tracking-widest italic">{pkg.oldPrice}</span>
                 </div>
 
                 <p className="text-gray-400 text-sm leading-relaxed mb-10 pb-10 border-b border-white/5">{pkg.description}</p>
@@ -147,7 +147,7 @@ const Pricing = () => {
                     className={`w-full py-5 rounded-full font-bold text-[15px] transition-all shadow-xl ${pkg.highlight ? 'bg-purple-600 text-white' : 'bg-white text-black'
                       }`}
                   >
-                    Deploy Link {'->'}
+                    Start Payment {'->'}
                   </motion.button>
                 </a>
               </motion.div>
@@ -174,9 +174,9 @@ const Pricing = () => {
                   </div>
                 </div>
                 <div className="text-center md:text-right min-w-[200px]">
-                  <div className="text-4xl font-black mb-6 tracking-tighter">${item.price}</div>
+                  <div className="text-4xl font-black mb-6 tracking-tighter">Rs {item.price}</div>
                   <Link to="/contact">
-                    <button className="px-10 py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-[13px] font-bold transition-all">Audit Engine</button>
+                    <button className="px-10 py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-[13px] font-bold transition-all">Request Scope</button>
                   </Link>
                 </div>
               </motion.div>

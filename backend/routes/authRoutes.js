@@ -3,7 +3,15 @@ import jwt from 'jsonwebtoken'
 import { body, validationResult } from 'express-validator'
 import rateLimit from 'express-rate-limit'
 import { OAuth2Client } from 'google-auth-library'
-import User from '../models/User.js'
+import {
+    comparePassword,
+    createUser,
+    findUserByEmail,
+    findUserByGoogleOrEmail,
+    findUserById,
+    publicUser,
+    updateUser
+} from '../services/userService.js'
 
 const router = express.Router()
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
@@ -22,7 +30,6 @@ const signToken = (userId) => {
     )
 }
 
-// POST /api/auth/register
 router.post(
     '/register',
     authLimiter,
@@ -39,16 +46,14 @@ router.post(
 
         try {
             const { name, email, password } = req.body
-            const existing = await User.findOne({ email })
+            const existing = await findUserByEmail(email)
             if (existing) {
                 return res.status(409).json({ success: false, message: 'Email already registered' })
             }
 
-            const user = new User({ name, email, password })
-            await user.save()
-
+            const user = await createUser({ name, email, password })
             const token = signToken(user._id)
-            res.status(201).json({ success: true, token, user })
+            res.status(201).json({ success: true, token, user: publicUser(user) })
         } catch (err) {
             console.error('Register error:', err)
             res.status(500).json({ success: false, message: 'Registration failed' })
@@ -56,7 +61,6 @@ router.post(
     }
 )
 
-// POST /api/auth/login
 router.post(
     '/login',
     authLimiter,
@@ -72,16 +76,14 @@ router.post(
 
         try {
             const { email, password } = req.body
-            const user = await User.findOne({ email })
-            if (!user || !(await user.comparePassword(password))) {
+            const user = await findUserByEmail(email)
+            if (!user || !(await comparePassword(user, password))) {
                 return res.status(401).json({ success: false, message: 'Invalid credentials' })
             }
 
-            user.lastLogin = new Date()
-            await user.save()
-
-            const token = signToken(user._id)
-            res.json({ success: true, token, user })
+            const updatedUser = await updateUser(user._id, { lastLogin: new Date() })
+            const token = signToken(updatedUser._id)
+            res.json({ success: true, token, user: publicUser(updatedUser) })
         } catch (err) {
             console.error('Login error:', err)
             res.status(500).json({ success: false, message: 'Login failed' })
@@ -89,7 +91,6 @@ router.post(
     }
 )
 
-// POST /api/auth/google
 router.post('/google', authLimiter, async (req, res) => {
     try {
         const { credential } = req.body
@@ -104,25 +105,21 @@ router.post('/google', authLimiter, async (req, res) => {
         const payload = ticket.getPayload()
         const { sub: googleId, email, name, picture } = payload
 
-        let user = await User.findOne({ $or: [{ googleId }, { email }] })
+        let user = await findUserByGoogleOrEmail(googleId, email)
         if (!user) {
-            user = new User({ name, email, googleId, avatar: picture })
+            user = await createUser({ name, email, googleId, avatar: picture })
         } else {
-            user.googleId = googleId
-            user.avatar = picture
+            user = await updateUser(user._id, { googleId, avatar: picture, lastLogin: new Date() })
         }
-        user.lastLogin = new Date()
-        await user.save()
 
         const token = signToken(user._id)
-        res.json({ success: true, token, user })
+        res.json({ success: true, token, user: publicUser(user) })
     } catch (err) {
         console.error('Google auth error:', err)
         res.status(401).json({ success: false, message: 'Google authentication failed' })
     }
 })
 
-// GET /api/auth/me (protected)
 router.get('/me', async (req, res) => {
     try {
         const authHeader = req.headers.authorization
@@ -132,12 +129,12 @@ router.get('/me', async (req, res) => {
 
         const token = authHeader.split(' ')[1]
         const decoded = jwt.verify(token, process.env.JWT_SECRET || 'algoforce-dev-secret')
-        const user = await User.findById(decoded.userId)
+        const user = await findUserById(decoded.userId)
         if (!user) {
             return res.status(404).json({ success: false, message: 'User not found' })
         }
 
-        res.json({ success: true, user })
+        res.json({ success: true, user: publicUser(user) })
     } catch (err) {
         res.status(401).json({ success: false, message: 'Invalid token' })
     }

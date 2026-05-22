@@ -11,18 +11,18 @@ const WhyAlgoForce = () => {
 
   const advantages = [
     {
-      title: 'Built by Engineers',
-      desc: 'We are tech-first. Every project is handled by specialists who understand architecture and scalability.',
+      title: 'Ecosystem Advantage',
+      desc: 'Unlike a normal agency, AlgoForce connects services, training, founders, SaaS, and venture upside in one growth loop.',
       icon: <FaCogs />
     },
     {
-      title: 'Founders First',
-      desc: 'We optimize for your burn rate and speed. We focus on getting you to the next milestone faster.',
+      title: 'Talent Factory',
+      desc: 'Labs creates an internal pipeline of trained builders, lowering delivery friction and improving quality over time.',
       icon: <FaUsers />
     },
     {
-      title: 'Global Delivery',
-      desc: 'Leveraging global talent to deliver enterprise-grade software at startup-friendly price points.',
+      title: 'Founder Network',
+      desc: 'Crucible compounds brand, community, deal flow, hackathon talent, and startup partnerships.',
       icon: <FaRocket />
     }
   ]
@@ -40,7 +40,7 @@ const WhyAlgoForce = () => {
           <div className="text-center mb-10 md:mb-16 px-2">
             <h2 className="text-[12px] font-bold uppercase tracking-[0.4em] text-purple-600 mb-6">Advantage</h2>
             <h3 className="text-4xl md:text-7xl font-black tracking-tighter mb-8 leading-tight">
-              Why Founders <br /> <span className="text-gray-300">Choose the Studio.</span>
+              Why the Model <br /> <span className="text-gray-300">Compounds.</span>
             </h3>
           </div>
 
@@ -59,14 +59,14 @@ const WhyAlgoForce = () => {
           <div className="rounded-[3rem] bg-gray-50 border border-gray-100 overflow-hidden shadow-sm">
             <div className="grid md:grid-cols-3 bg-black text-white p-8 font-bold uppercase text-[12px] tracking-widest text-center">
               <div className="text-left">Factor</div>
-              <div>Traditional Agency</div>
-              <div className="text-purple-400">AlgoForce Studio</div>
+              <div>Single Business</div>
+              <div className="text-purple-400">AlgoForce Ecosystem</div>
             </div>
             {[
-              { factor: 'Launch Speed', trad: '3-6 Months', af: '2-4 Weeks' },
-              { factor: 'Ownership', trad: 'Mixed/Limited', af: '100% IP' },
-              { factor: 'Intelligence', trad: 'Static Software', af: 'AI Integrated' },
-              { factor: 'Support', trad: 'Ticket Based', af: 'Dedicated Pulse' }
+              { factor: 'Revenue', trad: 'One stream', af: '10+ streams' },
+              { factor: 'Talent', trad: 'External hiring', af: 'Labs pipeline' },
+              { factor: 'Community', trad: 'Audience only', af: 'Crucible network' },
+              { factor: 'Scale Path', trad: 'Services only', af: 'Services + SaaS + Venture' }
             ].map((row, i) => (
               <div key={i} className={`grid md:grid-cols-3 p-8 border-t border-gray-100 text-sm font-bold items-center text-center ${i % 2 === 0 ? 'bg-white' : ''}`}>
                 <div className="text-left text-gray-400 uppercase tracking-widest text-[12px]">{row.factor}</div>
@@ -82,12 +82,12 @@ const WhyAlgoForce = () => {
           <div className="mt-12 md:mt-20 p-8 md:p-16 rounded-[2.5rem] md:rounded-[4rem] bg-[#05050F] text-white text-center relative overflow-hidden group">
             <div className="absolute inset-0 bg-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity" />
             <div className="relative z-10">
-              <h4 className="text-4xl md:text-5xl font-black mb-8 tracking-tighter">Ready to Deploy Your Vision?</h4>
+              <h4 className="text-4xl md:text-5xl font-black mb-8 tracking-tighter">Ready to Enter the Ecosystem?</h4>
               <p className="text-gray-400 font-medium mb-12 max-w-xl mx-auto">
-                Join the ambitious founders who have secured their technical mote with AlgoForce.
+                Book a strategy call for services, join Labs, or move into Crucible if you are building a startup.
               </p>
               <Link to="/contact">
-                <button className="px-12 py-6 bg-white text-black rounded-2xl font-bold text-sm uppercase tracking-widest hover:scale-105 transition-all shadow-2xl">Initiate Transmission</button>
+                <button className="px-12 py-6 bg-white text-black rounded-2xl font-bold text-sm uppercase tracking-widest hover:scale-105 transition-all shadow-2xl">Start the Conversation</button>
               </Link>
             </div>
           </div>

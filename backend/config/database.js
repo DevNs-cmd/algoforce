@@ -1,30 +1,62 @@
-import mongoose from 'mongoose'
+import { createClient } from '@supabase/supabase-js'
 
-let isConnected = false
+let supabase = null
+
+export const isSupabaseConfigured = () => {
+  return Boolean(process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY)
+}
 
 export const connectDB = async () => {
-  if (isConnected) return
+  if (supabase) return supabase
 
-  const uri = process.env.MONGODB_URI || process.env.MONGO_URI || "mongodb://localhost:27017/algoforce"
-
-  try {
-    const db = await mongoose.connect(uri, {
-      autoIndex: true,
-    })
-
-    isConnected = db.connections[0].readyState === 1
-    console.log(`✅ MongoDB Connected: ${db.connection.host}`)
-  } catch (error) {
-    console.error("❌ MongoDB connection error:", error.message)
-    // Fallback logic for development if needed, but Mongoose is required for the new models
-    process.exit(1)
+  if (!isSupabaseConfigured()) {
+    console.warn('Supabase is not configured. Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY for persistent backend storage.')
+    return null
   }
+
+  supabase = createClient(
+    process.env.SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_ROLE_KEY,
+    {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false
+      }
+    }
+  )
+
+  const { error } = await supabase
+    .from('contacts')
+    .select('id', { count: 'exact', head: true })
+
+  if (error) {
+    console.error('Supabase connection error:', error.message)
+    throw error
+  }
+
+  console.log('Supabase connected')
+  return supabase
 }
 
-export const getDB = () => {
-  return mongoose.connection.db
+export const getSupabase = () => {
+  if (!supabase && isSupabaseConfigured()) {
+    supabase = createClient(
+      process.env.SUPABASE_URL,
+      process.env.SUPABASE_SERVICE_ROLE_KEY,
+      {
+        auth: {
+          autoRefreshToken: false,
+          persistSession: false
+        }
+      }
+    )
+  }
+
+  if (!supabase) {
+    throw new Error('Supabase is not configured. Add SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.')
+  }
+
+  return supabase
 }
 
-export const closeDB = async () => {
-  await mongoose.disconnect()
-}
+export const closeDB = async () => {}

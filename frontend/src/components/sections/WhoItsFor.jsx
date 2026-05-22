@@ -12,26 +12,26 @@ const WhoItsFor = () => {
   const segments = [
     {
       icon: <FaRocket />,
-      title: 'Ambitious Founders',
-      desc: 'Entrepreneurs who need to validate their vision with a high-performance MVP in record time.',
+      title: 'Businesses',
+      desc: 'SMBs and enterprises that need AI consulting, automation, CRM, lead generation, and digital growth systems.',
       color: 'bg-purple-600/20 text-purple-400'
     },
     {
       icon: <FaBuilding />,
-      title: 'Modern Agencies',
-      desc: 'Service-based businesses looking to automate lead capture and client reporting workflows.',
+      title: 'Professionals',
+      desc: 'Students, marketers, developers, analysts, and operators ready to learn AI through Labs cohorts and projects.',
       color: 'bg-blue-600/10 text-blue-400'
     },
     {
       icon: <FaUserTie />,
-      title: 'Solo Experts',
-      desc: 'High-level consultants and coaches who want to build digital equity through AI scaling.',
+      title: 'Founders',
+      desc: 'Builders entering Crucible for hackathons, community, incubation, mentorship, demo days, and funding readiness.',
       color: 'bg-green-600/10 text-green-400'
     },
     {
       icon: <FaMicrochip />,
-      title: 'Tech Leaders',
-      desc: 'CTOs and Product Managers who need a specialized execution partner for AI-focused modules.',
+      title: 'Partners',
+      desc: 'Companies, colleges, sponsors, and investors looking for training, events, placements, and venture deal flow.',
       color: 'bg-cyan-600/10 text-cyan-400'
     }
   ]
@@ -45,12 +45,12 @@ const WhoItsFor = () => {
           animate={inView ? { opacity: 1 } : {}}
           className="text-center mb-10 md:mb-16"
         >
-          <h2 className="text-[12px] font-bold uppercase tracking-[0.5em] text-gray-500 mb-6">Partnerships</h2>
+          <h2 className="text-[12px] font-bold uppercase tracking-[0.5em] text-gray-500 mb-6">Built For</h2>
           <h3 className="text-4xl md:text-7xl font-black tracking-tighter mb-8 leading-none">
-            Built for <span className="text-purple-500">The 1%.</span>
+            Businesses, Talent <span className="text-purple-500">& Founders.</span>
           </h3>
           <p className="max-w-xl mx-auto text-gray-400 font-medium text-lg leading-relaxed">
-            We partner with the most ambitious leaders to forge technicalMoats and automate revenue streams.
+            The ecosystem is designed for everyone who touches AI growth: clients, learners, builders, sponsors, and investors.
           </p>
         </motion.div>
 
@@ -75,13 +75,13 @@ const WhoItsFor = () => {
 
         {/* Final Statement Block */}
         <div className="relative z-10 pt-10 md:pt-16 pb-12 md:pb-14 selection:bg-purple-500/30 rounded-[2.5rem] md:rounded-[3.5rem] bg-white text-black text-center">
-          <h4 className="text-4xl md:text-5xl font-black mb-6 tracking-tighter">Your Competitive Advantage Starts Here.</h4>
+          <h4 className="text-4xl md:text-5xl font-black mb-6 tracking-tighter">Choose Your Entry Point.</h4>
           <p className="text-gray-600 text-lg mb-12 max-w-xl mx-auto font-medium">
-            Don't leave your execution to chance. Partner with a studio that treats your vision as its own mission.
+            Start with consulting, join Labs for skills, or enter Crucible to build with a founder community.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link to="/contact">
-              <button className="px-10 py-5 bg-black text-white rounded-2xl font-bold text-sm uppercase tracking-widest hover:scale-105 transition-all">Start Execution</button>
+              <button className="px-10 py-5 bg-black text-white rounded-2xl font-bold text-sm uppercase tracking-widest hover:scale-105 transition-all">Start Services</button>
             </Link>
             <Link to="/pricing">
               <button className="px-10 py-5 bg-gray-100 text-black border border-gray-200 rounded-2xl font-bold text-sm uppercase tracking-widest hover:bg-white transition-all">View Pricing</button>
