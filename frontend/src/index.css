@@ -83,17 +83,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Animations */
-@keyframes movingGradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
 .animate-moving-gradient {
-  background: linear-gradient(-45deg, #020205, #080112, #0d011f, #020205);
-  background-size: 200% 200%;
-  animation: movingGradient 20s ease-in-out infinite;
-  /* Removed transform: translateZ(0) to fix fixed positioning bugs */
+  background: radial-gradient(circle at top, #0f0826 0%, #030209 50%, #020205 100%);
+  background-attachment: fixed;
 }
 
 @keyframes marquee {
@@ -146,7 +138,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Fixed positioning fix for backdrop-blur parents */
 [class*="backdrop-blur"] {
-  will-change: backdrop-filter;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 /* Mobile Adjustments */
