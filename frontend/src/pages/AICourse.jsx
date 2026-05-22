@@ -84,9 +84,9 @@ const AICourse = () => {
                             <Link to="/labs" className="px-10 py-5 bg-white text-black rounded-full font-black text-[14px] uppercase tracking-widest hover:scale-105 transition-all shadow-2xl">
                                 Explore Labs
                             </Link>
-                            <Link to="/nexus" className="px-10 py-5 border border-white/10 rounded-full font-black text-[14px] uppercase tracking-widest hover:bg-white/5 transition-all">
-                                Try Nexus
-                            </Link>
+                            <a href="https://crucible-website-omega.vercel.app/" target="_blank" rel="noopener noreferrer" className="px-10 py-5 border border-white/10 rounded-full font-black text-[14px] uppercase tracking-widest hover:bg-white/5 transition-all">
+                                Try Crucible
+                            </a>
                         </div>
                     </motion.div>
                 </header>

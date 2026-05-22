@@ -76,7 +76,7 @@ const WhatIsAlgoForce = () => {
               <div className="flex-1">
                 <h4 className="text-4xl md:text-5xl font-black mb-8 tracking-tighter">Engineered for Rapid Scaling.</h4>
                 <p className="text-xl text-gray-500 font-medium mb-10 leading-relaxed">
-                  Our internal toolset, including the <span className="text-black font-black">Nexus AI Engine</span>,
+                  Our internal toolset, including the <span className="text-black font-black">Crucible Engine</span>,
                   allows us to bypass traditional development bottlenecks and ship high-performance assets in record time.
                 </p>
                 <div className="flex items-center gap-6">
@@ -113,7 +113,7 @@ const WhatIsAlgoForce = () => {
               {[
                 { q: 'What services does AlgoForce AI provide?', a: 'AlgoForce AI specializes in building AI automation systems, custom SaaS MVPs, and scalable digital revenue infrastructures for global enterprises and startups.' },
                 { q: 'Is AlgoForce AI an MSME certified company?', a: 'Yes, AlgoForce AI is a proud MSME-certified AI growth agency, ensuring elite industry standards in custom software development and technology training.' },
-                { q: 'How fast can you deliver an AI MVP?', a: 'We leverage our proprietary Nexus AI Engine to bypass traditional bottlenecks, typically launching functional high-performance MVPs within 14 to 30 days.' },
+                { q: 'How fast can you deliver an AI MVP?', a: 'We leverage our proprietary Crucible Engine to bypass traditional bottlenecks, typically launching functional high-performance MVPs within 14 to 30 days.' },
                 { q: 'Do you offer custom AI industrial training?', a: 'Yes, through AlgoForce Labs, we offer professional certification and hands-on workshops in MERN development, Python, and AI automation for students and teams.' },
                 { q: 'Can I book a consultation for my business?', a: 'Absolutely. You can schedule a strategy session through our contact portal to audit your current systems and explore custom AI integration roadmaps.' }
               ].map((faq, i) => (

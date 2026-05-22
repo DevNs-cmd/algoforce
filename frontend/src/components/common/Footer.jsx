@@ -99,14 +99,20 @@ const Footer = () => {
 
         <div className="pt-16 mt-16 flex flex-wrap justify-center gap-10 border-t border-white/5 opacity-50">
              {[
-                { name: 'Nexus AI IDE', path: '/nexus' },
+                { name: 'Crucible', path: 'https://crucible-website-omega.vercel.app/', isExternal: true },
                 { name: 'Privacy', path: '/privacy-policy' },
                 { name: 'Terms', path: '/terms-and-conditions' },
                 { name: 'Refunds', path: '/refund-policy' }
               ].map(link => (
-                <Link key={link.path} to={link.path} className="text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition-all">
-                  {link.name}
-                </Link>
+                link.isExternal ? (
+                  <a key={link.name} href={link.path} target="_blank" rel="noopener noreferrer" className="text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition-all">
+                    {link.name}
+                  </a>
+                ) : (
+                  <Link key={link.path} to={link.path} className="text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition-all">
+                    {link.name}
+                  </Link>
+                )
               ))}
         </div>
 

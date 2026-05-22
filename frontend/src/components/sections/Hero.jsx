@@ -111,15 +111,15 @@ const Hero = () => {
                 Explore Labs {'->'}
               </motion.button>
             </Link>
-            <Link to="/nexus" className="w-full sm:w-auto">
+            <a href="https://crucible-website-omega.vercel.app/" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
               <motion.button
                 whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.08)' }}
                 whileTap={{ scale: 0.95 }}
                 className="w-full px-8 py-4 sm:px-14 sm:py-5 border border-white/10 rounded-full font-black text-sm sm:text-[15px] text-white hover:border-white/30 backdrop-blur-xl transition-all uppercase tracking-widest"
               >
-                Try Demo
+                Try Crucible
               </motion.button>
-            </Link>
+            </a>
           </motion.div>
 
           {/* Trust Badges */}

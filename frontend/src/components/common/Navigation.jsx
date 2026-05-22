@@ -23,7 +23,7 @@ const Navigation = () => {
 
   const navLinks = [
     { name: "Home", path: "/" },
-    { name: "Nexus", path: "/nexus" },
+    { name: "Crucible", path: "https://crucible-website-omega.vercel.app/", isExternal: true },
     { name: "Founder", path: "/founder" },
     { name: "Labs", path: "/labs" },
     // { name: "Academy", path: "/academy" },
@@ -63,14 +63,26 @@ const Navigation = () => {
           {/* Desktop Links */}
           <div className="hidden md:flex items-center gap-10">
             {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`text-[13px] font-semibold transition-all duration-300 hover:text-white ${location.pathname === link.path ? "text-white" : "text-gray-500"
-                  }`}
-              >
-                {link.name}
-              </Link>
+              link.isExternal ? (
+                <a
+                  key={link.name}
+                  href={link.path}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[13px] font-semibold transition-all duration-300 hover:text-white text-gray-500"
+                >
+                  {link.name}
+                </a>
+              ) : (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className={`text-[13px] font-semibold transition-all duration-300 hover:text-white ${location.pathname === link.path ? "text-white" : "text-gray-500"
+                    }`}
+                >
+                  {link.name}
+                </Link>
+              )
             ))}
           </div>
 
@@ -135,18 +147,30 @@ const Navigation = () => {
               <div className="flex flex-col gap-6">
                 {navLinks.map((link, i) => (
                   <motion.div
-                    key={link.path}
+                    key={link.name}
                     initial={{ x: -20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: i * 0.05 }}
                   >
-                    <Link
-                      to={link.path}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="text-xl font-bold text-gray-400 hover:text-white transition-all duration-300"
-                    >
-                      {link.name}
-                    </Link>
+                    {link.isExternal ? (
+                      <a
+                        href={link.path}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="text-xl font-bold text-gray-400 hover:text-white transition-all duration-300"
+                      >
+                        {link.name}
+                      </a>
+                    ) : (
+                      <Link
+                        to={link.path}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="text-xl font-bold text-gray-400 hover:text-white transition-all duration-300"
+                      >
+                        {link.name}
+                      </Link>
+                    )}
                   </motion.div>
                 ))}
 
