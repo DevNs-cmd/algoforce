@@ -122,8 +122,8 @@ const ShowcaseVideo = () => {
               </div>
               
               {/* Dynamic Video Title Info */}
-              <span className="text-[10px] uppercase font-mono tracking-widest text-white/40 select-none">
-                {SHOWCASE_VIDEOS[activeIdx].title.toLowerCase().replace(/\s+/g, '_')}.mp4
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40 select-none">
+                Ecosystem Showcase
               </span>
               <div className="w-12 h-1 bg-white/5 rounded-full" />
             </div>
