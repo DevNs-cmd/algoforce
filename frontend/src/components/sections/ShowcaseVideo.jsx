@@ -146,6 +146,8 @@ const ShowcaseVideo = () => {
                     loop
                     muted
                     playsInline
+                    preload="auto"
+                    onCanPlay={(event) => event.currentTarget.play().catch(() => {})}
                     className="w-full h-full object-cover"
                   >
                     <source src={SHOWCASE_VIDEOS[activeIdx].src} type="video/mp4" />

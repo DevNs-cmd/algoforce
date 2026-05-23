@@ -48,6 +48,9 @@ const Hero = () => {
               loop
               muted
               playsInline
+              preload="auto"
+              aria-hidden="true"
+              onCanPlay={(event) => event.currentTarget.play().catch(() => {})}
               key={HERO_VIDEOS[activeVideoIdx]}
               className="w-full h-full object-cover"
             >
