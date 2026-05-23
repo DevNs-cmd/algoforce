@@ -14,13 +14,15 @@ const Hero = () => {
       {/* Video Background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* Dark overlay for better text readability */}
-        <div className="absolute inset-0 bg-[#020205]/60 z-10 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-[#020205]/65 z-10 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#020205]/10 via-[#020205]/30 to-[#020205] z-10" />
+        
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-50"
+          className="absolute inset-0 w-full h-full object-cover opacity-45"
         >
           <source src="/vecteezy.mp4" type="video/mp4" />
         </video>
