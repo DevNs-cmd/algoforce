@@ -5,28 +5,77 @@ import { useInView } from 'react-intersection-observer'
 import TrustBadges from '../common/TrustBadges'
 import { bindMobileVideoRetries, primeInlineVideo } from '../../utils/videoPlayback'
 
-const HERO_VIDEOS = [
+const DESKTOP_HERO_VIDEOS = [
   '/video1.mp4',
   '/video2.mp4',
   '/vecteezy.mp4',
 ];
 
+const MOBILE_HERO_VIDEOS = [
+  '/video1.mp4',
+  '/video2.mp4',
+];
+
+const getHeroVideos = () => {
+  if (typeof window === 'undefined') {
+    return DESKTOP_HERO_VIDEOS
+  }
+
+  return window.matchMedia('(max-width: 767px)').matches
+    ? MOBILE_HERO_VIDEOS
+    : DESKTOP_HERO_VIDEOS
+}
+
 const Hero = () => {
+  const [heroRef, heroInView] = useInView({
+    threshold: 0.08,
+    rootMargin: '160px 0px',
+    initialInView: true,
+  });
+
   const [statsRef, statsInView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
 
   const videoRef = useRef(null);
+  const [heroVideos, setHeroVideos] = useState(getHeroVideos);
   const [activeVideoIdx, setActiveVideoIdx] = useState(0);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return undefined
+    }
+
+    const mediaQuery = window.matchMedia('(max-width: 767px)')
+    const updatePlaylist = () => {
+      const nextVideos = mediaQuery.matches ? MOBILE_HERO_VIDEOS : DESKTOP_HERO_VIDEOS
+      setHeroVideos(nextVideos)
+      setActiveVideoIdx((prev) => prev % nextVideos.length)
+    }
+
+    updatePlaylist()
+
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', updatePlaylist)
+      return () => mediaQuery.removeEventListener('change', updatePlaylist)
+    }
+
+    mediaQuery.addListener(updatePlaylist)
+    return () => mediaQuery.removeListener(updatePlaylist)
+  }, [])
 
   // Auto-slide every 8 seconds
   useEffect(() => {
+    if (!heroInView) {
+      return undefined
+    }
+
     const timer = setInterval(() => {
-      setActiveVideoIdx((prev) => (prev + 1) % HERO_VIDEOS.length);
+      setActiveVideoIdx((prev) => (prev + 1) % heroVideos.length);
     }, 8000);
     return () => clearInterval(timer);
-  }, []);
+  }, [heroInView, heroVideos.length]);
 
   useEffect(() => {
     const video = videoRef.current
@@ -34,12 +83,20 @@ const Hero = () => {
       return undefined
     }
 
-    primeInlineVideo(video, { reload: true })
-    return bindMobileVideoRetries(video)
-  }, [activeVideoIdx])
+    if (!heroInView) {
+      video.pause()
+      return undefined
+    }
+
+    primeInlineVideo(video, { reload: true, preload: 'metadata' })
+    return bindMobileVideoRetries(video, {
+      shouldPlay: () => heroInView,
+      preload: 'metadata',
+    })
+  }, [activeVideoIdx, heroInView])
 
   return (
-    <section className="relative flex items-center justify-center min-h-[85vh] md:min-h-screen overflow-hidden bg-[#020205] text-white pt-32 md:pt-40 lg:pt-48 pb-12 md:pb-16">
+    <section ref={heroRef} className="relative flex items-center justify-center min-h-[85vh] md:min-h-screen overflow-hidden bg-[#020205] text-white pt-32 md:pt-40 lg:pt-48 pb-12 md:pb-16">
       {/* Video Background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* Dark overlay for better text readability */}
@@ -63,12 +120,20 @@ const Hero = () => {
               defaultMuted
               playsInline
               webkit-playsinline="true"
-              preload="auto"
+              preload="metadata"
               aria-hidden="true"
-              src={HERO_VIDEOS[activeVideoIdx]}
-              onLoadedMetadata={(event) => primeInlineVideo(event.currentTarget)}
-              onCanPlay={(event) => primeInlineVideo(event.currentTarget)}
-              key={HERO_VIDEOS[activeVideoIdx]}
+              src={heroVideos[activeVideoIdx]}
+              onLoadedMetadata={(event) => {
+                if (heroInView) {
+                  primeInlineVideo(event.currentTarget, { preload: 'metadata' })
+                }
+              }}
+              onCanPlay={(event) => {
+                if (heroInView) {
+                  primeInlineVideo(event.currentTarget, { preload: 'metadata' })
+                }
+              }}
+              key={heroVideos[activeVideoIdx]}
               className="w-full h-full object-cover"
             />
           </motion.div>

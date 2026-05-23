@@ -1,4 +1,7 @@
-export const primeInlineVideo = (video, { reload = false } = {}) => {
+export const primeInlineVideo = (
+  video,
+  { reload = false, shouldPlay = true, preload = 'metadata' } = {}
+) => {
   if (!video) {
     return Promise.resolve()
   }
@@ -7,26 +10,37 @@ export const primeInlineVideo = (video, { reload = false } = {}) => {
   video.muted = true
   video.defaultMuted = true
   video.playsInline = true
+  video.preload = preload
   video.setAttribute('muted', '')
   video.setAttribute('playsinline', '')
   video.setAttribute('webkit-playsinline', 'true')
-  video.setAttribute('preload', 'auto')
+  video.setAttribute('preload', preload)
 
   if (reload) {
     video.load()
+  }
+
+  if (!shouldPlay) {
+    video.pause()
+    return Promise.resolve()
   }
 
   const playPromise = video.play()
   return playPromise?.catch(() => undefined) ?? Promise.resolve()
 }
 
-export const bindMobileVideoRetries = (video) => {
+export const bindMobileVideoRetries = (
+  video,
+  { shouldPlay = () => true, preload = 'metadata' } = {}
+) => {
   if (!video || typeof window === 'undefined') {
     return () => {}
   }
 
   const retryPlayback = () => {
-    primeInlineVideo(video)
+    if (shouldPlay()) {
+      primeInlineVideo(video, { preload })
+    }
   }
 
   const retryWhenVisible = () => {

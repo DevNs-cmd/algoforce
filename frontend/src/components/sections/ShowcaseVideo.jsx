@@ -30,10 +30,18 @@ const SHOWCASE_VIDEOS = [
 const ShowcaseVideo = () => {
   const videoRef = useRef(null)
   const [activeIdx, setActiveIdx] = useState(0)
+  const [hasAnimated, setHasAnimated] = useState(false)
   const [ref, inView] = useInView({
-    triggerOnce: true,
+    triggerOnce: false,
     threshold: 0.1,
+    rootMargin: '240px 0px',
   })
+
+  useEffect(() => {
+    if (inView) {
+      setHasAnimated(true)
+    }
+  }, [inView])
 
   // Whenever active video changes, reload and play the player
   useEffect(() => {
@@ -42,9 +50,17 @@ const ShowcaseVideo = () => {
       return undefined
     }
 
-    primeInlineVideo(video, { reload: true })
-    return bindMobileVideoRetries(video)
-  }, [activeIdx])
+    if (!inView) {
+      video.pause()
+      return undefined
+    }
+
+    primeInlineVideo(video, { reload: true, preload: 'metadata' })
+    return bindMobileVideoRetries(video, {
+      shouldPlay: () => inView,
+      preload: 'metadata',
+    })
+  }, [activeIdx, inView])
 
   const handleNext = () => {
     setActiveIdx((prev) => (prev + 1) % SHOWCASE_VIDEOS.length)
@@ -66,7 +82,7 @@ const ShowcaseVideo = () => {
         <div className="text-center max-w-2xl mx-auto mb-12">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
+            animate={hasAnimated ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8 }}
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-5"
           >
@@ -76,7 +92,7 @@ const ShowcaseVideo = () => {
           
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
+            animate={hasAnimated ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.1 }}
             className="text-3xl md:text-4xl font-bold tracking-tight mb-4 bg-gradient-to-r from-white via-white to-gray-500 bg-clip-text text-transparent"
           >
@@ -152,10 +168,18 @@ const ShowcaseVideo = () => {
                     defaultMuted
                     playsInline
                     webkit-playsinline="true"
-                    preload="auto"
-                    src={SHOWCASE_VIDEOS[activeIdx].src}
-                    onLoadedMetadata={(event) => primeInlineVideo(event.currentTarget)}
-                    onCanPlay={(event) => primeInlineVideo(event.currentTarget)}
+                    preload="metadata"
+                    src={inView ? SHOWCASE_VIDEOS[activeIdx].src : undefined}
+                    onLoadedMetadata={(event) => {
+                      if (inView) {
+                        primeInlineVideo(event.currentTarget, { preload: 'metadata' })
+                      }
+                    }}
+                    onCanPlay={(event) => {
+                      if (inView) {
+                        primeInlineVideo(event.currentTarget, { preload: 'metadata' })
+                      }
+                    }}
                     className="w-full h-full object-cover"
                   />
                 </motion.div>
