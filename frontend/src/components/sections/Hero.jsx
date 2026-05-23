@@ -1,13 +1,30 @@
-import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { useInView } from 'react-intersection-observer'
 import TrustBadges from '../common/TrustBadges'
+
+const HERO_VIDEOS = [
+  '/video1.mp4',
+  '/video2.mp4',
+  '/vecteezy.mp4',
+];
 
 const Hero = () => {
   const [statsRef, statsInView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
+
+  const [activeVideoIdx, setActiveVideoIdx] = useState(0);
+
+  // Auto-slide every 8 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveVideoIdx((prev) => (prev + 1) % HERO_VIDEOS.length);
+    }, 8000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <section className="relative flex items-center justify-center min-h-[85vh] md:min-h-screen overflow-hidden bg-[#020205] text-white pt-32 md:pt-40 lg:pt-48 pb-12 md:pb-16">
@@ -17,15 +34,27 @@ const Hero = () => {
         <div className="absolute inset-0 bg-[#020205]/65 z-10 mix-blend-multiply" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#020205]/10 via-[#020205]/30 to-[#020205] z-10" />
         
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-45"
-        >
-          <source src="/vecteezy.mp4" type="video/mp4" />
-        </video>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeVideoIdx}
+            initial={{ opacity: 0, scale: 1.03 }}
+            animate={{ opacity: 0.45, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.5 }}
+            className="absolute inset-0 w-full h-full"
+          >
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              key={HERO_VIDEOS[activeVideoIdx]}
+              className="w-full h-full object-cover"
+            >
+              <source src={HERO_VIDEOS[activeVideoIdx]} type="video/mp4" />
+            </video>
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       <div className="relative z-10 px-6 mx-auto text-center max-w-7xl">

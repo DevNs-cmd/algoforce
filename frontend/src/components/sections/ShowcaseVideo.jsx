@@ -29,38 +29,18 @@ const SHOWCASE_VIDEOS = [
 const ShowcaseVideo = () => {
   const videoRef = useRef(null)
   const [activeIdx, setActiveIdx] = useState(0)
-  const [isPlaying, setIsPlaying] = useState(true)
-  const [isMuted, setIsMuted] = useState(true)
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   })
 
-  // Whenever active video changes, reset play/pause states and reload the player
+  // Whenever active video changes, reload and play the player
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.load()
-      videoRef.current.play()
-        .then(() => setIsPlaying(true))
-        .catch(() => setIsPlaying(false))
+      videoRef.current.play().catch(() => {})
     }
   }, [activeIdx])
-
-  const togglePlay = () => {
-    if (!videoRef.current) return
-    if (isPlaying) {
-      videoRef.current.pause()
-    } else {
-      videoRef.current.play()
-    }
-    setIsPlaying(!isPlaying)
-  }
-
-  const toggleMute = () => {
-    if (!videoRef.current) return
-    videoRef.current.muted = !isMuted
-    setIsMuted(!isMuted)
-  }
 
   const handleNext = () => {
     setActiveIdx((prev) => (prev + 1) % SHOWCASE_VIDEOS.length)
@@ -164,10 +144,9 @@ const ShowcaseVideo = () => {
                     ref={videoRef}
                     autoPlay
                     loop
-                    muted={isMuted}
+                    muted
                     playsInline
                     className="w-full h-full object-cover"
-                    onClick={togglePlay}
                   >
                     <source src={SHOWCASE_VIDEOS[activeIdx].src} type="video/mp4" />
                   </video>
@@ -197,52 +176,6 @@ const ShowcaseVideo = () => {
 
               {/* Dynamic bottom overlays */}
               <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/80 via-black/40 to-transparent pointer-events-none" />
-
-              {/* Customized Glassmorphic Overlay Buttons */}
-              <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between pointer-events-auto z-20">
-                
-                {/* Left side actions: Play/Pause */}
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={togglePlay}
-                    className="p-3.5 rounded-full bg-black/60 hover:bg-white text-white hover:text-black border border-white/10 backdrop-blur-md transition-all duration-300 shadow-lg active:scale-95"
-                    title={isPlaying ? "Pause" : "Play"}
-                  >
-                    {isPlaying ? (
-                      <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-                      </svg>
-                    ) : (
-                      <svg className="w-4 h-4 fill-current translate-x-0.5" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z"/>
-                      </svg>
-                    )}
-                  </button>
-
-                  <button
-                    onClick={toggleMute}
-                    className="p-3.5 rounded-full bg-black/60 hover:bg-white text-white hover:text-black border border-white/10 backdrop-blur-md transition-all duration-300 shadow-lg active:scale-95"
-                    title={isMuted ? "Unmute" : "Mute"}
-                  >
-                    {isMuted ? (
-                      <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                        <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM12 4L9.91 6.09 12 8.18V4zm5.66 2.34L16.25 7.75c1.08 1.15 1.75 2.69 1.75 4.38s-.67 3.23-1.75 4.38l1.41 1.41C19.38 16.25 20 14.2 20 12s-.62-4.25-2.34-5.66zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73 4.27 3zM12 11.18L9.18 8.36 12 5.54v5.64z"/>
-                      </svg>
-                    ) : (
-                      <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
-                      </svg>
-                    )}
-                  </button>
-                </div>
-
-                {/* Right side styling info */}
-                <div className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-black/60 border border-white/10 backdrop-blur-md">
-                  <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-400">Live Render Active</span>
-                </div>
-
-              </div>
 
             </div>
 
