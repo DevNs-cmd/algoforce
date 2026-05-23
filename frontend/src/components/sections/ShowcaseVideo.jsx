@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
+import { bindMobileVideoRetries, primeInlineVideo } from '../../utils/videoPlayback'
 
 const SHOWCASE_VIDEOS = [
   { 
@@ -36,10 +37,13 @@ const ShowcaseVideo = () => {
 
   // Whenever active video changes, reload and play the player
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.load()
-      videoRef.current.play().catch(() => {})
+    const video = videoRef.current
+    if (!video) {
+      return undefined
     }
+
+    primeInlineVideo(video, { reload: true })
+    return bindMobileVideoRetries(video)
   }, [activeIdx])
 
   const handleNext = () => {
@@ -145,13 +149,15 @@ const ShowcaseVideo = () => {
                     autoPlay
                     loop
                     muted
+                    defaultMuted
                     playsInline
+                    webkit-playsinline="true"
                     preload="auto"
-                    onCanPlay={(event) => event.currentTarget.play().catch(() => {})}
+                    src={SHOWCASE_VIDEOS[activeIdx].src}
+                    onLoadedMetadata={(event) => primeInlineVideo(event.currentTarget)}
+                    onCanPlay={(event) => primeInlineVideo(event.currentTarget)}
                     className="w-full h-full object-cover"
-                  >
-                    <source src={SHOWCASE_VIDEOS[activeIdx].src} type="video/mp4" />
-                  </video>
+                  />
                 </motion.div>
               </AnimatePresence>
 

@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { useInView } from 'react-intersection-observer'
 import TrustBadges from '../common/TrustBadges'
+import { bindMobileVideoRetries, primeInlineVideo } from '../../utils/videoPlayback'
 
 const HERO_VIDEOS = [
   '/video1.mp4',
@@ -16,6 +17,7 @@ const Hero = () => {
     threshold: 0.1,
   });
 
+  const videoRef = useRef(null);
   const [activeVideoIdx, setActiveVideoIdx] = useState(0);
 
   // Auto-slide every 8 seconds
@@ -25,6 +27,16 @@ const Hero = () => {
     }, 8000);
     return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) {
+      return undefined
+    }
+
+    primeInlineVideo(video, { reload: true })
+    return bindMobileVideoRetries(video)
+  }, [activeVideoIdx])
 
   return (
     <section className="relative flex items-center justify-center min-h-[85vh] md:min-h-screen overflow-hidden bg-[#020205] text-white pt-32 md:pt-40 lg:pt-48 pb-12 md:pb-16">
@@ -44,18 +56,21 @@ const Hero = () => {
             className="absolute inset-0 w-full h-full"
           >
             <video
+              ref={videoRef}
               autoPlay
               loop
               muted
+              defaultMuted
               playsInline
+              webkit-playsinline="true"
               preload="auto"
               aria-hidden="true"
-              onCanPlay={(event) => event.currentTarget.play().catch(() => {})}
+              src={HERO_VIDEOS[activeVideoIdx]}
+              onLoadedMetadata={(event) => primeInlineVideo(event.currentTarget)}
+              onCanPlay={(event) => primeInlineVideo(event.currentTarget)}
               key={HERO_VIDEOS[activeVideoIdx]}
               className="w-full h-full object-cover"
-            >
-              <source src={HERO_VIDEOS[activeVideoIdx]} type="video/mp4" />
-            </video>
+            />
           </motion.div>
         </AnimatePresence>
       </div>
