@@ -364,7 +364,21 @@ const seoConfig = {
       "Access your AlgoForce AI dashboard for active AI systems, workflow automation, business metrics, and operational execution tools.",
     keywords: combineKeywords(coreKeywords, ["AlgoForce dashboard", "AI dashboard"]),
     image: ogImage,
-    robots: "noindex, nofollow",
+    robots: "index, follow",
+  },
+  "/what-is-algoforce": {
+    title: "What is AlgoForce AI? | Execution Infrastructure Ecosystem",
+    description:
+      "AlgoForce AI is an execution infrastructure ecosystem connecting enterprise AI, Crucible startup OS, AlgoForce Labs talent infrastructure, and Velqora entertainment technology.",
+    keywords: combineKeywords(coreKeywords, pageKeywords.enterprise, pageKeywords.startups, pageKeywords.academy, pageKeywords.entertainment, [
+      "what is AlgoForce AI",
+      "AlgoForce business model",
+      "execution infrastructure ecosystem India",
+      "AlgoForce ecosystem",
+    ]),
+    image: ogImage,
+    robots: "index, follow",
+    canonical: `${siteUrl}/what-is-algoforce`,
   },
   "/blog": {
     title: "AlgoForce Blog | Enterprise AI, Startups, Talent & Growth Guides",

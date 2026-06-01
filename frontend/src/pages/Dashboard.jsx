@@ -53,8 +53,10 @@ const Dashboard = () => {
         return (
             <>
                 <Helmet>
-                    <title>Dashboard – AlgoForce</title>
-                    <meta name="robots" content="noindex, nofollow" />
+                    <title>Dashboard - AlgoForce</title>
+                    <meta name="description" content="Sign in to manage your AlgoForce AI projects, generated code, and automation workspace." />
+                    <meta name="robots" content="index, follow" />
+                    <link rel="canonical" href="https://www.algoforceaii.com/dashboard" />
                 </Helmet>
                 <AuthModal isOpen={authModalOpen} onClose={() => setAuthModalOpen(false)} />
                 <div className="min-h-screen flex items-center justify-center pt-20 px-4"
@@ -92,9 +94,10 @@ const Dashboard = () => {
     return (
         <>
             <Helmet>
-                <title>Dashboard – AlgoForce</title>
+                <title>Dashboard - AlgoForce</title>
                 <meta name="description" content="Manage your AI-generated projects and chat history on AlgoForce." />
-                <meta name="robots" content="noindex, nofollow" />
+                <meta name="robots" content="index, follow" />
+                <link rel="canonical" href="https://www.algoforceaii.com/dashboard" />
             </Helmet>
 
             <div className="min-h-screen pt-20 pb-12 px-4 sm:px-6"

@@ -55,6 +55,12 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://www.algoforceaii.com/what-is-algoforce</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://www.algoforceaii.com/blog</loc>
     <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>

@@ -32,6 +32,7 @@ import AICertificationIndia from './pages/AICertificationIndia'
 import BlogPost from './pages/BlogPost'
 import Founder from './pages/Founder'
 import Team from './pages/Team'
+import WhatIsAlgoForcePage from './pages/WhatIsAlgoForce'
 
 // Conditionally show footer and chatbot (not on AI Builder or Nexus page)
 const AppShell = () => {
@@ -104,6 +105,7 @@ const AppShell = () => {
           <Route path="/blog/:id" element={<BlogPost />} />
           <Route path="/founder" element={<Founder />} />
           <Route path="/team" element={<Team />} />
+          <Route path="/what-is-algoforce" element={<WhatIsAlgoForcePage />} />
           
           {/* SEO Landing Pages */}
           <Route path="/ai-course" element={<AICourse />} />

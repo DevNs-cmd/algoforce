@@ -7,12 +7,6 @@ Allow: /
 User-agent: *
 Content-Signal: search=yes, ai-train=no
 Allow: /
-Disallow: /dashboard
-Disallow: /dashboard/
-Disallow: /login
-Disallow: /login/
-Disallow: /signup
-Disallow: /signup/
 
 User-agent: GPTBot
 Disallow: /
