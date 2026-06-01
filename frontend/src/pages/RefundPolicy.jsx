@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async"
 import { motion } from 'framer-motion'
+import PageVideoBackdrop from '../components/common/PageVideoBackdrop'
 
 const RefundPolicy = () => {
     return (
@@ -14,8 +15,9 @@ const RefundPolicy = () => {
 
             <div className="min-h-screen pt-24 bg-white">
                 {/* Header */}
-                <section className="py-16 text-white bg-gradient-to-br from-navy-900 via-purple-900 to-navy-900">
-                    <div className="px-6 mx-auto text-center max-w-7xl">
+                <section className="relative overflow-hidden py-16 text-white bg-[#03070d]">
+                    <PageVideoBackdrop src="/video1.mp4" className="z-0" videoClassName="opacity-[0.2]" />
+                    <div className="relative z-10 px-6 mx-auto text-center max-w-7xl">
                         <motion.div
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}

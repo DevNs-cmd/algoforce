@@ -4,91 +4,92 @@ import { useState, useEffect, useRef, useMemo } from 'react'
 import { FaCheck, FaWhatsapp, FaPhoneAlt, FaTimes, FaHtml5, FaCss3Alt, FaJs, FaReact, FaNodeJs, FaAws, FaDocker, FaGitAlt, FaGithub, FaDatabase, FaJava, FaPython, FaGraduationCap, FaCode, FaChartBar, FaRobot, FaKeyboard, FaGlobe, FaFileExcel, FaBrain, FaRocket, FaArrowRight } from 'react-icons/fa'
 import { SiC, SiCplusplus, SiMongodb, SiFirebase, SiMysql, SiTailwindcss, SiNextdotjs } from 'react-icons/si'
 import { Link } from 'react-router-dom'
+import PageVideoBackdrop from '../components/common/PageVideoBackdrop'
 
 const SECTIONS = {
     mega: [
         { 
-            title: 'AI for Business Founders', 
-            description: '8-week cohort for founders and CEOs using AI to grow operations.',
+            title: 'AI Systems & Operational Automation for Leaders', 
+            description: '8-week cohort for founders and executives integrating AI systems to optimize scale and operations.',
             price: 'Rs 15,000', 
             originalPrice: 'Rs 45,000',
             label: 'Popular',
             icon: FaGraduationCap,
-            color: '#A855F7',
-            features: ['AI roadmap', 'Business automation', 'Founder playbooks', 'Capstone project']
+            color: '#8f38ff',
+            features: ['AI Systems Architecture', 'Business Process Automation', 'Operational Integration', 'Capstone Implementation']
         },
         { 
-            title: 'Full-Stack AI Developer', 
-            description: '16-week track for engineers building AI-enabled products.',
+            title: 'AI Systems Architect & Engineering Track', 
+            description: '16-week advanced program for engineers deploying production-grade AI systems.',
             price: 'Rs 35,000', 
             originalPrice: 'Rs 75,000',
             label: 'Trending',
             icon: FaCode,
-            color: '#00FF87',
-            features: ['MERN + AI stack', 'Cloud deployment', 'API patterns', 'Portfolio build']
+            color: '#7aa7c7',
+            features: ['Custom AI Architectures', 'Secure Cloud Integration', 'Workflow Orchestration', 'Operational Dashboards']
         },
         { 
-            title: 'Data Analytics & AI', 
-            description: '12-week program for analysts building AI dashboards and insights.',
+            title: 'Operational Intelligence & AI Systems', 
+            description: '12-week track for data teams building advanced analytics infrastructure and real-time execution dashboards.',
             price: 'Rs 25,000', 
             originalPrice: 'Rs 60,000',
             label: 'High ROI',
             icon: FaChartBar,
-            color: '#00D2FF',
-            features: ['BI dashboards', 'SQL architecture', 'ML foundations', 'Decision reports']
+            color: '#b783ff',
+            features: ['Operational Intelligence Dashboards', 'Data Infrastructure', 'Predictive Decision Engines', 'Intelligent Reporting']
         },
         { 
-            title: 'AI Automation Engineer', 
-            description: '14-week cohort for ops and tech teams building AI workflows.',
+            title: 'Enterprise Automation Infrastructure Specialist', 
+            description: '14-week cohort for operations and technology teams designing enterprise automated workflows.',
             price: 'Rs 30,000', 
             originalPrice: 'Rs 65,000',
             label: 'Advanced',
             icon: FaRobot,
-            color: '#FF00CC',
-            features: ['Agentic workflows', 'Prompt systems', 'n8n and Make', 'Client delivery']
+            color: '#8f38ff',
+            features: ['Intelligent Workflows', 'Prompt & Agent Orchestration', 'Advanced n8n & Make Infrastructure', 'Systemic Operational Delivery']
         }
     ],
     mini: [
-        { title: 'No-Code AI Builder', description: '6-week bootcamp for non-technical builders.', price: 'Rs 10,000', originalPrice: 'Rs 25,000', icon: FaKeyboard, color: '#00D2FF' },
-        { title: 'AI Marketing Specialist', description: '10-week cohort for AI-led content and funnels.', price: 'Rs 18,000', originalPrice: 'Rs 40,000', icon: FaGlobe, color: '#00FF87' },
-        { title: 'Python + SQL for AI', description: 'Data foundations for AI workflows.', price: 'Rs 12,000', originalPrice: 'Rs 30,000', icon: FaPython, color: '#FF8C00' },
-        { title: 'Excel + Power BI AI', description: 'Business analytics with AI reporting.', price: 'Rs 9,000', originalPrice: 'Rs 22,000', icon: FaFileExcel, color: '#00D2FF' },
-        { title: 'Prompt + Agent Systems', description: 'AI agents, prompts, and automation logic.', price: 'Rs 15,000', originalPrice: 'Rs 35,000', icon: FaBrain, color: '#A855F7' }
+        { title: 'Low-Code Systems & Operations Builder', description: '6-week bootcamp for non-technical operations builders.', price: 'Rs 10,000', originalPrice: 'Rs 25,000', icon: FaKeyboard, color: '#8f38ff' },
+        { title: 'AI-Led Operational Growth Systems', description: '10-week cohort for automated distribution and analytics funnels.', price: 'Rs 18,000', originalPrice: 'Rs 40,000', icon: FaGlobe, color: '#7aa7c7' },
+        { title: 'Python & SQL Data Infrastructure', description: 'Data engineering foundations for custom database systems.', price: 'Rs 12,000', originalPrice: 'Rs 30,000', icon: FaPython, color: '#b783ff' },
+        { title: 'Operational Intelligence & Reporting', description: 'Business analytics platforms with custom reporting.', price: 'Rs 9,000', originalPrice: 'Rs 22,000', icon: FaFileExcel, color: '#8f38ff' },
+        { title: 'Agentic Orchestration & Workflows', description: 'Deploying autonomous agents, prompts, and orchestration workflows.', price: 'Rs 15,000', originalPrice: 'Rs 35,000', icon: FaBrain, color: '#7aa7c7' }
     ],
     single: {
         Programming: [
-            { name: 'C Programming', price: 'Rs 999', icon: SiC, color: '#00D2FF' },
-            { name: 'C++ Mastery', price: 'Rs 1,499', icon: SiCplusplus, color: '#00D2FF' },
-            { name: 'Java Core', price: 'Rs 1,999', icon: FaJava, color: '#00D2FF' },
-            { name: 'Python Pro', price: 'Rs 1,999', icon: FaPython, color: '#00D2FF' }
+            { name: 'Systems Logic & C', price: 'Rs 999', icon: SiC, color: '#8f38ff' },
+            { name: 'Advanced Logic in C++', price: 'Rs 1,499', icon: SiCplusplus, color: '#8f38ff' },
+            { name: 'Java Core Systems', price: 'Rs 1,999', icon: FaJava, color: '#8f38ff' },
+            { name: 'Python Pro Automation', price: 'Rs 1,999', icon: FaPython, color: '#8f38ff' }
         ],
         Development: [
-            { name: 'HTML + CSS', price: 'Rs 999', icon: FaHtml5, color: '#00FF87' },
-            { name: 'JavaScript', price: 'Rs 1,499', icon: FaJs, color: '#00FF87' },
-            { name: 'React.js', price: 'Rs 2,499', icon: FaReact, color: '#00FF87' },
-            { name: 'Node.js', price: 'Rs 2,499', icon: FaNodeJs, color: '#00FF87' }
+            { name: 'HTML & CSS Layouts', price: 'Rs 999', icon: FaHtml5, color: '#7aa7c7' },
+            { name: 'JavaScript Logic', price: 'Rs 1,499', icon: FaJs, color: '#7aa7c7' },
+            { name: 'React UI Systems', price: 'Rs 2,499', icon: FaReact, color: '#7aa7c7' },
+            { name: 'Node.js Core Integration', price: 'Rs 2,499', icon: FaNodeJs, color: '#7aa7c7' }
         ],
         Cloud: [
-            { name: 'AWS Basics', price: 'Rs 1,499', icon: FaAws, color: '#FF8C00' },
-            { name: 'Docker + K8s', price: 'Rs 2,499', icon: FaDocker, color: '#FF8C00' },
-            { name: 'Git + GitHub', price: 'Rs 999', icon: FaGithub, color: '#FF8C00' }
+            { name: 'AWS Cloud Infrastructure', price: 'Rs 1,499', icon: FaAws, color: '#b783ff' },
+            { name: 'Docker & Kubernetes', price: 'Rs 2,499', icon: FaDocker, color: '#b783ff' },
+            { name: 'Git & Version Workflows', price: 'Rs 999', icon: FaGithub, color: '#b783ff' }
         ],
         Database: [
-            { name: 'SQL Mastery', price: 'Rs 1,499', icon: FaDatabase, color: '#FF00CC' },
-            { name: 'MongoDB', price: 'Rs 1,999', icon: SiMongodb, color: '#FF00CC' },
-            { name: 'Firebase', price: 'Rs 1,499', icon: SiFirebase, color: '#FF00CC' }
+            { name: 'SQL Database Systems', price: 'Rs 1,499', icon: FaDatabase, color: '#8f38ff' },
+            { name: 'MongoDB Data Stores', price: 'Rs 1,999', icon: SiMongodb, color: '#8f38ff' },
+            { name: 'Firebase Operations', price: 'Rs 1,499', icon: SiFirebase, color: '#8f38ff' }
         ]
     },
     premium: [
         { 
-            title: 'Labs Apprenticeship Track', 
-            description: 'For top learners moving into paid client work.',
+            title: 'Elite Systems Deployment Apprenticeship', 
+            description: 'For top performers moving into custom implementation and enterprise infrastructure systems.',
             price: 'Rs 50,000', 
             originalPrice: 'Rs 95,000',
             label: 'Premium',
             icon: FaRocket,
-            color: '#A855F7',
-            features: ['Client projects', 'Portfolio case studies', 'Placement support', 'Alumni network']
+            color: '#8f38ff',
+            features: ['Client systems projects', 'Enterprise case studies', 'Deployment mentorship', 'Implementation network']
         }
     ]
 };
@@ -105,11 +106,11 @@ const Labs = () => {
         offset: ["start start", "end end"]
     });
 
-    // Theme transition: Dark -> Subtle Purple -> Dark (Optimized)
+    // Theme transition: dark hero mood -> subtle purple -> dark
     const backgroundOverlay = useTransform(
         scrollYProgress,
         [0, 0.4, 0.6, 1],
-        ["rgba(10, 10, 10, 1)", "rgba(20, 10, 40, 1)", "rgba(30, 15, 60, 0.7)", "rgba(10, 10, 10, 1)"]
+        ["rgba(3, 7, 13, 0.76)", "rgba(12, 8, 28, 0.72)", "rgba(9, 16, 31, 0.76)", "rgba(3, 7, 13, 0.84)"]
     );
 
     // Optimized Course Selection logic
@@ -161,7 +162,7 @@ const Labs = () => {
 
 
     return (
-        <div ref={containerRef} className="relative min-h-screen bg-[#0A0A0A]">
+        <div ref={containerRef} className="relative min-h-screen overflow-hidden premium-page-bg text-white">
             <Helmet>
                 <title>AlgoForce Labs - AI Cohorts, Certifications & Talent Pipeline</title>
                 <meta name="description" content="AlgoForce Labs runs AI cohorts, certifications, apprenticeships, portfolio projects, and placement pathways for students and professionals." />
@@ -187,15 +188,17 @@ const Labs = () => {
                 <meta name="twitter:card" content="summary_large_image" />
             </Helmet>
 
-            {/* Dynamic 3D Liquid Background */}
+            {/* Premium AI background */}
+            <PageVideoBackdrop src="/video2.mp4" className="fixed z-0" videoClassName="opacity-[0.3]" />
             <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+                <div className="absolute inset-0 subtle-ai-grid opacity-55" />
                 <motion.div
                     animate={{
                         x: ['-20%', '10%', '-20%'],
                         y: ['-10%', '20%', '-10%'],
                     }}
                     transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                    className="absolute top-[-5%] left-[-5%] w-[800px] h-[800px] bg-purple-600/5 blur-[120px] rounded-full transform-gpu will-change-transform"
+                    className="absolute top-[-10%] left-[-10%] w-[720px] h-[720px] bg-[#8f38ff]/10 blur-[140px] rounded-full transform-gpu will-change-transform"
                 />
                 <motion.div
                     animate={{
@@ -203,7 +206,7 @@ const Labs = () => {
                         rotate: [0, 20, 0],
                     }}
                     transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                    className="absolute bottom-[-10%] right-[10%] w-[700px] h-[700px] bg-blue-600/5 blur-[100px] rounded-full transform-gpu will-change-transform"
+                    className="absolute bottom-[-12%] right-[5%] w-[720px] h-[720px] bg-[#062f4f]/28 blur-[130px] rounded-full transform-gpu will-change-transform"
                 />
                 <motion.div
                     animate={{
@@ -211,7 +214,7 @@ const Labs = () => {
                         scale: [1, 1.1, 1],
                     }}
                     transition={{ duration: 15, repeat: Infinity }}
-                    className="absolute top-[30%] left-[40%] w-[600px] h-[600px] bg-purple-500/5 blur-[150px] rounded-full transform-gpu"
+                    className="absolute top-[28%] left-[40%] w-[520px] h-[520px] bg-white/5 blur-[140px] rounded-full transform-gpu"
                 />
             </div>
 
@@ -221,45 +224,43 @@ const Labs = () => {
                 className="fixed inset-0 pointer-events-none z-[1] transition-colors duration-1000" 
             />
 
-            <div className="relative z-10 pt-16 md:pt-24 pb-6 md:pb-8 selection:bg-purple-500/30">
+            <div className="relative z-10 pt-28 md:pt-34 pb-10 md:pb-14 selection:bg-purple-500/20">
                 
-                <div className="max-w-6xl mx-auto px-6 mb-2 md:mb-6">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div className="max-w-7xl mx-auto px-5 sm:px-6 mb-10 md:mb-14">
+                    <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-12 items-center">
                         <motion.div
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                             className="text-center lg:text-left"
                         >
-                            {/* Dual Trust Badges */}
-                            <div className="flex flex-wrap justify-center lg:justify-start items-center gap-3 mb-6 md:mb-8">
+                            <div className="flex flex-wrap justify-center lg:justify-start items-center gap-3 mb-6 md:mb-7">
                                 <motion.div
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-3xl shadow-xl"
+                                    className="inline-flex items-center gap-2 px-5 py-2 rounded-full premium-dark-surface backdrop-blur-xl"
                                 >
-                                    <div className="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.6)] animate-pulse" />
-                                    <span className="text-[10px] font-semibold uppercase tracking-[0.4em] text-gray-500 whitespace-nowrap">Talent Pipeline Engine</span>
+                                    <div className="w-1.5 h-1.5 rounded-full bg-[#8f38ff]" />
+                                    <span className="text-[10px] font-semibold uppercase text-slate-300 whitespace-nowrap">AI Talent Infrastructure</span>
                                 </motion.div>
 
                                 <motion.div
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.1 }}
-                                    className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-3xl shadow-xl"
+                                    className="inline-flex items-center gap-2 px-5 py-2 rounded-full premium-dark-surface backdrop-blur-xl"
                                 >
-                                    <div className="w-1.5 h-1.5 rounded-full bg-[#22c55e] shadow-[0_0_10px_#22c55e] animate-pulse" />
-                                    <span className="text-[10px] font-semibold uppercase tracking-[0.4em] text-gray-500 whitespace-nowrap">Cohorts + Apprenticeships</span>
+                                    <div className="w-1.5 h-1.5 rounded-full bg-[#7aa7c7]" />
+                                    <span className="text-[10px] font-semibold uppercase text-slate-300 whitespace-nowrap">Cohorts & Apprenticeships</span>
                                 </motion.div>
                             </div>
 
-                            <h1 className="text-4xl md:text-7xl font-bold tracking-tight text-white mb-8 leading-none">
-                                Learn AI by <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-300 to-white italic">Building Real Systems.</span>
+                            <h1 className="text-[2.35rem] sm:text-5xl md:text-6xl lg:text-[4.75rem] font-bold text-white mb-6 leading-[1.06]">
+                                Build AI execution capabilities with <span className="brand-gradient-text">AlgoForce Labs</span>
                             </h1>
-                            <p className="text-sm md:text-xl text-gray-400 max-w-xl mx-auto lg:mx-0 font-medium opacity-80 leading-relaxed mb-12 italic">
-                                Move from learning to portfolio, certification, apprenticeship, and placement. <br className="hidden md:block" />
-                                AlgoForce Labs is the talent engine powering the full ecosystem.
+                            <p className="text-base md:text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed mb-8">
+                                Move from skills acquisition to systems deployment, certification, and enterprise implementation. <br className="hidden md:block" />
+                                AlgoForce Labs is our strategic talent infrastructure platform.
                             </p>
 
                         </motion.div>
@@ -267,41 +268,61 @@ const Labs = () => {
                         <motion.div
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 1.5, ease: "easeOut" }}
+                            transition={{ duration: 1.1, ease: "easeOut" }}
                             className="relative flex justify-center items-center"
                         >
-                            <div className="absolute inset-0 bg-purple-600/20 blur-[120px] rounded-full -z-10 animate-pulse" />
-                            <motion.div
-                                animate={{
-                                    y: [0, -15, 0],
-                                }}
-                                transition={{
-                                    duration: 5,
-                                    repeat: Infinity,
-                                    ease: "easeInOut"
-                                }}
-                                className="relative w-40 h-40 md:w-56 md:h-56 rounded-full overflow-hidden bg-white p-6 shadow-2xl border-4 border-white/10 group hover:scale-105 transition-transform cursor-pointer transform-gpu"
-                            >
-                                <img 
-                                    src="/logo.png" 
-                                    alt="AlgoForce Logo" 
-                                    className="w-full h-full object-contain" 
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                            </motion.div>
+                            <div className="w-full max-w-md premium-dark-surface rounded-[28px] p-6 md:p-8 backdrop-blur-xl">
+                                <div className="relative aspect-video overflow-hidden rounded-[22px] border border-white/10 mb-6 shadow-[0_24px_70px_rgba(6,47,79,0.12)]">
+                                    <video
+                                        autoPlay
+                                        loop
+                                        muted
+                                        defaultMuted
+                                        playsInline
+                                        webkit-playsinline="true"
+                                        preload="metadata"
+                                        src="/video2.mp4"
+                                        className="absolute inset-0 h-full w-full object-cover"
+                                        aria-hidden="true"
+                                    />
+                                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,7,13,0.08),rgba(3,7,13,0.58))]" />
+                                    <div className="absolute left-4 right-4 bottom-4">
+                                        <p className="text-[10px] uppercase font-semibold text-white/75 labs-keep-white">Live execution lab</p>
+                                        <h2 className="text-2xl font-bold text-white labs-keep-white">Build. Automate. Deploy.</h2>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-4 pb-6 border-b border-white/10">
+                                    <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center overflow-hidden">
+                                        <img src="/logo.png" alt="AlgoForce Logo" className="w-full h-full object-cover" />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs uppercase text-slate-400 font-semibold">Labs operating model</p>
+                                        <h2 className="text-2xl font-extrabold brand-wordmark">Algo<span>Force</span></h2>
+                                    </div>
+                                </div>
+                                <div className="grid grid-cols-2 gap-4 mt-6">
+                                    {['Systems', 'Automation', 'AI Apps', 'Deployment'].map((label) => (
+                                        <div key={label} className="rounded-2xl border border-white/10 bg-white/[0.045] p-4">
+                                            <div className="text-sm font-extrabold text-white">{label}</div>
+                                            <div className="text-xs uppercase text-slate-400 mt-1">Execution module</div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                         </motion.div>
                     </div>
                 </div>
 
 
 
-                <div className="text-center mb-12">
-                    <h2 className="text-3xl md:text-5xl font-black mb-10 tracking-tighter uppercase italic text-gray-500">
-                        Choose Your <span className="text-white">Labs Track.</span>
+                <div className="text-center mb-8 px-5 sm:px-6">
+                    <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white">
+                        Choose your Labs track
                     </h2>
+                    <p className="text-slate-400 max-w-2xl mx-auto">Professional AI and automation programs mapped to execution roles, from single skills to enterprise deployment tracks.</p>
                 </div>
                 <div className={`sticky top-20 z-50 flex justify-center px-4 mb-4 md:mb-8 transition-all duration-500 ${isScrolled ? 'opacity-100 scale-95' : 'opacity-100'}`}>
-                    <div className="bg-[#141414]/60 backdrop-blur-3xl border border-white/5 rounded-[2rem] p-1.5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-x-auto no-scrollbar max-w-full">
+                    <div className="premium-dark-surface backdrop-blur-2xl rounded-[26px] p-1.5 overflow-x-auto no-scrollbar max-w-full">
                         <div className="flex items-center min-w-max gap-1 px-1">
                             {[
                                 { id: 'single', label: 'Individual' },
@@ -312,14 +333,14 @@ const Labs = () => {
                                 <button
                                     key={tab.id}
                                     onClick={() => setActiveTab(tab.id)}
-                                    className={`relative px-8 md:px-12 py-3.5 rounded-full font-bold text-[13px] md:text-[14px] transition-all duration-300 whitespace-nowrap min-w-max flex-shrink-0 ${
-                                        activeTab === tab.id ? 'text-black' : 'text-gray-400 hover:text-white'
+                                    className={`relative px-7 md:px-10 py-3.5 rounded-full font-bold text-[13px] md:text-[14px] transition-all duration-300 whitespace-nowrap min-w-max flex-shrink-0 ${
+                                        activeTab === tab.id ? 'text-[#06101d]' : 'text-slate-400 hover:text-white'
                                     }`}
                                 >
                                     {activeTab === tab.id && (
                                         <motion.div
                                             layoutId="active-ios-tab"
-                                            className="absolute inset-0 bg-white rounded-full shadow-[0_10px_20px_rgba(255,255,255,0.1)]"
+                                            className="absolute inset-0 bg-white rounded-full shadow-[0_12px_28px_rgba(143,56,255,0.14)]"
                                         />
                                     )}
                                     <span className="relative z-10">{tab.label}</span>
@@ -330,7 +351,7 @@ const Labs = () => {
                 </div>
 
                 {/* Main Content Area */}
-                <div id="pricing-grid" className="max-w-7xl mx-auto px-6 py-6 md:py-12 border-t border-white/5 selection:bg-rose-500/20">
+                <div id="pricing-grid" className="max-w-7xl mx-auto px-5 sm:px-6 py-8 md:py-10 border-t border-white/10 selection:bg-purple-500/20">
                     <AnimatePresence mode="wait">
                         {(activeTab === 'mega' || activeTab === 'premium') && (
                             <motion.div
@@ -343,40 +364,40 @@ const Labs = () => {
                                 {SECTIONS[activeTab].map((item, i) => (
                                     <motion.div 
                                         key={`${activeTab}-${item.title}`}
-                                        whileHover={{ y: -10 }}
-                                        className="group relative p-8 md:p-10 rounded-[2.5rem] bg-[#141414]/40 border border-white/10 backdrop-blur-xl transition-all duration-500 overflow-hidden"
+                                        whileHover={{ y: -6 }}
+                                        className="group relative p-8 md:p-10 rounded-[26px] premium-dark-surface backdrop-blur-xl transition-all duration-500 overflow-hidden"
                                     >
-                                        <div className="absolute inset-0 bg-gradient-to-tr opacity-0 group-hover:opacity-10 transition-opacity" style={{ backgroundImage: `linear-gradient(to top right, ${item.color}, transparent)` }} />
+                                        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
                                         
                                         <div className="flex justify-between items-start mb-10 relative z-10">
                                             <div className="flex items-center gap-4">
-                                                <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-3xl shadow-2xl" style={{ color: item.color }}>
+                                                <div className="w-14 h-14 rounded-2xl bg-white/7 border border-white/10 flex items-center justify-center text-2xl" style={{ color: item.color }}>
                                                     <item.icon />
                                                 </div>
-                                                <div className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest text-white/60">
+                                                <div className="px-4 py-1.5 rounded-full bg-white/6 border border-white/10 text-[10px] font-bold uppercase text-slate-300">
                                                     {item.label}
                                                 </div>
                                             </div>
                                             <motion.button 
-                                                whileHover={{ scale: 1.1, rotate: 90 }}
+                                                whileHover={{ scale: 1.05 }}
                                                 onClick={() => setContactCourse(item)}
-                                                className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all text-white/20"
+                                                className="w-12 h-12 rounded-full bg-white/6 border border-white/10 flex items-center justify-center hover:bg-white hover:text-[#06101d] transition-all text-white/55"
                                             >
                                                 <div className="text-xl font-light">+</div>
                                             </motion.button>
                                         </div>
 
-                                        <h3 className="text-3xl font-black mb-4 text-white group-hover:text-white transition-colors tracking-tight leading-tight relative z-10">
+                                        <h3 className="text-2xl md:text-3xl font-extrabold mb-4 text-white group-hover:text-white transition-colors leading-tight relative z-10">
                                             {item.title}
                                         </h3>
-                                        <p className="text-gray-400 mb-10 font-medium leading-relaxed opacity-80 relative z-10">
+                                        <p className="text-slate-400 mb-10 font-normal leading-relaxed relative z-10">
                                             {item.description}
                                         </p>
                                         
                                         <div className="space-y-4 mb-12 relative z-10 flex-1">
                                             {item.features.map(f => (
-                                                <div key={f} className="flex items-center gap-4 text-[13px] text-gray-300 font-bold">
-                                                    <div className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
+                                                <div key={f} className="flex items-center gap-4 text-[13px] text-slate-300 font-medium">
+                                                    <div className="w-5 h-5 rounded-full bg-white/6 flex items-center justify-center border border-white/10">
                                                         <FaCheck className="text-[8px]" style={{ color: item.color }} />
                                                     </div>
                                                     {f}
@@ -386,14 +407,14 @@ const Labs = () => {
 
                                         <div className="pt-8 border-t border-white/5 flex items-center justify-between relative z-10">
                                             <div>
-                                                <div className="text-[11px] text-white/20 font-black line-through mb-1 uppercase tracking-wider">{item.originalPrice}</div>
-                                                <div className="text-3xl font-black text-white tracking-tighter" style={{ color: item.color }}>{item.price}</div>
+                                                <div className="text-[11px] text-white/28 font-bold line-through mb-1 uppercase">{item.originalPrice}</div>
+                                                <div className="text-3xl font-extrabold text-white" style={{ color: item.color }}>{item.price}</div>
                                             </div>
                                             <motion.button 
-                                                whileHover={{ scale: 1.05 }}
+                                                whileHover={{ scale: 1.03 }}
                                                 whileTap={{ scale: 0.95 }}
                                                 onClick={() => setContactCourse(item)}
-                                                className="px-10 py-4 bg-white text-black rounded-full font-black text-[14px] shadow-2xl transition-all hover:shadow-[0_0_30px_rgba(255,255,255,0.3)]"
+                                                className="px-8 py-4 bg-white text-[#06101d] rounded-full font-bold text-[14px] shadow-[0_18px_40px_rgba(143,56,255,0.14)] transition-all"
                                             >
                                                 Enroll Now
                                             </motion.button>
@@ -413,35 +434,35 @@ const Labs = () => {
                                 {SECTIONS.mini.map((item, i) => (
                                     <motion.div 
                                         key={`mini-${i}`} 
-                                        whileHover={{ y: -10 }}
-                                        className="p-8 rounded-[2.5rem] bg-[#141414]/40 border border-white/10 backdrop-blur-xl group transition-all duration-300 relative overflow-hidden"
+                                        whileHover={{ y: -6 }}
+                                        className="p-8 rounded-[26px] premium-dark-surface backdrop-blur-xl group transition-all duration-300 relative overflow-hidden"
                                     >
-                                        <div className="absolute inset-0 bg-gradient-to-tr opacity-0 group-hover:opacity-5 transition-opacity" style={{ backgroundImage: `linear-gradient(to top right, ${item.color}, transparent)` }} />
+                                        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" />
                                         
                                         <div className="flex justify-between items-start mb-8 relative z-10">
-                                            <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-3xl shadow-xl transition-transform duration-500 group-hover:scale-110" style={{ color: item.color }}>
+                                            <div className="w-14 h-14 rounded-2xl bg-white/7 border border-white/10 flex items-center justify-center text-2xl transition-transform duration-500 group-hover:scale-105" style={{ color: item.color }}>
                                                 <item.icon />
                                             </div>
                                             <motion.button 
-                                                whileHover={{ rotate: 90, scale: 1.2 }} 
+                                                whileHover={{ scale: 1.05 }} 
                                                 onClick={() => setContactCourse(item)} 
-                                                className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/20 hover:bg-white hover:text-black transition-all"
+                                                className="w-10 h-10 rounded-full bg-white/6 border border-white/10 flex items-center justify-center text-white/55 hover:bg-white hover:text-[#06101d] transition-all"
                                             >
                                                 <span className="text-xl font-light">+</span>
                                             </motion.button>
                                         </div>
-                                        <h4 className="text-[20px] font-black text-white tracking-tight mb-2 relative z-10">{item.title}</h4>
-                                        <p className="text-[13px] text-gray-400 mb-10 leading-relaxed font-bold opacity-70 relative z-10">{item.description}</p>
+                                        <h4 className="text-[20px] font-extrabold text-white mb-2 relative z-10">{item.title}</h4>
+                                        <p className="text-[13px] text-slate-400 mb-10 leading-relaxed font-normal relative z-10">{item.description}</p>
                                         
                                         <div className="flex items-center justify-between pt-6 border-t border-white/5 relative z-10">
                                             <div>
-                                                <div className="text-[10px] text-white/20 line-through mb-0.5 font-black uppercase tracking-wider">{item.originalPrice}</div>
-                                                <div className="text-2xl font-black text-white tracking-tight" style={{ color: item.color }}>{item.price}</div>
+                                                <div className="text-[10px] text-white/28 line-through mb-0.5 font-bold uppercase">{item.originalPrice}</div>
+                                                <div className="text-2xl font-extrabold text-white" style={{ color: item.color }}>{item.price}</div>
                                             </div>
                                             <motion.button 
-                                                whileHover={{ scale: 1.05 }}
+                                                whileHover={{ scale: 1.03 }}
                                                 onClick={() => setContactCourse(item)}
-                                                className="px-6 py-3 bg-white/10 border border-white/10 text-white rounded-full text-[12px] font-black transition-all hover:bg-white hover:text-black shadow-xl"
+                                                className="px-6 py-3 bg-white/8 border border-white/10 text-white rounded-full text-[12px] font-bold transition-all hover:bg-white hover:text-[#06101d]"
                                             >
                                                 Enroll
                                             </motion.button>
@@ -456,16 +477,16 @@ const Labs = () => {
                                 key="single"
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12"
+                                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10"
                             >
                                 {Object.entries(SECTIONS.single).map(([category, courses]) => (
-                                    <div key={category} className="space-y-8">
+                                    <div key={category} className="space-y-5">
                                         <div className="flex items-center gap-4 mb-2">
-                                            <h3 className="text-[12px] font-black uppercase tracking-[0.4em] text-white/40">
+                                            <h3 className="text-[12px] font-bold uppercase text-slate-400">
                                                 {category}
                                             </h3>
                                             <div 
-                                                className="w-1.5 h-1.5 rounded-full shadow-[0_0_10px_currentColor]" 
+                                                className="w-1.5 h-1.5 rounded-full" 
                                                 style={{ 
                                                     backgroundColor: courses[0]?.color, 
                                                     color: courses[0]?.color 
@@ -480,45 +501,30 @@ const Labs = () => {
                                                     initial={{ opacity: 0, x: -10 }}
                                                     animate={{ opacity: 1, x: 0 }}
                                                     transition={{ delay: i * 0.1 }}
-                                                    whileHover={{ 
-                                                        y: -5,
-                                                        backgroundColor: 'rgba(255,255,255,0.05)',
-                                                        borderColor: course.color + '40'
-                                                    }}
+                                                    whileHover={{ y: -4, borderColor: `${course.color}66` }}
                                                     onClick={() => setContactCourse({ name: course.name, title: course.name })}
-                                                    className="group relative p-4 rounded-2xl bg-[#141414]/50 border border-white/5 backdrop-blur-sm transition-all duration-300 cursor-pointer overflow-hidden"
+                                                    className="group relative p-4 rounded-2xl premium-dark-surface backdrop-blur-sm transition-all duration-300 cursor-pointer overflow-hidden"
                                                 >
-                                                    {/* Hover Glow Effect */}
-                                                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                                                        <div 
-                                                            className="absolute -inset-[100%] animate-[spin_5s_linear_infinite]"
-                                                            style={{
-                                                                background: `conic-gradient(from 0deg, transparent 20%, ${course.color}20 50%, transparent 80%)`
-                                                            }}
-                                                        />
-                                                    </div>
-
                                                     <div className="relative z-10 flex items-center gap-4">
-                                                        <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-xl overflow-hidden">
+                                                        <div className="w-12 h-12 rounded-xl bg-white/7 border border-white/10 flex items-center justify-center group-hover:scale-105 transition-transform duration-500 overflow-hidden">
                                                             {course.icon && (
                                                                 <course.icon 
-                                                                    className="text-2xl transition-all duration-500" 
+                                                                    className="text-2xl transition-all duration-500 relative z-10" 
                                                                     style={{ color: course.color }} 
                                                                 />
                                                             )}
-                                                            <div className="absolute inset-0 blur-md opacity-30 group-hover:opacity-50 transition-opacity" style={{ backgroundColor: course.color }} />
                                                         </div>
                                                         <div className="flex-1 min-w-0">
                                                             <div className="text-[14px] font-bold text-white group-hover:text-white transition-colors truncate">
                                                                 {course.name}
                                                             </div>
                                                             <div className="flex items-center gap-2 mt-0.5">
-                                                                <span className="text-[11px] font-black tracking-tighter" style={{ color: course.color }}>{course.price}</span>
-                                                                <span className="text-[8px] px-1.5 py-0.5 rounded-full bg-white/5 text-white/40 font-bold uppercase tracking-widest border border-white/5">Lab Access</span>
+                                                                <span className="text-[11px] font-extrabold" style={{ color: course.color }}>{course.price}</span>
+                                                                <span className="text-[8px] px-1.5 py-0.5 rounded-full bg-white/6 text-slate-400 font-bold uppercase border border-white/8">Lab Access</span>
                                                             </div>
                                                         </div>
-                                                        <div className="w-8 h-8 rounded-full bg-white/5 border border-white/5 flex items-center justify-center text-white/20 group-hover:bg-white group-hover:text-black transition-all">
-                                                            <div className="text-xl font-light transform group-hover:rotate-90 transition-transform">+</div>
+                                                        <div className="w-8 h-8 rounded-full bg-white/6 border border-white/8 flex items-center justify-center text-white/50 group-hover:bg-white group-hover:text-[#06101d] transition-all">
+                                                            <div className="text-xl font-light">+</div>
                                                         </div>
                                                     </div>
                                                 </motion.div>
@@ -546,16 +552,16 @@ const Labs = () => {
                                 initial={{ scale: 0.9, opacity: 0, y: 30 }}
                                 animate={{ scale: 1, opacity: 1, y: 0 }}
                                 exit={{ scale: 0.9, opacity: 0, y: 30 }}
-                                className="relative w-full max-w-[400px] bg-[#0F0F0F] border border-white/10 rounded-[3rem] p-10 md:p-12 shadow-[0_30px_100px_rgba(0,0,0,0.8)] overflow-hidden backdrop-blur-3xl"
+                                className="relative w-full max-w-[400px] bg-[#03070d]/96 border border-white/12 rounded-[28px] p-8 md:p-10 shadow-[0_30px_100px_rgba(0,0,0,0.55)] overflow-hidden backdrop-blur-2xl"
                             >
-                                <button onClick={() => setContactCourse(null)} className="absolute top-8 right-8 text-white/20 hover:text-white transition-colors z-20"><FaTimes /></button>
+                                <button onClick={() => setContactCourse(null)} className="absolute top-7 right-7 text-white/30 hover:text-white transition-colors z-20"><FaTimes /></button>
                                 
                                 <div className="text-center relative z-10">
-                                    <div className="w-20 h-20 rounded-[2rem] bg-white/5 border border-white/10 flex items-center justify-center mx-auto mb-10 text-white text-3xl font-light shadow-2xl">
+                                    <div className="w-20 h-20 rounded-2xl bg-white/7 border border-white/10 flex items-center justify-center mx-auto mb-8 text-white text-3xl font-light">
                                         +
                                     </div>
-                                    <h2 className="text-3xl font-black mb-4 tracking-tighter text-white">Join Program</h2>
-                                    <p className="text-base text-gray-400 mb-12 font-medium leading-relaxed">
+                                    <h2 className="text-3xl font-extrabold mb-4 text-white">Join Program</h2>
+                                    <p className="text-base text-slate-400 mb-10 font-normal leading-relaxed">
                                         Confirm your seat for <span className="text-white font-bold underline decoration-purple-500 underline-offset-4">{contactCourse.title || contactCourse.name}</span>.
                                     </p>
 
@@ -564,7 +570,7 @@ const Labs = () => {
                                             whileHover={{ scale: 1.02, y: -2 }}
                                             whileTap={{ scale: 0.98 }}
                                             onClick={() => openWhatsApp(contactCourse.title || contactCourse.name)}
-                                            className="w-full py-5 bg-[#25D366] text-white rounded-full font-black text-[16px] flex items-center justify-center gap-3 shadow-[0_15px_30px_rgba(37,211,102,0.2)] hover:shadow-[0_20px_40px_rgba(37,211,102,0.3)] transition-all"
+                                            className="w-full py-5 bg-[#06101d] border border-white/12 text-white rounded-full font-bold text-[16px] flex items-center justify-center gap-3 transition-all"
                                         >
                                             <FaWhatsapp className="text-2xl" /> WhatsApp Support
                                         </motion.button>
@@ -572,20 +578,20 @@ const Labs = () => {
                                             whileHover={{ scale: 1.02, y: -2 }}
                                             whileTap={{ scale: 0.98 }}
                                             onClick={callOwner}
-                                            className="w-full py-5 bg-white text-black rounded-full font-black text-[16px] flex items-center justify-center gap-3 shadow-[0_15px_30px_rgba(255,255,255,0.1)] transition-all"
+                                            className="w-full py-5 bg-white text-[#06101d] rounded-full font-bold text-[16px] flex items-center justify-center gap-3 transition-all"
                                         >
                                             <FaPhoneAlt className="text-sm" /> Call Direct
                                         </motion.button>
                                     </div>
                                     
-                                    <div className="mt-12 pt-8 border-t border-white/5">
-                                        <p className="text-[11px] text-white/20 font-black uppercase tracking-[0.4em]">AlgoForce Elite Support</p>
+                                    <div className="mt-10 pt-7 border-t border-white/5">
+                                        <p className="text-[11px] text-slate-500 font-bold uppercase">AlgoForce Labs Support</p>
                                     </div>
                                 </div>
 
                                 {/* Background accents for modal */}
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-purple-600/10 blur-[60px] rounded-full pointer-events-none" />
-                                <div className="absolute bottom-0 left-0 w-32 h-32 bg-blue-600/10 blur-[60px] rounded-full pointer-events-none" />
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-[#8f38ff]/10 blur-[60px] rounded-full pointer-events-none" />
+                                <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#062f4f]/20 blur-[60px] rounded-full pointer-events-none" />
                             </motion.div>
                         </div>
                     )}

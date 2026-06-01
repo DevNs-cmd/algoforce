@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { submitContact } from '../services/api'
 import PhoneInput from '../components/PhoneInput'
 import { FaUser, FaBuilding, FaBriefcase, FaCheckCircle, FaPhone, FaEnvelope, FaWhatsapp } from 'react-icons/fa'
+import PageVideoBackdrop from '../components/common/PageVideoBackdrop'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -106,19 +107,22 @@ const Contact = () => {
         <meta name="twitter:description" content="Reach AlgoForce AI for consulting, cohorts, founder programs, and partnerships." />
       </Helmet>
 
-      <div className="min-h-screen pt-24 bg-gradient-to-b from-navy-50 to-white">
+      <div className="min-h-screen pt-24 bg-[#f6f8fb] text-[#06101d]">
         {/* Hero Section */}
-        <section className="py-16 text-white bg-gradient-to-br from-navy-900 via-purple-900 to-navy-900">
-          <div className="px-6 mx-auto text-center max-w-7xl">
+        <section className="relative overflow-hidden py-18 md:py-24 text-white bg-[#03070d]">
+          <PageVideoBackdrop src="/video1.mp4" className="z-0" videoClassName="opacity-[0.22]" />
+          <div className="absolute inset-0 subtle-ai-grid opacity-45" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(143,56,255,0.18),transparent_34rem)]" />
+          <div className="relative z-10 px-6 mx-auto text-center max-w-7xl">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="mb-6 text-5xl font-bold md:text-6xl">
-                Enter the <span className="gradient-text bg-gradient-to-r from-purple-400 to-blue-400">Ecosystem</span>
+              <h1 className="mb-6 text-4xl md:text-6xl font-extrabold">
+                Start with <span className="brand-gradient-text">AlgoForce</span>
               </h1>
-              <p className="max-w-3xl mx-auto text-xl text-gray-300">
+              <p className="max-w-3xl mx-auto text-lg md:text-xl text-slate-300 leading-relaxed">
                 Tell us whether you need AI services, Labs training, Crucible founder support, or a strategic partnership.
                 The right team will map the next step.
               </p>
@@ -127,7 +131,7 @@ const Contact = () => {
         </section>
         
         {/* Form Section */}
-        <section className="py-24">
+        <section className="py-16 md:py-24">
           <div className="max-w-6xl px-6 mx-auto">
             <div className="grid gap-8 lg:gap-12 lg:grid-cols-2">
               {/* Left: Info */}
@@ -136,35 +140,35 @@ const Contact = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
               >
-                <h2 className="mb-6 text-3xl sm:text-4xl font-bold text-navy-900">AlgoForce Contact</h2>
-                <div className="p-6 sm:p-8 mb-8 sm:mb-12 bg-white border border-purple-100 shadow-lg rounded-2xl sm:rounded-3xl">
+                <h2 className="mb-6 text-3xl sm:text-4xl font-extrabold text-[#06101d]">AlgoForce Contact</h2>
+                <div className="p-6 sm:p-8 mb-8 sm:mb-12 premium-light-surface rounded-[24px]">
                   <div className="space-y-6">
                     <div>
-                      <h3 className="text-sm font-bold tracking-wider text-purple-600 uppercase mb-1">Company</h3>
-                      <p className="text-2xl font-bold text-navy-900">AlgoForce</p>
+                      <h3 className="text-sm font-bold text-[#8f38ff] uppercase mb-1">Company</h3>
+                      <p className="text-2xl font-extrabold text-[#06101d]">AlgoForce</p>
                     </div>
                     <div>
-                      <h3 className="text-sm font-bold tracking-wider text-purple-600 uppercase mb-1">Email</h3>
-                      <a href="mailto:af@algoforceaii.com" className="text-2xl font-bold text-navy-900 hover:text-purple-600 transition-colors">
+                      <h3 className="text-sm font-bold text-[#8f38ff] uppercase mb-1">Email</h3>
+                      <a href="mailto:af@algoforceaii.com" className="text-2xl font-extrabold text-[#06101d] hover:text-[#8f38ff] transition-colors break-words">
                         af@algoforceaii.com
                       </a>
                     </div>
                     <div>
-                      <h3 className="text-sm font-bold tracking-wider text-purple-600 uppercase mb-1">WhatsApp</h3>
-                      <a href="https://wa.me/918448947436" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-2xl font-bold text-navy-900 hover:text-green-600 transition-colors">
-                        <FaWhatsapp className="text-[#25D366]" /> 8448947436
+                      <h3 className="text-sm font-bold text-[#8f38ff] uppercase mb-1">WhatsApp</h3>
+                      <a href="https://wa.me/918448947436" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-2xl font-extrabold text-[#06101d] hover:text-[#8f38ff] transition-colors">
+                        <FaWhatsapp className="text-[#062f4f]" /> 8448947436
                       </a>
                     </div>
                     <div>
-                      <h3 className="text-sm font-bold tracking-wider text-purple-600 uppercase mb-1">Website</h3>
-                      <a href="https://algoforceaii.com" target="_blank" rel="noopener noreferrer" className="text-2xl font-bold text-navy-900 hover:text-purple-600 transition-colors">
+                      <h3 className="text-sm font-bold text-[#8f38ff] uppercase mb-1">Website</h3>
+                      <a href="https://algoforceaii.com" target="_blank" rel="noopener noreferrer" className="text-2xl font-extrabold text-[#06101d] hover:text-[#8f38ff] transition-colors break-words">
                         https://algoforceaii.com
                       </a>
                     </div>
                   </div>
                 </div>
 
-                <h2 className="mb-6 text-4xl font-bold text-navy-900">What Happens Next?</h2>
+                <h2 className="mb-6 text-3xl md:text-4xl font-extrabold text-[#06101d]">What Happens Next?</h2>
                 <div className="space-y-6">
                   {[
                     { title: 'Route Your Request', desc: 'We identify whether your best entry point is Services, Labs, Crucible, or Partnerships.' },
@@ -173,12 +177,12 @@ const Contact = () => {
                     { title: 'Execution Kickoff', desc: 'We move into onboarding, payment, cohort admission, event access, or partner setup.' }
                   ].map((step, i) => (
                     <div key={i} className="flex gap-4">
-                      <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 font-bold text-white rounded-full bg-gradient-to-br from-purple-600 to-blue-600">
+                      <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 font-bold text-white rounded-2xl bg-[#06101d]">
                         {i + 1}
                       </div>
                       <div>
-                        <h3 className="mb-2 text-xl font-bold text-navy-900">{step.title}</h3>
-                        <p className="text-gray-600">{step.desc}</p>
+                        <h3 className="mb-2 text-xl font-extrabold text-[#06101d]">{step.title}</h3>
+                        <p className="text-slate-600">{step.desc}</p>
                       </div>
                     </div>
                   ))}
@@ -198,21 +202,21 @@ const Contact = () => {
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.9 }}
-                      className="p-12 text-center border border-green-200 shadow-xl bg-gradient-to-br from-green-50 to-teal-50 rounded-3xl"
+                      className="p-12 text-center premium-light-surface rounded-[24px]"
                     >
-                      <FaCheckCircle className="w-20 h-20 mx-auto mb-6 text-green-600" />
-                      <h3 className="mb-4 text-3xl font-bold text-navy-900">Enquiry Received!</h3>
+                      <FaCheckCircle className="w-20 h-20 mx-auto mb-6 text-[#8f38ff]" />
+                      <h3 className="mb-4 text-3xl font-extrabold text-[#06101d]">Enquiry Received!</h3>
                       <p className="mb-6 text-gray-700">Thank you for reaching out. Our team will review your information and contact you within 24 hours.</p>
                       <button
                         onClick={() => setStatus({ loading: false, success: false, error: null })}
-                        className="px-8 py-3 font-semibold text-white transition-colors bg-purple-600 rounded-xl hover:bg-purple-700"
+                        className="px-8 py-3 font-semibold text-white transition-colors bg-[#06101d] rounded-xl hover:bg-[#102640]"
                       >
                         Send Another Message
                       </button>
                     </motion.div>
                   ) : (
-                    <form onSubmit={handleSubmit} className="p-8 bg-white border border-gray-100 shadow-xl rounded-3xl">
-                      <h3 className="mb-6 text-2xl font-bold text-navy-900">Start Your Request</h3>
+                    <form onSubmit={handleSubmit} className="p-6 md:p-8 premium-light-surface rounded-[24px]">
+                      <h3 className="mb-6 text-2xl font-extrabold text-[#06101d]">Start Your Request</h3>
 
                       <div className="grid md:grid-cols-2 gap-6">
                         <div className="mb-4">

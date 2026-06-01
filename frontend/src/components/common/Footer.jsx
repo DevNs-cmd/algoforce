@@ -119,7 +119,7 @@ const Footer = () => {
         {/* Bottom bar */}
         <div className="pt-16 mt-16 text-center border-t border-white/5">
           <p className="text-[10px] font-black uppercase tracking-[0.5em] text-gray-800">
-            ©{currentYear} AlgoForce Ai @Dev N Suman.
+            © {currentYear} AlgoForce AI
           </p>
         </div>
       </div>

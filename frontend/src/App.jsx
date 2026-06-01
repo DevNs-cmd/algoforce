@@ -8,6 +8,7 @@ import Navigation from './components/common/Navigation'
 import Footer from './components/common/Footer'
 import Chatbot from './components/chatbot/Chatbot'
 import ConsultancyButton from './components/common/ConsultancyButton'
+import PageVideoBackdrop from './components/common/PageVideoBackdrop'
 import Home from './pages/Home'
 import Pricing from './pages/Pricing'
 import Labs from './pages/Labs'
@@ -35,6 +36,19 @@ const AppShell = () => {
   const location = useLocation()
   const isBuilderPage = location.pathname === '/ai-builder'
   const isNexusPage = location.pathname === '/nexus'
+  const hasPageVideoBackdrop = !isBuilderPage && !isNexusPage && location.pathname !== '/'
+
+  useEffect(() => {
+    if (location.hash) {
+      const target = document.getElementById(decodeURIComponent(location.hash.slice(1)))
+      if (target) {
+        requestAnimationFrame(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }))
+        return
+      }
+    }
+
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+  }, [location.pathname, location.search, location.hash])
 
   useEffect(() => {
     // Technical SEO: Force Domain Canonicalization (www + https)
@@ -55,41 +69,48 @@ const AppShell = () => {
   }, [location])
 
   return (
-    <div className={(isBuilderPage) ? 'h-screen overflow-hidden' : 'min-h-screen bg-black'}>
+    <div className={(isBuilderPage) ? 'h-screen overflow-hidden' : 'relative min-h-screen bg-black isolation-isolate'}>
+      {hasPageVideoBackdrop && (
+        <div className="fixed inset-0 z-0">
+          <PageVideoBackdrop src="/video1.mp4" videoClassName="opacity-[0.16]" />
+        </div>
+      )}
       <SeoHead path={location.pathname} />
       <Navigation />
-      {!isBuilderPage && !isNexusPage && location.pathname !== '/' && <Breadcrumbs />}
+      <div className="relative z-10">
+        {!isBuilderPage && !isNexusPage && location.pathname !== '/' && <Breadcrumbs />}
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/pricing" element={<Pricing />} />
-        <Route path="/labs" element={<Labs />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
-        <Route path="/refund-policy" element={<RefundPolicy />} />
-        <Route path="/ai-builder" element={<AIBuilder />} />
-        <Route path="/nexus" element={<Nexus />} />
-        <Route path="/academy" element={<Academy />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/:id" element={<BlogPost />} />
-        <Route path="/founder" element={<Founder />} />
-        
-        {/* SEO Landing Pages */}
-        <Route path="/ai-course" element={<AICourse />} />
-        <Route path="/ai-course-for-students" element={<AICourseForStudents />} />
-        <Route path="/build-ai-app-without-coding" element={<BuildAIApp />} />
-        <Route path="/ai-certification-india" element={<AICertificationIndia />} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/labs" element={<Labs />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+          <Route path="/refund-policy" element={<RefundPolicy />} />
+          <Route path="/ai-builder" element={<AIBuilder />} />
+          <Route path="/nexus" element={<Nexus />} />
+          <Route path="/academy" element={<Academy />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:id" element={<BlogPost />} />
+          <Route path="/founder" element={<Founder />} />
+          
+          {/* SEO Landing Pages */}
+          <Route path="/ai-course" element={<AICourse />} />
+          <Route path="/ai-course-for-students" element={<AICourseForStudents />} />
+          <Route path="/build-ai-app-without-coding" element={<BuildAIApp />} />
+          <Route path="/ai-certification-india" element={<AICertificationIndia />} />
 
-        <Route path="/es" element={<LanguagePlaceholder />} />
-        <Route path="/fr" element={<LanguagePlaceholder />} />
-        <Route path="/de" element={<LanguagePlaceholder />} />
-        {/* Catch-all */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+          <Route path="/es" element={<LanguagePlaceholder />} />
+          <Route path="/fr" element={<LanguagePlaceholder />} />
+          <Route path="/de" element={<LanguagePlaceholder />} />
+          {/* Catch-all */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
 
-      {!isBuilderPage && !isNexusPage && <Footer />}
+        {!isBuilderPage && !isNexusPage && <Footer />}
+      </div>
       {!isBuilderPage && !isNexusPage && <Chatbot />}
       {!isBuilderPage && !isNexusPage && <ConsultancyButton />}
     </div>

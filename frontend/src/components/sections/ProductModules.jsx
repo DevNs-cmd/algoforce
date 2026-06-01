@@ -12,27 +12,27 @@ const ProductModules = () => {
   const services = [
     {
       icon: <FaRobot />,
-      title: 'AlgoForce AI Core',
-      desc: 'AI consulting, lead generation, branding, web/app development, CRM systems, and automation retainers for businesses.',
-      tag: 'Services'
+      title: 'AlgoForce AI',
+      desc: 'Our core operations delivering custom AI systems, automation infrastructure, digital transformation, and custom business platforms.',
+      tag: 'AI & Automation'
     },
     {
       icon: <FaCode />,
       title: 'AlgoForce Labs',
-      desc: 'Cohort programs, certifications, apprenticeships, and a hiring pipeline that turns learners into client-ready builders.',
-      tag: 'Education'
+      desc: 'Our talent infrastructure platform developing execution-ready builders capable of deploying advanced workflows.',
+      tag: 'Talent Platform'
     },
     {
       icon: <FaMobileAlt />,
       title: 'Crucible',
-      desc: 'Founder community, hackathons, demo days, incubator cohorts, mentor access, and startup venture pipeline.',
-      tag: 'Founders'
+      desc: 'A strategic startup execution operating system helping founders scale operations and move efficiently from idea to execution.',
+      tag: 'Startup OS'
     },
     {
       icon: <FaChartBar />,
-      title: 'SaaS Roadmap',
-      desc: 'AlgoLeads, AlgoContent, AlgoCRM, and analytics products designed to turn delivery IP into recurring revenue.',
-      tag: 'Products'
+      title: 'SaaS Ecosystem',
+      desc: 'Proprietary execution tools (AlgoLeads, AlgoContent, AlgoCRM) designed to drive systemic operational efficiency.',
+      tag: 'Software'
     }
   ]
 
@@ -47,12 +47,12 @@ const ProductModules = () => {
           animate={inView ? { opacity: 1 } : {}}
           className="text-center mb-10 md:mb-16"
         >
-          <h2 className="text-[12px] font-bold uppercase tracking-[0.5em] text-purple-500 mb-6">Three Engines</h2>
-          <h3 className="text-5xl md:text-7xl font-black tracking-tighter mb-8">
-            One <span className="text-gray-800">Ecosystem.</span>
+          <h2 className="text-[12px] font-bold uppercase tracking-[0.5em] text-purple-500 mb-6">Execution Systems</h2>
+          <h3 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+            One Scalable <span className="text-gray-800">Ecosystem.</span>
           </h3>
-          <p className="max-w-xl mx-auto text-gray-400 font-medium text-lg leading-relaxed">
-            Services create revenue, Labs creates talent, and Crucible creates founders. Each engine strengthens the next.
+          <p className="max-w-xl mx-auto text-gray-400 font-normal text-base md:text-lg leading-relaxed">
+            We combine operational systems, talent infrastructure, and startup platforms into a compounding loop focused on execution outcomes.
           </p>
         </motion.div>
 
@@ -63,19 +63,19 @@ const ProductModules = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: i * 0.1 }}
-              className="p-10 rounded-[2rem] bg-white/[0.03] border border-white/5 hover:border-purple-500/30 hover:bg-white/[0.05] transition-all group flex flex-col"
+              className="p-7 md:p-8 rounded-[24px] bg-white/[0.03] border border-white/5 hover:border-purple-500/30 hover:bg-white/[0.05] transition-all group flex flex-col"
             >
-              <div className="flex justify-between items-start mb-12">
+              <div className="flex justify-between items-start mb-8">
                 <div className="w-12 h-12 rounded-xl bg-purple-600/20 text-purple-400 flex items-center justify-center text-xl group-hover:bg-purple-600 group-hover:text-white transition-all shadow-2xl">
                   {s.icon}
                 </div>
                 <span className="text-[11px] font-bold uppercase tracking-widest text-gray-600">{s.tag}</span>
               </div>
               <h4 className="text-xl font-bold mb-4">{s.title}</h4>
-              <p className="text-gray-500 text-sm leading-relaxed font-medium mb-12 flex-grow">{s.desc}</p>
+              <p className="text-gray-500 text-sm leading-relaxed font-normal mb-8 flex-grow">{s.desc}</p>
               <Link to="/contact">
                 <button className="text-[11px] font-bold uppercase tracking-widest text-purple-400 group-hover:text-white flex items-center gap-2 transition-colors">
-                  Explore Engine <FaArrowRight size={10} />
+                  Explore Initiative <FaArrowRight size={10} />
                 </button>
               </Link>
             </motion.div>
@@ -86,12 +86,12 @@ const ProductModules = () => {
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={inView ? { opacity: 1, scale: 1 } : {}}
-          className="mt-12 md:mt-16 p-8 md:p-12 rounded-[3.5rem] bg-gradient-to-br from-[#1A1A2E] to-transparent border border-white/10 flex flex-col md:flex-row justify-between items-center gap-12"
+          className="mt-10 md:mt-14 p-7 md:p-10 rounded-[28px] bg-gradient-to-br from-[#1A1A2E] to-transparent border border-white/10 flex flex-col md:flex-row justify-between items-center gap-8"
         >
           <div className="text-left">
-            <div className="text-purple-500 text-3xl mb-4 font-black">10+</div>
-            <h4 className="text-2xl font-bold mb-2">Revenue Streams.</h4>
-            <p className="text-gray-400 text-sm font-medium">Retainers, projects, Labs cohorts, SaaS tools, events, memberships, placements, training, and venture upside.</p>
+            <div className="text-purple-500 text-3xl mb-4 font-black">AI & Ops</div>
+            <h4 className="text-2xl font-bold mb-2">Systems Integration.</h4>
+            <p className="text-gray-400 text-sm font-medium">Deploy custom AI systems, automate operational workflows, and integrate digital platforms tailored for startups, SMEs, and enterprises.</p>
           </div>
           <Link to="/pricing">
             <button className="px-10 py-5 bg-white text-black rounded-2xl font-bold text-sm uppercase tracking-widest hover:scale-105 transition-all">Explore Pricing</button>
