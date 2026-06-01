@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async"
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { FaCalendar, FaUser, FaClock, FaArrowRight } from 'react-icons/fa'
+import { defaultKeywords } from "../seoConfig"
 
 const BLOG_POSTS = [
     {
@@ -130,8 +131,9 @@ const Blog = () => {
     return (
         <div className="min-h-screen bg-[#0A0A0A] text-white pt-32 pb-20 selection:bg-purple-500/30">
             <Helmet>
-                <title>AlgoForce AI Blog | Insights on AI Automation & Product Engineering</title>
-                <meta name="description" content="Stay updated with the latest trends in AI automation, custom software development, and digital growth strategies from the AlgoForce team." />
+                <title>AlgoForce AI Blog | AI, Automation, Marketing & Startup Growth Guides</title>
+                <meta name="description" content="Read practical guides on AI automation, AI tools, digital marketing, SEO, startup MVPs, AI courses, student projects, and business growth systems." />
+                <meta name="keywords" content={`${defaultKeywords}, AI blog India, automation blog, digital marketing blog, startup growth blog, SEO guides, AI tools for students`} />
                 <link rel="canonical" href="https://www.algoforceaii.com/blog" />
             </Helmet>
 

@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { FaCalendar, FaUser, FaClock, FaArrowLeft, FaShareAlt, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { defaultKeywords } from '../seoConfig';
 
 // Reuse posts from Blog.jsx (Ideally this would come from a CMS or Centralized Data Store)
 const BLOG_POSTS = {
@@ -329,6 +330,7 @@ const BlogPost = () => {
             <Helmet>
                 <title>{post.title} | AlgoForce AI</title>
                 <meta name="description" content={post.excerpt || post.title} />
+                <meta name="keywords" content={`${defaultKeywords}, ${post.title}, ${post.category}, AI automation guide, startup growth guide, digital marketing, AI tools, AlgoForce AI blog`} />
                 <link rel="canonical" href={`https://www.algoforceaii.com/blog/${id}`} />
                 <meta name="robots" content="index, follow" />
 
