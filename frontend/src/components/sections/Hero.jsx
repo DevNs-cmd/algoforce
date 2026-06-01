@@ -1,9 +1,9 @@
-import { useRef, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { useInView } from 'react-intersection-observer'
 import TrustBadges from '../common/TrustBadges'
-import { bindMobileVideoRetries, primeInlineVideo } from '../../utils/videoPlayback'
+import OptimizedVideo from '../common/OptimizedVideo'
 import useIsMobile from '../../hooks/useIsMobile'
 
 const DESKTOP_HERO_VIDEOS = [
@@ -12,7 +12,9 @@ const DESKTOP_HERO_VIDEOS = [
   '/vecteezy.mp4',
 ];
 
-const MOBILE_HERO_VIDEOS = [];
+const MOBILE_HERO_VIDEOS = [
+  '/video1.mp4',
+];
 
 const getHeroVideos = () => {
   if (typeof window === 'undefined') {
@@ -36,7 +38,6 @@ const Hero = () => {
     threshold: 0.1,
   });
 
-  const videoRef = useRef(null);
   const isMobile = useIsMobile();
   const [heroVideos, setHeroVideos] = useState(getHeroVideos);
   const [activeVideoIdx, setActiveVideoIdx] = useState(0);
@@ -76,28 +77,6 @@ const Hero = () => {
     return () => clearInterval(timer);
   }, [heroInView, heroVideos.length]);
 
-  useEffect(() => {
-    if (isMobile || !heroVideos.length) {
-      return undefined
-    }
-
-    const video = videoRef.current
-    if (!video) {
-      return undefined
-    }
-
-    if (!heroInView) {
-      video.pause()
-      return undefined
-    }
-
-    primeInlineVideo(video, { reload: true, preload: 'metadata' })
-    return bindMobileVideoRetries(video, {
-      shouldPlay: () => heroInView,
-      preload: 'metadata',
-    })
-  }, [activeVideoIdx, heroInView, heroVideos.length, isMobile])
-
   return (
     <section ref={heroRef} className="relative flex items-center justify-center min-h-[84vh] md:min-h-screen overflow-hidden premium-page-bg text-white pt-28 sm:pt-32 md:pt-40 lg:pt-44 pb-12 md:pb-16">
       {/* Video Background */}
@@ -106,7 +85,7 @@ const Hero = () => {
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,7,13,0.24),rgba(3,7,13,0.8)_72%,#03070d)] z-10" />
         <div className="absolute inset-0 subtle-ai-grid z-10 opacity-60" />
         
-        {!isMobile && heroVideos.length > 0 && (
+        {heroVideos.length > 0 && (
           <AnimatePresence mode="wait">
             <motion.div
               key={activeVideoIdx}
@@ -116,27 +95,11 @@ const Hero = () => {
               transition={{ duration: 1.5 }}
               className="absolute inset-0 w-full h-full"
             >
-              <video
-                ref={videoRef}
-                autoPlay
-                loop
-                muted
-                defaultMuted
-                playsInline
-                webkit-playsinline="true"
-                preload="metadata"
-                aria-hidden="true"
+              <OptimizedVideo
                 src={heroVideos[activeVideoIdx]}
-                onLoadedMetadata={(event) => {
-                  if (heroInView) {
-                    primeInlineVideo(event.currentTarget, { preload: 'metadata' })
-                  }
-                }}
-                onCanPlay={(event) => {
-                  if (heroInView) {
-                    primeInlineVideo(event.currentTarget, { preload: 'metadata' })
-                  }
-                }}
+                inView={heroInView}
+                preload="metadata"
+                mobilePreload="none"
                 key={heroVideos[activeVideoIdx]}
                 className="w-full h-full object-cover"
               />

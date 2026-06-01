@@ -13,7 +13,7 @@ import {
   FaShieldAlt,
 } from "react-icons/fa"
 import SeoHead from "../components/common/SeoHead"
-import useIsMobile from "../hooks/useIsMobile"
+import OptimizedVideo from "../components/common/OptimizedVideo"
 
 const pillars = [
   {
@@ -52,8 +52,6 @@ const engines = [
 ]
 
 const Founder = () => {
-  const isMobile = useIsMobile()
-
   return (
     <main className="min-h-screen bg-[#f7f9fc] text-[#06101d]">
       <SeoHead path="/founder" />
@@ -100,23 +98,13 @@ const Founder = () => {
               className="overflow-hidden rounded-[34px] border border-[#06101d]/10 bg-white p-4 shadow-[0_24px_70px_rgba(6,47,79,0.08)]"
             >
               <div className="relative aspect-[4/5] min-h-[420px] overflow-hidden rounded-[28px] border border-[#06101d]/10 bg-[#eef2f7]">
-                {isMobile && (
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_18%,rgba(143,56,255,0.20),transparent_15rem),linear-gradient(135deg,#f8fafc,#dbe7f1)]" />
-                )}
-                {!isMobile && (
-                  <video
-                    autoPlay
-                    loop
-                    muted
-                    defaultMuted
-                    playsInline
-                    webkit-playsinline="true"
-                    preload="metadata"
-                    src="/vecteezy.mp4"
-                    className="absolute inset-0 h-full w-full object-cover opacity-76"
-                    aria-hidden="true"
-                  />
-                )}
+                <OptimizedVideo
+                  src="/vecteezy.mp4"
+                  inView
+                  preload="metadata"
+                  mobilePreload="none"
+                  className="absolute inset-0 h-full w-full object-cover opacity-76"
+                />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,16,29,0.02),rgba(6,16,29,0.72))]" />
                 <div className="absolute left-5 right-5 bottom-5 text-white">
                   <p className="mb-2 text-[10px] font-semibold uppercase text-white/70">Founder Office</p>

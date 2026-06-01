@@ -1,8 +1,7 @@
-import { useRef, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { bindMobileVideoRetries, primeInlineVideo } from '../../utils/videoPlayback'
-import useIsMobile from '../../hooks/useIsMobile'
+import OptimizedVideo from '../common/OptimizedVideo'
 
 const SHOWCASE_VIDEOS = [
   { 
@@ -29,8 +28,6 @@ const SHOWCASE_VIDEOS = [
 ]
 
 const ShowcaseVideo = () => {
-  const videoRef = useRef(null)
-  const isMobile = useIsMobile()
   const [activeIdx, setActiveIdx] = useState(0)
   const [hasAnimated, setHasAnimated] = useState(false)
   const [ref, inView] = useInView({
@@ -44,29 +41,6 @@ const ShowcaseVideo = () => {
       setHasAnimated(true)
     }
   }, [inView])
-
-  // Whenever active video changes, reload and play the player
-  useEffect(() => {
-    if (isMobile) {
-      return undefined
-    }
-
-    const video = videoRef.current
-    if (!video) {
-      return undefined
-    }
-
-    if (!inView) {
-      video.pause()
-      return undefined
-    }
-
-    primeInlineVideo(video, { reload: true, preload: 'metadata' })
-    return bindMobileVideoRetries(video, {
-      shouldPlay: () => inView,
-      preload: 'metadata',
-    })
-  }, [activeIdx, inView, isMobile])
 
   const handleNext = () => {
     setActiveIdx((prev) => (prev + 1) % SHOWCASE_VIDEOS.length)
@@ -157,53 +131,24 @@ const ShowcaseVideo = () => {
             {/* Video Canvas Container */}
             <div className="relative aspect-video w-full group overflow-hidden bg-black">
               
-              {isMobile ? (
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_18%,rgba(143,56,255,0.28),transparent_16rem),linear-gradient(135deg,#06101d,#020205_62%,#130b26)]">
-                  <div className="absolute inset-0 subtle-ai-grid opacity-25" />
-                  <div className="absolute inset-0 flex items-center justify-center p-8 text-center">
-                    <div>
-                      <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10 bg-white/8 text-[#cdb4ff]">
-                        AF
-                      </div>
-                      <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-white/45">Mobile Optimized Preview</p>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={activeIdx}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="w-full h-full"
-                  >
-                    <video
-                      ref={videoRef}
-                      autoPlay
-                      loop
-                      muted
-                      defaultMuted
-                      playsInline
-                      webkit-playsinline="true"
-                      preload="metadata"
-                      src={inView ? SHOWCASE_VIDEOS[activeIdx].src : undefined}
-                      onLoadedMetadata={(event) => {
-                        if (inView) {
-                          primeInlineVideo(event.currentTarget, { preload: 'metadata' })
-                        }
-                      }}
-                      onCanPlay={(event) => {
-                        if (inView) {
-                          primeInlineVideo(event.currentTarget, { preload: 'metadata' })
-                        }
-                      }}
-                      className="w-full h-full object-cover"
-                    />
-                  </motion.div>
-                </AnimatePresence>
-              )}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeIdx}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="w-full h-full"
+                >
+                  <OptimizedVideo
+                    src={SHOWCASE_VIDEOS[activeIdx].src}
+                    inView={inView}
+                    preload="metadata"
+                    mobilePreload="none"
+                    className="w-full h-full object-cover"
+                  />
+                </motion.div>
+              </AnimatePresence>
 
               {/* Next/Prev Navigation overlay arrows */}
               <button

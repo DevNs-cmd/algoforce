@@ -30,7 +30,7 @@ import {
     FaWhatsapp,
 } from 'react-icons/fa'
 import { SiC, SiCplusplus, SiFirebase, SiMongodb } from 'react-icons/si'
-import useIsMobile from '../hooks/useIsMobile'
+import OptimizedVideo from '../components/common/OptimizedVideo'
 
 const SECTIONS = {
     mega: [
@@ -132,7 +132,6 @@ const CONTACT_NUMBER = "918448947436"
 const Labs = () => {
     const [activeTab, setActiveTab] = useState('single')
     const [contactCourse, setContactCourse] = useState(null)
-    const isMobile = useIsMobile()
 
     const stats = useMemo(() => {
         const individual = Object.values(SECTIONS.single).flat().length
@@ -275,23 +274,13 @@ const Labs = () => {
                             className="overflow-hidden rounded-[30px] border border-[#06101d]/10 bg-white p-4 shadow-[0_24px_70px_rgba(6,47,79,0.08)]"
                         >
                             <div className="relative aspect-[16/10] min-h-[260px] overflow-hidden rounded-[24px] border border-[#06101d]/10 bg-[#eef2f7]">
-                                {isMobile && (
-                                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_54%_18%,rgba(143,56,255,0.20),transparent_15rem),linear-gradient(135deg,#f8fafc,#dbe7f1)]" />
-                                )}
-                                {!isMobile && (
-                                    <video
-                                        autoPlay
-                                        loop
-                                        muted
-                                        defaultMuted
-                                        playsInline
-                                        webkit-playsinline="true"
-                                        preload="metadata"
-                                        src="/vecteezy.mp4"
-                                        className="absolute inset-0 h-full w-full object-cover opacity-80"
-                                        aria-hidden="true"
-                                    />
-                                )}
+                                <OptimizedVideo
+                                    src="/vecteezy.mp4"
+                                    inView
+                                    preload="metadata"
+                                    mobilePreload="none"
+                                    className="absolute inset-0 h-full w-full object-cover opacity-80"
+                                />
                                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,16,29,0.04),rgba(6,16,29,0.68))]" />
                                 <div className="absolute left-5 right-5 bottom-5 text-white">
                                     <p className="mb-2 text-[10px] font-semibold uppercase text-white/70">Labs Operating Model</p>

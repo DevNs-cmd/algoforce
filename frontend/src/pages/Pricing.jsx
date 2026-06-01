@@ -11,10 +11,9 @@ import {
   FaRocket,
   FaShieldAlt,
 } from 'react-icons/fa'
-import useIsMobile from '../hooks/useIsMobile'
+import OptimizedVideo from '../components/common/OptimizedVideo'
 
 const Pricing = () => {
-  const isMobile = useIsMobile()
   const RAZORPAY_LINK = "https://rzp.io/l/algoforce-payment"
 
   const comboPackages = [
@@ -126,23 +125,13 @@ const Pricing = () => {
               className="overflow-hidden rounded-[34px] border border-[#06101d]/10 bg-white p-4 shadow-[0_24px_70px_rgba(6,47,79,0.08)]"
             >
               <div className="relative aspect-[16/10] min-h-[260px] overflow-hidden rounded-[28px] border border-[#06101d]/10 bg-[#eef2f7]">
-                {isMobile && (
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_48%_22%,rgba(143,56,255,0.20),transparent_15rem),linear-gradient(135deg,#f8fafc,#dbe7f1)]" />
-                )}
-                {!isMobile && (
-                  <video
-                    autoPlay
-                    loop
-                    muted
-                    defaultMuted
-                    playsInline
-                    webkit-playsinline="true"
-                    preload="metadata"
-                    src="/video2.mp4"
-                    className="absolute inset-0 h-full w-full object-cover opacity-80"
-                    aria-hidden="true"
-                  />
-                )}
+                <OptimizedVideo
+                  src="/video2.mp4"
+                  inView
+                  preload="metadata"
+                  mobilePreload="none"
+                  className="absolute inset-0 h-full w-full object-cover opacity-80"
+                />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,16,29,0.04),rgba(6,16,29,0.68))]" />
                 <div className="absolute left-5 right-5 bottom-5 text-white">
                   <p className="mb-2 text-[10px] font-semibold uppercase text-white/70">Best Starting Point</p>
