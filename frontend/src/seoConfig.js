@@ -5,14 +5,24 @@ const ogImage = `${siteUrl}/logo.png`;
 const coreKeywords = [
   "AlgoForce AI",
   "AlgoForce Labs",
+  "Crucible startup OS",
+  "Velqora entertainment OS",
+  "execution infrastructure ecosystem",
+  "business execution infrastructure",
   "AI agency India",
   "AI marketing agency India",
   "AI automation agency",
   "AI consulting company India",
+  "enterprise AI company India",
   "AI development company India",
+  "digital transformation company India",
   "custom AI software development",
+  "AI product development",
   "AI business automation",
+  "managed AI services",
   "workflow automation services",
+  "AI readiness audit",
+  "account based marketing AI",
   "digital marketing agency for startups",
   "performance marketing agency India",
   "growth marketing agency",
@@ -29,12 +39,21 @@ const coreKeywords = [
   "AI courses in India",
   "AI certification India",
   "AI course for students",
+  "talent infrastructure platform",
+  "startup operating system",
+  "founder operating system",
+  "venture studio India",
+  "startup accelerator India",
+  "startup incubation India",
   "Dev N Suman",
 ];
 
 const pageKeywords = {
   home: [
     "best AI agency in India",
+    "India execution infrastructure ecosystem",
+    "AI digital transformation ecosystem",
+    "enterprise AI digital transformation",
     "AI services for startups",
     "AI solutions for small business",
     "business automation company",
@@ -48,6 +67,7 @@ const pageKeywords = {
     "marketing agency",
     "digital marketing agency",
     "AI marketing agency",
+    "B2B marketing agency India",
     "brand strategy agency",
     "online marketing services",
     "paid ads agency",
@@ -57,6 +77,9 @@ const pageKeywords = {
     "conversion rate optimization",
     "landing page optimization",
     "sales funnel automation",
+    "LinkedIn marketing agency",
+    "YouTube marketing strategy",
+    "content and SEO agency",
   ],
   academy: [
     "AI bootcamp India",
@@ -68,6 +91,12 @@ const pageKeywords = {
     "machine learning course India",
     "AI projects for students",
     "MSME registered AI certificate",
+    "Growth and Digital Marketing course",
+    "AI Business Analyst course",
+    "Full-Stack Product Engineering course",
+    "corporate AI transformation training",
+    "Talent as a Service India",
+    "sponsored corporate cohorts",
   ],
   builder: [
     "build AI app without coding",
@@ -77,6 +106,57 @@ const pageKeywords = {
     "business chatbot builder",
     "no-code MVP builder",
     "AI workflow builder",
+  ],
+  enterprise: [
+    "enterprise AI consulting",
+    "AI transformation consulting",
+    "AI product development services",
+    "SaaS platform subscriptions",
+    "enterprise consulting retainers",
+    "managed AI services India",
+    "API licensing AI",
+    "white label AI platform",
+    "BFSI AI solutions",
+    "manufacturing AI solutions",
+    "healthcare AI automation",
+    "ecommerce AI automation",
+    "logistics AI automation",
+    "real estate AI solutions",
+    "CTO AI advisory",
+    "COO AI automation",
+    "AI ROI audit",
+    "digital transformation roadmap",
+  ],
+  startups: [
+    "Crucible OS",
+    "operating system for startups",
+    "startup execution platform",
+    "venture workspace",
+    "startup sprint tracking",
+    "startup OKR tracking",
+    "Venture Health Score",
+    "startup idea validation",
+    "MVP product build",
+    "fundraising readiness tools",
+    "investor pipeline CRM",
+    "startup data room",
+    "founder community India",
+    "venture studio build",
+    "service for equity startup",
+  ],
+  entertainment: [
+    "Velqora",
+    "operating system for performers",
+    "live entertainment platform India",
+    "artist booking platform",
+    "event organizer tools",
+    "performer management software",
+    "artist career dashboard",
+    "band workspace",
+    "event booking automation",
+    "artist contract management",
+    "entertainment SaaS India",
+    "live event management software",
   ],
   local: [
     "AI company Patna",
@@ -93,7 +173,10 @@ const combineKeywords = (...groups) =>
 const defaultKeywords = combineKeywords(
   coreKeywords,
   pageKeywords.home,
+  pageKeywords.enterprise,
+  pageKeywords.startups,
   pageKeywords.marketing,
+  pageKeywords.academy,
   pageKeywords.local
 );
 
@@ -114,16 +197,22 @@ const buildSchema = (path, meta) => {
         url: `${siteUrl}/founder`,
       },
       description:
-        "AlgoForce AI builds AI systems, automation workflows, marketing automation, custom software, and AI training programs for startups, students, SMEs, and growth teams.",
+        "AlgoForce AI is an execution infrastructure ecosystem across enterprise AI, digital transformation, startup operating systems, talent infrastructure, and live entertainment technology.",
       areaServed: ["India", "Global"],
       knowsAbout: [
         "Artificial Intelligence",
+        "Enterprise AI",
         "AI Automation",
+        "Digital Transformation",
         "Digital Marketing",
         "Marketing Automation",
         "Custom Software Development",
         "Startup MVP Development",
+        "Startup Operating Systems",
+        "Venture Studios",
         "AI Education",
+        "Talent Infrastructure",
+        "Live Entertainment Technology",
         "Workflow Automation",
       ],
       contactPoint: {
@@ -162,9 +251,9 @@ const buildSchema = (path, meta) => {
 
 const seoConfig = {
   "/": {
-    title: "AlgoForce AI | AI Agency, Automation, Marketing & Growth Systems",
+    title: "AlgoForce AI | Execution Infrastructure for AI, Startups & Talent",
     description:
-      "AlgoForce AI is an AI agency and growth systems company for startups, SMEs, students, and founders. Build AI apps, automate workflows, improve marketing, and launch faster.",
+      "AlgoForce AI is an execution infrastructure ecosystem connecting enterprise AI, digital transformation, Crucible startup OS, AlgoForce Labs talent, and Velqora entertainment tech.",
     keywords: defaultKeywords,
     image: ogImage,
     robots: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
@@ -172,10 +261,10 @@ const seoConfig = {
     schemaType: "WebPage",
   },
   "/pricing": {
-    title: "Pricing | AI Automation, Marketing & Custom Software Services",
+    title: "Pricing | Enterprise AI, Startup OS, Labs & Automation Services",
     description:
-      "Transparent pricing for AI automation, marketing automation, custom AI systems, startup MVP development, workflow automation, and growth execution support.",
-    keywords: combineKeywords(coreKeywords, pageKeywords.marketing, [
+      "Explore pricing for enterprise AI consulting, AI product development, managed AI services, startup MVP support, Labs training, and marketing automation.",
+    keywords: combineKeywords(coreKeywords, pageKeywords.enterprise, pageKeywords.marketing, pageKeywords.startups, [
       "AI agency pricing",
       "automation service pricing",
       "custom software pricing India",
@@ -184,22 +273,25 @@ const seoConfig = {
     image: ogImage,
   },
   "/labs": {
-    title: "AlgoForce Labs | AI Projects, Automation Demos & Builder Talent",
+    title: "AlgoForce Labs | Talent Infrastructure, AI Training & Placement",
     description:
-      "Explore AlgoForce Labs for AI projects, automation demos, startup MVP systems, AI tools, and execution-ready builders trained for real business outcomes.",
+      "AlgoForce Labs is a talent infrastructure platform for AI training, product engineering, growth marketing, corporate upskilling, project sprints, and placements.",
     keywords: combineKeywords(coreKeywords, pageKeywords.academy, pageKeywords.builder, [
       "AI labs India",
       "AI project lab",
       "automation demo",
       "startup lab India",
+      "learn build deploy hire",
+      "student placement program",
+      "corporate AI upskilling",
     ]),
     image: ogImage,
   },
   "/contact": {
-    title: "Contact AlgoForce AI | AI Agency & Marketing Automation Experts",
+    title: "Contact AlgoForce AI | Enterprise AI, Startup & Growth Systems",
     description:
-      "Contact AlgoForce AI for AI automation, digital marketing, startup MVP development, AI app building, chatbot development, SEO, lead generation, and growth systems.",
-    keywords: combineKeywords(coreKeywords, pageKeywords.marketing, pageKeywords.local, [
+      "Contact AlgoForce AI for enterprise AI, digital transformation, AI audits, startup execution systems, Labs training, marketing automation, and growth infrastructure.",
+    keywords: combineKeywords(coreKeywords, pageKeywords.enterprise, pageKeywords.marketing, pageKeywords.startups, pageKeywords.local, [
       "contact AI agency",
       "hire AI agency India",
       "hire digital marketing agency",
@@ -229,10 +321,10 @@ const seoConfig = {
     image: ogImage,
   },
   "/ai-builder": {
-    title: "AI Builder | Build AI Apps, Chatbots, Agents & Workflow Automation",
+    title: "AI Builder | AI Products, Agents, MVPs & Workflow Automation",
     description:
-      "Use AlgoForce AI Builder to create AI apps, custom chatbots, AI agents, RAG systems, no-code MVPs, and automated business workflows faster.",
-    keywords: combineKeywords(coreKeywords, pageKeywords.builder, [
+      "Use AlgoForce AI Builder to prototype AI products, agents, chatbots, RAG systems, no-code MVPs, and automation workflows for businesses and startups.",
+    keywords: combineKeywords(coreKeywords, pageKeywords.enterprise, pageKeywords.builder, pageKeywords.startups, [
       "AI app builder India",
       "custom chatbot builder",
       "AI automation builder",
@@ -242,10 +334,10 @@ const seoConfig = {
     schemaType: "WebPage",
   },
   "/nexus": {
-    title: "Nexus | AI Operations Console for Automation & Growth Teams",
+    title: "Nexus | AI Operations Console for Execution Infrastructure",
     description:
-      "Nexus is the AlgoForce AI operations console for managing intelligent workflows, AI automations, custom systems, growth campaigns, and business execution.",
-    keywords: combineKeywords(coreKeywords, pageKeywords.builder, pageKeywords.marketing, [
+      "Nexus is the AlgoForce AI operations console for intelligent workflows, AI automations, business execution, growth campaigns, and operational clarity.",
+    keywords: combineKeywords(coreKeywords, pageKeywords.enterprise, pageKeywords.builder, pageKeywords.marketing, [
       "AI operations console",
       "business operating system",
       "AI workflow dashboard",
@@ -254,10 +346,10 @@ const seoConfig = {
     schemaType: "WebPage",
   },
   "/academy": {
-    title: "AlgoForce Academy | AI Courses, Certification & Student Projects",
+    title: "AlgoForce Academy | AI, Product, Growth & Corporate Training",
     description:
-      "Learn AI with AlgoForce Academy through AI courses, live workshops, MSME-registered certification, AI projects, prompt engineering, and automation labs.",
-    keywords: combineKeywords(coreKeywords, pageKeywords.academy, [
+      "Learn AI, machine learning, full-stack product engineering, growth marketing, AI business analysis, and corporate AI transformation with AlgoForce Academy.",
+    keywords: combineKeywords(coreKeywords, pageKeywords.academy, pageKeywords.enterprise, [
       "best AI course in India",
       "AI course after 12th",
       "AI course for college students",
@@ -275,10 +367,10 @@ const seoConfig = {
     robots: "noindex, nofollow",
   },
   "/blog": {
-    title: "AlgoForce Blog | AI, Automation, Marketing & Startup Growth Guides",
+    title: "AlgoForce Blog | Enterprise AI, Startups, Talent & Growth Guides",
     description:
-      "Read practical guides on AI automation, AI tools, digital marketing, SEO, startup MVPs, AI courses, student projects, and business growth systems.",
-    keywords: combineKeywords(coreKeywords, pageKeywords.marketing, pageKeywords.academy, pageKeywords.builder, [
+      "Read practical guides on enterprise AI, digital transformation, startup execution, AI automation, talent infrastructure, marketing, and ecosystem growth.",
+    keywords: combineKeywords(coreKeywords, pageKeywords.enterprise, pageKeywords.startups, pageKeywords.marketing, pageKeywords.academy, pageKeywords.builder, [
       "AI blog India",
       "digital marketing blog",
       "startup growth blog",
@@ -290,20 +382,20 @@ const seoConfig = {
     schemaType: "CollectionPage",
   },
   "/blog/:id": {
-    title: "AlgoForce Blog Article | AI, Automation & Growth Systems",
+    title: "AlgoForce Blog Article | Execution Infrastructure & AI Systems",
     description:
-      "Tactical AlgoForce AI article on AI tools, automation, marketing, startup MVP development, AI courses, certifications, and real execution systems.",
-    keywords: combineKeywords(coreKeywords, pageKeywords.marketing, pageKeywords.academy, pageKeywords.builder),
+      "Tactical AlgoForce AI article on enterprise AI, startup execution, automation, marketing, AI courses, talent infrastructure, and real growth systems.",
+    keywords: combineKeywords(coreKeywords, pageKeywords.enterprise, pageKeywords.startups, pageKeywords.marketing, pageKeywords.academy, pageKeywords.builder),
     image: ogImage,
     type: "article",
     robots: "index, follow",
     schemaType: "WebPage",
   },
   "/ai-course": {
-    title: "AI Course in India | AI Systems, Prompt Engineering & Automation",
+    title: "AI Course in India | AI, ML, Product Engineering & Automation",
     description:
-      "Join an AI course in India focused on prompt engineering, AI tools, custom AI systems, automation workflows, real projects, and career-ready execution.",
-    keywords: combineKeywords(coreKeywords, pageKeywords.academy, [
+      "Join an AI course in India focused on AI and machine learning, prompt engineering, automation, product engineering, real client projects, and placements.",
+    keywords: combineKeywords(coreKeywords, pageKeywords.academy, pageKeywords.enterprise, [
       "AI course India",
       "best AI course India",
       "prompt engineering course India",
@@ -313,9 +405,9 @@ const seoConfig = {
     schemaType: "WebPage",
   },
   "/ai-course-for-students": {
-    title: "AI Course for Students | AI Projects, Tools & Career Portfolio",
+    title: "AI Course for Students | Projects, Sprints, Placement & Careers",
     description:
-      "Practical AI course for students with AI projects, automation tools, portfolio building, prompt engineering, AI apps, and career-ready certification.",
+      "Practical AI course for students with foundation training, project sprints, specialization tracks, AI projects, portfolio building, mentoring, and placement support.",
     keywords: combineKeywords(coreKeywords, pageKeywords.academy, [
       "AI course for students",
       "AI projects for college students",
@@ -326,10 +418,10 @@ const seoConfig = {
     schemaType: "WebPage",
   },
   "/build-ai-app-without-coding": {
-    title: "Build AI App Without Coding | No-Code AI App & MVP Builder Guide",
+    title: "Build AI App Without Coding | No-Code AI MVP & Startup Guide",
     description:
-      "Learn how to build an AI app without coding using no-code tools, AI agents, chatbots, APIs, workflow automation, and startup MVP systems.",
-    keywords: combineKeywords(coreKeywords, pageKeywords.builder, [
+      "Learn how to build an AI app without coding using no-code tools, AI agents, APIs, workflow automation, MVP validation, and startup execution systems.",
+    keywords: combineKeywords(coreKeywords, pageKeywords.builder, pageKeywords.startups, [
       "build AI app without coding",
       "no code AI app",
       "AI MVP builder",
@@ -338,9 +430,9 @@ const seoConfig = {
     image: ogImage,
   },
   "/ai-certification-india": {
-    title: "AI Certification India | MSME-Registered AI Training & Projects",
+    title: "AI Certification India | MSME AI Training, Projects & Placement",
     description:
-      "Get AI certification in India with practical AI projects, automation labs, prompt engineering, generative AI training, and MSME-registered proof.",
+      "Get AI certification in India with practical AI projects, automation labs, prompt engineering, generative AI training, MSME-registered proof, and career support.",
     keywords: combineKeywords(coreKeywords, pageKeywords.academy, [
       "AI certification India",
       "best AI certification India",
@@ -352,10 +444,10 @@ const seoConfig = {
     schemaType: "WebPage",
   },
   "/founder": {
-    title: "Dev N Suman | Founder & CEO of AlgoForce AI",
+    title: "Dev N Suman | Founder & CEO, AlgoForce AI Ecosystem",
     description:
-      "Dev N Suman is the Founder and CEO of AlgoForce AI, building AI systems, automation, marketing technology, education, and startup execution infrastructure.",
-    keywords: combineKeywords(coreKeywords, [
+      "Dev N Suman is the Founder and CEO of AlgoForce AI, building an execution infrastructure ecosystem across AI, startups, Labs talent, and entertainment technology.",
+    keywords: combineKeywords(coreKeywords, pageKeywords.enterprise, pageKeywords.startups, [
       "Dev N Suman",
       "AlgoForce founder",
       "Founder of AlgoForce AI",
@@ -367,10 +459,10 @@ const seoConfig = {
     schemaType: "ProfilePage",
   },
   "/team": {
-    title: "AlgoForce AI Team | AI, Marketing, Growth & Operations Leaders",
+    title: "AlgoForce AI Team | AI, Startup, Labs & Growth Operators",
     description:
-      "Meet the AlgoForce AI team across AI systems, marketing, growth, finance, operations, Labs, client execution, and founder support.",
-    keywords: combineKeywords(coreKeywords, pageKeywords.marketing, [
+      "Meet the AlgoForce AI team across enterprise AI, startup execution, Labs talent, Velqora entertainment tech, marketing, finance, operations, and growth.",
+    keywords: combineKeywords(coreKeywords, pageKeywords.enterprise, pageKeywords.startups, pageKeywords.entertainment, pageKeywords.marketing, [
       "AlgoForce team",
       "AI agency team",
       "marketing agency team",
@@ -402,9 +494,9 @@ const seoConfig = {
     image: ogImage,
   },
   default: {
-    title: "AlgoForce AI | AI Agency, Automation, Marketing & Growth Systems",
+    title: "AlgoForce AI | Execution Infrastructure Ecosystem",
     description:
-      "AlgoForce AI builds custom AI systems, workflow automation, marketing automation, startup MVPs, AI tools, and training programs for modern organizations.",
+      "AlgoForce AI builds enterprise AI, digital transformation systems, startup operating infrastructure, talent programs, automation workflows, and growth platforms.",
     keywords: defaultKeywords,
     image: ogImage,
     robots: "index, follow",
