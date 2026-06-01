@@ -9,6 +9,8 @@ import Footer from './components/common/Footer'
 import Chatbot from './components/chatbot/Chatbot'
 import ConsultancyButton from './components/common/ConsultancyButton'
 import PageVideoBackdrop from './components/common/PageVideoBackdrop'
+import SplashScreen from './components/common/SplashScreen'
+import useIsMobile from './hooks/useIsMobile'
 import Home from './pages/Home'
 import Pricing from './pages/Pricing'
 import Labs from './pages/Labs'
@@ -35,9 +37,16 @@ import Team from './pages/Team'
 // Conditionally show footer and chatbot (not on AI Builder or Nexus page)
 const AppShell = () => {
   const location = useLocation()
+  const isMobileViewport = useIsMobile()
   const isBuilderPage = location.pathname === '/ai-builder'
   const isNexusPage = location.pathname === '/nexus'
-  const hasPageVideoBackdrop = !isBuilderPage && !isNexusPage && location.pathname !== '/'
+  const routesWithOwnSurface = ['/pricing', '/labs', '/founder', '/team', '/contact']
+  const hasPageVideoBackdrop =
+    !isMobileViewport &&
+    !isBuilderPage &&
+    !isNexusPage &&
+    location.pathname !== '/' &&
+    !routesWithOwnSurface.includes(location.pathname)
 
   useLayoutEffect(() => {
     if (location.hash) {
@@ -77,6 +86,7 @@ const AppShell = () => {
         </div>
       )}
       <SeoHead path={location.pathname} />
+      <SplashScreen />
       <Navigation />
       <div className="relative z-10">
         {!isBuilderPage && !isNexusPage && location.pathname !== '/' && <Breadcrumbs />}

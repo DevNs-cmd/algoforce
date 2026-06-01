@@ -28,7 +28,7 @@ const pillars = [
   {
     icon: FaShieldAlt,
     title: "MSME Registered",
-    text: "Operating with a formal business foundation under UDYAM-DL_08-0122150.",
+    text: "Operating with a formal business foundation under UDYAM-DL-08-0122150.",
   },
 ]
 

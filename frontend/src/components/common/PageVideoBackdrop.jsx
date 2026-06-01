@@ -1,9 +1,13 @@
+import useIsMobile from '../../hooks/useIsMobile'
+
 const PageVideoBackdrop = ({
   src = '/video2.mp4',
   overlay = 'dark',
   className = '',
   videoClassName = 'opacity-[0.24]',
 }) => {
+  const isMobile = useIsMobile()
+
   const overlayClass = overlay === 'light'
     ? 'bg-white/72'
     : 'bg-[#03070d]/72'
@@ -14,17 +18,19 @@ const PageVideoBackdrop = ({
 
   return (
     <div className={`absolute inset-0 pointer-events-none overflow-hidden ${className}`} aria-hidden="true">
-      <video
-        autoPlay
-        loop
-        muted
-        defaultMuted
-        playsInline
-        webkit-playsinline="true"
-        preload="metadata"
-        src={src}
-        className={`absolute inset-0 h-full w-full object-cover ${videoClassName}`}
-      />
+      {!isMobile && (
+        <video
+          autoPlay
+          loop
+          muted
+          defaultMuted
+          playsInline
+          webkit-playsinline="true"
+          preload="metadata"
+          src={src}
+          className={`absolute inset-0 h-full w-full object-cover ${videoClassName}`}
+        />
+      )}
       <div className={`absolute inset-0 ${overlayClass}`} />
       <div className={`absolute inset-0 ${gradientClass}`} />
       <div className="absolute inset-0 subtle-ai-grid opacity-40" />

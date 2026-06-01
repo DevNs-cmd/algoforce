@@ -13,7 +13,6 @@ const DESKTOP_HERO_VIDEOS = [
 
 const MOBILE_HERO_VIDEOS = [
   '/video1.mp4',
-  '/video2.mp4',
 ];
 
 const getHeroVideos = () => {
@@ -67,7 +66,7 @@ const Hero = () => {
 
   // Auto-slide every 8 seconds
   useEffect(() => {
-    if (!heroInView) {
+    if (!heroInView || heroVideos.length < 2) {
       return undefined
     }
 
@@ -192,7 +191,7 @@ const Hero = () => {
             className="inline-flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-3 px-5 py-3 mb-8 rounded-full premium-dark-surface backdrop-blur-xl"
           >
             <span className="text-[10px] font-semibold uppercase text-slate-400">MSME Registered</span>
-            <span className="text-xs sm:text-sm font-bold text-white tracking-normal">UDYAM-DL_08-0122150</span>
+            <span className="text-xs sm:text-sm font-bold text-white tracking-normal">UDYAM-DL-08-0122150</span>
           </motion.div>
 
           <motion.div

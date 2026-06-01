@@ -211,6 +211,201 @@ h1, h2, h3, h4, h5, h6 {
   animation: float 6s ease-in-out infinite;
 }
 
+/* Brand splash */
+.algoforce-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 200000;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 16%, rgba(6, 47, 79, 0.22), transparent 28rem),
+    radial-gradient(circle at 84% 72%, rgba(143, 56, 255, 0.2), transparent 28rem),
+    linear-gradient(135deg, #edf3f8 0%, #f7f4ff 48%, #eef5fb 100%);
+  pointer-events: auto;
+  animation: algoforce-splash-in 220ms ease-out both;
+}
+
+.algoforce-splash--leaving {
+  animation: algoforce-splash-out 280ms ease-in both;
+}
+
+.algoforce-splash__glow {
+  position: absolute;
+  width: min(50vw, 36rem);
+  aspect-ratio: 1;
+  border-radius: 999px;
+  opacity: 0.42;
+  filter: blur(82px);
+  transform: translateZ(0);
+}
+
+.algoforce-splash__glow--navy {
+  left: -12rem;
+  bottom: -12rem;
+  background: rgba(6, 47, 79, 0.22);
+}
+
+.algoforce-splash__glow--violet {
+  right: -10rem;
+  top: -10rem;
+  background: rgba(143, 56, 255, 0.2);
+}
+
+.algoforce-splash__shell {
+  position: relative;
+  width: min(88vw, 620px);
+  display: grid;
+  justify-items: center;
+  place-items: center;
+  transform: translateZ(0);
+}
+
+.algoforce-splash__ring {
+  position: absolute;
+  width: min(78vw, 520px);
+  aspect-ratio: 1;
+  border-radius: 999px;
+  border: 1px solid rgba(6, 47, 79, 0.08);
+  background:
+    conic-gradient(from 120deg, rgba(143, 56, 255, 0.04), rgba(6, 47, 79, 0.16), rgba(143, 56, 255, 0.1), rgba(6, 47, 79, 0.04));
+  opacity: 0.75;
+  animation: algoforce-orbit 7s linear infinite;
+}
+
+.algoforce-splash__card {
+  position: relative;
+  width: min(86vw, 560px);
+  display: grid;
+  justify-items: center;
+  gap: 1.05rem;
+  padding: clamp(1rem, 3vw, 1.5rem);
+  border: 1px solid rgba(6, 47, 79, 0.1);
+  border-radius: 34px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.84));
+  box-shadow:
+    0 34px 100px rgba(6, 47, 79, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.86);
+}
+
+.algoforce-splash__logo-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3.9 / 1;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: inset 0 0 0 1px rgba(6, 47, 79, 0.06);
+}
+
+.algoforce-splash__logo {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center 55%;
+  animation: algoforce-logo-rise 620ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.algoforce-splash__loader {
+  display: grid;
+  justify-items: center;
+  gap: 0.8rem;
+  width: min(56vw, 320px);
+}
+
+.algoforce-splash__bar {
+  width: 100%;
+  height: 4px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(6, 47, 79, 0.1);
+}
+
+.algoforce-splash__bar::before {
+  content: "";
+  display: block;
+  width: 36%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #062f4f, #8f38ff);
+  box-shadow: 0 0 16px rgba(143, 56, 255, 0.28);
+  animation: algoforce-progress 950ms ease-in-out infinite;
+}
+
+.algoforce-splash__dots {
+  display: flex;
+  gap: 0.45rem;
+}
+
+.algoforce-splash__dots span {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #8f38ff;
+  opacity: 0.35;
+  animation: algoforce-dot 900ms ease-in-out infinite;
+}
+
+.algoforce-splash__dots span:nth-child(2) {
+  animation-delay: 120ms;
+}
+
+.algoforce-splash__dots span:nth-child(3) {
+  animation-delay: 240ms;
+}
+
+.algoforce-splash__text {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #667085;
+}
+
+@keyframes algoforce-splash-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes algoforce-splash-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes algoforce-logo-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes algoforce-progress {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(260%); }
+}
+
+@keyframes algoforce-dot {
+  0%, 100% {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes algoforce-orbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 /* Scrollbar Visibility Utility */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
@@ -231,5 +426,41 @@ h1, h2, h3, h4, h5, h6 {
 @media (max-width: 768px) {
   body {
     overflow-x: hidden;
+  }
+
+  [class*="backdrop-blur"] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .subtle-ai-grid {
+    opacity: 0.22;
+  }
+
+  .algoforce-splash__glow,
+  .algoforce-splash__ring {
+    display: none;
+  }
+
+  .algoforce-splash__card {
+    width: min(90vw, 420px);
+    border-radius: 28px;
+    box-shadow: 0 24px 70px rgba(6, 47, 79, 0.14);
+  }
+
+  .algoforce-splash__logo-frame {
+    border-radius: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .algoforce-splash,
+  .algoforce-splash--leaving,
+  .algoforce-splash__logo,
+  .algoforce-splash__bar::before,
+  .algoforce-splash__dots span,
+  .algoforce-splash__ring {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
