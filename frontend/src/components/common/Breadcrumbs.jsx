@@ -31,13 +31,13 @@ const Breadcrumbs = () => {
     };
 
     return (
-        <div className="bg-transparent pt-32 pb-4">
+        <div className="sr-only">
             <Helmet>
                 <script type="application/ld+json">
                     {JSON.stringify(breadcrumbListSchema)}
                 </script>
             </Helmet>
-            <nav className="max-w-7xl mx-auto px-6 flex items-center gap-4 text-[12px] font-bold uppercase tracking-widest text-gray-500">
+            <nav aria-label="Breadcrumb">
                 <Link to="/" className="hover:text-purple-600 transition-colors flex items-center gap-2">
                     <FaHome /> Home
                 </Link>

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { submitContact } from '../services/api'
 import PhoneInput from '../components/PhoneInput'
-import { FaUser, FaBuilding, FaBriefcase, FaCheckCircle, FaPhone, FaEnvelope, FaWhatsapp } from 'react-icons/fa'
+import { FaUser, FaBuilding, FaBriefcase, FaCheckCircle, FaPhone, FaEnvelope, FaWhatsapp, FaMapMarkerAlt } from 'react-icons/fa'
 import PageVideoBackdrop from '../components/common/PageVideoBackdrop'
 
 const Contact = () => {
@@ -146,6 +146,13 @@ const Contact = () => {
                     <div>
                       <h3 className="text-sm font-bold text-[#8f38ff] uppercase mb-1">Company</h3>
                       <p className="text-2xl font-extrabold text-[#06101d]">AlgoForce</p>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-bold text-[#8f38ff] uppercase mb-1">Office</h3>
+                      <p className="flex items-start gap-3 text-xl sm:text-2xl font-extrabold text-[#06101d] leading-tight">
+                        <FaMapMarkerAlt className="text-[#062f4f] mt-1 flex-shrink-0" />
+                        <span>South Delhi, Kalkaji, New Delhi 110019</span>
+                      </p>
                     </div>
                     <div>
                       <h3 className="text-sm font-bold text-[#8f38ff] uppercase mb-1">Email</h3>

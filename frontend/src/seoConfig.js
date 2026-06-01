@@ -118,6 +118,14 @@ const seoConfig = {
     robots: "index, follow",
     canonical: "https://www.algoforceaii.com/founder",
   },
+  "/team": {
+    title: "Meet Our Team | AlgoForce AI",
+    description:
+      "Meet the AlgoForce AI leadership team across CEO, CMO, CFO, COO, CXO, executive office, Labs, and client execution.",
+    image: ogImage,
+    robots: "index, follow",
+    canonical: "https://www.algoforceaii.com/team",
+  },
   "/es": {
     title: "AlgoForce AI (ES) | Versión en preparación",
     description:

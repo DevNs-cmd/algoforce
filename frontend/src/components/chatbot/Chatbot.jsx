@@ -81,7 +81,7 @@ const Chatbot = () => {
 
         // 3. Packages & Pricing
         if (matches(['price', 'pricing', 'cost', 'how much', 'package', 'pack', 'plan'])) {
-            return `Service Packs:\n- **Startup**: $299\n- **Business**: $599\n- **Domination**: $999\n- **SaaS MVP**: $2,499+\n\nWhich stage? [Full Pricing](/pricing)`;
+            return `Service Packs:\n- **Startup**: $29\n- **Business**: $69\n- **Scale**: $99\n- **SaaS MVP**: $99 max\n\nWhich stage? [Full Pricing](/pricing)`;
         }
 
         // 4. RAG/LLM Specialization

@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useLayoutEffect } from 'react'
 import { HelmetProvider } from 'react-helmet-async'
 import { AuthProvider } from './contexts/AuthContext'
 import SeoHead from './components/common/SeoHead'
@@ -30,6 +30,7 @@ import BuildAIApp from './pages/BuildAIApp'
 import AICertificationIndia from './pages/AICertificationIndia'
 import BlogPost from './pages/BlogPost'
 import Founder from './pages/Founder'
+import Team from './pages/Team'
 
 // Conditionally show footer and chatbot (not on AI Builder or Nexus page)
 const AppShell = () => {
@@ -38,7 +39,7 @@ const AppShell = () => {
   const isNexusPage = location.pathname === '/nexus'
   const hasPageVideoBackdrop = !isBuilderPage && !isNexusPage && location.pathname !== '/'
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (location.hash) {
       const target = document.getElementById(decodeURIComponent(location.hash.slice(1)))
       if (target) {
@@ -95,6 +96,7 @@ const AppShell = () => {
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:id" element={<BlogPost />} />
           <Route path="/founder" element={<Founder />} />
+          <Route path="/team" element={<Team />} />
           
           {/* SEO Landing Pages */}
           <Route path="/ai-course" element={<AICourse />} />

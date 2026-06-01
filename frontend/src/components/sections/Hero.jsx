@@ -171,9 +171,9 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[2.35rem] sm:text-5xl md:text-6xl lg:text-[4.75rem] font-bold mb-6 leading-[1.06] text-white max-w-6xl mx-auto"
+            className="text-[2.35rem] sm:text-5xl md:text-6xl lg:text-[4.65rem] font-semibold mb-6 leading-[1.06] text-white max-w-6xl mx-auto"
           >
-            AI systems and automation infrastructure for modern organizations
+            AI systems and <span className="premium-serif italic font-normal text-[#cdb4ff]">automation infrastructure</span> for modern organizations
           </motion.h1>
 
           <motion.p

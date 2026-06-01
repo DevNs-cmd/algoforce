@@ -6,6 +6,7 @@ import {
   FaXTwitter,
   FaWhatsapp,
 } from "react-icons/fa6"
+import { FaMapMarkerAlt } from "react-icons/fa"
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
@@ -32,6 +33,13 @@ const Footer = () => {
               The premier AI execution studio for high-growth startups and
               ambitious founders. We engineer technical equity.
             </p>
+
+            <div className="mb-8 flex items-start gap-3 max-w-sm text-gray-500">
+              <FaMapMarkerAlt className="mt-1 text-purple-500 flex-shrink-0" />
+              <p className="text-sm font-medium leading-relaxed">
+                Office: South Delhi, Kalkaji, New Delhi 110019
+              </p>
+            </div>
 
             <div className="flex space-x-6">
               {[
@@ -63,6 +71,7 @@ const Footer = () => {
                 { name: 'Labs', path: '/labs' },
                 { name: 'Pricing', path: '/pricing' },
                 { name: 'Meet Our Founder', path: '/founder' },
+                { name: 'Meet Our Team', path: '/team' },
                 { name: 'What is AlgoForce?', path: '/what-is-algoforce' },
                 { name: 'Blog Insights', path: '/blog' }
               ].map(link => (
@@ -119,7 +128,7 @@ const Footer = () => {
         {/* Bottom bar */}
         <div className="pt-16 mt-16 text-center border-t border-white/5">
           <p className="text-[10px] font-black uppercase tracking-[0.5em] text-gray-800">
-            © {currentYear} AlgoForce AI
+            Copyright {currentYear} AlgoForce AI
           </p>
         </div>
       </div>

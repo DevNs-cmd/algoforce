@@ -34,6 +34,7 @@ const Navigation = () => {
     { name: "Labs", path: "/labs" },
     { name: "Crucible", path: "https://crucible-website-omega.vercel.app/", isExternal: true },
     { name: "Founder", path: "/founder" },
+    { name: "Team", path: "/team" },
     { name: "Pricing", path: "/pricing" },
   ];
 
@@ -49,7 +50,7 @@ const Navigation = () => {
             px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 rounded-[24px]
             border border-white/12
             backdrop-blur-2xl transition-all duration-500 ease-out
-            ${scrolled ? "w-full max-w-5xl bg-[#03070d]/86 shadow-[0_18px_50px_rgba(0,0,0,0.28)]" : "w-full max-w-7xl bg-[#03070d]/62"}
+            ${scrolled ? "w-full max-w-5xl bg-[#03070d]/95 shadow-[0_18px_50px_rgba(0,0,0,0.28)]" : "w-full max-w-7xl bg-[#03070d]/90 shadow-[0_18px_50px_rgba(0,0,0,0.18)]"}
           `}
         >
           <Link to="/" className="flex min-w-0 items-center gap-3 group">
@@ -65,7 +66,7 @@ const Navigation = () => {
           </Link>
 
           {/* Desktop Links */}
-          <div className="hidden md:flex items-center gap-5 lg:gap-8">
+          <div className="hidden md:flex items-center gap-4 lg:gap-6">
             {navLinks.map((link) => (
               link.isExternal ? (
                 <a

@@ -29,7 +29,7 @@ export const ALGOFORCE_KNOWLEDGE = {
             title: "AI & Workflow Automation",
             description: "Replaces manual work with intelligent agents.",
             tools: ["Zapier", "Make.com", "Python Agents", "n8n"],
-            priceRange: "$99 - $499"
+            priceRange: "$29 - $99"
         },
         chatbots_rag: {
             title: "Advanced RAG Chatbots",
@@ -41,7 +41,7 @@ export const ALGOFORCE_KNOWLEDGE = {
             title: "SaaS & App Development",
             description: "End-to-end execution for founders.",
             benchmark: "Launch in 30 days.",
-            pricing: "$2,499+"
+            pricing: "$99"
         },
         aeo_seo: {
             title: "AEO & GEO Optimization",
@@ -53,28 +53,28 @@ export const ALGOFORCE_KNOWLEDGE = {
         {
             id: "startup",
             name: "Startup Growth Pack",
-            price: "$299",
+            price: "$29",
             value: "establishing authority",
             items: ["5-page Website", "Global SEO", "AI Lead Gen Bot", "GA4 Analytics"]
         },
         {
             id: "business",
             name: "Business Automation Pack",
-            price: "$599",
+            price: "$69",
             value: "scaling efficiency",
             items: ["7+ page Website", "Advanced AI Bot", "Core CRM Automation", "AEO/GEO Optimization"]
         },
         {
             id: "domination",
             name: "AI Domination Pack",
-            price: "$999",
+            price: "$99",
             value: "market leadership",
             items: ["High-Conversion Asset", "AI Voice Receptionist", "Multi-step Workflows", "Industrial SEO"]
         }
     ],
     faq: {
         "how to start": "Book a Free AI Audit on our Contact page. Zero upfront cost.",
-        "maintenance": "Growth ($299/mo) or Automation ($199/mo) retainers.",
+        "maintenance": "Growth ($69/mo) or Automation ($49/mo) retainers.",
         "payments": "Global Secure: Stripe, PayPal, Razorpay.",
         "timeline": "Web/Bot: 7-14 days. SaaS MVP: ~30 days."
     }
