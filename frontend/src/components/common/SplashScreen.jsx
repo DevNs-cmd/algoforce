@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-const SPLASH_DURATION = 900
+const MIN_SPLASH_DURATION = 2000
 const EXIT_DURATION = 280
 
 const SplashScreen = () => {
@@ -8,8 +8,7 @@ const SplashScreen = () => {
   const [leaving, setLeaving] = useState(false)
 
   useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const visibleDuration = prefersReducedMotion ? 420 : SPLASH_DURATION
+    const visibleDuration = MIN_SPLASH_DURATION
 
     setMounted(true)
     setLeaving(false)
