@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async"
+import SeoHead from "../components/common/SeoHead"
 import { AnimatePresence, motion } from 'framer-motion'
 import { useMemo, useState } from 'react'
 import {
@@ -228,11 +228,7 @@ const Labs = () => {
 
     return (
         <main className="min-h-screen bg-[#f7f9fc] text-[#06101d]">
-            <Helmet>
-                <title>AlgoForce Labs - AI Cohorts, Certifications & Talent Pipeline</title>
-                <meta name="description" content="AlgoForce Labs runs AI cohorts, certifications, apprenticeships, portfolio projects, and placement pathways for students and professionals." />
-                <link rel="canonical" href="https://www.algoforceaii.com/labs" />
-            </Helmet>
+            <SeoHead path="/labs" />
 
             <section className="relative overflow-hidden border-b border-[#06101d]/8 bg-white pt-32 pb-14 md:pt-36 md:pb-20">
                 <div className="absolute inset-0 pointer-events-none">

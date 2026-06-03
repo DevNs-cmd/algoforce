@@ -33,6 +33,10 @@ import BlogPost from './pages/BlogPost'
 import Founder from './pages/Founder'
 import Team from './pages/Team'
 import WhatIsAlgoForcePage from './pages/WhatIsAlgoForce'
+import Services from './pages/Services'
+import Crucible from './pages/Crucible'
+import Velqora from './pages/Velqora'
+import About from './pages/About'
 
 // Conditionally show footer and chatbot (not on AI Builder or Nexus page)
 const AppShell = () => {
@@ -91,8 +95,14 @@ const AppShell = () => {
 
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/ai-consulting" element={<Services />} />
+          <Route path="/crucible" element={<Crucible />} />
+          <Route path="/velqora" element={<Velqora />} />
+          <Route path="/about" element={<About />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/labs" element={<Labs />} />
+          <Route path="/training" element={<Labs />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-and-conditions" element={<TermsAndConditions />} />

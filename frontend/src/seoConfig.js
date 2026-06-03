@@ -183,6 +183,275 @@ const defaultKeywords = combineKeywords(
 const buildSchema = (path, meta) => {
   const url = `${siteUrl}${path === "/" ? "/" : path}`;
 
+  if (path === "/" || path === "") {
+    return {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": `${siteUrl}/#organization`,
+          "name": "AlgoForce AI",
+          "alternateName": ["AlgoForce", "AlgoForce AI Ecosystem"],
+          "url": "https://www.algoforceaii.com",
+          "logo": "https://www.algoforceaii.com/logo.png",
+          "foundingDate": "2026",
+          "founder": {
+            "@type": "Person",
+            "name": "Dev N Suman",
+            "jobTitle": "Founder & CEO",
+            "url": "https://linkedin.com/in/dev-n-suman-3616a6377"
+          },
+          "description": "AlgoForce AI is India's execution infrastructure ecosystem spanning enterprise AI consulting, startup OS (CRUCIBLE), talent infrastructure (AlgoForce Labs), and live entertainment OS (Velqora).",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "New Delhi",
+            "addressRegion": "Delhi",
+            "addressCountry": "IN"
+          },
+          "areaServed": "IN",
+          "knowsAbout": [
+            "Artificial Intelligence", "Enterprise Automation", "Startup Infrastructure",
+            "Talent Development", "Digital Transformation", "AI Consulting"
+          ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "AlgoForce AI Services",
+            "itemListElement": [
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Enterprise AI Consulting"}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "CRUCIBLE Startup OS"}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "AlgoForce Labs Training"}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Velqora Artist Platform"}}
+            ]
+          },
+          "sameAs": [
+            "https://linkedin.com/company/algoforce-ai",
+            "https://github.com/DevNs-cmd"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": `${siteUrl}/#website`,
+          "url": "https://www.algoforceaii.com",
+          "name": "AlgoForce AI",
+          "description": "India's execution infrastructure ecosystem",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://www.algoforceaii.com/?s={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is AlgoForce AI?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "AlgoForce AI is an execution infrastructure ecosystem with 4 businesses: enterprise AI consulting, CRUCIBLE (startup OS), AlgoForce Labs (talent platform), and Velqora (live entertainment OS). Based in New Delhi, India."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is CRUCIBLE by AlgoForce?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "CRUCIBLE is a startup operating system that helps founders from idea validation through Series A fundraising readiness, with tools for execution tracking, Venture Health Score, and investor pipeline management."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is AlgoForce Labs?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "AlgoForce Labs is a talent infrastructure platform that trains students in AI, full-stack development, and digital marketing, then places them in startups and enterprises. Programs start from ₹22,000."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does AlgoForce AI work with enterprises in India?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. AlgoForce AI delivers enterprise AI consulting, automation systems, and digital transformation for enterprises, scale-ups, and SMEs across India. Engagements begin with a free AI Readiness Audit."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Where is AlgoForce AI located?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "AlgoForce AI is headquartered in New Delhi, India and is a Government of India registered MSME."
+              }
+            }
+          ]
+        }
+      ]
+    };
+  }
+
+  if (path === "/services" || path === "/ai-consulting") {
+    return {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Enterprise AI Consulting & Automation Services",
+      "provider": {
+        "@type": "Organization",
+        "name": "AlgoForce AI",
+        "url": "https://www.algoforceaii.com",
+        "logo": "https://www.algoforceaii.com/logo.png"
+      },
+      "areaServed": "IN",
+      "description": "Enterprise AI systems, automation infrastructure, and digital transformation for Indian businesses."
+    };
+  }
+
+  if (path === "/crucible") {
+    return {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "CRUCIBLE",
+      "operatingSystem": "All",
+      "applicationCategory": "BusinessApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "2999",
+        "priceCurrency": "INR",
+        "description": "Subscriptions from ₹2,999/month"
+      },
+      "description": "Crucible is a startup operating system that helps founders from idea validation through Series A fundraising readiness, with tools for execution tracking, Venture Health Score, and investor pipeline management."
+    };
+  }
+
+  if (path === "/velqora") {
+    return {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Velqora",
+      "operatingSystem": "All",
+      "applicationCategory": "EntertainmentApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "499",
+        "priceCurrency": "INR",
+        "description": "Subscriptions from ₹499/month"
+      },
+      "description": "Velqora helps performing artists and event organizers manage bookings, contracts, and payments — all in one platform."
+    };
+  }
+
+  if (path === "/labs" || path === "/training") {
+    return [
+      {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "name": "AI Systems & Operational Automation for Leaders",
+        "description": "8-week cohort for founders and executives integrating AI systems to optimize scale and operations.",
+        "provider": {
+          "@type": "Organization",
+          "name": "AlgoForce Labs",
+          "url": "https://www.algoforceaii.com/labs"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "15000",
+          "priceCurrency": "INR",
+          "category": "Paid"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "name": "AI Systems Architect & Engineering Track",
+        "description": "16-week advanced program for engineers deploying production-grade AI systems.",
+        "provider": {
+          "@type": "Organization",
+          "name": "AlgoForce Labs",
+          "url": "https://www.algoforceaii.com/labs"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "35000",
+          "priceCurrency": "INR",
+          "category": "Paid"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "name": "Operational Intelligence & AI Systems",
+        "description": "12-week track for data teams building advanced analytics infrastructure and real-time execution dashboards.",
+        "provider": {
+          "@type": "Organization",
+          "name": "AlgoForce Labs",
+          "url": "https://www.algoforceaii.com/labs"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "25000",
+          "priceCurrency": "INR",
+          "category": "Paid"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "name": "Enterprise Automation Infrastructure Specialist",
+        "description": "14-week cohort for operations and technology teams designing enterprise automated workflows.",
+        "provider": {
+          "@type": "Organization",
+          "name": "AlgoForce Labs",
+          "url": "https://www.algoforceaii.com/labs"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "30000",
+          "priceCurrency": "INR",
+          "category": "Paid"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "name": "Elite Systems Deployment Apprenticeship",
+        "description": "For top performers moving into custom implementation and enterprise infrastructure systems.",
+        "provider": {
+          "@type": "Organization",
+          "name": "AlgoForce Labs",
+          "url": "https://www.algoforceaii.com/labs"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "50000",
+          "priceCurrency": "INR",
+          "category": "Paid"
+        }
+      }
+    ];
+  }
+
+  if (path === "/about") {
+    return [
+      {
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        "name": "About AlgoForce AI",
+        "description": "AlgoForce AI was founded in 2026 by Dev N Suman in New Delhi. We build execution infrastructure for enterprises, startups, talent, and creators across India."
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Dev N Suman",
+        "jobTitle": "Founder & CEO",
+        "url": "https://linkedin.com/in/dev-n-suman-3616a6377",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "AlgoForce AI",
+          "url": "https://www.algoforceaii.com"
+        }
+      }
+    ];
+  }
+
   return [
     {
       "@context": "https://schema.org",
@@ -251,14 +520,38 @@ const buildSchema = (path, meta) => {
 
 const seoConfig = {
   "/": {
-    title: "AlgoForce AI | Execution Infrastructure for AI, Startups & Talent",
+    title: "AlgoForce AI — AI Consulting, Startup OS & Talent Platform | New Delhi, India",
     description:
-      "AlgoForce AI is an execution infrastructure ecosystem connecting enterprise AI, digital transformation, Crucible startup OS, AlgoForce Labs talent, and Velqora entertainment tech.",
-    keywords: defaultKeywords,
+      "AlgoForce AI is India's execution infrastructure ecosystem — enterprise AI consulting, CRUCIBLE startup OS, AlgoForce Labs talent platform, and Velqora for live entertainment. New Delhi.",
+    keywords: "AI consulting India, startup operating system India, AI courses New Delhi, enterprise AI automation India, MVP development India, AlgoForce AI, CRUCIBLE startup platform, AlgoForce Labs",
     image: ogImage,
-    robots: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
+    robots: "index, follow",
     canonical: `${siteUrl}/`,
     schemaType: "WebPage",
+  },
+  "/services": {
+    title: "Enterprise AI Consulting & Automation Services | AlgoForce AI India",
+    description: "AlgoForce AI delivers enterprise AI systems, automation infrastructure, and digital transformation for Indian businesses. Start with a free AI Readiness Audit.",
+    keywords: "AI consulting India, enterprise AI automation India, digital transformation India",
+    image: ogImage,
+    robots: "index, follow",
+    canonical: `${siteUrl}/services`,
+  },
+  "/ai-consulting": {
+    title: "Enterprise AI Consulting & Automation Services | AlgoForce AI India",
+    description: "AlgoForce AI delivers enterprise AI systems, automation infrastructure, and digital transformation for Indian businesses. Start with a free AI Readiness Audit.",
+    keywords: "AI consulting India, enterprise AI automation India, digital transformation India",
+    image: ogImage,
+    robots: "index, follow",
+    canonical: `${siteUrl}/ai-consulting`,
+  },
+  "/crucible": {
+    title: "CRUCIBLE — Startup Operating System for Indian Founders | AlgoForce AI",
+    description: "CRUCIBLE is the execution infrastructure for startups — from idea to Series A. Workspace tools, Venture Health Score, fundraising readiness. ₹2,999/mo.",
+    keywords: "startup OS India, startup tools for founders India",
+    image: ogImage,
+    robots: "index, follow",
+    canonical: `${siteUrl}/crucible`,
   },
   "/pricing": {
     title: "Pricing | Enterprise AI, Startup OS, Labs & Automation Services",
@@ -273,19 +566,36 @@ const seoConfig = {
     image: ogImage,
   },
   "/labs": {
-    title: "AlgoForce Labs | Talent Infrastructure, AI Training & Placement",
-    description:
-      "AlgoForce Labs is a talent infrastructure platform for AI training, product engineering, growth marketing, corporate upskilling, project sprints, and placements.",
-    keywords: combineKeywords(coreKeywords, pageKeywords.academy, pageKeywords.builder, [
-      "AI labs India",
-      "AI project lab",
-      "automation demo",
-      "startup lab India",
-      "learn build deploy hire",
-      "student placement program",
-      "corporate AI upskilling",
-    ]),
+    title: "AI & Tech Training for Students | AlgoForce Labs — New Delhi",
+    description: "AlgoForce Labs trains students in AI, full-stack development, and growth marketing through real-world project sprints. Placement support included. From ₹22,000.",
+    keywords: "AI courses India students, AI training New Delhi, full-stack development India",
     image: ogImage,
+    robots: "index, follow",
+    canonical: `${siteUrl}/labs`,
+  },
+  "/training": {
+    title: "AI & Tech Training for Students | AlgoForce Labs — New Delhi",
+    description: "AlgoForce Labs trains students in AI, full-stack development, and growth marketing through real-world project sprints. Placement support included. From ₹22,000.",
+    keywords: "AI courses India students, AI training New Delhi, full-stack development India",
+    image: ogImage,
+    robots: "index, follow",
+    canonical: `${siteUrl}/training`,
+  },
+  "/velqora": {
+    title: "Velqora — Booking & Career OS for Performing Artists in India",
+    description: "Velqora helps performing artists and event organizers manage bookings, contracts, and payments — all in one platform. Subscriptions from ₹499/month.",
+    keywords: "artist booking platform India, event organizer tools India",
+    image: ogImage,
+    robots: "index, follow",
+    canonical: `${siteUrl}/velqora`,
+  },
+  "/about": {
+    title: "About AlgoForce AI — Founder Dev N Suman | New Delhi, India",
+    description: "AlgoForce AI was founded in 2026 by Dev N Suman in New Delhi. We build execution infrastructure for enterprises, startups, talent, and creators across India.",
+    keywords: "About AlgoForce AI, Dev N Suman, execution infrastructure India",
+    image: ogImage,
+    robots: "index, follow",
+    canonical: `${siteUrl}/about`,
   },
   "/contact": {
     title: "Contact AlgoForce AI | Enterprise AI, Startup & Growth Systems",
