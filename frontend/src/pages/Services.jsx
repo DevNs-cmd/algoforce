@@ -72,6 +72,12 @@ const Services = () => {
             >
               Book Audit
             </Link>
+            <Link
+              to="/pricing"
+              className="rounded-full border border-white/10 px-8 py-4 text-sm font-black uppercase tracking-widest text-white transition-colors hover:bg-white/5"
+            >
+              View Pricing
+            </Link>
           </div>
         </section>
       </article>

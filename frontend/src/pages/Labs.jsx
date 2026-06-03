@@ -1,4 +1,5 @@
 import SeoHead from "../components/common/SeoHead"
+import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useMemo, useState } from 'react'
 import {
@@ -306,6 +307,13 @@ const Labs = () => {
                                     {tab.label}
                                 </button>
                             ))}
+                            <Link
+                                to="/pricing"
+                                className="mt-2 rounded-[18px] px-4 py-4 text-sm font-bold transition-all bg-[#8f38ff]/10 text-[#8f38ff] hover:bg-[#8f38ff]/20 flex items-center justify-between border border-[#8f38ff]/20"
+                            >
+                                <span className="flex-1 text-center">View Pricing</span>
+                                <FaArrowRight size={10} />
+                            </Link>
                         </div>
                     </aside>
 
@@ -333,6 +341,15 @@ const Labs = () => {
                                 ))}
                             </motion.div>
                         </AnimatePresence>
+
+                        <div className="mt-8 text-center bg-white border border-[#06101d]/10 rounded-[22px] p-6 shadow-[0_10px_35px_rgba(6,47,79,0.03)]">
+                            <p className="text-sm font-semibold text-slate-600">
+                                Need custom team training or corporate programs?{' '}
+                                <Link to="/contact" className="font-bold text-[#8f38ff] underline hover:text-[#06101d] transition-colors">
+                                    Contact our enterprise team
+                                </Link>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </section>

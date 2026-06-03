@@ -19,7 +19,7 @@ const BLOG_POSTS = {
             <h2>The Minimalist AI Stack</h2>
             <p>To build a scalable AI app, you need three components: an interface, a brain, and a bridge. We recommend using <strong>Bubble</strong> for the interface, <strong>OpenAI</strong> for the brain, and <strong>Make.com</strong> for the bridge.</p>
             <h3>Step 1: Architecting the Logic</h3>
-            <p>Define what your AI needs to solve. Is it a research bot? A customer support bot? Once defined, you can use our <Link to="/build-ai-app-without-coding" class="text-purple-500 font-bold underline">No-Code Guide</Link> to connect the APIs.</p>
+            <p>Define what your AI needs to solve. Is it a research bot? A customer support bot? Once defined, you can use our <Link to="/build-ai-app-without-coding" class="text-purple-500 font-bold underline">No-Code Guide</Link> to connect the APIs. If you are a startup founder, manage your execution on <Link to="/crucible" class="text-purple-500 font-bold underline">Crucible Startup OS</Link>, or look up prebuilt projects in <Link to="/labs" class="text-purple-500 font-bold underline">AlgoForce Labs</Link>.</p>
         `,
         date: 'March 29, 2025',
         author: 'Dev N Suman',
@@ -41,7 +41,7 @@ const BLOG_POSTS = {
             <p>1. <strong>Autonomous Researcher:</strong> A bot that synthesizes data from 100+ sources. See it in our <Link to="/labs" class="text-purple-500 font-bold underline">Labs</Link>.</p>
             <p>2. <strong>Predictive Revenue Dashboard:</strong> Using ML to forecast sales.</p>
             <h3>Why build these?</h3>
-            <p>These projects show potential employers that you understand how to implement AI strategically, not just prompt it basic questions.</p>
+            <p>These projects show potential employers that you understand how to implement AI strategically, not just prompt it basic questions. Students can gain placement leverage by learning how to build these at <Link to="/labs" class="text-purple-500 font-bold underline">AlgoForce Labs</Link>, or consult with enterprises using <Link to="/ai-consulting" class="text-purple-500 font-bold underline">AlgoForce AI Consulting</Link>.</p>
         `,
         date: 'March 28, 2025',
         author: 'AlgoForce Team',
@@ -61,7 +61,7 @@ const BLOG_POSTS = {
             </div>
             <h2>What to look for:</h2>
             <p>1. Industrial Validation. <br/> 2. Govt Registered MSME credentials. <br/> 3. Hands-on Lab access.</p>
-            <p>Verify our credentials at <Link to="/ai-certification-india" class="text-purple-500 font-bold underline">Industrial Proof</Link>.</p>
+            <p>Verify our credentials at <Link to="/ai-certification-india" class="text-purple-500 font-bold underline">Industrial Proof</Link>. Our certified cohorts are run through <Link to="/labs" class="text-purple-500 font-bold underline">AlgoForce Labs</Link>, preparing students directly for corporate roles. For enterprises seeking specialized training, explore our <Link to="/ai-consulting" class="text-purple-500 font-bold underline">AI Consulting & Training</Link>.</p>
         `,
         date: 'March 27, 2025',
         author: 'AlgoForce Strategy',
@@ -81,7 +81,7 @@ const BLOG_POSTS = {
             </div>
             <h2>Models of Earning:</h2>
             <p>1. Workflow Automation. <br/> 2. Custom Bot Building. <br/> 3. AI Strategy Audits.</p>
-            <p>Get the skills you need at <Link to="/ai-course" class="text-purple-500 font-bold underline">The Academy</Link>.</p>
+            <p>Get the skills you need at <Link to="/ai-course" class="text-purple-500 font-bold underline">The Academy</Link>. Many of our top practitioners start by offering freelancing services or workflow automation, which you can learn at <Link to="/labs" class="text-purple-500 font-bold underline">AlgoForce Labs</Link>, or partner with us for larger projects via <Link to="/ai-consulting" class="text-purple-500 font-bold underline">AlgoForce AI Consulting</Link>.</p>
         `,
         date: 'March 26, 2025',
         author: 'Dev N Suman',
@@ -101,6 +101,7 @@ const BLOG_POSTS = {
             </div>
             <h2>The Student Toolkit:</h2>
             <p>1. Cursor (AI Coding) <br/> 2. Make.com (Automation) <br/> 3. Pinecone (Vector Storage)</p>
+            <p>Mastering these tools is essential to pass our cohorts at <Link to="/labs" class="text-purple-500 font-bold underline">AlgoForce Labs</Link>, giving you direct placement opportunities in India's leading startups.</p>
         `,
         date: 'March 25, 2025',
         author: 'AlgoForce Team',
@@ -133,7 +134,7 @@ const BLOG_POSTS = {
             <p>Ship in 14 days: Day 1–3 research, Day 4–7 clickable prototype, Day 8–12 vertical slice, Day 13 usability tests, Day 14 billing + onboarding.</p>
             <h2 id="metrics">7) Success metrics</h2>
             <p>Track time-to-first-output, weekly active users, and retained cohorts. If WAU < 30 after two weeks, pivot the workflow not the market.</p>
-            <p class="mt-8">Need hands-on help? <a class="text-purple-500 font-bold" href="/ai-builder">Try the AlgoForce AI Builder</a> or <a class="text-purple-500 font-bold" href="/labs">see a live Lab demo</a>. Meet the person behind the playbook: <a class="text-purple-500 font-bold" href="/founder">Dev N Suman, Founder of AlgoForce AI</a>.</p>
+             <p class="mt-8">Need hands-on help? Try the <Link class="text-purple-500 font-bold underline" to="/labs">AlgoForce Labs demo</Link>, manage your roadmap using the <Link class="text-purple-500 font-bold underline" to="/crucible">Crucible Startup OS</Link>, or contact <Link class="text-purple-500 font-bold underline" to="/ai-consulting">AlgoForce AI Consulting</Link> for custom systems.</p>
           `,
         date: 'April 3, 2026',
         author: 'Dev N Suman',
@@ -155,7 +156,7 @@ const BLOG_POSTS = {
             </ul>
             <h2>Top picks</h2>
             <ol>
-              <li><strong>AlgoForce Academy Starter</strong> — free intro + paid advanced labs. Includes /labs access and <a href="/ai-builder" class="text-purple-500 font-bold">AI Builder</a> credits.</li>
+              <li><strong>AlgoForce Academy Starter</strong> — free intro + paid advanced labs. Includes <Link to="/labs" class="text-purple-500 font-bold underline">Labs</Link> access and <Link to="/ai-builder" class="text-purple-500 font-bold underline">AI Builder</Link> credits.</li>
               <li><strong>FastAI v5</strong> — best for vision + tabular; supplement with Hindi/English study groups.</li>
               <li><strong>DeepLearning.AI Short Courses</strong> — focus on RAG and evaluation tracks.</li>
               <li><strong>Hugging Face Open Courses</strong> — transformers, PEFT, and deployment on Spaces.</li>
@@ -164,7 +165,7 @@ const BLOG_POSTS = {
             <p>Create three artifacts: (1) RAG chatbot with custom data, (2) automation that saves a small business 2+ hours/week, (3) a mini-evaluator for hallucination checks.</p>
             <h2>Certification reality</h2>
             <p>Certificates matter only when backed by shipped work. Pair any course with public demos and LinkedIn posts to get recruiter traction.</p>
-            <p class="mt-8">Ready to learn? <a class="text-purple-500 font-bold" href="/academy">Join the AlgoForce Academy</a> or <a class="text-purple-500 font-bold" href="/founder">connect with Dev N Suman</a> to plan your track.</p>
+            <p class="mt-8">Ready to learn? Join the <Link class="text-purple-500 font-bold underline" to="/labs">AlgoForce Labs</Link> cohorts, explore enterprise systems on <Link class="text-purple-500 font-bold underline" to="/ai-consulting">AlgoForce AI Consulting</Link>, or connect with <Link class="text-purple-500 font-bold underline" to="/founder">Dev N Suman</Link>.</p>
           `,
         date: 'April 3, 2026',
         author: 'Dev N Suman',
@@ -189,8 +190,8 @@ const BLOG_POSTS = {
               <li>AI safety through evaluation and bounded autonomy</li>
             </ul>
             <h2>Today</h2>
-            <p>AlgoForce serves students, indie hackers, and SMEs across India with <a class="text-purple-500 font-bold" href="/academy">Academy</a>, <a class="text-purple-500 font-bold" href="/ai-builder">AI Builder</a>, and <a class="text-purple-500 font-bold" href="/labs">Labs</a>.</p>
-            <p class="mt-8">Want to talk? <a class="text-purple-500 font-bold" href="/founder">Meet Dev N Suman</a> or read this story’s extended version on LinkedIn.</p>
+            <p>AlgoForce serves students, indie hackers, and SMEs across India with <Link class="text-purple-500 font-bold underline" to="/labs">Labs</Link>, <Link class="text-purple-500 font-bold underline" to="/crucible">Crucible Startup OS</Link>, and <Link class="text-purple-500 font-bold underline" to="/ai-consulting">AI Consulting</Link>.</p>
+            <p class="mt-8">Want to talk? <Link class="text-purple-500 font-bold underline" to="/founder">Meet Dev N Suman</Link> or read this story’s extended version on LinkedIn.</p>
           `,
         date: 'April 3, 2026',
         author: 'Dev N Suman',
@@ -219,7 +220,7 @@ const BLOG_POSTS = {
             <h2>What to avoid</h2>
             <p>Programs without capstones, generic MCQ exams, and courses that never touch deployment or evaluation.</p>
             <h2>Action plan</h2>
-            <p>Pick one certificate, pair it with a public demo, and publish a case study on LinkedIn. Use <a class="text-purple-500 font-bold" href="/labs">AlgoForce Labs</a> to build the capstone and <a class="text-purple-500 font-bold" href="/founder">talk to Dev</a> for feedback.</p>
+            <p>Pick one certificate, pair it with a public demo, and publish a case study on LinkedIn. Use <Link class="text-purple-500 font-bold underline" to="/labs">AlgoForce Labs</Link> to build the capstone and consult on custom workflows with <Link class="text-purple-500 font-bold underline" to="/ai-consulting">AlgoForce AI Consulting</Link>.</p>
           `,
         date: 'April 3, 2026',
         author: 'Dev N Suman',
@@ -245,7 +246,7 @@ const BLOG_POSTS = {
             <p>Use <strong>Make/Zapier</strong> for glue, <strong>OpenAI/Gemini</strong> for text, <strong>Pinecone/Supabase</strong> for context, and <strong>Canva/Descript</strong> for assets.</p>
             <h2>Lead gen</h2>
             <p>Cold LinkedIn + WhatsApp, micro-case-studies on <a class="text-purple-500 font-bold" href="/blog">your blog</a>, and Loom demos.</p>
-            <p class="mt-8">Need a jumpstart? Use <a class="text-purple-500 font-bold" href="/ai-builder">AI Builder</a> templates or join <a class="text-purple-500 font-bold" href="/academy">Academy cohorts</a>. Meet <a class="text-purple-500 font-bold" href="/founder">Dev N Suman</a> for mentorship.</p>
+            <p class="mt-8">Need a jumpstart? Use <Link class="text-purple-500 font-bold underline" to="/labs">AlgoForce Labs</Link> to build reference projects, track your startup growth on <Link class="text-purple-500 font-bold underline" to="/crucible">Crucible</Link>, or meet <Link class="text-purple-500 font-bold underline" to="/founder">Dev N Suman</Link> for mentorship.</p>
           `,
         date: 'April 3, 2026',
         author: 'Dev N Suman',
@@ -266,7 +267,7 @@ const BLOG_POSTS = {
             <h2>What to avoid</h2>
             <p>Custom infra, premature microservices, and building for edge cases before validation.</p>
             <h2>Templates</h2>
-            <p>Start with AlgoForce <a class="text-purple-500 font-bold" href="/ai-builder">AI Builder</a> templates for chat, document automation, and voice agents. Show demos in <a class="text-purple-500 font-bold" href="/labs">Labs</a>.</p>
+            <p>Start with AlgoForce <Link class="text-purple-500 font-bold underline" to="/labs">AlgoForce Labs</Link> templates, build your startup infrastructure with <Link class="text-purple-500 font-bold underline" to="/crucible">Crucible Startup OS</Link>, or explore custom builds via <Link class="text-purple-500 font-bold underline" to="/ai-consulting">AlgoForce AI Consulting</Link>.</p>
           `,
         date: 'April 3, 2026',
         author: 'Dev N Suman',
@@ -290,7 +291,7 @@ const BLOG_POSTS = {
             <p>Students who need portfolio pieces, early-stage founders who need a working MVP, and teams that need proofs fast.</p>
             <h2>Verdict</h2>
             <p>AlgoForce works best for builders willing to ship weekly. If you want pure theory, look elsewhere.</p>
-            <p class="mt-8">Start with the <a class="text-purple-500 font-bold" href="/academy">Academy</a>, try the <a class="text-purple-500 font-bold" href="/ai-builder">AI Builder</a>, visit <a class="text-purple-500 font-bold" href="/labs">Labs</a>, and meet <a class="text-purple-500 font-bold" href="/founder">Dev N Suman, Founder of AlgoForce AI</a>.</p>
+            <p class="mt-8">Start with <Link class="text-purple-500 font-bold underline" to="/labs">AlgoForce Labs</Link>, build your workspace on <Link class="text-purple-500 font-bold underline" to="/crucible">Crucible OS</Link>, integrate enterprise systems using <Link class="text-purple-500 font-bold underline" to="/ai-consulting">AlgoForce AI Consulting</Link>, and meet <Link class="text-purple-500 font-bold underline" to="/founder">Dev N Suman, Founder of AlgoForce AI</Link>.</p>
           `,
         date: 'April 3, 2026',
         author: 'Dev N Suman',
@@ -350,12 +351,14 @@ const BlogPost = () => {
                     {`
                         {
                             "@context": "https://schema.org",
-                            "@type": "BlogPosting",
+                            "@type": "Article",
                             "headline": "${post.title}",
                             "datePublished": "${post.date}",
                             "author": {
                                 "@type": "Person",
-                                "name": "${post.author}"
+                                "name": "Dev N Suman",
+                                "jobTitle": "Founder & CEO",
+                                "url": "https://linkedin.com/in/dev-n-suman-3616a6377"
                             },
                             "publisher": {
                                 "@type": "Organization",

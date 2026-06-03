@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet-async"
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import {
@@ -55,33 +54,7 @@ const Founder = () => {
   return (
     <main className="min-h-screen bg-[#f7f9fc] text-[#06101d]">
       <SeoHead path="/founder" />
-      <Helmet>
-        <title>Dev N Suman - Founder & CEO of AlgoForce AI</title>
-        <meta
-          name="description"
-          content="Meet Dev N Suman, Founder and CEO of AlgoForce AI, building AI systems, Labs talent infrastructure, and founder execution."
-        />
-        <script type="application/ld+json">
-          {`
-            {
-              "@context": "https://schema.org",
-              "@type": "Person",
-              "name": "Dev N Suman",
-              "jobTitle": "Founder & CEO",
-              "worksFor": {
-                "@type": "Organization",
-                "name": "AlgoForce AI",
-                "url": "https://www.algoforceaii.com"
-              },
-              "url": "https://www.algoforceaii.com/founder",
-              "sameAs": [
-                "https://www.linkedin.com/in/dev-n-suman-3616a6377/",
-                "https://www.algoforceaii.com/founder"
-              ]
-            }
-          `}
-        </script>
-      </Helmet>
+
 
       <section className="relative overflow-hidden border-b border-[#06101d]/8 bg-white pt-32 pb-14 md:pt-36 md:pb-20">
         <div className="absolute inset-0 pointer-events-none">

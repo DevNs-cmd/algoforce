@@ -9,42 +9,40 @@ const coreKeywords = [
   "Velqora entertainment OS",
   "execution infrastructure ecosystem",
   "business execution infrastructure",
-  "AI agency India",
-  "AI marketing agency India",
-  "AI automation agency",
-  "AI consulting company India",
-  "enterprise AI company India",
-  "AI development company India",
+  "execution infrastructure India",
+  "AI ecosystem India",
+  "no-code app builder India",
+  "build AI app without coding India",
+  "AI startup India",
+  "AI consulting New Delhi",
+  "MSME AI services India",
+  "AI consulting India",
+  "enterprise AI systems India",
+  "workflow automation for SMEs",
   "digital transformation company India",
-  "custom AI software development",
-  "AI product development",
-  "AI business automation",
-  "managed AI services",
-  "workflow automation services",
-  "AI readiness audit",
-  "account based marketing AI",
-  "digital marketing agency for startups",
-  "performance marketing agency India",
-  "growth marketing agency",
-  "startup marketing agency",
-  "lead generation agency",
-  "SEO agency India",
-  "social media marketing agency",
-  "content marketing agency",
-  "AI tools for business",
-  "AI chatbot development",
-  "AI app builder",
-  "no-code AI app builder",
-  "startup MVP development India",
-  "AI courses in India",
+  "custom AI development India",
+  "AI automation for startups India",
+  "business AI integration India",
+  "AI course for beginners India",
   "AI certification India",
-  "AI course for students",
-  "talent infrastructure platform",
-  "startup operating system",
-  "founder operating system",
-  "venture studio India",
-  "startup accelerator India",
-  "startup incubation India",
+  "no-code AI course India",
+  "programming courses Delhi",
+  "AI training for students India",
+  "tech bootcamp India",
+  "AI projects for students",
+  "machine learning course India 2026",
+  "best AI course India",
+  "startup operating system India",
+  "tools for startup founders India",
+  "startup execution platform",
+  "MVP to Series A platform India",
+  "founder productivity tools India",
+  "startup management software India",
+  "artist booking platform India",
+  "performer management software India",
+  "live entertainment platform India",
+  "event organizer tools India",
+  "artist management app India",
   "Dev N Suman",
 ];
 
@@ -202,9 +200,12 @@ const buildSchema = (path, meta) => {
             "url": "https://linkedin.com/in/dev-n-suman-3616a6377"
           },
           "description": "AlgoForce AI is India's execution infrastructure ecosystem spanning enterprise AI consulting, startup OS (CRUCIBLE), talent infrastructure (AlgoForce Labs), and live entertainment OS (Velqora).",
+          "email": "af@algoforceaii.com",
           "address": {
             "@type": "PostalAddress",
+            "streetAddress": "Kalkaji",
             "addressLocality": "New Delhi",
+            "postalCode": "110019",
             "addressRegion": "Delhi",
             "addressCountry": "IN"
           },
@@ -450,6 +451,24 @@ const buildSchema = (path, meta) => {
         }
       }
     ];
+  }
+
+  if (path === "/founder") {
+    return {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Dev N Suman",
+      "jobTitle": "Founder & CEO",
+      "url": "https://www.algoforceaii.com/founder",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "AlgoForce AI",
+        "url": "https://www.algoforceaii.com"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/in/dev-n-suman-3616a6377/"
+      ]
+    };
   }
 
   return [
