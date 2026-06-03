@@ -30,12 +30,13 @@ const Navigation = () => {
 
   const navLinks = [
     { name: "Home", path: "/" },
-    { name: "Services", path: "/contact" },
+    { name: "Services", path: "/services" },
     { name: "Labs", path: "/labs" },
     { name: "Crucible", path: "https://crucible-website-omega.vercel.app/", isExternal: true },
     { name: "Founder", path: "/founder" },
     { name: "Team", path: "/team" },
     { name: "Pricing", path: "/pricing" },
+    { name: "Contact", path: "/contact" },
   ];
 
   return (
