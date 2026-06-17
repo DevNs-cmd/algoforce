@@ -10,6 +10,7 @@ import Chatbot from './components/chatbot/Chatbot'
 import ConsultancyButton from './components/common/ConsultancyButton'
 import PageVideoBackdrop from './components/common/PageVideoBackdrop'
 import SplashScreen from './components/common/SplashScreen'
+import WebinarPopup from './components/common/WebinarPopup'
 import Home from './pages/Home'
 import Pricing from './pages/Pricing'
 import Labs from './pages/Labs'
@@ -134,6 +135,7 @@ const AppShell = () => {
       </div>
       {!isBuilderPage && !isNexusPage && <Chatbot />}
       {!isBuilderPage && !isNexusPage && <ConsultancyButton />}
+      {!isBuilderPage && !isNexusPage && <WebinarPopup />}
     </div>
   )
 }

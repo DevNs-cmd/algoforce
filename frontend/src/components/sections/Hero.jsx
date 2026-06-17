@@ -171,8 +171,8 @@ const Hero = () => {
           >
             <div className="p-5 md:py-6 md:px-10 rounded-[24px] premium-dark-surface backdrop-blur-xl flex flex-col md:flex-row items-center justify-around gap-5 md:gap-0">
               <div className="text-center w-full md:w-auto">
-                <div className="text-3xl md:text-4xl font-bold text-white">4</div>
-                <div className="text-[10px] md:text-xs mt-1.5 uppercase font-medium text-slate-400">Ecosystem Initiatives</div>
+                <div className="text-3xl md:text-4xl font-bold text-white">1 Lakh+</div>
+                <div className="text-[10px] md:text-xs mt-1.5 uppercase font-medium text-slate-400">Trained from AlgoForce Labs</div>
               </div>
               <div className="hidden md:block w-px h-12 bg-white/10" />
               <div className="w-16 h-px bg-white/10 md:hidden" />

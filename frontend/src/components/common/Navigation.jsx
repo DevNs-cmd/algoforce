@@ -10,6 +10,7 @@ const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { user, logout } = useAuth();
+  const isLightPage = location.pathname === '/labs' || location.pathname === '/services';
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -34,7 +35,6 @@ const Navigation = () => {
     { name: "Labs", path: "/labs" },
     { name: "Crucible", path: "https://crucible-website-omega.vercel.app/", isExternal: true },
     { name: "Founder", path: "/founder" },
-    { name: "Team", path: "/team" },
     { name: "Pricing", path: "/pricing" },
     { name: "Contact", path: "/contact" },
   ];
@@ -48,10 +48,12 @@ const Navigation = () => {
           className={`
             pointer-events-auto
             flex items-center justify-between
-            px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 rounded-[24px]
-            border border-white/12
-            backdrop-blur-2xl transition-all duration-500 ease-out
-            ${scrolled ? "w-full max-w-5xl bg-[#03070d]/95 shadow-[0_18px_50px_rgba(0,0,0,0.28)]" : "w-full max-w-7xl bg-[#03070d]/90 shadow-[0_18px_50px_rgba(0,0,0,0.18)]"}
+            px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 rounded-[24px]
+            border transition-all duration-500 ease-out
+            ${scrolled 
+              ? `w-full max-w-5xl ${isLightPage ? 'bg-black/80 border-white/10' : 'bg-black/60 border-white/8'} backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.3)]` 
+              : `w-full max-w-7xl ${isLightPage ? 'bg-black/75 border-white/8' : 'bg-black/30 border-white/6'} backdrop-blur-lg shadow-sm`
+            }
           `}
         >
           <Link to="/" className="flex min-w-0 items-center gap-3 group">
@@ -75,7 +77,7 @@ const Navigation = () => {
                   href={link.path}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[13px] font-semibold transition-all duration-300 hover:text-white text-slate-400"
+                  className="text-[13px] font-semibold transition-all duration-300 hover:text-white text-slate-300"
                 >
                   {link.name}
                 </a>
@@ -83,7 +85,7 @@ const Navigation = () => {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`text-[13px] font-semibold transition-all duration-300 hover:text-white ${location.pathname === link.path ? "text-white" : "text-slate-400"
+                  className={`text-[13px] font-semibold transition-all duration-300 hover:text-white ${location.pathname === link.path ? "text-white" : "text-slate-300"
                     }`}
                 >
                   {link.name}

@@ -138,9 +138,8 @@ const Labs = () => {
         const individual = Object.values(SECTIONS.single).flat().length
         const cohortTracks = SECTIONS.mini.length + SECTIONS.mega.length + SECTIONS.premium.length
         return [
-            ['4', 'Track Families'],
+            ['1 Lakh+', 'Trained'],
             [String(individual + cohortTracks), 'Programs'],
-            ['1', 'Execution Standard'],
         ]
     }, [])
 
@@ -254,7 +253,7 @@ const Labs = () => {
                             <p className="max-w-2xl text-base leading-relaxed text-slate-600 md:text-lg">
                                 Cohorts, bootcamps, and focused modules built for practical systems capability, portfolio proof, and confident delivery.
                             </p>
-                            <div className="mt-8 grid max-w-xl grid-cols-3 gap-3">
+                            <div className="mt-8 grid max-w-xl grid-cols-2 gap-3">
                                 {stats.map(([value, label]) => (
                                     <div key={label} className="rounded-2xl border border-[#06101d]/10 bg-[#f7f9fc] p-4">
                                         <div className="text-2xl font-bold text-[#06101d]">{value}</div>
@@ -292,6 +291,93 @@ const Labs = () => {
                     </div>
                 </div>
             </section>
+
+        {/* Webinar Promo Section */}
+        <section className="mx-auto max-w-7xl px-5 pt-14 pb-4 sm:px-6 md:pt-20 md:pb-6">
+            <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                onClick={() => {
+                    const message = `Hello AlgoForce Team,
+
+I would like to register for the AI, Careers & Future of Work 2026 Webinar.
+
+Name:
+College:
+Year:
+City:
+
+Please share the webinar joining details.
+
+Thank you.`;
+                    const encodedMessage = encodeURIComponent(message);
+                    window.open(`https://wa.me/918448947436?text=${encodedMessage}`, '_blank', 'noopener,noreferrer');
+                }}
+                className="group relative overflow-hidden rounded-[30px] border border-[#06101d]/10 bg-white p-6 sm:p-8 md:p-10 shadow-[0_24px_70px_rgba(6,47,79,0.08)] hover:shadow-[0_28px_80px_rgba(6,47,79,0.12)] transition-all duration-300 flex flex-col md:flex-row gap-8 items-center cursor-pointer"
+            >
+                {/* Left: Poster Image */}
+                <div className="relative w-48 sm:w-56 md:w-64 aspect-[3/4.2] overflow-hidden rounded-2xl border border-[#06101d]/10 bg-white flex-shrink-0 flex items-center justify-center">
+                    <img
+                        src="/poster-ai.png"
+                        alt="Webinar Poster"
+                        className="w-full h-full object-contain select-none transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                    />
+                </div>
+
+                {/* Right: Copy & Highlights */}
+                <div className="flex-1 text-left">
+                    {/* Badge */}
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold tracking-wide rounded-full bg-[#8f38ff]/10 text-[#8f38ff] border border-[#8f38ff]/20 mb-4">
+                        🔥 Exclusive Live Session
+                    </div>
+
+                    {/* Title */}
+                    <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#06101d] mb-3 leading-tight">
+                        AI, Careers & The Future of Work 2026
+                    </h2>
+
+                    {/* Host Info */}
+                    <p className="text-sm font-semibold text-slate-500 mb-4">
+                        Hosted By <span className="text-[#06101d] font-bold">Dev N Suman</span> (Founder & CEO, AlgoForce AI)
+                    </p>
+
+                    {/* Description */}
+                    <p className="text-sm leading-relaxed text-slate-600 mb-5 max-w-2xl">
+                        Discover how AI is transforming careers, businesses, and the future of work. Learn Prompt Engineering, AI Workflows, ChatGPT, Claude, Gemini, Automation Systems, and future-ready skills.
+                    </p>
+
+                    {/* Highlights Grid */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 max-w-xl">
+                        {[
+                            'ChatGPT vs Claude vs Gemini',
+                            'Prompt Engineering Frameworks',
+                            'AI Career Opportunities',
+                            'Automation & Productivity Systems',
+                            'Future Skills for 2026+'
+                        ].map((item, idx) => (
+                            <div key={idx} className="flex items-center gap-2 text-xs text-slate-600">
+                                <span className="w-5 h-5 rounded-full bg-[#8f38ff]/10 border border-[#8f38ff]/20 flex items-center justify-center flex-shrink-0">
+                                    <FaCheck size={8} className="text-[#8f38ff]" />
+                                </span>
+                                <span>{item}</span>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Action details */}
+                    <div className="flex flex-wrap items-center gap-4 border-t border-[#06101d]/10 pt-5 mt-4">
+                        <button
+                            className="inline-flex items-center gap-2 rounded-full bg-[#8f38ff] hover:bg-[#7829df] px-6 py-3.5 text-xs font-bold text-white transition-all shadow-[0_8px_20px_rgba(143,56,255,0.25)] hover:shadow-[0_8px_25px_rgba(143,56,255,0.4)]"
+                        >
+                            <FaWhatsapp size={14} /> Reserve My Seat via WhatsApp
+                        </button>
+                        <span className="text-xs text-slate-400">2500+ Applicants Already Registered</span>
+                    </div>
+                </div>
+            </motion.div>
+        </section>
 
             <section className="mx-auto max-w-7xl px-5 py-14 sm:px-6 md:py-20">
                 <div className="grid gap-8 lg:grid-cols-[320px_minmax(0,1fr)] lg:items-start">
@@ -353,6 +439,8 @@ const Labs = () => {
                     </div>
                 </div>
             </section>
+
+
 
             <section className="mx-auto max-w-7xl px-5 pb-16 sm:px-6 md:pb-24">
                 <div className="grid gap-6 md:grid-cols-3">
