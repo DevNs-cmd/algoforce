@@ -51,7 +51,7 @@ const generateAIResponse = (query) => {
   }
 
   // 7. Location & Contact
-  if (q.includes('address') || q.includes('location') || q.includes('delhi') || q.includes('office') || query.includes('where') || q.includes('phone') || q.includes('contact') || q.includes('email')) {
+  if (q.includes('address') || q.includes('location') || q.includes('delhi') || q.includes('office') || q.includes('where') || q.includes('phone') || q.includes('contact') || q.includes('email')) {
     return `Our registered headquarters is located at:\n${ALGOFORCE_KNOWLEDGE.agency.globalHQ}\n\n• **Official Phone**: ${ALGOFORCE_KNOWLEDGE.agency.phone}\n• **Official Email**: ${ALGOFORCE_KNOWLEDGE.agency.email}\n• **Operating Hours**: ${ALGOFORCE_KNOWLEDGE.agency.operatingHours}`;
   }
 
@@ -144,144 +144,161 @@ const Chatbot = () => {
 
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 100, scale: 0.8 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 100, scale: 0.8 }}
-            transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="pointer-events-auto w-[calc(100vw-2rem)] sm:w-[380px] h-[min(75dvh,620px)] sm:h-[550px] max-h-[calc(100dvh-2rem)] bg-[#03070d]/94 backdrop-blur-2xl border border-white/12 rounded-[28px] shadow-[0_35px_90px_rgba(0,0,0,0.48)] flex flex-col overflow-hidden text-white"
-          >
-            {/* Header */}
-            <div className="p-5 border-b border-white/5 bg-transparent flex justify-between items-center">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-white/6 border border-white/12 rounded-2xl flex items-center justify-center">
-                  <FaRobot size={23} className="text-[#b783ff]" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-white text-[15px]">AlgoForce AI</h3>
-                  <div className="flex items-center gap-1.5 mt-0.5">
-                    <span className="w-2 h-2 bg-[#8f38ff] rounded-full animate-pulse" />
-                    <span className="text-[11px] text-slate-400 font-semibold uppercase">Online</span>
-                  </div>
-                </div>
-              </div>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="text-gray-400 hover:text-white transition-colors p-2"
-              >
-                <FaTimes size={18} />
-              </button>
-            </div>
-
-            {/* Messages Area */}
-            <div
-              ref={scrollRef}
-              className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-hide no-scrollbar"
+          <>
+            {/* Solid Backdrop on Mobile to prevent background text bleed-through */}
+            <motion.div 
+              className="fixed inset-0 bg-[#090b0e]/90 z-[99998] md:hidden pointer-events-auto"
+              onClick={() => setIsOpen(false)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            />
+            
+            <motion.div
+              initial={{ opacity: 0, y: 100, scale: 0.8 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 100, scale: 0.8 }}
+              transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              className="pointer-events-auto fixed md:absolute bottom-6 md:bottom-0 right-4 sm:right-6 md:right-0 z-[99999] w-[calc(100vw-2rem)] sm:w-[380px] h-[min(75dvh,620px)] sm:h-[550px] max-h-[calc(100dvh-2rem)] bg-[#0c0e14] border border-white/10 rounded-[28px] shadow-[0_35px_90px_rgba(0,0,0,0.55)] flex flex-col overflow-hidden text-white"
             >
-              {messages.map((msg, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, x: msg.role === 'bot' ? -20 : 20, y: 10 }}
-                  animate={{ opacity: 1, x: 0, y: 0 }}
-                  transition={{
-                    duration: 0.4,
-                    delay: idx * 0.05,
-                    type: "spring",
-                    stiffness: 200
-                  }}
-                  className={`flex ${msg.role === 'bot' ? 'justify-start' : 'justify-end'}`}
-                >
-                  <div className={`flex gap-2 max-w-[85%] ${msg.role === 'bot' ? 'flex-row' : 'flex-row-reverse'}`}>
-                    <div className={`w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-xs ${msg.role === 'bot' ? 'bg-[#8f38ff]' : 'bg-white/10'}`}>
-                      {msg.role === 'bot' ? <FaRobot /> : <FaUserAlt />}
-                    </div>
-                    <div className={`p-4 rounded-2xl text-[13px] leading-relaxed whitespace-pre-line font-medium ${msg.role === 'bot' ? 'bg-white/5 border border-white/10 text-gray-200' : 'bg-white text-black'}`}>
-                      <p>{msg.content}</p>
-                      
-                      {/* Clickable links inside bot messages */}
-                      {msg.role === 'bot' && msg.content.includes('/services') && (
-                        <button
-                          onClick={() => { setIsOpen(false); navigate('/services'); }}
-                          className="mt-2 text-[#b783ff] font-bold hover:underline flex items-center gap-0.5 text-xs"
-                        >
-                          Go to Services <FaChevronRight size={8} />
-                        </button>
-                      )}
-                      {msg.role === 'bot' && msg.content.includes('Contact page') && (
-                        <button
-                          onClick={() => { setIsOpen(false); navigate('/contact?interest=audit'); }}
-                          className="mt-2 text-[#b783ff] font-bold hover:underline flex items-center gap-0.5 text-xs"
-                        >
-                          Book Free Audit <FaChevronRight size={8} />
-                        </button>
-                      )}
-                      {msg.role === 'bot' && msg.content.includes('/founder') && (
-                        <button
-                          onClick={() => { setIsOpen(false); navigate('/founder'); }}
-                          className="mt-2 text-[#b783ff] font-bold hover:underline flex items-center gap-0.5 text-xs"
-                        >
-                          Meet Dev N Suman <FaChevronRight size={8} />
-                        </button>
-                      )}
-                      {msg.role === 'bot' && msg.content.includes('/pricing') && (
-                        <button
-                          onClick={() => { setIsOpen(false); navigate('/pricing'); }}
-                          className="mt-2 text-[#b783ff] font-bold hover:underline flex items-center gap-0.5 text-xs"
-                        >
-                          Go to Pricing <FaChevronRight size={8} />
-                        </button>
-                      )}
-                    </div>
+              {/* Header */}
+              <div className="p-5 border-b border-white/10 bg-[#0e1017] flex justify-between items-center">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center">
+                    <FaRobot size={23} className="text-[#b783ff]" />
                   </div>
-                </motion.div>
-              ))}
-              {isTyping && (
-                <div className="flex justify-start">
-                  <div className="bg-white/5 border border-white/10 px-4 py-2.5 rounded-2xl rounded-bl-none flex gap-1 items-center">
-                    <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                    <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                    <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                  <div>
+                    <h3 className="font-bold text-white text-[15px]">AlgoForce AI</h3>
+                    <div className="flex items-center gap-1.5 mt-0.5">
+                      <span className="w-2 h-2 bg-[#8f38ff] rounded-full animate-pulse" />
+                      <span className="text-[11px] text-slate-400 font-semibold uppercase">Systems Advisor</span>
+                    </div>
                   </div>
                 </div>
-              )}
-            </div>
-
-            {/* Suggestions Chips */}
-            <div className="px-4 py-2 bg-[#03070d]/60 border-t border-white/5 flex gap-1.5 overflow-x-auto no-scrollbar scrollbar-hide whitespace-nowrap">
-              {SUGGESTIONS.map((s) => (
                 <button
-                  key={s.text}
-                  onClick={() => handleSuggestionClick(s.intent)}
-                  className="text-[10px] px-2.5 py-1.5 rounded-full border border-white/10 bg-white/5 text-slate-300 hover:text-white hover:bg-[#8f38ff]/30 hover:border-[#8f38ff]/50 transition-colors cursor-pointer"
+                  onClick={() => setIsOpen(false)}
+                  className="text-gray-400 hover:text-white transition-colors p-2 cursor-pointer"
                 >
-                  {s.text}
+                  <FaTimes size={18} />
                 </button>
-              ))}
-            </div>
+              </div>
 
-            {/* Input Area */}
-            <div className="p-4 bg-white/5 border-t border-white/10">
-              <form
-                onSubmit={(e) => { e.preventDefault(); handleSend(); }}
-                className="flex gap-2"
+              {/* Messages Area */}
+              <div
+                ref={scrollRef}
+                className="flex-grow overflow-y-auto p-4 space-y-4 no-scrollbar bg-[#0c0e14]"
               >
-                <input
-                  type="text"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  placeholder="Ask about AI, audits, pricing, location..."
-                  className="flex-1 bg-white/5 border border-white/10 rounded-2xl px-5 py-3 text-[13px] font-medium focus:outline-none focus:bg-white/10 focus:border-[#8f38ff]/60 text-white placeholder-gray-500 transition-colors"
-                />
-                <button
-                  type="submit"
-                  className="p-2.5 bg-[#8f38ff] rounded-xl text-white hover:bg-[#7f2bec] transition-all disabled:opacity-50 flex items-center justify-center cursor-pointer"
-                  disabled={!input.trim() || isTyping}
+                {messages.map((msg, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, x: msg.role === 'bot' ? -20 : 20, y: 10 }}
+                    animate={{ opacity: 1, x: 0, y: 0 }}
+                    transition={{
+                      duration: 0.4,
+                      delay: idx * 0.05,
+                      type: "spring",
+                      stiffness: 200
+                    }}
+                    className={`flex ${msg.role === 'bot' ? 'justify-start' : 'justify-end'}`}
+                  >
+                    <div className={`flex gap-2.5 max-w-[85%] ${msg.role === 'bot' ? 'flex-row' : 'flex-row-reverse'}`}>
+                      <div className={`w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-xs ${msg.role === 'bot' ? 'bg-[#8f38ff]' : 'bg-white/15'}`}>
+                        {msg.role === 'bot' ? <FaRobot /> : <FaUserAlt />}
+                      </div>
+                      
+                      {/* iOS themes: iMessage blue (#007aff) for users, system dark-gray for bots */}
+                      <div className={`p-4 rounded-2xl text-[13px] leading-relaxed whitespace-pre-line font-medium ${
+                        msg.role === 'bot' 
+                          ? 'bg-[#1c1e28] border border-white/5 text-gray-100 rounded-bl-none' 
+                          : 'bg-[#007aff] text-white rounded-br-none shadow-md'
+                      }`}>
+                        <p>{msg.content}</p>
+                        
+                        {/* Clickable links inside bot messages */}
+                        {msg.role === 'bot' && msg.content.includes('/services') && (
+                          <button
+                            onClick={() => { setIsOpen(false); navigate('/services'); }}
+                            className="mt-2.5 text-[#b783ff] hover:text-[#cbb5ff] font-bold hover:underline flex items-center gap-0.5 text-xs cursor-pointer"
+                          >
+                            Go to Services <FaChevronRight size={8} />
+                          </button>
+                        )}
+                        {msg.role === 'bot' && msg.content.includes('Contact page') && (
+                          <button
+                            onClick={() => { setIsOpen(false); navigate('/contact?interest=audit'); }}
+                            className="mt-2.5 text-[#b783ff] hover:text-[#cbb5ff] font-bold hover:underline flex items-center gap-0.5 text-xs cursor-pointer"
+                          >
+                            Book Free Audit <FaChevronRight size={8} />
+                          </button>
+                        )}
+                        {msg.role === 'bot' && msg.content.includes('/founder') && (
+                          <button
+                            onClick={() => { setIsOpen(false); navigate('/founder'); }}
+                            className="mt-2.5 text-[#b783ff] hover:text-[#cbb5ff] font-bold hover:underline flex items-center gap-0.5 text-xs cursor-pointer"
+                          >
+                            Meet Dev N Suman <FaChevronRight size={8} />
+                          </button>
+                        )}
+                        {msg.role === 'bot' && msg.content.includes('/pricing') && (
+                          <button
+                            onClick={() => { setIsOpen(false); navigate('/pricing'); }}
+                            className="mt-2.5 text-[#b783ff] hover:text-[#cbb5ff] font-bold hover:underline flex items-center gap-0.5 text-xs cursor-pointer"
+                          >
+                            Go to Pricing <FaChevronRight size={8} />
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+                {isTyping && (
+                  <div className="flex justify-start">
+                    <div className="bg-[#1c1e28] border border-white/5 px-4 py-2.5 rounded-2xl rounded-bl-none flex gap-1 items-center">
+                      <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                      <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                      <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Suggestions Chips — Styled like iOS segments */}
+              <div className="px-4 py-2.5 bg-[#0e1017] border-t border-white/10 flex gap-1.5 overflow-x-auto no-scrollbar scrollbar-hide whitespace-nowrap">
+                {SUGGESTIONS.map((s) => (
+                  <button
+                    key={s.text}
+                    onClick={() => handleSuggestionClick(s.intent)}
+                    className="text-[10px] px-3 py-1.5 rounded-full border border-white/10 bg-[#1c1e28] text-slate-300 hover:text-white hover:bg-[#8f38ff]/30 hover:border-[#8f38ff]/50 transition-colors cursor-pointer"
+                  >
+                    {s.text}
+                  </button>
+                ))}
+              </div>
+
+              {/* Input Area */}
+              <div className="p-4 bg-[#0e1017] border-t border-white/10">
+                <form
+                  onSubmit={(e) => { e.preventDefault(); handleSend(); }}
+                  className="flex gap-2"
                 >
-                  <FaPaperPlane size={14} />
-                </button>
-              </form>
-            </div>
-          </motion.div>
+                  <input
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder="Ask about AI, audits, pricing..."
+                    className="flex-1 bg-[#1c1e28] border border-white/5 rounded-2xl px-5 py-3 text-[13px] font-medium focus:outline-none focus:bg-white/10 focus:border-[#8f38ff]/60 text-white placeholder-gray-500 transition-colors"
+                  />
+                  <button
+                    type="submit"
+                    className="p-2.5 bg-[#007aff] rounded-xl text-white hover:bg-[#0062cc] transition-all disabled:opacity-50 flex items-center justify-center cursor-pointer shadow-md"
+                    disabled={!input.trim() || isTyping}
+                  >
+                    <FaPaperPlane size={14} />
+                  </button>
+                </form>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </div>

@@ -1,303 +1,402 @@
 import { Helmet } from "react-helmet-async"
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import {
   FaArrowRight,
-  FaChartLine,
+  FaCalendarAlt,
   FaCheck,
+  FaCogs,
+  FaDatabase,
+  FaFileInvoiceDollar,
+  FaHandshake,
   FaHeadset,
-  FaLayerGroup,
-  FaMapMarkerAlt,
-  FaRocket,
+  FaNetworkWired,
+  FaQuestionCircle,
   FaShieldAlt,
+  FaUserCheck,
+  FaUsers,
+  FaWhatsapp,
 } from 'react-icons/fa'
-import OptimizedVideo from '../components/common/OptimizedVideo'
+import { useState } from 'react'
 
 const Pricing = () => {
-  const RAZORPAY_LINK = "https://rzp.io/l/algoforce-payment"
+  const [activeFaq, setActiveFaq] = useState(null)
 
-  const comboPackages = [
+  const toggleFaq = (idx) => {
+    setActiveFaq(activeFaq === idx ? null : idx)
+  }
+
+  const engagementTypes = [
     {
-      name: 'Starter Retainer',
-      price: '$29',
-      cadence: '/mo',
-      label: 'Audit',
-      description: 'A focused entry plan for businesses beginning with AI-led growth and automation.',
-      features: ['2 AI services', 'Monthly reporting', 'Email support', 'Basic automation'],
-      badge: 'Starter',
+      title: "Enterprise AI Consulting",
+      bestFor: "Leadership teams wanting to map out a clear AI roadmap and locate operational process leaks.",
+      timeline: "2 - 4 Weeks",
+      outcome: "Comprehensive operational audit, technology stack recommendations, and ROI estimation report."
     },
     {
-      name: 'Growth Retainer',
-      price: '$69',
-      cadence: '/mo',
-      label: 'Most chosen',
-      description: 'The core monthly engagement for teams ready to automate repeatable workflows.',
-      features: ['5 AI services', 'Weekly reporting', 'Priority support', 'Advanced AI flows'],
-      badge: 'Popular',
-      highlight: true,
+      title: "Business Process Automation",
+      bestFor: "Companies looking to eliminate manual data entry, file syncs, and document reconciliation work.",
+      timeline: "4 - 6 Weeks",
+      outcome: "Fully automated background pipelines coordinating data across departments silently and error-free."
     },
     {
-      name: 'Scale Retainer',
-      price: '$99',
-      cadence: '/mo',
-      label: 'Custom',
-      description: 'Full ecosystem execution for companies that need a dedicated AI growth team.',
-      features: ['Full ecosystem stack', 'Dedicated team', '24/7 support', 'Custom AI systems'],
-      badge: 'Industrial',
+      title: "Custom AI Software",
+      bestFor: "Organizations requiring custom-designed software portals built around their specific operational rules.",
+      timeline: "8 - 12 Weeks",
+      outcome: "Bespoke database portals and web applications with 100% intellectual property ownership."
     },
+    {
+      title: "Internal AI Assistants",
+      bestFor: "Teams spending hours searching local document directories, PDFs, and internal support knowledge bases.",
+      timeline: "3 - 5 Weeks",
+      outcome: "Private RAG-powered search models indexing company memory securely without data leakages."
+    },
+    {
+      title: "WhatsApp Automation",
+      bestFor: "Businesses missing high-intent booking leads or customer support inquiries during off-hours.",
+      timeline: "2 - 3 Weeks",
+      outcome: "Official WhatsApp Cloud API integrations with 24/7 calendar bookings and lead capture agents."
+    },
+    {
+      title: "CRM & ERP Integrations",
+      bestFor: "Connecting legacy platforms (Tally Prime, SAP, Oracle) with modern web stores and front-end channels.",
+      timeline: "4 - 8 Weeks",
+      outcome: "Secure middleware syncs enabling automated stock levels, instant sales logging, and real-time reports."
+    }
   ]
 
-  const specialized = [
+  const steps = [
     {
-      icon: FaLayerGroup,
-      name: 'Project-Based Services',
-      price: '$79',
-      desc: 'Branding, web, automation, CRM, MVP, and AI workflow projects with scoped delivery.',
-      features: ['Brand + web', 'AI automation', 'CRM setup', 'MVP delivery'],
+      step: "Step 1",
+      title: "Discovery Call",
+      detail: "30 Minutes",
+      desc: "We align on your high-level business objectives, identify immediate operational bottlenecks, and review your current software setup."
     },
     {
-      icon: FaChartLine,
-      name: 'Corporate Training',
-      price: '$99/qtr',
-      desc: 'Enterprise AI training programs for teams, colleges, and partner companies.',
-      features: ['Custom curriculum', 'Live sessions', 'Team projects', 'Certification'],
+      step: "Step 2",
+      title: "AI Readiness Assessment",
+      detail: "Deep operational scan",
+      desc: "Our architects map out your manual workflows, determine automation readiness, and estimate implementation ROI."
     },
+    {
+      step: "Step 3",
+      title: "Solution Architecture",
+      detail: "Technical blueprinting",
+      desc: "We design custom-fit pipelines recommending models, secure VPC databases, and native integrations (Salesforce, Zoho, Tally)."
+    },
+    {
+      step: "Step 4",
+      title: "Custom Proposal",
+      detail: "Roadmap & Scope",
+      desc: "Receive a clear roadmap containing exact milestone deliverables, timeline schedules, and your custom investment estimate."
+    }
   ]
 
-  const entryPoints = [
-    { category: 'Labs Cohorts', price: '$19+', items: ['AI courses', 'Live cohorts', 'Certifications'] },
-    { category: 'Crucible', price: '$29+', items: ['Memberships', 'Hackathons', 'Demo days'] },
-    { category: 'SaaS Tools', price: '$9+', items: ['AlgoLeads', 'AlgoContent', 'AlgoCRM'] },
-    { category: 'Placements', price: '$49+', items: ['Apprenticeships', 'Hiring pipeline', 'Partner fees'] },
+  const investmentFactors = [
+    { label: "Business & Database Scale", desc: "The volume of transactions, files, and users interacting with the database." },
+    { label: "Existing Software Integrations", desc: "The complexity of syncing custom pipelines with legacy tools like Tally, SAP, or Oracle." },
+    { label: "Automation Logic Scope", desc: "The complexity and count of branch logic sequences required across the business workflow." },
+    { label: "Data Security Protocols", desc: "High-compliance requirements including self-hosted, private VPC model deployments." },
+    { label: "Model Architecture", desc: "The choice of models (commercial cloud APIs vs. fine-tuned private open-source parameters)." },
+    { label: "Post-Launch Support Level", desc: "Tailored SLAs, continuous prompt engineering, and model performance auditing." }
   ]
 
-  const proof = [
-    { icon: FaShieldAlt, label: 'Secure payments' },
-    { icon: FaHeadset, label: 'Priority support' },
-    { icon: FaRocket, label: 'Execution first' },
+  const faqs = [
+    {
+      q: "How much does an AI project cost?",
+      a: "Every implementation is custom-fit. Because every business carries different database schemas, legacy tools, and operational workflows, we don't use fixed packages. After auditing your systems during our readiness assessment, we provide a transparent, milestone-based proposal detailed with exact deliverables."
+    },
+    {
+      q: "Do you charge for the initial consultation?",
+      a: "No. The initial 30-minute discovery call and the subsequent AI readiness assessment are completely complimentary. Our objective is to ensure we can deliver a clear, measurable ROI before any technical engagement is signed."
+    },
+    {
+      q: "How long do projects take to deploy?",
+      a: "Focused automation workflows or WhatsApp lead agents are typically deployed in 2 to 4 weeks. Full digital transformations, legacy database migrations, or custom enterprise portals range from 2 to 4 months depending on integration complexity."
+    },
+    {
+      q: "Can small businesses work with AlgoForce AI?",
+      a: "Yes. We consult and design solutions for startups, growing SMEs, and large mid-market enterprises. We recommend tools and workflows appropriate to your current business size and operational budget."
+    }
   ]
 
   return (
-    <main className="min-h-screen bg-[#f7f9fc] text-[#06101d]">
+    <main className="min-h-screen bg-[#f8f9fc] text-[#06101d] font-sans">
       <Helmet>
-        <title>Pricing - AlgoForce AI Services, Labs & Crucible</title>
-        <meta name="description" content="AlgoForce AI pricing for consulting retainers, project-based services, Labs cohorts, Crucible memberships, SaaS products, and corporate training." />
+        <title>Enterprise AI Consulting & Proposals | AlgoForce AI</title>
+        <meta name="description" content="Custom Enterprise AI consulting, database integrations, and process automation solutions tailored to your business workflows. Request a custom proposal." />
         <link rel="canonical" href="https://www.algoforceaii.com/pricing" />
       </Helmet>
 
-      <section className="relative overflow-hidden border-b border-[#06101d]/8 bg-white pt-32 pb-14 md:pt-36 md:pb-20">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-white border-b border-gray-200 pt-32 pb-16 md:pt-36 md:pb-24">
+        {/* Glow effects */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-[-12rem] right-[-8rem] h-[28rem] w-[28rem] rounded-full bg-[#8f38ff]/10 blur-[90px]" />
-          <div className="absolute bottom-[-12rem] left-[-10rem] h-[30rem] w-[30rem] rounded-full bg-[#062f4f]/10 blur-[100px]" />
+          <div className="absolute top-[-10rem] right-[-10rem] h-[30rem] w-[30rem] rounded-full bg-purple-100/40 blur-[100px]" />
+          <div className="absolute bottom-[-10rem] left-[-10rem] h-[30rem] w-[30rem] rounded-full bg-indigo-100/40 blur-[100px]" />
         </div>
 
-        <div className="relative mx-auto max-w-7xl px-5 sm:px-6">
-          <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75 }}
-            >
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#06101d]/10 bg-[#f7f9fc] px-4 py-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#8f38ff]" />
-                <span className="text-[10px] font-semibold uppercase text-slate-500">Ecosystem Pricing</span>
-              </div>
-              <h1 className="mb-6 max-w-4xl text-[2.5rem] font-semibold leading-[1.03] sm:text-5xl md:text-6xl lg:text-[4.1rem]">
-                Clear pricing for <span className="premium-serif italic font-normal text-[#8f38ff]">serious execution.</span>
-              </h1>
-              <p className="max-w-2xl text-base leading-relaxed text-slate-600 md:text-lg">
-                Choose a monthly retainer, scope a focused project, or enter through Labs, Crucible, SaaS tools, and enterprise training. No public plan exceeds $99.
-              </p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <a href={RAZORPAY_LINK} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#06101d] px-6 py-3.5 text-sm font-bold text-white transition-all hover:bg-[#102640]">
-                  Start Payment <FaArrowRight size={11} />
-                </a>
-                <Link to="/contact" className="inline-flex items-center justify-center gap-2 rounded-full border border-[#06101d]/10 bg-white px-6 py-3.5 text-sm font-bold text-[#06101d] transition-all hover:border-[#8f38ff]/40 hover:text-[#8f38ff]">
-                  Request Quote
-                </Link>
-              </div>
-            </motion.div>
-
-            <motion.aside
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.08, duration: 0.75 }}
-              className="overflow-hidden rounded-[34px] border border-[#06101d]/10 bg-white p-4 shadow-[0_24px_70px_rgba(6,47,79,0.08)]"
-            >
-              <div className="relative aspect-[16/10] min-h-[260px] overflow-hidden rounded-[28px] border border-[#06101d]/10 bg-[#eef2f7]">
-                <OptimizedVideo
-                  src="/video2.mp4"
-                  inView
-                  preload="metadata"
-                  mobilePreload="none"
-                  className="absolute inset-0 h-full w-full object-cover opacity-80"
-                />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,16,29,0.04),rgba(6,16,29,0.68))]" />
-                <div className="absolute left-5 right-5 bottom-5 text-white">
-                  <p className="mb-2 text-[10px] font-semibold uppercase text-white/70">Best Starting Point</p>
-                  <h2 className="text-2xl font-semibold md:text-3xl">Growth Retainer</h2>
-                </div>
-              </div>
-              <div className="grid grid-cols-[1fr_auto] gap-5 px-2 pt-6">
-                <div>
-                  <div className="flex items-end gap-2">
-                    <span className="text-3xl font-bold text-[#06101d] md:text-4xl">$69</span>
-                    <span className="pb-1 text-sm font-semibold text-slate-400">/mo</span>
-                  </div>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-600">
-                    Monthly workflows, reporting, automation, and implementation discipline.
-                  </p>
-                </div>
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#06101d] text-white">
-                  <FaRocket />
-                </div>
-              </div>
-              <div className="mt-6 flex items-start gap-3 px-2 text-sm font-semibold text-slate-500">
-                <FaMapMarkerAlt className="mt-0.5 text-[#8f38ff]" />
-                <span>Office: South Delhi, Kalkaji, New Delhi 110019</span>
-              </div>
-            </motion.aside>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-5 py-14 sm:px-6 md:py-20">
-        <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="mb-3 text-[11px] font-semibold uppercase text-[#8f38ff]">Retainers</p>
-            <h2 className="text-3xl font-semibold md:text-4xl">Monthly execution models</h2>
-          </div>
-          <p className="max-w-xl text-sm leading-relaxed text-slate-500 md:text-base">
-            Pick the operating depth that matches your current stage, then expand into projects, Labs, or training as needed.
-          </p>
-        </div>
-
-        <div className="grid gap-6 md:grid-cols-3">
-          {comboPackages.map((pkg, idx) => (
-            <motion.article
-              key={pkg.name}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ delay: idx * 0.08 }}
-              className={`flex h-full flex-col rounded-[30px] border p-6 shadow-[0_24px_70px_rgba(6,47,79,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_30px_90px_rgba(6,47,79,0.14)] md:p-7 ${pkg.highlight ? 'border-[#06101d] bg-[#06101d] text-white' : 'border-[#06101d]/10 bg-white text-[#06101d]'}`}
-            >
-              <div className="mb-8 flex items-center justify-between gap-4">
-                <span className={`rounded-full px-3 py-1.5 text-[10px] font-semibold uppercase ${pkg.highlight ? 'border border-white/10 bg-white/8 text-purple-200' : 'border border-[#06101d]/10 bg-[#f7f9fc] text-[#8f38ff]'}`}>
-                  {pkg.badge}
-                </span>
-                <span className={`text-[11px] font-semibold uppercase ${pkg.highlight ? 'text-slate-400' : 'text-slate-400'}`}>{pkg.label}</span>
-              </div>
-
-              <h3 className="mb-3 text-2xl font-semibold">{pkg.name}</h3>
-              <div className="mb-6 flex items-end gap-2">
-                <span className="text-4xl font-bold">{pkg.price}</span>
-                <span className={`pb-1 ${pkg.highlight ? 'text-slate-400' : 'text-slate-500'}`}>{pkg.cadence}</span>
-              </div>
-              <p className={`mb-8 border-b pb-8 text-sm leading-relaxed ${pkg.highlight ? 'border-white/10 text-slate-300' : 'border-[#06101d]/10 text-slate-600'}`}>{pkg.description}</p>
-
-              <div className="mb-8 flex-grow space-y-4">
-                {pkg.features.map((feature) => (
-                  <div key={feature} className={`flex items-center gap-3 text-sm ${pkg.highlight ? 'text-slate-300' : 'text-slate-600'}`}>
-                    <div className={`flex h-5 w-5 items-center justify-center rounded-full ${pkg.highlight ? 'bg-white/8 text-purple-200' : 'bg-[#f7f9fc] text-[#8f38ff]'}`}>
-                      <FaCheck size={9} />
-                    </div>
-                    {feature}
-                  </div>
-                ))}
-              </div>
-
-              <a href={RAZORPAY_LINK} target="_blank" rel="noopener noreferrer" className="mt-auto">
-                <button className={`w-full rounded-full py-4 text-sm font-bold transition-all ${pkg.highlight ? 'bg-white text-[#06101d] hover:bg-[#f6f1ff]' : 'bg-[#06101d] text-white hover:bg-[#102640]'}`}>
-                  Start Payment
-                </button>
-              </a>
-            </motion.article>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-5 pb-16 sm:px-6 md:pb-20">
-        <div className="grid gap-6 lg:grid-cols-2">
-          {specialized.map((item, idx) => (
-            <motion.article
-              key={item.name}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ delay: idx * 0.08 }}
-              className="rounded-[30px] border border-[#06101d]/10 bg-white p-6 shadow-[0_24px_70px_rgba(6,47,79,0.08)] md:p-8"
-            >
-              <div className="mb-6 flex items-start justify-between gap-6">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[#06101d]/10 bg-[#f7f9fc] text-[#8f38ff]">
-                  <item.icon />
-                </div>
-                <div className="text-right">
-                  <div className="mb-1 text-[11px] font-semibold uppercase text-slate-400">From</div>
-                  <div className="text-2xl font-bold">{item.price}</div>
-                </div>
-              </div>
-              <h3 className="mb-3 text-2xl font-semibold md:text-3xl">{item.name}</h3>
-              <p className="mb-6 text-sm leading-relaxed text-slate-600">{item.desc}</p>
-              <div className="mb-8 flex flex-wrap gap-2">
-                {item.features.map((feature) => (
-                  <span key={feature} className="rounded-full border border-[#06101d]/10 bg-[#f7f9fc] px-3 py-2 text-[11px] font-semibold text-slate-500">
-                    {feature}
-                  </span>
-                ))}
-              </div>
-              <Link to="/contact" className="inline-flex items-center gap-2 rounded-full bg-[#06101d] px-5 py-3 text-sm font-bold text-white">
-                Request Scope <FaArrowRight size={11} />
-              </Link>
-            </motion.article>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-5 pb-16 sm:px-6 md:pb-24">
-        <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
-          <div className="rounded-[30px] border border-[#06101d]/10 bg-[#06101d] p-7 text-white shadow-[0_24px_70px_rgba(6,47,79,0.18)] md:p-8">
-            <h2 className="mb-4 text-3xl font-semibold md:text-4xl">Entry points</h2>
-            <p className="mb-8 leading-relaxed text-slate-300">
-              Start small, validate the fit, then move into deeper execution when your systems are ready.
+        <div className="relative mx-auto max-w-5xl px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+          >
+            <span className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-purple-50/60 px-4 py-1.5 text-xs font-semibold text-purple-700 mb-6 uppercase tracking-wider">
+              Enterprise AI Consulting
+            </span>
+            
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-tight text-gray-900 mb-6">
+              Every Business Is Different.<br />
+              <span className="premium-serif italic font-normal text-purple-600">Every AI Solution Should Be Too.</span>
+            </h1>
+            
+            <p className="max-w-3xl mx-auto text-base sm:text-lg leading-relaxed text-gray-600 mb-8 font-medium">
+              Every organization has different workflows, database schemas, legacy systems, compliance requirements, and automation opportunities. We begin with a complimentary AI Business Assessment and provide a customized implementation proposal engineered around your goals.
             </p>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-              {proof.map((item) => (
-                <div key={item.label} className="rounded-2xl border border-white/10 bg-white/6 p-4">
-                  <item.icon className="mb-3 text-purple-300" />
-                  <p className="text-sm font-semibold text-slate-300">{item.label}</p>
-                </div>
-              ))}
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link
+                to="/contact?interest=consultation"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-gray-900 px-8 py-4 text-sm font-bold text-white transition-all hover:bg-gray-800 shadow-md"
+              >
+                Book Free Consultation <FaArrowRight size={11} />
+              </Link>
+              <Link
+                to="/contact?interest=quote"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-gray-300 bg-white px-8 py-4 text-sm font-bold text-gray-700 transition-all hover:bg-gray-50"
+              >
+                Talk to an Expert
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Why We Don't Display Fixed Pricing */}
+      <section className="py-16 md:py-24 bg-white border-b border-gray-100">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="grid md:grid-cols-[1.1fr_0.9fr] gap-12 items-center">
+            <div>
+              <h2 className="text-2xl md:text-3.5xl font-black tracking-tight text-gray-900 mb-4 leading-tight">
+                Why We Don't Display Fixed Pricing Packages
+              </h2>
+              <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                Enterprise AI implementations vary significantly based on your current operational infrastructure. Fitting complex database syncs, secure self-hosted LLM setups, or WhatsApp queues into rigid flat-rate pricing tiers leads to compromise.
+              </p>
+              <p className="text-gray-600 text-sm leading-relaxed font-semibold">
+                Instead, we structure every proposal to maximize operational ROI, ensuring your technology investment maps directly to measurable business growth.
+              </p>
+            </div>
+            <div className="bg-gray-50 rounded-3xl border border-gray-200/60 p-6 md:p-8">
+              <h3 className="text-xs uppercase font-bold text-purple-700 tracking-wider mb-4">Pricing Variables</h3>
+              <ul className="space-y-3">
+                {[
+                  "Business size & user counts",
+                  "Existing software & database setups",
+                  "CRM / ERP sync complexity",
+                  "AI model throughput requirements",
+                  "Workflow branching logic count",
+                  "Self-hosted private VPC security specs"
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-2.5 text-xs text-gray-700 font-semibold">
+                    <span className="w-4 h-4 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <FaCheck className="w-2.5 h-2.5 text-purple-700" />
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            {entryPoints.map((item) => (
-              <article key={item.category} className="rounded-[26px] border border-[#06101d]/10 bg-white p-5 shadow-[0_20px_55px_rgba(6,47,79,0.07)] md:p-6">
-                <div className="mb-5 flex items-start justify-between gap-4">
-                  <h3 className="text-xl font-semibold">{item.category}</h3>
-                  <span className="whitespace-nowrap text-sm font-bold text-[#8f38ff]">{item.price}</span>
+      {/* Our Engagement Process */}
+      <section className="py-16 md:py-24 bg-[#fcfdff] border-b border-gray-100">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-purple-600">Methodology</span>
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900 mt-2">Our Engagement Process</h2>
+            <p className="text-gray-500 text-sm mt-3 max-w-md mx-auto">
+              How we take your systems from manual workflows to optimized, automated digital infrastructures.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {steps.map((item, idx) => (
+              <div key={idx} className="bg-white rounded-2xl border border-gray-200/60 p-6 shadow-xs flex flex-col justify-between relative group hover:shadow-md transition-shadow">
+                <div>
+                  <span className="text-[10px] font-black uppercase text-purple-600 bg-purple-50 border border-purple-100 rounded-md px-2 py-0.5">
+                    {item.step}
+                  </span>
+                  <h3 className="text-base font-bold text-gray-900 mt-4 mb-1">{item.title}</h3>
+                  <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wider mb-3">{item.detail}</p>
+                  <p className="text-xs text-gray-500 leading-relaxed font-medium">{item.desc}</p>
                 </div>
-                <div className="space-y-3">
-                  {item.items.map((entry) => (
-                    <div key={entry} className="flex items-center gap-3 text-sm text-slate-600">
-                      <span className="h-1.5 w-1.5 rounded-full bg-[#8f38ff]" />
-                      {entry}
-                    </div>
-                  ))}
-                </div>
-              </article>
+              </div>
             ))}
           </div>
         </div>
+      </section>
 
-        <div className="mt-10 flex flex-col items-center justify-between gap-5 border-t border-[#06101d]/10 pt-8 md:flex-row">
-          <p className="text-center text-sm text-slate-500 md:text-left">
-            Payments are handled through secure Razorpay checkout. Custom invoices are available for enterprise scopes.
+      {/* Typical Engagement Types */}
+      <section className="py-16 md:py-24 bg-white border-b border-gray-100">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-purple-600">Scopes</span>
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900 mt-2">Typical Engagement Types</h2>
+            <p className="text-gray-500 text-sm mt-3 max-w-md mx-auto">
+              Common solutions we deliver to scale operations, synchronize databases, and automate pipelines.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {engagementTypes.map((item, idx) => (
+              <div key={idx} className="bg-gray-50/60 rounded-3xl border border-gray-200/70 p-6 md:p-8 hover:bg-gray-50 transition-colors">
+                <h3 className="text-lg font-black text-gray-900 mb-3">{item.title}</h3>
+                
+                <div className="space-y-3">
+                  <div>
+                    <span className="text-[9px] uppercase font-bold text-gray-400 tracking-widest block">Best For</span>
+                    <p className="text-xs text-gray-600 mt-0.5 leading-relaxed font-semibold">{item.bestFor}</p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4 pt-2 border-t border-gray-200/50">
+                    <div>
+                      <span className="text-[9px] uppercase font-bold text-gray-400 tracking-widest block">Est. Timeline</span>
+                      <p className="text-xs text-purple-700 font-bold mt-0.5">{item.timeline}</p>
+                    </div>
+                    <div>
+                      <span className="text-[9px] uppercase font-bold text-gray-400 tracking-widest block">Business Outcome</span>
+                      <p className="text-xs text-gray-700 font-bold mt-0.5">{item.outcome}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* What Determines Investment? */}
+      <section className="py-16 md:py-24 bg-[#fcfdff] border-b border-gray-100">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-purple-600">Investment Metrics</span>
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900 mt-2">What Determines Project Investment?</h2>
+            <p className="text-gray-500 text-sm mt-3 max-w-md mx-auto">
+              Our project quotes are fully transparent, based on execution complexity and scope requirements.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {investmentFactors.map((factor, idx) => (
+              <div key={idx} className="bg-white rounded-2xl border border-gray-200/60 p-6">
+                <div className="w-8 h-8 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 mb-4 font-bold text-sm">
+                  {idx + 1}
+                </div>
+                <h3 className="text-sm font-bold text-gray-900 mb-1.5">{factor.label}</h3>
+                <p className="text-xs text-gray-500 leading-relaxed font-medium">{factor.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Industries We Serve */}
+      <section className="py-16 bg-white border-b border-gray-100">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="text-center mb-10">
+            <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-purple-600">Target Verticals</span>
+            <h2 className="text-2xl md:text-3xl font-black text-gray-900 mt-2">Industries We Serve</h2>
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-2.5">
+            {[
+              "Manufacturing", "Healthcare", "Hotels & Hospitality", "Retail & E-Commerce",
+              "Education & Academies", "Construction & Real Estate", "Logistics & Supply Chain",
+              "Professional Services", "Startups & SMEs", "Mid-Market Enterprises"
+            ].map((ind) => (
+              <span
+                key={ind}
+                className="text-xs font-semibold px-4 py-2 border border-gray-200 rounded-full bg-gray-50 text-gray-700"
+              >
+                {ind}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQs */}
+      <section className="py-16 md:py-24 bg-[#fcfdff] border-b border-gray-200">
+        <div className="max-w-3xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-purple-600">FAQ</span>
+            <h2 className="text-3xl font-black text-gray-900 mt-2">Frequently Asked Questions</h2>
+          </div>
+
+          <div className="space-y-4">
+            {faqs.map((faq, idx) => {
+              const isOpen = activeFaq === idx
+              return (
+                <div key={idx} className="bg-white rounded-2xl border border-gray-200 overflow-hidden transition-all duration-300">
+                  <button
+                    onClick={() => toggleFaq(idx)}
+                    className="w-full flex items-center justify-between p-5 text-left font-bold text-gray-900 hover:text-purple-700 transition-colors"
+                  >
+                    <span className="text-sm md:text-base">{faq.q}</span>
+                    <span className="text-xl ml-4 font-normal text-gray-400">{isOpen ? "−" : "+"}</span>
+                  </button>
+
+                  <AnimatePresence>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-5 pb-5 pt-1 border-t border-gray-100 text-xs md:text-sm text-gray-600 leading-relaxed font-semibold">
+                          {faq.a}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Bottom CTA */}
+      <section className="py-20 bg-gray-900 text-white relative overflow-hidden text-center">
+        {/* Glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[35rem] h-[35rem] rounded-full bg-purple-900/10 blur-[100px] pointer-events-none" />
+
+        <div className="relative z-10 max-w-4xl mx-auto px-6">
+          <h2 className="text-3xl md:text-4xl font-black leading-tight mb-4">
+            Ready to Modernize Your Business?
+          </h2>
+          <p className="text-slate-300 max-w-xl mx-auto text-sm md:text-base leading-relaxed mb-8 font-medium">
+            Book a complimentary AI Business Assessment with our solutions team and receive personalized recommendations based on your operations.
           </p>
-          <Link to="/contact" className="flex items-center gap-3 text-[13px] font-bold text-[#06101d] transition-colors hover:text-[#8f38ff]">
-            Get a bespoke quote <FaArrowRight size={12} />
-          </Link>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link
+              to="/contact?interest=consultation"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-bold text-gray-900 transition-all hover:bg-gray-100 shadow-md"
+            >
+              Book Free Consultation
+            </Link>
+            <Link
+              to="/contact?interest=call"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-8 py-4 text-sm font-bold text-white transition-all hover:bg-white/10"
+            >
+              Schedule Discovery Call
+            </Link>
+          </div>
         </div>
       </section>
     </main>
