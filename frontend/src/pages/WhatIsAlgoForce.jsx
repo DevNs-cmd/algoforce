@@ -9,25 +9,25 @@ const ecosystemUnits = [
     icon: <FaBriefcase />,
     title: "AlgoForce AI",
     description:
-      "Enterprise AI, automation, managed AI services, AI product development, and digital transformation for SMEs, scale-ups, and enterprises.",
+      "Enterprise AI systems, business process automation, custom database software, CRM/ERP integration, and digital transformation services.",
   },
   {
     icon: <FaRocket />,
     title: "Crucible",
     description:
-      "A startup operating system for founders, with venture workspace, sprint tracking, health scoring, MVP support, and fundraising readiness.",
+      "Our Startup Incubation Platform, helping early-stage founders validate concepts, build functional MVPs, and track execution milestones.",
   },
   {
     icon: <FaBrain />,
     title: "AlgoForce Labs",
     description:
-      "Talent infrastructure for students, professionals, and corporates through AI, product engineering, growth marketing, and corporate training programs.",
+      "Our Talent Development Division, training developers and automation builders to maintain custom enterprise integrations and pipelines.",
   },
   {
     icon: <FaMusic />,
     title: "Velqora",
     description:
-      "An operating system for performers and live entertainment teams, covering artist profiles, bookings, contracts, payments, and event workflows.",
+      "A specialized operating system for performers, musicians, and live entertainment organizers to automate bookings and contracts.",
   },
 ];
 
@@ -58,8 +58,7 @@ const WhatIsAlgoForce = () => {
               What is AlgoForce AI?
             </h1>
             <p className="mx-auto max-w-3xl text-lg font-medium leading-8 text-gray-400 md:text-xl">
-              AlgoForce AI closes the gap between ambition and execution by connecting technology,
-              talent, startups, and creative industries into one compounding execution infrastructure.
+              AlgoForce AI delivers custom enterprise AI systems, database software, and workflow automation, backed by our dedicated talent division and incubation ecosystem.
             </p>
           </motion.div>
         </header>
@@ -87,8 +86,7 @@ const WhatIsAlgoForce = () => {
             Your Ambition Deserves Infrastructure
           </h2>
           <p className="mx-auto mb-8 max-w-2xl leading-7 text-gray-400">
-            Start with enterprise AI services, join a Labs cohort, explore startup execution through
-            Crucible, or partner with AlgoForce to build the next layer of the ecosystem.
+            Book a free AI Readiness Audit, explore our custom software solutions, or request an enterprise systems quote.
           </p>
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <Link

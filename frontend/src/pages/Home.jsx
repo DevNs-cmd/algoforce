@@ -5,6 +5,11 @@ import ProductModules from '../components/sections/ProductModules'
 import WhyAlgoForce from '../components/sections/WhyAlgoForce'
 import WhoItsFor from '../components/sections/WhoItsFor'
 import ShowcaseVideo from '../components/sections/ShowcaseVideo'
+import WhyChooseUs from '../components/sections/WhyChooseUs'
+import ImplementationProcess from '../components/sections/ImplementationProcess'
+import CaseStudies from '../components/sections/CaseStudies'
+import CustomerReviews from '../components/sections/CustomerReviews'
+import EnterpriseFaq from '../components/sections/EnterpriseFaq'
 
 const Home = () => {
   return (
@@ -14,12 +19,17 @@ const Home = () => {
         <ShowcaseVideo />
         <WhatIsAlgoForce />
         <ProductModules />
-        <PaymentGateway
-          title="Direct Project, Cohort & Event Funding"
-          subtitle="Scan the QR code to fund consulting projects, Labs seats, Crucible memberships, or event passes."
-        />
+        <WhyChooseUs />
+        <ImplementationProcess />
+        <CaseStudies />
+        <CustomerReviews />
         <WhyAlgoForce />
         <WhoItsFor />
+        <PaymentGateway
+          title="Direct Project & Digital Solution Funding"
+          subtitle="Scan the QR code to fund custom AI software engineering, enterprise automation integrations, or consulting programs."
+        />
+        <EnterpriseFaq />
       </div>
     </>
   )

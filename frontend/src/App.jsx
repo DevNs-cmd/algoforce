@@ -18,6 +18,9 @@ import Contact from './pages/Contact'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsAndConditions from './pages/TermsAndConditions'
 import RefundPolicy from './pages/RefundPolicy'
+import CancellationPolicy from './pages/CancellationPolicy'
+import CookiePolicy from './pages/CookiePolicy'
+import AiPolicy from './pages/AiPolicy'
 import AIBuilder from './pages/AIBuilder'
 import Academy from './pages/Academy'
 import Dashboard from './pages/Dashboard'
@@ -108,6 +111,9 @@ const AppShell = () => {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
           <Route path="/refund-policy" element={<RefundPolicy />} />
+          <Route path="/cancellation-policy" element={<CancellationPolicy />} />
+          <Route path="/cookie-policy" element={<CookiePolicy />} />
+          <Route path="/ai-policy" element={<AiPolicy />} />
           <Route path="/ai-builder" element={<AIBuilder />} />
           <Route path="/nexus" element={<Nexus />} />
           <Route path="/academy" element={<Academy />} />

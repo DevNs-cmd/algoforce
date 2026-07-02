@@ -12,12 +12,12 @@ const details = [
   {
     icon: <FaMapMarkerAlt />,
     title: "Our Headquarters",
-    description: "Based in South Delhi, Kalkaji, New Delhi, India. Operating as a registered MSME unit.",
+    description: "Based in South East Delhi, Kalkaji, New Delhi, India. Operating as a registered MSME unit.",
   },
   {
     icon: <FaBuilding />,
     title: "Ecosystem Units",
-    description: "Spanning enterprise AI services, Crucible (startup OS), Labs (talent), and Velqora (live events OS).",
+    description: "Spanning enterprise AI services, Crucible (startup incubation platform), Labs (talent development division), and Velqora (live events OS).",
   },
 ];
 
@@ -35,7 +35,7 @@ const About = () => {
               Built to Close the Execution Gap in India
             </h1>
             <p className="mx-auto max-w-3xl text-lg font-medium leading-8 text-gray-400 md:text-xl">
-              We construct premium execution infrastructure for enterprises, startups, talent, and performing artists across India.
+              We construct premium enterprise AI systems and custom software solutions for businesses, startups, talent, and performing artists across India.
             </p>
           </motion.div>
         </header>

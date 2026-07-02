@@ -33,11 +33,6 @@ const Hero = () => {
     initialInView: true,
   });
 
-  const [statsRef, statsInView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
   const isMobile = useIsMobile();
   const [heroVideos, setHeroVideos] = useState(getHeroVideos);
   const [activeVideoIdx, setActiveVideoIdx] = useState(0);
@@ -75,7 +70,7 @@ const Hero = () => {
       setActiveVideoIdx((prev) => (prev + 1) % heroVideos.length);
     }, 8000);
     return () => clearInterval(timer);
-  }, [heroInView, heroVideos.length]);
+  }, [heroInView, heroVideos.length, isMobile]);
 
   return (
     <section ref={heroRef} className="relative flex items-center justify-center min-h-[84vh] md:min-h-screen overflow-hidden premium-page-bg text-white pt-28 sm:pt-32 md:pt-40 lg:pt-44 pb-12 md:pb-16">
@@ -114,6 +109,7 @@ const Hero = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
         >
+          {/* SEO and Trust Badges */}
           <div className="flex flex-col sm:flex-row justify-center items-center gap-3 mb-6 md:mb-8">
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -131,28 +127,52 @@ const Hero = () => {
               className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full premium-dark-surface backdrop-blur-xl"
             >
               <div className="w-1.5 h-1.5 rounded-full bg-[#7aa7c7]" />
-              <span className="text-[10px] font-semibold uppercase text-slate-300">Execution Infrastructure</span>
+              <span className="text-[10px] font-semibold uppercase text-slate-300">Enterprise AI Company India</span>
             </motion.div>
           </div>
 
+          {/* Heading */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[2.35rem] sm:text-5xl md:text-6xl lg:text-[4.65rem] font-semibold mb-6 leading-[1.06] text-white max-w-6xl mx-auto"
+            className="text-[2.35rem] sm:text-5xl md:text-6xl lg:text-[4.65rem] font-bold mb-6 leading-[1.06] text-white max-w-6xl mx-auto tracking-tight"
           >
-            AI systems and <span className="premium-serif italic font-normal text-[#cdb4ff]">automation infrastructure</span> for modern organizations
+            Enterprise AI Systems for <span className="premium-serif italic font-normal text-[#cdb4ff]">Indian Businesses</span>
           </motion.h1>
 
+          {/* Slogan Objectives Checklist */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-8 text-xs sm:text-sm font-bold text-slate-200 tracking-wide uppercase"
+          >
+            <span className="flex items-center gap-1.5">
+              <span className="w-1 h-1 bg-[#8f38ff] rounded-full" /> Automate Operations
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="w-1 h-1 bg-[#8f38ff] rounded-full" /> Deploy AI Agents
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="w-1 h-1 bg-[#8f38ff] rounded-full" /> Modernize Workflows
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="w-1 h-1 bg-[#8f38ff] rounded-full" /> Integrate Business Systems
+            </span>
+          </motion.div>
+
+          {/* Subtitle */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
             className="max-w-3xl mx-auto mb-8 md:mb-10 text-base md:text-lg text-slate-300 font-normal leading-relaxed"
           >
-            We help startups, SMEs, and enterprises automate operations, deploy intelligent systems, modernize workflows, and execute faster at scale.
+            Custom AI software that reduces manual work, improves productivity, and delivers measurable ROI. We build robust systems that sync with your databases and scale operations.
           </motion.p>
 
+          {/* MSME Badge */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -163,6 +183,7 @@ const Hero = () => {
             <span className="text-xs sm:text-sm font-bold text-white tracking-normal">UDYAM-DL-08-0122150</span>
           </motion.div>
 
+          {/* Stats Bar */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -171,18 +192,19 @@ const Hero = () => {
           >
             <div className="p-5 md:py-6 md:px-10 rounded-[24px] premium-dark-surface backdrop-blur-xl flex flex-col md:flex-row items-center justify-around gap-5 md:gap-0">
               <div className="text-center w-full md:w-auto">
-                <div className="text-3xl md:text-4xl font-bold text-white">1 Lakh+</div>
-                <div className="text-[10px] md:text-xs mt-1.5 uppercase font-medium text-slate-400">Trained from AlgoForce Labs</div>
+                <div className="text-3xl md:text-4xl font-bold text-white">100+</div>
+                <div className="text-[10px] md:text-xs mt-1.5 uppercase font-medium text-slate-400">Enterprise AI Deployments</div>
               </div>
               <div className="hidden md:block w-px h-12 bg-white/10" />
               <div className="w-16 h-px bg-white/10 md:hidden" />
               <div className="text-center w-full md:w-auto">
-                <div className="text-3xl md:text-4xl font-bold text-white">Active</div>
-                <div className="text-[10px] md:text-xs mt-1.5 uppercase font-medium text-slate-400">Automation Workflows</div>
+                <div className="text-3xl md:text-4xl font-bold text-white">1 Lakh+</div>
+                <div className="text-[10px] md:text-xs mt-1.5 uppercase font-medium text-slate-400">Trained via Labs Division</div>
               </div>
             </div>
           </motion.div>
 
+          {/* CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -195,18 +217,18 @@ const Hero = () => {
                 whileTap={{ scale: 0.95 }}
                 className="w-full px-8 py-4 sm:px-11 sm:py-4 bg-white text-[#06101d] rounded-full font-bold text-sm sm:text-[14px] flex items-center justify-center gap-3 shadow-[0_20px_50px_rgba(143,56,255,0.16)] active:bg-gray-100 transition-all"
               >
-                Deploy AI Systems {'->'}
+                Book Free AI Consultation {'->'}
               </motion.button>
             </Link>
-            <a href="https://crucible-website-omega.vercel.app/" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
+            <Link to="/services" className="w-full sm:w-auto">
               <motion.button
                 whileHover={{ scale: 1.02, backgroundColor: 'rgba(255,255,255,0.08)' }}
                 whileTap={{ scale: 0.95 }}
                 className="w-full px-8 py-4 sm:px-11 sm:py-4 border border-white/14 rounded-full font-bold text-sm sm:text-[14px] text-white hover:border-white/30 backdrop-blur-xl transition-all"
               >
-                Optimize Operations
+                Explore Solutions
               </motion.button>
-            </a>
+            </Link>
           </motion.div>
 
           {/* Trust Badges */}

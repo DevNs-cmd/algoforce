@@ -34,11 +34,17 @@ const Footer = () => {
               ambitious founders. We engineer technical equity.
             </p>
 
-            <div className="mb-8 flex items-start gap-3 max-w-sm text-gray-500">
-              <FaMapMarkerAlt className="mt-1 text-purple-500 flex-shrink-0" />
-              <p className="text-sm font-medium leading-relaxed">
-                Office: South Delhi, Kalkaji, New Delhi 110019
-              </p>
+            <div className="mb-8 flex flex-col gap-3 max-w-sm text-gray-500 text-sm font-medium leading-relaxed">
+              <div className="flex items-start gap-3">
+                <FaMapMarkerAlt className="mt-1 text-purple-500 flex-shrink-0" />
+                <p>
+                  Office: South East Delhi, Kalkaji, New Delhi – 110019
+                </p>
+              </div>
+              <div className="pl-6 text-xs text-gray-600 space-y-1">
+                <p>MSME UDYAM: UDYAM-DL-08-0122150</p>
+                <p>GSTIN: Applied / Pending Registration</p>
+              </div>
             </div>
 
             <div className="flex space-x-6">
@@ -106,12 +112,15 @@ const Footer = () => {
           {/* Legal Section moved to Bottom or separate grid */}
         </div>
 
-        <div className="pt-16 mt-16 flex flex-wrap justify-center gap-10 border-t border-white/5 opacity-50">
+        <div className="pt-16 mt-16 flex flex-wrap justify-center gap-8 border-t border-white/5 opacity-50">
              {[
                 { name: 'Crucible', path: 'https://crucible-website-omega.vercel.app/', isExternal: true },
                 { name: 'Privacy', path: '/privacy-policy' },
                 { name: 'Terms', path: '/terms-and-conditions' },
-                { name: 'Refunds', path: '/refund-policy' }
+                { name: 'Refunds', path: '/refund-policy' },
+                { name: 'Cancellation', path: '/cancellation-policy' },
+                { name: 'Cookies', path: '/cookie-policy' },
+                { name: 'AI Policy', path: '/ai-policy' }
               ].map(link => (
                 link.isExternal ? (
                   <a key={link.name} href={link.path} target="_blank" rel="noopener noreferrer" className="text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition-all">
