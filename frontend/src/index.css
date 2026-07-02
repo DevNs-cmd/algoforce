@@ -1,3 +1,6 @@
+/* Google Fonts Imports */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
 /* Tailwind CSS Directives */
 @tailwind base;
 @tailwind components;
@@ -7,8 +10,8 @@
 :root {
   --background: #03070d;
   --foreground: #ffffff;
-  --font-body: 'Manrope', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-display: 'Manrope', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-accent: 'Instrument Serif', Georgia, serif;
   --brand-navy: #062f4f;
   --brand-navy-deep: #030b17;
@@ -67,31 +70,37 @@ body {
 /* Typography Helpers */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
-  font-weight: 700;
-  letter-spacing: 0;
-  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
 }
 
 .font-black {
-  font-weight: 760;
+  font-weight: 900;
 }
 
 .font-extrabold {
-  font-weight: 720;
+  font-weight: 800;
 }
 
 .font-bold {
-  font-weight: 680;
+  font-weight: 700;
 }
 
 .font-semibold {
-  font-weight: 620;
+  font-weight: 600;
 }
 
-.tracking-tight,
-.tracking-tighter,
+.tracking-tight {
+  letter-spacing: -0.02em;
+}
+
+.tracking-tighter {
+  letter-spacing: -0.04em;
+}
+
 .tracking-widest {
-  letter-spacing: 0;
+  letter-spacing: 0.15em;
 }
 
 .premium-serif {
