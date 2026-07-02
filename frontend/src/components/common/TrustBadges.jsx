@@ -1,12 +1,12 @@
 import { motion } from 'framer-motion'
-import { FaShieldAlt, FaCode, FaCheckCircle, FaGraduationCap } from 'react-icons/fa'
+import { FaShieldAlt, FaLock, FaNetworkWired, FaBuilding } from 'react-icons/fa'
 
 const TrustBadges = () => {
     const badges = [
-        { icon: FaShieldAlt, text: "MSME Registered", color: "text-emerald-500" },
-        { icon: FaCode, text: "No Coding Required", color: "text-blue-500" },
-        { icon: FaCheckCircle, text: "Beginner Friendly", color: "text-purple-500" },
-        { icon: FaGraduationCap, text: "Industrial Certificate", color: "text-orange-500" }
+        { icon: FaBuilding, text: "MSME Registered", color: "text-emerald-400" },
+        { icon: FaShieldAlt, text: "Enterprise Security", color: "text-blue-400" },
+        { icon: FaLock, text: "Private Cloud VPC", color: "text-purple-400" },
+        { icon: FaNetworkWired, text: "Integrations Ready", color: "text-amber-400" }
     ];
 
     return (

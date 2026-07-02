@@ -20,13 +20,12 @@ const Footer = () => {
 
           {/* Brand */}
           <div className="md:col-span-2">
-            <div className="flex items-center gap-4 mb-8">
-              <div className="w-10 h-10 overflow-hidden rounded-xl bg-white/5 border border-white/10">
-                <img src="/logo.png" alt="AlgoForce" className="w-full h-full object-cover" />
-              </div>
-              <h3 className="text-3xl font-black tracking-tighter text-white">
-                Algo<span className="text-purple-600">Force</span>
-              </h3>
+            <div className="flex items-center mb-8">
+              <Link to="/" className="inline-block">
+                <div className="bg-white px-4 py-2 rounded-2xl flex items-center justify-center border border-white/10 shadow-[0_8px_24px_rgba(255,255,255,0.04)]">
+                  <img src="/logo.png" alt="AlgoForce" className="h-8 w-auto object-contain" />
+                </div>
+              </Link>
             </div>
 
             <p className="mb-8 text-gray-500 max-w-sm font-medium leading-[1.8]">

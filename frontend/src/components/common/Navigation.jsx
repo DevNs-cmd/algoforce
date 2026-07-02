@@ -58,10 +58,10 @@ const Navigation = () => {
         >
           <Link to="/" className="flex min-w-0 items-center gap-3 group">
             <motion.div 
-              whileHover={{ scale: 1.03 }}
-              className="relative w-10 h-10 sm:w-11 sm:h-11 overflow-hidden rounded-full border border-white/15 bg-white flex items-center justify-center transition-all duration-500 shadow-[0_12px_30px_rgba(0,0,0,0.18)]"
+              whileHover={{ scale: 1.02 }}
+              className="bg-white px-3 py-1 rounded-xl flex items-center justify-center border border-white/10 shadow-[0_4px_12px_rgba(255,255,255,0.05)]"
             >
-              <img src="/logo.png" alt="AlgoForce" loading="lazy" className="w-full h-full object-cover" />
+              <img src="/logo.png" alt="AlgoForce" loading="lazy" className="h-6 sm:h-7 w-auto object-contain" />
             </motion.div>
             <span className="hidden min-[360px]:block text-lg sm:text-xl font-semibold brand-wordmark">
               Algo<span>Force</span>
