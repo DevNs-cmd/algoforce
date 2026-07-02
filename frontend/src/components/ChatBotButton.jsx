@@ -7,78 +7,127 @@ import './ChatBotButton.css';
 const SUGGESTIONS = [
   { text: 'Book Free AI Audit', intent: 'audit' },
   { text: 'What services do you offer?', intent: 'services' },
+  { text: 'Retainer Pricing Plans', intent: 'price' },
   { text: 'Tally & CRM Integrations', intent: 'integration' },
-  { text: 'Data Privacy & Security', intent: 'privacy' },
-  { text: 'Office Address & MSME', intent: 'location' },
+  { text: 'Data Privacy & Cloud Security', intent: 'privacy' },
+];
+
+const KNOWLEDGE_BASE = [
+  {
+    keywords: ['what is algoforce', 'about algoforce', 'what does algoforce do', 'who are you', 'what is this website'],
+    response: `AlgoForce AI is a premium Enterprise AI Consulting and Custom Software Development firm based in South East Delhi, India. 
+    
+    We build custom AI systems, database software, workflow automation, and CRM/ERP integrations that automate repetitive manual tasks, reduce operational costs, and drive clear business ROI. We operate as a registered MSME unit.`
+  },
+  {
+    keywords: ['service', 'what do you offer', 'portfolios', 'capabilities', 'what do you build'],
+    response: `We offer 13 core enterprise services across three main categories:
+    1. AI & Custom Software: Enterprise AI Solutions, AI Agents, Custom Software, Internal AI Assistants, and Digital Transformation.
+    2. Process Automation: Business Automation, CRM Automation, WhatsApp Automation, and Workflow Automation (using n8n/Make).
+    3. Data & ERP Integration: ERP Integration (Tally, SAP, Oracle), Knowledge Management, Reporting Dashboards, and Data Integration (ETL).
+    
+    You can view details like Problem/Solution/ROI for each service on our /services page.`
+  },
+  {
+    keywords: ['tally', 'crm', 'erp', 'sap', 'zoho', 'salesforce', 'integrate', 'sync'],
+    response: `We build secure middleware integrations to connect custom AI and workflow automations to your existing business systems (Tally Prime, SAP, Zoho CRM, Salesforce, Shopify). 
+    
+    For instance, we can automate syncs between e-commerce orders and Tally, or feed incoming WhatsApp leads directly into your Salesforce CRM pipelines.`
+  },
+  {
+    keywords: ['whatsapp', 'message', 'chat', 'api'],
+    response: `We set up official WhatsApp Cloud API integrations. This allows you to build 24/7 automated booking or lead-nurturing agents. 
+    
+    Our setups have helped hospitality clients increase direct reservations by 19% and cut front-desk calendar booking work by 30+ hours per week.`
+  },
+  {
+    keywords: ['privacy', 'security', 'secure', 'leak', 'vpc', 'cloud', 'aws', 'azure', 'llama', 'private host', 'data'],
+    response: `Data security is our top priority. We prevent data leaks by hosting fine-tuned LLM models on your private cloud VPC (AWS, Azure, Google Cloud). 
+    
+    Under our strict AI Policy, your proprietary business datasets and databases are completely isolated and never used to train public LLM models.`
+  },
+  {
+    keywords: ['price', 'pricing', 'cost', 'retainer', 'starter', 'growth', 'scale', 'fees', 'invoice', 'razorpay'],
+    response: `We offer simple, transparent pricing models:
+    • Starter Retainer: $29/mo (Basic automation, monthly reports, 2 AI services).
+    • Growth Retainer: $69/mo (Advanced AI flows, weekly reports, 5 AI services).
+    • Scale Retainer: $99/mo (Custom AI systems, dedicated team, 24/7 support).
+    • Project-Based: From $79 (scoped setups like custom CRM/ERP integrations).
+    • Corporate Training: From $99/quarter (AI training and certifications for teams).
+    
+    Payments are secured via Razorpay. We suggest booking a Free AI Audit first to scope details.`
+  },
+  {
+    keywords: ['audit', 'consult', 'free operational', 'readiness', 'book', 'schedule', 'call', 'meeting', 'strategy'],
+    response: `We offer a complimentary 30-Minute AI Readiness Audit & Strategy Consultation. 
+    
+    Our founder, Dev N Suman, will analyze your manual workflows, identify bottlenecks, recommend technology stacks, and estimate implementation ROI. You can book this on our Contact page or email contact@algoforceai.com.`
+  },
+  {
+    keywords: ['address', 'location', 'delhi', 'office', 'where', 'headquarter', 'kalkaji', 'contact', 'phone', 'email'],
+    response: `Our registered headquarters is located at South East Delhi, Kalkaji, New Delhi – 110019, India.
+    
+    • Phone: +918448947436
+    • Email: contact@algoforceai.com
+    • Hours: Monday - Friday (9 AM - 6 PM IST)`
+  },
+  {
+    keywords: ['msme', 'registration', 'udyam', 'gst', 'legal', 'licence'],
+    response: `AlgoForce AI is a legally registered MSME unit under the Government of India. 
+    
+    • Registration Number: UDYAM-DL-08-0122150.
+    Our invoices and agreements fully support GST/MSME compliance requirements.`
+  },
+  {
+    keywords: ['founder', 'ceo', 'dev', 'suman', 'who founded', 'built by', 'creator'],
+    response: `AlgoForce AI was founded in June 2026 by Dev N Suman in New Delhi. Dev is an enterprise systems architect, SaaS developer, and Next.js performance engineer. You can learn more about him and view his projects on the /founder page.`
+  },
+  {
+    keywords: ['crucible', 'incubator', 'startup'],
+    response: `Crucible is our Startup Incubation Platform. It provides early-stage founders with workspaces, concept validation, milestone tracking, and MVP support to speed up execution. Details start at $29+.`
+  },
+  {
+    keywords: ['labs', 'course', 'academy', 'learn', 'training', 'talent'],
+    response: `AlgoForce Labs is our Talent Development Division. We run custom training cohorts and AI courses starting at $19+ to train professionals and corporate teams to maintain custom database systems and automations.`
+  },
+  {
+    keywords: ['velqora', 'performer', 'event'],
+    response: `Velqora is a specialized division within our ecosystem. It operates as a management and booking OS for live entertainment performers, booking teams, and contracts.`
+  }
 ];
 
 const getBotResponse = (input) => {
-  const query = input.toLowerCase();
-
-  if (query.includes('audit') || query.includes('consult') || query.includes('book') || query.includes('schedule') || query.includes('call') || query.includes('meeting')) {
-    return `We offer a complimentary 30-Minute AI Readiness Audit & Consultation. During this session, our founder Dev N Suman evaluates your workflows, identifies manual process bottlenecks, and estimates implementation ROI. 
-    
-    You can book this directly by visiting our Contact page, or email us at contact@algoforceai.com.`;
+  const query = input.toLowerCase().trim();
+  
+  // Find matching knowledge base entry based on keyword score
+  let bestMatch = null;
+  let maxScore = 0;
+  
+  for (const entry of KNOWLEDGE_BASE) {
+    let score = 0;
+    for (const keyword of entry.keywords) {
+      if (query.includes(keyword)) {
+        score += keyword.split(' ').length; // Higher weight to multi-word matching keywords
+      }
+    }
+    if (score > maxScore) {
+      maxScore = score;
+      bestMatch = entry;
+    }
   }
-
-  if (query.includes('service') || query.includes('what do you') || query.includes('offer') || query.includes('system') || query.includes('product') || query.includes('build')) {
-    return `AlgoForce AI delivers premium enterprise AI systems, process automation, and custom software. Our 13 core portfolios include:
-    • Custom AI Agents & Internal Assistants (RAG)
-    • CRM/ERP Automations (Salesforce, Zoho, SAP, Tally Prime)
-    • WhatsApp Business Cloud API Integrations
-    • Real-Time Analytics & Reporting Dashboards
-    • Custom Database Software & Digital Transformation
-    
-    You can filter and view them all with Problem/Solution/ROI breakdowns on our /services page.`;
+  
+  if (bestMatch && maxScore > 0) {
+    return bestMatch.response;
   }
-
-  if (query.includes('tally') || query.includes('crm') || query.includes('erp') || query.includes('sap') || query.includes('zoho') || query.includes('salesforce') || query.includes('integration')) {
-    return `We specialize in linking models and automated pipelines to your existing business systems (Tally, Zoho CRM, Salesforce, SAP). 
-    
-    For example, we frequently automate syncing Shopify orders to Tally Prime or routing WhatsApp sales enquiries directly to custom CRM boards. We build these without replacing your current software.`;
-  }
-
-  if (query.includes('privacy') || query.includes('data') || query.includes('secure') || query.includes('leak') || query.includes('cloud') || query.includes('aws') || query.includes('azure')) {
-    return `Data privacy is central to our engineering model. We prevent leaks by deploying secure, self-hosted LLMs on your private cloud VPCs (AWS, Azure, Google Cloud). 
-    
-    Under our AI Policy, your proprietary database and business memory are never used to train public LLM models.`;
-  }
-
-  if (query.includes('address') || query.includes('location') || query.includes('delhi') || query.includes('office') || query.includes('where') || query.includes('phone') || query.includes('contact')) {
-    return `Our registered headquarters is located at South East Delhi, Kalkaji, New Delhi – 110019, India.
-    
-    • Official Phone: +918448947436
-    • Official Email: contact@algoforceai.com
-    • Operating Hour: Monday to Friday (9 AM - 6 PM IST)`;
-  }
-
-  if (query.includes('founder') || query.includes('ceo') || query.includes('dev') || query.includes('who is') || query.includes('suman')) {
-    return `AlgoForce AI was founded by Dev N Suman in June 2026. Dev is an enterprise systems architect, SaaS copywriter, and performance engineer based in New Delhi. You can read about his story on our /founder page.`;
-  }
-
-  if (query.includes('msme') || query.includes('registration') || query.includes('udyam') || query.includes('gst')) {
-    return `AlgoForce AI is a registered MSME unit under the Government of India. 
-    • MSME registration ID: UDYAM-DL-08-0122150.`;
-  }
-
-  if (query.includes('price') || query.includes('cost') || query.includes('quote') || query.includes('free')) {
-    return `Our initial AI Readiness Audits and Strategy Consultations are 100% free of charge. 
-    
-    Custom software integration, automation flow setups, and custom AI systems are priced on a milestone basis depending on complexity. We structure clear ROI estimates before any development begins.`;
-  }
-
-  if (query.includes('labs') || query.includes('crucible') || query.includes('talent') || query.includes('startup')) {
-    return `Our ecosystem supports two secondary divisions:
-    • AlgoForce Labs: Our Talent Development Division training developers to maintain custom enterprise integrations.
-    • Crucible: Our Startup Incubation Platform helping early-stage founders validate ideas and build functional MVPs.`;
-  }
-
-  return `Hello! I can guide you on how we help businesses automate operations and deploy custom AI integrations. 
-
-  Would you like to learn about:
-  1. Booking a Free AI Readiness Audit
-  2. Integrating Tally, Salesforce, or Zoho with AI
-  3. Our private cloud hosting setup to prevent data leaks?`;
+  
+  return `I can guide you on how AlgoForce AI builds custom software and automates operations. Ask me about:
+  • Our 13 enterprise AI, CRM/ERP, and Tally services
+  • Retainer packages starting from $29/mo
+  • Booking a Free AI Readiness Audit
+  • Private cloud VPC hosting for data security
+  • Credentials (MSME registration: UDYAM-DL-08-0122150)
+  
+  What can I answer for you?`;
 };
 
 const ChatBotButton = () => {
@@ -86,7 +135,7 @@ const ChatBotButton = () => {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "Hello! I am your AlgoForce Advisory Assistant. Ask me anything about our enterprise AI integrations, custom database software, or book a free operational audit.",
+      text: "Hello! I am your AlgoForce Advisory Assistant. Ask me anything about our enterprise AI integrations, custom database software, pricing, or book a free operational audit.",
       sender: 'bot',
       timestamp: new Date()
     }
@@ -149,9 +198,9 @@ const ChatBotButton = () => {
     let queryText = '';
     if (intent === 'audit') queryText = 'How do I book a free AI audit?';
     else if (intent === 'services') queryText = 'What services do you offer?';
+    else if (intent === 'price') queryText = 'What are your retainer pricing plans?';
     else if (intent === 'integration') queryText = 'Can you connect AI to Tally and CRM?';
     else if (intent === 'privacy') queryText = 'How do you keep our data secure?';
-    else if (intent === 'location') queryText = 'Where is your office located?';
 
     handleSend(queryText);
   };
@@ -239,7 +288,6 @@ const ChatBotButton = () => {
                           : 'bg-white/5 border border-white/10 text-slate-100 rounded-bl-none'
                       }`}
                     >
-                      {/* Formatted body line breaks */}
                       <p className="whitespace-pre-line">{message.text}</p>
                       
                       {/* Clickable routing triggers in bot responses */}
@@ -257,6 +305,22 @@ const ChatBotButton = () => {
                           className="mt-2 text-indigo-300 font-bold hover:underline flex items-center gap-0.5"
                         >
                           Book Free Audit <FaChevronRight size={8} />
+                        </button>
+                      )}
+                      {message.sender === 'bot' && message.text.includes('/founder') && (
+                        <button
+                          onClick={() => { toggleChat(); navigate('/founder'); }}
+                          className="mt-2 text-indigo-300 font-bold hover:underline flex items-center gap-0.5"
+                        >
+                          Meet Dev N Suman <FaChevronRight size={8} />
+                        </button>
+                      )}
+                      {message.sender === 'bot' && message.text.includes('/pricing') && (
+                        <button
+                          onClick={() => { toggleChat(); navigate('/pricing'); }}
+                          className="mt-2 text-indigo-300 font-bold hover:underline flex items-center gap-0.5"
+                        >
+                          Go to Pricing <FaChevronRight size={8} />
                         </button>
                       )}
                       
@@ -301,7 +365,7 @@ const ChatBotButton = () => {
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyDown={handleKeyPress}
-                    placeholder="Ask about AI, audits, location..."
+                    placeholder="Ask about AI, audits, pricing, location..."
                     className="flex-1 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-transparent text-xs"
                   />
                   <motion.button
