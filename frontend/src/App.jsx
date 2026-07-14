@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom'
-import { useEffect, useLayoutEffect } from 'react'
+import { useEffect, useLayoutEffect, lazy, Suspense } from 'react'
 import { HelmetProvider } from 'react-helmet-async'
 import { AuthProvider } from './contexts/AuthContext'
 import SeoHead from './components/common/SeoHead'
@@ -11,36 +11,47 @@ import ConsultancyButton from './components/common/ConsultancyButton'
 import PageVideoBackdrop from './components/common/PageVideoBackdrop'
 import SplashScreen from './components/common/SplashScreen'
 import WebinarPopup from './components/common/WebinarPopup'
-import Home from './pages/Home'
-import Pricing from './pages/Pricing'
-import Labs from './pages/Labs'
-import Contact from './pages/Contact'
-import PrivacyPolicy from './pages/PrivacyPolicy'
-import TermsAndConditions from './pages/TermsAndConditions'
-import RefundPolicy from './pages/RefundPolicy'
-import CancellationPolicy from './pages/CancellationPolicy'
-import CookiePolicy from './pages/CookiePolicy'
-import AiPolicy from './pages/AiPolicy'
-import AIBuilder from './pages/AIBuilder'
-import Academy from './pages/Academy'
-import Dashboard from './pages/Dashboard'
-import Blog from './pages/Blog'
-import LanguagePlaceholder from './pages/LanguagePlaceholder'
 import Breadcrumbs from './components/common/Breadcrumbs'
 
-import Nexus from './pages/Nexus'
-import AICourse from './pages/AICourse'
-import AICourseForStudents from './pages/AICourseForStudents'
-import BuildAIApp from './pages/BuildAIApp'
-import AICertificationIndia from './pages/AICertificationIndia'
-import BlogPost from './pages/BlogPost'
-import Founder from './pages/Founder'
-import Team from './pages/Team'
-import WhatIsAlgoForcePage from './pages/WhatIsAlgoForce'
-import Services from './pages/Services'
-import Crucible from './pages/Crucible'
-import Velqora from './pages/Velqora'
+// ── Eagerly-loaded (above-the-fold, small pages) ──────────────────────────────
+import Home from './pages/Home'
+import Contact from './pages/Contact'
 import About from './pages/About'
+import Services from './pages/Services'
+
+// ── Lazily-loaded (large bundles or infrequent pages) ──────────────────────────
+const Pricing = lazy(() => import('./pages/Pricing'))
+const Labs = lazy(() => import('./pages/Labs'))
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
+const TermsAndConditions = lazy(() => import('./pages/TermsAndConditions'))
+const RefundPolicy = lazy(() => import('./pages/RefundPolicy'))
+const CancellationPolicy = lazy(() => import('./pages/CancellationPolicy'))
+const CookiePolicy = lazy(() => import('./pages/CookiePolicy'))
+const AiPolicy = lazy(() => import('./pages/AiPolicy'))
+const AIBuilder = lazy(() => import('./pages/AIBuilder'))
+const Academy = lazy(() => import('./pages/Academy'))
+const Dashboard = lazy(() => import('./pages/Dashboard'))
+const Blog = lazy(() => import('./pages/Blog'))
+const LanguagePlaceholder = lazy(() => import('./pages/LanguagePlaceholder'))
+const Nexus = lazy(() => import('./pages/Nexus'))
+const AICourse = lazy(() => import('./pages/AICourse'))
+const AICourseForStudents = lazy(() => import('./pages/AICourseForStudents'))
+const BuildAIApp = lazy(() => import('./pages/BuildAIApp'))
+const AICertificationIndia = lazy(() => import('./pages/AICertificationIndia'))
+const BlogPost = lazy(() => import('./pages/BlogPost'))
+const Founder = lazy(() => import('./pages/Founder'))
+const Team = lazy(() => import('./pages/Team'))
+const WhatIsAlgoForcePage = lazy(() => import('./pages/WhatIsAlgoForce'))
+const Crucible = lazy(() => import('./pages/Crucible'))
+const Velqora = lazy(() => import('./pages/Velqora'))
+
+// Minimal full-screen spinner for lazy page transitions
+const PageLoader = () => (
+  <div className="fixed inset-0 bg-[#03070d] flex items-center justify-center z-50">
+    <div className="w-6 h-6 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+  </div>
+)
+
 
 // Conditionally show footer and chatbot (not on AI Builder or Nexus page)
 const AppShell = () => {
@@ -97,45 +108,47 @@ const AppShell = () => {
       <div className="relative z-10">
         {!isBuilderPage && !isNexusPage && location.pathname !== '/' && <Breadcrumbs />}
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/ai-consulting" element={<Services />} />
-          <Route path="/crucible" element={<Crucible />} />
-          <Route path="/velqora" element={<Velqora />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/pricing" element={<Pricing />} />
-          <Route path="/labs" element={<Labs />} />
-          <Route path="/training" element={<Labs />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
-          <Route path="/refund-policy" element={<RefundPolicy />} />
-          <Route path="/cancellation-policy" element={<CancellationPolicy />} />
-          <Route path="/cookie-policy" element={<CookiePolicy />} />
-          <Route path="/ai-policy" element={<AiPolicy />} />
-          <Route path="/ai-builder" element={<AIBuilder />} />
-          <Route path="/nexus" element={<Nexus />} />
-          <Route path="/academy" element={<Academy />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:id" element={<BlogPost />} />
-          <Route path="/founder" element={<Founder />} />
-          <Route path="/team" element={<Team />} />
-          <Route path="/what-is-algoforce" element={<WhatIsAlgoForcePage />} />
-          
-          {/* SEO Landing Pages */}
-          <Route path="/ai-course" element={<AICourse />} />
-          <Route path="/ai-course-for-students" element={<AICourseForStudents />} />
-          <Route path="/build-ai-app-without-coding" element={<BuildAIApp />} />
-          <Route path="/ai-certification-india" element={<AICertificationIndia />} />
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/ai-consulting" element={<Services />} />
+            <Route path="/crucible" element={<Crucible />} />
+            <Route path="/velqora" element={<Velqora />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/labs" element={<Labs />} />
+            <Route path="/training" element={<Labs />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+            <Route path="/refund-policy" element={<RefundPolicy />} />
+            <Route path="/cancellation-policy" element={<CancellationPolicy />} />
+            <Route path="/cookie-policy" element={<CookiePolicy />} />
+            <Route path="/ai-policy" element={<AiPolicy />} />
+            <Route path="/ai-builder" element={<AIBuilder />} />
+            <Route path="/nexus" element={<Nexus />} />
+            <Route path="/academy" element={<Academy />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:id" element={<BlogPost />} />
+            <Route path="/founder" element={<Founder />} />
+            <Route path="/team" element={<Team />} />
+            <Route path="/what-is-algoforce" element={<WhatIsAlgoForcePage />} />
 
-          <Route path="/es" element={<LanguagePlaceholder />} />
-          <Route path="/fr" element={<LanguagePlaceholder />} />
-          <Route path="/de" element={<LanguagePlaceholder />} />
-          {/* Catch-all */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+            {/* SEO Landing Pages */}
+            <Route path="/ai-course" element={<AICourse />} />
+            <Route path="/ai-course-for-students" element={<AICourseForStudents />} />
+            <Route path="/build-ai-app-without-coding" element={<BuildAIApp />} />
+            <Route path="/ai-certification-india" element={<AICertificationIndia />} />
+
+            <Route path="/es" element={<LanguagePlaceholder />} />
+            <Route path="/fr" element={<LanguagePlaceholder />} />
+            <Route path="/de" element={<LanguagePlaceholder />} />
+            {/* Catch-all */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </Suspense>
 
         {!isBuilderPage && !isNexusPage && <Footer />}
       </div>

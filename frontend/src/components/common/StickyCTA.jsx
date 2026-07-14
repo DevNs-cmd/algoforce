@@ -1,22 +1,25 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { rafThrottle } from '../../utils/performance'
 
 const StickyCTA = () => {
     const [visible, setVisible] = useState(false);
     const location = useLocation();
 
     useEffect(() => {
-        const handleScroll = () => {
+        const handleScroll = rafThrottle(() => {
             if (window.scrollY > 800) {
                 setVisible(true);
             } else {
                 setVisible(false);
             }
-        };
+        });
 
         window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => window.removeEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
     }, []);
 
     // Don't show on builder/nexus or if too close to bottom

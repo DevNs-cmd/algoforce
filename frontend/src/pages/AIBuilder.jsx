@@ -7,6 +7,7 @@ import { Float, Sphere, MeshDistortMaterial, Stars, PerspectiveCamera, useGLTF, 
 import { EffectComposer, Bloom, Noise, Vignette, ChromaticAberration } from '@react-three/postprocessing'
 import * as THREE from 'three'
 import { useAuth } from '../contexts/AuthContext'
+import useIsMobile from '../hooks/useIsMobile'
 import { streamChat, AI_MODELS } from '../services/aiService'
 import api from '../services/api'
 import AuthModal from '../components/auth/AuthModal'
@@ -208,6 +209,7 @@ const ChatMessage = ({ message }) => {
 // ─── Main Component ────────────────────────────────────────────────────────────
 const AIBuilder = () => {
     const { user, token, logout } = useAuth()
+    const isMobile = useIsMobile()
     const [authModalOpen, setAuthModalOpen] = useState(false)
     const [accountModalOpen, setAccountModalOpen] = useState(false)
     const sessionId = getSessionId()
@@ -340,11 +342,16 @@ const AIBuilder = () => {
 
             {/* ── 3D Visuals ── */}
             <div className="fixed inset-0 pointer-events-none z-0">
-                <Canvas dpr={[1, 2]} gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }} shadows>
-                    <Suspense fallback={null}>
-                        <AbstractSphere scrollProgress={scrollProgress} />
-                    </Suspense>
-                </Canvas>
+                {!isMobile && (
+                    <Canvas dpr={[1, 2]} gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }} shadows>
+                        <Suspense fallback={null}>
+                            <AbstractSphere scrollProgress={scrollProgress} />
+                        </Suspense>
+                    </Canvas>
+                )}
+                {isMobile && (
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#0e031a] via-[#03070d] to-black opacity-95" />
+                )}
                 <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/80" />
             </div>
 

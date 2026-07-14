@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "../../contexts/AuthContext";
 import AuthModal from "../auth/AuthModal";
+import { rafThrottle } from "../../utils/performance";
 
 const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -13,9 +14,14 @@ const Navigation = () => {
   const isLightPage = location.pathname === '/labs' || location.pathname === '/services';
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
+    const handleScroll = rafThrottle(() => {
+      const isScrolled = window.scrollY > 20;
+      setScrolled(isScrolled);
+    });
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -34,7 +40,6 @@ const Navigation = () => {
     { name: "Services", path: "/services" },
     { name: "Labs", path: "/labs" },
     { name: "Crucible", path: "https://crucible-website-omega.vercel.app/", isExternal: true },
-    { name: "Founder", path: "/founder" },
     { name: "Pricing", path: "/pricing" },
     { name: "Contact", path: "/contact" },
   ];
