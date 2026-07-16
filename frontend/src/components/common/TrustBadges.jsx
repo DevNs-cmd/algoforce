@@ -4,7 +4,7 @@ import { FaShieldAlt, FaLock, FaNetworkWired, FaBuilding } from 'react-icons/fa'
 const TrustBadges = () => {
     const badges = [
         { icon: FaBuilding, text: "MSME Registered", color: "text-emerald-400" },
-        { icon: FaShieldAlt, text: "Enterprise Security", color: "text-blue-400" },
+        { icon: FaShieldAlt, text: "Private Cloud", color: "text-blue-400" },
         { icon: FaLock, text: "Private Cloud VPC", color: "text-purple-400" },
         { icon: FaNetworkWired, text: "Integrations Ready", color: "text-amber-400" }
     ];

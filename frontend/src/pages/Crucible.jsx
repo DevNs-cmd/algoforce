@@ -6,18 +6,18 @@ import SeoHead from "../components/common/SeoHead";
 const pillars = [
   {
     icon: <FaLayerGroup />,
-    title: "Workspace Tools",
-    description: "Align your team on active sprints, map OKRs, and build out your product roadmap with structural speed.",
+    title: "MVP Build & Launch",
+    description: "We help founders validate their ideas, map requirements, structure database schemas, and build launch-ready MVPs with execution speed.",
   },
   {
     icon: <FaHeartbeat />,
-    title: "Venture Health Score",
-    description: "Get real-time feedback on your metrics, compliance, and product milestones to see if you are Series A ready.",
+    title: "Technical Talent & Teams",
+    description: "Access deployment-ready developers and product engineers from our Labs talent engine to build and support your technical infrastructure.",
   },
   {
     icon: <FaMoneyBillWave />,
-    title: "Fundraising CRM",
-    description: "Track VC pipelines, manage your investor data room, and build relationships that lead to success.",
+    title: "Product Scale & Growth",
+    description: "Transition your product from MVP into a scaling company using Crucible's structured execution platform and operational systems.",
   },
 ];
 
@@ -32,10 +32,10 @@ const Crucible = () => {
               Crucible OS
             </p>
             <h1 className="mb-8 text-5xl font-black leading-tight tracking-tight md:text-7xl">
-              The Operating System for Indian Startups
+              The Startup Execution Platform
             </h1>
             <p className="mx-auto max-w-3xl text-lg font-medium leading-8 text-gray-400 md:text-xl">
-              CRUCIBLE is the execution infrastructure that helps founders move from idea validation through seed stages to Series A readiness.
+              Crucible is a Startup Operating System—not an incubator—helping early-stage founders validate concepts, build MVPs, launch, find technical teams, and scale products.
             </p>
           </motion.div>
         </header>
@@ -60,17 +60,17 @@ const Crucible = () => {
 
         <section className="mx-auto max-w-4xl rounded-3xl border border-white/10 bg-white/[0.035] p-8 text-center md:p-12">
           <h2 className="mb-5 text-3xl font-black tracking-tight md:text-4xl">
-            Choose your subscription tier
+            Ready to Build Your Product?
           </h2>
           <p className="mx-auto mb-8 max-w-2xl leading-7 text-gray-400">
-            Get access to Crucible OS workspace tools, metrics auditing, and fundraising CRM. Tiers from ₹2,999 to ₹24,999/month.
+            Learn how Crucible can accelerate your product build, secure your technical infrastructure, and connect you with deployment-ready engineers.
           </p>
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <Link
-              to="/contact"
+              to="/contact?interest=crucible"
               className="rounded-full bg-white px-8 py-4 text-sm font-black uppercase tracking-widest text-black transition-transform hover:scale-105"
             >
-              Start Free Trial
+              Apply to Crucible
             </Link>
           </div>
         </section>

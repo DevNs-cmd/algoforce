@@ -11,31 +11,31 @@ const HowItWorks = () => {
   const steps = [
     {
       number: '01',
-      title: 'Data Ingestion',
-      description: 'Connects to every data source in your business ecosystem. CRMs, analytics, communications, financial systems—everything flows into AlgoForce.',
-      features: ['API Integration', 'Real-time Sync', 'Multi-source Aggregation', 'Automatic Schema Mapping'],
-      icon: '📊'
+      title: 'Business Assessment',
+      description: 'We spend 1–2 weeks understanding your operations, mapping your workflows, and auditing your existing data systems. Then we recommend the right AlgoForce products for your business.',
+      features: ['Workflow Mapping', 'Data Readiness Audit', 'Product Recommendation', 'ROI Forecast'],
+      icon: '📋'
     },
     {
       number: '02',
-      title: 'Intelligence Layer',
-      description: 'Advanced AI models process patterns, anomalies, and correlations. Natural language understanding turns data into actionable insights.',
-      features: ['Pattern Recognition', 'Anomaly Detection', 'Predictive Modeling', 'NLP Processing'],
-      icon: '🧠'
+      title: 'Product Implementation',
+      description: 'Our team configures and integrates the selected products into your existing systems — CRM, ERP, WhatsApp, and databases. Your team is trained and goes live in 4–6 weeks.',
+      features: ['Database Integration', 'Business Rule Config', 'Security Setup', 'Team Onboarding'],
+      icon: '⚙️'
     },
     {
       number: '03',
-      title: 'Decision Engine',
-      description: 'Real-time decision-making based on learned patterns and business rules. Recommendations, alerts, and autonomous actions executed at machine speed.',
-      features: ['Automated Workflows', 'Smart Recommendations', 'Risk Assessment', 'Priority Routing'],
-      icon: '⚡'
+      title: 'Monthly Subscription',
+      description: 'Your team uses the products daily while we handle hosting, model updates, performance monitoring, and dedicated Customer Success support — all under one monthly plan.',
+      features: ['Continuous Updates', 'Performance Monitoring', 'Customer Success', 'Priority Support'],
+      icon: '📈'
     },
     {
       number: '04',
-      title: 'Continuous Learning',
-      description: 'Every outcome feeds back into the system. Models improve, accuracy increases, and your competitive advantage compounds over time.',
-      features: ['Feedback Loops', 'Model Refinement', 'Performance Tracking', 'Adaptive Intelligence'],
-      icon: '🔄'
+      title: 'Expand',
+      description: 'As your business grows, add more AlgoForce products to the same platform. Your integrations carry over, your data compounds, and your subscription simply scales.',
+      features: ['New Product Adoption', 'Shared Data Layer', 'Subscription Scaling', 'Cross-Product Insights'],
+      icon: '🚀'
     }
   ]
 
@@ -52,10 +52,10 @@ const HowItWorks = () => {
           <div className="text-center mb-20">
             <ScrollReveal baseOpacity={0} enableBlur={true} baseRotation={2} blurStrength={5}>
               <h2 className="text-5xl md:text-6xl font-bold text-navy-900 mb-6">
-                How <span className="gradient-text">It Works</span>
+                How <span className="gradient-text">customers get started.</span>
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Four layers of intelligence working in perfect harmony to transform your business operations.
+                Four steps from first conversation to full deployment — and then continued expansion as your business grows.
               </p>
             </ScrollReveal>
           </div>
@@ -169,18 +169,20 @@ const HowItWorks = () => {
           >
             <div className="glass-dark rounded-2xl p-12 text-white">
               <h3 className="text-3xl font-bold mb-4">
-                Ready to Transform Your Business Intelligence?
+                Ready to get started?
               </h3>
               <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-                See AlgoForce in action. Get a personalized demo and discover revenue leaks you didn't know existed.
+                The first step is a Business Assessment. Our product team will map your operations and recommend exactly which AlgoForce products fit your business — no commitment required.
               </p>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-white text-navy-900 rounded-lg font-semibold text-lg hover:shadow-xl transition-all"
-              >
-                Schedule Demo
-              </motion.button>
+              <a href="/contact">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-8 py-4 bg-white text-navy-900 rounded-lg font-semibold text-lg hover:shadow-xl transition-all"
+                >
+                  Request a Business Assessment
+                </motion.button>
+              </a>
             </div>
           </motion.div>
         </motion.div>

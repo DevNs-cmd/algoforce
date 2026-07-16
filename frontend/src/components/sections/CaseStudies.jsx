@@ -12,42 +12,42 @@ const CaseStudies = () => {
     {
       icon: <FaBuilding className="text-purple-400" />,
       industry: "Manufacturing",
-      title: "Vision AI & Workflow Quality Audit System",
-      problem: "Manual visual verification of manufactured parts was causing bottlenecks and high error rates during peak production cycles.",
-      solution: "Implemented custom Vision AI filters mapping live cameras to n8n automated queues, instantly detecting defects and reporting to Tally Prime.",
-      roi: "42% decrease in Quality Assurance cycle times; 99.8% accuracy in defect logging."
+      title: "FactoryGPT & Workflow Quality Audit",
+      problem: "Manual visual inspection of manufactured components caused production bottlenecks and high defect leakage rates during peak production cycles.",
+      solution: "Implemented FactoryGPT connected to live camera feeds to automate defect detection and synchronize quality metrics with ERP databases.",
+      roi: "42% reduction in defect leakage; 99.8% accuracy in defect logging."
     },
     {
       icon: <FaHeartbeat className="text-purple-400" />,
       industry: "Healthcare",
-      title: "Patient Booking & CRM Integration Pipeline",
-      problem: "Front-desk workers spent 30+ hours weekly manually matching WhatsApp booking messages with Doctor calendars and hospital databases.",
-      solution: "Connected WhatsApp Business API to custom Salesforce tables with automated agent routing, callback triggers, and SMS confirmations.",
-      roi: "30+ administrative hours saved weekly; 92% decrease in booking scheduling friction."
+      title: "Sales Copilot & CRM Integration",
+      problem: "Front-desk staff spent 30+ hours weekly manually coordinating doctor schedules, patient intake notes, and CRM databases.",
+      solution: "Deployed Sales Copilot to automatically handle patient intake, qualify inquiries, and update clinic CRMs in real time.",
+      roi: "30+ administrative hours saved weekly; 92% reduction in schedule coordination delay."
     },
     {
       icon: <FaHotel className="text-purple-400" />,
       industry: "Hotels & Hospitality",
-      title: "AI Booking Assistant & Local Database Sync",
-      problem: "Over 20% of direct reservation queries via WhatsApp and Web Chat failed to close due to delayed staff follow-up replies.",
-      solution: "Deployed 24/7 AI Booking Agents integrated with the hotel PMS database, executing reservation links and answering room queries immediately.",
-      roi: "19% increase in direct booking revenue; zero missed queries during off-business hours."
+      title: "HotelGPT & Booking Operations",
+      problem: "Over 20% of guest reservation queries via messaging channels failed to close due to delayed staff responses.",
+      solution: "Deployed HotelGPT connected to property management systems to handle bookings and answer guest queries 24/7.",
+      roi: "19% increase in direct reservation revenue; zero missed queries during peak hours."
     },
     {
       icon: <FaShoppingBag className="text-purple-400" />,
       industry: "Retail & E-Commerce",
-      title: "Predictive Inventory Sync & Dashboard Console",
-      problem: "Scattered data across offline retail registers and e-commerce warehouses caused constant inventory lag and stockouts.",
-      solution: "Developed unified data integrations connecting Shopify endpoints to legacy Tally ERP databases with real-time forecasting dashboards.",
-      roi: "25% decrease in over-stocking costs; instant sales reconciliations via a central dashboard."
+      title: "Inventory Copilot & ERP Sync",
+      problem: "Scattered data across retail registers and e-commerce warehouses caused constant inventory lag and stockouts.",
+      solution: "Implemented Inventory Copilot to connect Shopify endpoints to legacy Tally ERP databases for real-time inventory matching.",
+      roi: "25% decrease in over-stocking costs; real-time sales reconciliations."
     },
     {
       icon: <FaGraduationCap className="text-purple-400" />,
-      industry: "Education & Corporate Academy",
-      title: "Intelligent Knowledge Management Portal",
-      problem: "Support staff struggled to resolve student curriculum queries due to unstructured data scattered across hundreds of PDFs and videos.",
-      solution: "Built a private, RAG-powered internal assistant mapping curriculum files, enabling tutors to search and retrieve reference details instantly.",
-      roi: "75% faster student support ticket resolution; 100% accurate syllabus extraction."
+      industry: "Corporate & HR Operations",
+      title: "HR Copilot & Knowledge Operating Layer",
+      problem: "Support teams struggled to resolve employee policy and training queries due to unstructured data scattered across PDF files.",
+      solution: "Deployed HR Copilot to serve as an internal knowledge operating layer, enabling instant extraction of HR policies and onboarding steps.",
+      roi: "75% faster internal query resolution; 100% accurate policy answers."
     }
   ]
 
@@ -68,7 +68,7 @@ const CaseStudies = () => {
             Measurable ROI Across <span className="premium-serif italic font-normal text-[#cdb4ff]">Core Industries</span>
           </h3>
           <p className="max-w-xl mx-auto text-slate-400 font-normal text-sm md:text-base mt-4">
-            How we solve complex business problems using custom software integration and automated AI pipelines.
+            How our specialized AI copilots drive efficiency, automate business functions, and deliver operational intelligence.
           </p>
         </motion.div>
 

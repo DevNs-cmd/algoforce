@@ -35,18 +35,18 @@ const pillars = [
 const engines = [
   {
     icon: FaBriefcase,
-    title: "AlgoForce AI Core",
-    text: "Consulting retainers, automation systems, AI workflows, CRM implementation, and custom business platforms.",
+    title: "AlgoForce AI Copilots",
+    text: "Pre-built specialized AI copilots (TallyGPT, LeadBolt, GST Autopilot) automating accounting, sales, and compliance.",
   },
   {
     icon: FaBrain,
-    title: "AlgoForce Labs",
-    text: "Execution-ready builders developed through cohorts, certification programs, apprenticeships, and project-based learning.",
+    title: "AlgoForce Labs Talent",
+    text: "Our Talent Engine training top developers and engineers by building real enterprise AI products.",
   },
   {
     icon: FaGlobe,
-    title: "Founder Ecosystem",
-    text: "Founder support through operating systems, events, demo pathways, and a practical builder community.",
+    title: "Startup Execution OS",
+    text: "Startup Operating System providing founders with tools to validate, build, launch, and scale MVPs.",
   },
 ]
 
@@ -109,10 +109,10 @@ const Founder = () => {
                 <span className="text-[10px] font-semibold uppercase text-slate-500">Meet the Founder</span>
               </div>
               <h1 className="mb-6 max-w-4xl text-[2.5rem] font-semibold leading-[1.03] sm:text-5xl md:text-6xl lg:text-[4.15rem]">
-                Dev N Suman builds <span className="premium-serif italic font-normal text-[#8f38ff]">execution systems</span> for AlgoForce AI.
+                Dev N Suman leads product strategy for <span className="premium-serif italic font-normal text-[#8f38ff]">specialized copilots</span> at AlgoForce.
               </h1>
               <p className="max-w-2xl text-base leading-relaxed text-slate-600 md:text-lg">
-                A focused founder profile for clients, partners, students, and builders who want to understand the person shaping AlgoForce AI across services, Labs, and founder ecosystem initiatives.
+                A profile of the founder shaping AlgoForce's enterprise AI products, Labs talent engine, and Crucible startup operating system.
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -134,7 +134,7 @@ const Founder = () => {
                   to="/contact"
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-[#06101d]/10 bg-white px-6 py-3.5 text-sm font-bold text-[#06101d] transition-all hover:border-[#8f38ff]/40 hover:text-[#8f38ff]"
                 >
-                  Work with AlgoForce <FaArrowRight size={11} />
+                  Request Assessment <FaArrowRight size={11} />
                 </Link>
               </div>
 
@@ -153,8 +153,8 @@ const Founder = () => {
             <p className="mb-3 text-[11px] font-semibold uppercase text-[#8f38ff]">Operating Philosophy</p>
             <h2 className="text-3xl font-semibold md:text-4xl">Leadership with a systems lens</h2>
           </div>
-          <p className="max-w-xl text-sm leading-relaxed text-slate-500 md:text-base">
-            Premium does not mean louder. The founder page now keeps the tone clean, editorial, and business-first.
+          <p className="max-w-xl text-sm leading-relaxed text-slate-500 md:text-base font-normal">
+            We believe operational intelligence is the ultimate lever for growing businesses. Our focus is delivering pre-built enterprise products that drive measurable outcomes.
           </p>
         </div>
 
@@ -221,10 +221,10 @@ const Founder = () => {
           <div className="grid gap-8 md:grid-cols-[0.8fr_1.2fr] md:items-center">
             <div>
               <p className="mb-3 text-[11px] font-semibold uppercase text-purple-300">Signature</p>
-              <h2 className="text-3xl font-semibold leading-tight md:text-4xl">AlgoForce AI</h2>
+              <h2 className="text-3xl font-semibold leading-tight md:text-4xl">AlgoForce</h2>
             </div>
             <p className="text-sm leading-relaxed text-slate-300 md:text-base">
-              A premium execution company focused on systems, talent infrastructure, and disciplined business delivery.
+              An Enterprise AI Products Company building specialized, out-of-the-box copilots for finance, sales, HR, and operations.
             </p>
           </div>
         </div>

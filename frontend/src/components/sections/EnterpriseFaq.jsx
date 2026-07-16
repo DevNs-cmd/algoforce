@@ -5,84 +5,84 @@ import { FaChevronDown } from 'react-icons/fa'
 
 const FAQs = [
   {
-    q: "What does AlgoForce AI do?",
-    a: "AlgoForce AI is a premier Enterprise AI Company in India. We design and build custom AI software, deploy autonomous AI agents, build CRM/ERP integrations, and automate business processes to reduce manual work, eliminate leaks, and drive measurable ROI."
+    q: "What does AlgoForce do?",
+    a: "AlgoForce builds AI software products for business operations. We deploy pre-built AI copilots — like TallyGPT, GST Autopilot, LeadBolt, and HR Copilot — that automate core business functions and run on a monthly subscription model."
   },
   {
-    q: "What is an Enterprise AI Company?",
-    a: "An Enterprise AI Company specializes in designing, building, and integrating custom artificial intelligence systems, databases, and automated workflows directly into business operations to replace manual processes."
+    q: "What kind of company is AlgoForce?",
+    a: "AlgoForce is an AI software company. We build specialized, repeatable AI products designed to run business operations under a subscription model — not custom consulting or agency work."
   },
   {
-    q: "Where is AlgoForce AI headquartered?",
-    a: "AlgoForce AI is headquartered in Kalkaji, South East Delhi, New Delhi - 110019, India. We serve clients across all of India and globally."
+    q: "Where is AlgoForce headquartered?",
+    a: "AlgoForce is headquartered in Kalkaji, South East Delhi, New Delhi - 110019, India. We deploy AI products to businesses across India."
   },
   {
-    q: "Do you offer AI consulting services in India?",
-    a: "Yes, AlgoForce AI is a leading AI Consulting Company in India. We provide strategic generative AI advisory, system architecture design, technology stack mapping, and ROI discovery audits."
+    q: "Do you offer custom software development or consulting?",
+    a: "No. AlgoForce is not an AI consulting agency or software house. Instead, we follow a productized implementation and subscription model: we conduct a Business Assessment to select the right pre-built AI Copilot, implement it for your business, and provide it as an ongoing subscription."
   },
   {
-    q: "How can business process automation reduce manual work?",
-    a: "By automating manual workflows (e.g. using n8n, Make), synchronizing CRM/ERP data, sending auto-replies via WhatsApp, and deploying AI assistants, businesses can eliminate administrative tasks and save hundreds of employee hours."
+    q: "How do specialized AI copilots improve operations?",
+    a: "By deploying specialized copilots for finance, sales, HR, or inventory, businesses can automate administrative tasks, preserve internal memory, sync data in real time, and scale operations without increasing headcount."
   },
   {
-    q: "What are AI agents for business?",
-    a: "AI agents are autonomous software assistants configured to handle complex business operations, such as answering client support tickets, qualifying leads, reading files, and executing API calls without human intervention."
+    q: "What are business AI copilots?",
+    a: "AI copilots are specialized products built to solve one operational business problem (e.g. TallyGPT for accounting, GST Autopilot for tax matching). They integrate with your databases to automate workflows and drive decision-making."
   },
   {
-    q: "How does custom software development benefit SMEs in Delhi?",
-    a: "Custom software development solves specific bottlenecks unique to your business. Unlike generic SaaS subscriptions, it integrates with your existing workflows, carries no per-seat licensing costs, and builds a permanent digital asset."
+    q: "Why should businesses subscribe to an AI operating layer?",
+    a: "Subscribing to our AI operating layer gives your business access to continuously updated, secure, and production-ready AI products with native CRM/ERP integrations, backed by dedicated Customer Success and ongoing renewals."
   },
   {
-    q: "What industries does AlgoForce AI serve?",
-    a: "We build custom systems for Manufacturing, Healthcare, Hotels, Retail, Education, and SMEs. We adapt our enterprise architectures to fit the workflows and regulatory compliance of each industry."
+    q: "What industries does AlgoForce serve?",
+    a: "We build AI products for Manufacturing (FactoryGPT), Hospitality (HotelGPT), Finance (TallyGPT & GST Autopilot), Sales (LeadBolt), HR, and Inventory operations."
   },
   {
-    q: "What is your AI readiness audit?",
-    a: "Our AI readiness audit is a 1-2 week technical evaluation. We map your workflows, detect operational data leaks, assess data readiness, and outline a high-ROI roadmap for deploying automation."
+    q: "What is the Business Assessment?",
+    a: "Our Business Assessment is the first step in our model. We analyze your workflows, identify operational leaks, and recommend the best pre-built AI Copilots to automate your business functions."
   },
   {
-    q: "How do you integrate AI with CRM systems like Salesforce or Zoho?",
-    a: "We connect CRM software via secure webhooks, custom endpoints, and automation middleware. We enable automatic lead scoring, instant WhatsApp updates, database synching, and automated quotation generators."
+    q: "How do your products integrate with CRM systems?",
+    a: "Our products feature built-in connection layers for Salesforce, Zoho, and other CRMs. For example, LeadBolt qualifies leads and updates CRM tables in real time without manual copy-pasting."
   },
   {
-    q: "Can you connect AI systems with legacy ERP systems?",
-    a: "Yes. We design secure database bridges and middleware APIs to interface with legacy ERP software like SAP, Tally, or Microsoft Dynamics, enabling real-time dashboards and automated analytics."
+    q: "Do your products connect with Tally or legacy ERPs?",
+    a: "Yes. Products like TallyGPT and GST Autopilot connect directly with Tally Prime and legacy ERP systems like SAP to reconcile ledgers, match tax credits, and provide real-time dashboards."
   },
   {
-    q: "What is the implementation timeline for custom AI software?",
-    a: "Implementation typically takes 4 to 8 weeks. This includes system mapping, pipeline design, API integration, data testing, user acceptance testing, and team training."
+    q: "What is the timeline for AI Copilot implementation?",
+    a: "Configuration and implementation typically take 4 to 6 weeks. This includes mapping your business rules, connecting the product to your databases, conducting validation runs, and training your team."
   },
   {
-    q: "How does WhatsApp automation improve lead capture?",
-    a: "By using the official WhatsApp Cloud API, we build automated chat engines that interact with incoming leads 24/7, record interest details directly into your CRM, and schedule callback consultations instantly."
+    q: "How does LeadBolt handle customer acquisition?",
+    a: "LeadBolt uses official WhatsApp and web channels to engage incoming leads 24/7, qualify prospect needs, record details directly into your CRM database, and schedule sales meetings autonomously."
   },
   {
-    q: "What are internal AI assistants?",
-    a: "Internal AI assistants are secure, company-hosted chatbots that allow employees to search corporate documentation, HR policies, sales collateral, and past project guidelines securely using RAG technology."
+    q: "What is the HR Copilot?",
+    a: "HR Copilot is a specialized enterprise product that serves as an internal knowledge operating layer, allowing team members to securely extract onboarding info, policies, and files instantly."
   },
   {
-    q: "Is business data secure with AlgoForce AI?",
-    a: "Yes. Data security is our core pillar. We use end-to-end encryption, secure APIs, and can deploy open-source models (like Llama-3 or Mistral) on private self-hosted cloud servers so your data never leaves your control."
+    q: "Is business data secure with AlgoForce products?",
+    a: "Yes. Security and data privacy are core product features. We support secure, self-hosted deployments on your private cloud (AWS, Azure) so your proprietary corporate memory is 100% private."
   },
   {
-    q: "How does AlgoForce AI measure ROI?",
-    a: "We track clear operational metrics: reduction in manual hours, decrease in data entry errors, improvement in response times for customer inquiries, and direct cost savings from replacing legacy per-seat licensing."
+    q: "How does AlgoForce deliver business outcomes?",
+    a: "We focus on operational business outcomes: eliminating manual bookkeeping delays, preventing compliance tax credit leakage, reducing lead response times, and automating routine operations."
   },
   {
-    q: "What is the difference between AlgoForce AI and a traditional software vendor?",
-    a: "Traditional vendors build software specs exactly as written. AlgoForce AI operates as a strategic consulting and engineering partner, evaluating your business leaks, designing workflows, and supporting deployment for measurable ROI."
+    q: "Why subscribe instead of hiring an agency?",
+    a: "Agencies and software houses build custom code from scratch, which is slow and expensive. Subscribing to AlgoForce provides pre-built, tested enterprise AI products that integrate instantly, receive continuous updates, and include dedicated Customer Success."
   },
   {
     q: "What is the role of AlgoForce Labs?",
-    a: "AlgoForce Labs is our Talent Development Division. It trains developers and operational specialists on advanced AI systems and automation tools, creating a continuous talent pool for deployment."
+    a: "AlgoForce Labs is our talent engine. Top developers and product engineers learn by building real enterprise AI products, providing us with a pipeline of deployment-ready talent to support your implementation."
   },
   {
     q: "What is Crucible?",
-    a: "Crucible is our Startup Incubation Platform. It helps early-stage founders scale their workflows, build MVPs, and manage investor relations using structured software and execution routines."
+    a: "Crucible is our Startup Execution Platform. It acts as a Startup Operating System that helps founders validate ideas, build MVPs, launch, find technical teams, and scale real products."
   },
   {
-    q: "How can we book a free AI consultation?",
-    a: "You can book a consultation directly through our contact page by requesting a Discovery Call, AI Assessment, or Enterprise Quote. Our engineering team will reach out within 24 hours to schedule the session."
+    q: "How do we request a Business Assessment?",
+    a: "You can request a Business Assessment through our contact page. Our product team will coordinate with you to evaluate your workflows and identify the right AI Copilot for your business."
   }
 ]
 

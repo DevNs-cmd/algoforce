@@ -2,11 +2,11 @@ import { motion } from 'framer-motion'
 
 const FeatureStrip = () => {
     const features = [
-        "Hands-on Projects",
-        "Live Mentorship",
-        "Industry Workflows",
-        "Certification",
-        "Startup-Oriented Learning"
+        "Academic Partners",
+        "Real Product Builds",
+        "Enterprise Database Sync",
+        "Deployment Credentials",
+        "Startup Operating OS"
     ]
 
     return (

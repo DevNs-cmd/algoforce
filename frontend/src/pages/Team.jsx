@@ -9,7 +9,7 @@ const teamMembers = [
     department: "Leadership",
     location: "New Delhi",
     photo: "",
-    bio: "Building AlgoForce AI as a premium execution company across services, Labs, and founder ecosystem initiatives.",
+    bio: "Building AlgoForce as an Enterprise AI Products Company across specialized copilots, Labs talent engine, and Crucible startup OS.",
     linkedin: "https://www.linkedin.com/in/dev-n-suman-3616a6377/",
     email: "af@algoforceaii.com",
   },
@@ -19,7 +19,7 @@ const teamMembers = [
     department: "Growth & Brand",
     location: "New Delhi",
     photo: "",
-    bio: "Leads brand positioning, campaign strategy, partnerships, community presence, and market communication for AlgoForce AI.",
+    bio: "Leads product positioning, subscription campaigns, collaborations, and market growth for AlgoForce enterprise copilots.",
     linkedin: "https://www.linkedin.com/company/algoforceofficial/",
     email: "af@algoforceaii.com",
   },
@@ -103,10 +103,10 @@ const Team = () => {
   return (
     <main className="min-h-screen bg-[#f7f9fc] text-[#06101d]">
       <Helmet>
-        <title>Meet Our Team - AlgoForce AI</title>
+        <title>Meet Our Team | AlgoForce</title>
         <meta
           name="description"
-          content="Meet the AlgoForce AI team behind consulting, Labs, founder initiatives, operations, and client execution."
+          content="Meet the AlgoForce team behind our specialized AI copilots, Labs talent engine, and Crucible startup execution OS."
         />
         <link rel="canonical" href="https://www.algoforceaii.com/team" />
       </Helmet>
@@ -129,7 +129,7 @@ const Team = () => {
                 <span className="text-[10px] font-semibold uppercase text-slate-500">Meet Our Team</span>
               </div>
               <h1 className="mb-6 max-w-4xl text-[2.55rem] sm:text-5xl md:text-6xl lg:text-[4.75rem] font-bold leading-[1.04]">
-                Meet the people leading AlgoForce AI.
+                Meet the people leading AlgoForce.
               </h1>
             </motion.div>
 
@@ -140,7 +140,7 @@ const Team = () => {
               className="rounded-[28px] border border-[#06101d]/10 bg-white/80 p-6 md:p-8 shadow-[0_24px_70px_rgba(6,47,79,0.08)] backdrop-blur-xl"
             >
               <p className="text-base md:text-lg leading-relaxed text-slate-600">
-                AlgoForce AI is built by a focused team working across strategy, systems, design, operations, Labs, and client delivery.
+                AlgoForce is built by a focused team working across AI product development, database engineering, Labs talent development, and client delivery.
               </p>
               <div className="mt-6 grid grid-cols-3 gap-3 border-t border-[#06101d]/10 pt-6">
                 {[
@@ -227,7 +227,7 @@ const Team = () => {
               <h2 className="text-3xl md:text-4xl font-bold leading-tight">Quiet execution, high standards.</h2>
             </div>
             <p className="text-sm md:text-base leading-relaxed text-slate-300">
-              AlgoForce AI values disciplined communication, dependable delivery, and a high bar for every system, cohort, and client engagement.
+              AlgoForce values disciplined product implementation, high performance metrics, and reliable delivery of specialized copilots.
             </p>
           </div>
         </div>

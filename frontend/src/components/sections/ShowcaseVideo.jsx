@@ -7,23 +7,23 @@ const SHOWCASE_VIDEOS = [
   { 
     id: 0, 
     src: '/video1.mp4', 
-    label: 'Brand Strategy', 
-    title: 'Ecosystem Brand Strategy',
-    description: 'A deep dive into our core brand positioning, incubation framework, and builder network architectures.' 
+    label: 'AI Copilots', 
+    title: 'AI Copilots for Business Operations',
+    description: 'Pre-built AI products that automate finance, sales, HR, and operations. Integrate with your existing databases and run on a monthly subscription.' 
   },
   { 
     id: 1, 
     src: '/video2.mp4', 
-    label: 'Digital Dominant', 
-    title: 'Digital Dominance Engine',
-    description: 'Explore our high-performance marketing funnels, automated growth outreach, and visual campaign modules.' 
+    label: 'LeadBolt & Sales', 
+    title: 'LeadBolt Sales Copilot',
+    description: 'Qualifies leads, updates CRM systems, and schedules follow-up workflows autonomously via WhatsApp and web.' 
   },
   { 
     id: 2, 
     src: '/vecteezy.mp4', 
-    label: 'Ecosystem Stream', 
-    title: 'AlgoForce Core Neural Matrix',
-    description: 'Observe the real-time AI consulting nodes and automated stream workflows that fuel the platform.' 
+    label: 'Talent Engine', 
+    title: 'AlgoForce Labs',
+    description: 'Our engineering community trains and deploys the engineers who build and implement these AI products.' 
   },
 ]
 

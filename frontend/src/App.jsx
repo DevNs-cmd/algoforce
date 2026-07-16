@@ -17,7 +17,7 @@ import Breadcrumbs from './components/common/Breadcrumbs'
 import Home from './pages/Home'
 import Contact from './pages/Contact'
 import About from './pages/About'
-import Services from './pages/Services'
+import Products from './pages/Products'
 
 // ── Lazily-loaded (large bundles or infrequent pages) ──────────────────────────
 const Pricing = lazy(() => import('./pages/Pricing'))
@@ -111,8 +111,10 @@ const AppShell = () => {
         <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/ai-consulting" element={<Services />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/solutions" element={<Products />} />
+            <Route path="/services" element={<Products />} />
+            <Route path="/ai-consulting" element={<Products />} />
             <Route path="/crucible" element={<Crucible />} />
             <Route path="/velqora" element={<Velqora />} />
             <Route path="/about" element={<About />} />

@@ -7,27 +7,27 @@ import { defaultKeywords } from "../seoConfig";
 const ecosystemUnits = [
   {
     icon: <FaBriefcase />,
-    title: "AlgoForce AI",
+    title: "AlgoForce AI Copilots",
     description:
-      "Enterprise AI systems, business process automation, custom database software, CRM/ERP integration, and digital transformation services.",
+      "Specialized out-of-the-box AI copilots (TallyGPT, LeadBolt, GST Autopilot) automating accounting, sales, and compliance operations.",
   },
   {
     icon: <FaRocket />,
-    title: "Crucible",
+    title: "Crucible Platform",
     description:
-      "Our Startup Incubation Platform, helping early-stage founders validate concepts, build functional MVPs, and track execution milestones.",
+      "Our Startup Execution Platform, providing a Startup Operating System to validate concepts, build MVPs, and scale products.",
   },
   {
     icon: <FaBrain />,
-    title: "AlgoForce Labs",
+    title: "AlgoForce Labs Talent",
     description:
-      "Our Talent Development Division, training developers and automation builders to maintain custom enterprise integrations and pipelines.",
+      "Our Talent Engine, where students learn by building real enterprise products to become deployment-ready engineers.",
   },
   {
     icon: <FaMusic />,
-    title: "Velqora",
+    title: "Velqora Operating System",
     description:
-      "A specialized operating system for performers, musicians, and live entertainment organizers to automate bookings and contracts.",
+      "A specialized operational OS for live entertainment organizers, automation of bookings, and contract workflows.",
   },
 ];
 
@@ -35,14 +35,14 @@ const WhatIsAlgoForce = () => {
   return (
     <main className="min-h-screen bg-[#020205] text-white pt-32 pb-20 selection:bg-purple-500/30">
       <Helmet>
-        <title>What is AlgoForce AI? | Execution Infrastructure Ecosystem</title>
+        <title>What is AlgoForce? | Enterprise AI Products Ecosystem</title>
         <meta
           name="description"
-          content="AlgoForce AI is an execution infrastructure ecosystem connecting enterprise AI, Crucible startup OS, AlgoForce Labs talent infrastructure, and Velqora entertainment technology."
+          content="AlgoForce is an Enterprise AI Products Company. Discover our specialized copilots, Crucible Startup OS, and Labs Talent Engine."
         />
         <meta
           name="keywords"
-          content={`${defaultKeywords}, what is AlgoForce AI, execution infrastructure ecosystem, Crucible startup OS, Velqora entertainment OS, AlgoForce business model`}
+          content={`${defaultKeywords}, what is AlgoForce, enterprise AI products, specialized copilots, Crucible Startup OS, Labs Talent Engine`}
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.algoforceaii.com/what-is-algoforce" />
@@ -55,10 +55,10 @@ const WhatIsAlgoForce = () => {
               Master Ecosystem
             </p>
             <h1 className="mb-8 text-5xl font-black leading-tight tracking-tight md:text-7xl">
-              What is AlgoForce AI?
+              What is AlgoForce?
             </h1>
             <p className="mx-auto max-w-3xl text-lg font-medium leading-8 text-gray-400 md:text-xl">
-              AlgoForce AI delivers custom enterprise AI systems, database software, and workflow automation, backed by our dedicated talent division and incubation ecosystem.
+              AlgoForce is an Enterprise AI Products Company. We build specialized, out-of-the-box AI copilots for business functions on a monthly subscription model.
             </p>
           </motion.div>
         </header>
@@ -86,7 +86,7 @@ const WhatIsAlgoForce = () => {
             Your Ambition Deserves Infrastructure
           </h2>
           <p className="mx-auto mb-8 max-w-2xl leading-7 text-gray-400">
-            Book a free AI Readiness Audit, explore our custom software solutions, or request an enterprise systems quote.
+            Book a Business Assessment, explore our specialized AI copilots, and activate your monthly subscription.
           </p>
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <Link

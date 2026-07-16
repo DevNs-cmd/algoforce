@@ -1,235 +1,152 @@
 import SeoHead from "../components/common/SeoHead"
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import {
     FaArrowRight,
-    FaAws,
     FaBrain,
     FaBriefcase,
-    FaChartBar,
-    FaCheck,
     FaCode,
     FaDatabase,
-    FaDocker,
-    FaFileExcel,
     FaGithub,
     FaGlobe,
     FaGraduationCap,
-    FaHtml5,
-    FaJava,
-    FaJs,
     FaKeyboard,
     FaLayerGroup,
     FaMapMarkerAlt,
-    FaNodeJs,
     FaPhoneAlt,
-    FaPython,
-    FaReact,
     FaRocket,
     FaTimes,
     FaWhatsapp,
+    FaCheck,
+    FaMicrochip,
+    FaSearch
 } from 'react-icons/fa'
-import { SiC, SiCplusplus, SiFirebase, SiMongodb } from 'react-icons/si'
 import OptimizedVideo from '../components/common/OptimizedVideo'
 
-const SECTIONS = {
-    mega: [
+const TABS = [
+    { id: 'programs', label: 'Programs', title: 'Cohort Programs', text: 'Guided cohorts for next-generation systems engineers to transition from academic logic into real product engineering.' },
+    { id: 'tracks', label: 'Engineering Tracks', title: 'Production Engineering Tracks', text: 'Specialized deep-dives into LLM architectures, pipeline orchestrations (n8n/Make), and legacy database integrations.' },
+    { id: 'internships', label: 'Internships', title: 'Ecosystem Internships', text: 'Structured placements inside our enterprise deployment teams, working directly with client software environments.' },
+    { id: 'projects', label: 'Open Projects', title: 'Ecosystem Contributions', text: 'Active repository challenges where students contribute features, connectors, and tools directly to enterprise-ready products.' },
+    { id: 'research', label: 'Research & Studies', title: 'AI Systems Research', text: 'Technical writeups on local database integrations, secure self-hosted LLM configurations, and vision AI metrics.' },
+    { id: 'community', label: 'Community', title: 'Talent Community', text: 'A network of engineers from top colleges collaborating on events, validation challenges, and production engineering.' },
+]
+
+const LABS_DATA = {
+    programs: [
         {
-            title: 'AI Systems & Operational Automation for Leaders',
-            description: '8-week cohort for founders and executives integrating AI systems to optimize scale and operations.',
-            price: 'Rs 15,000',
-            originalPrice: 'Rs 45,000',
-            label: 'Popular',
+            title: 'AI Systems & Operational Automation',
+            description: '8-week cohort for advanced developers building process automations and operational integrations.',
             icon: FaGraduationCap,
             color: '#8f38ff',
-            features: ['AI Systems Architecture', 'Business Process Automation', 'Operational Integration', 'Capstone Implementation'],
+            features: ['AI Systems Architecture', 'Business Process Automation', 'Operational Integration', 'Live Capstone Projects'],
+            ctaText: 'Apply to Program'
         },
+        {
+            title: 'Automation Infrastructure Program',
+            description: '10-week cohort for operations and technology builders designing automated pipelines and integrations.',
+            icon: FaBrain,
+            color: '#7aa7c7',
+            features: ['Intelligent Workflows', 'Prompt & Agent Orchestration', 'n8n & Make Infrastructure', 'Validation Runs'],
+            ctaText: 'Apply to Program'
+        }
+    ],
+    tracks: [
         {
             title: 'AI Systems Architect & Engineering Track',
-            description: '16-week advanced program for engineers deploying production-grade AI systems.',
-            price: 'Rs 35,000',
-            originalPrice: 'Rs 75,000',
-            label: 'Trending',
+            description: 'Advanced production-grade learning track focusing on custom model fine-tuning and API gateways.',
             icon: FaCode,
-            color: '#7aa7c7',
-            features: ['Custom AI Architectures', 'Secure Cloud Integration', 'Workflow Orchestration', 'Operational Dashboards'],
-        },
-        {
-            title: 'Operational Intelligence & AI Systems',
-            description: '12-week track for data teams building advanced analytics infrastructure and real-time execution dashboards.',
-            price: 'Rs 25,000',
-            originalPrice: 'Rs 60,000',
-            label: 'High ROI',
-            icon: FaChartBar,
             color: '#b783ff',
-            features: ['Operational Intelligence Dashboards', 'Data Infrastructure', 'Predictive Decision Engines', 'Intelligent Reporting'],
+            features: ['Custom AI Architectures', 'Secure Cloud Integration', 'Workflow Orchestration', 'Operational Dashboards'],
+            ctaText: 'Explore Track'
         },
         {
-            title: 'Enterprise Automation Infrastructure Specialist',
-            description: '14-week cohort for operations and technology teams designing enterprise automated workflows.',
-            price: 'Rs 30,000',
-            originalPrice: 'Rs 65,000',
-            label: 'Advanced',
-            icon: FaBrain,
+            title: 'Data & Database Connector Engineering',
+            description: 'Specialized track for syncing structured data layers like Tally ERP, SAP, PostgreSQL, and Oracle.',
+            icon: FaDatabase,
             color: '#8f38ff',
-            features: ['Intelligent Workflows', 'Prompt & Agent Orchestration', 'Advanced n8n & Make Infrastructure', 'Systemic Operational Delivery'],
-        },
+            features: ['Database Schema Mapping', 'ERP Sync Architecture', 'Secure API Integration', 'Data Warehousing'],
+            ctaText: 'Explore Track'
+        }
     ],
-    mini: [
-        { title: 'Low-Code Systems & Operations Builder', description: '6-week bootcamp for non-technical operations builders.', price: 'Rs 10,000', originalPrice: 'Rs 25,000', label: 'Bootcamp', icon: FaKeyboard, color: '#8f38ff' },
-        { title: 'AI-Led Operational Growth Systems', description: '10-week cohort for automated distribution and analytics funnels.', price: 'Rs 18,000', originalPrice: 'Rs 40,000', label: 'Growth', icon: FaGlobe, color: '#7aa7c7' },
-        { title: 'Python & SQL Data Infrastructure', description: 'Data engineering foundations for custom database systems.', price: 'Rs 12,000', originalPrice: 'Rs 30,000', label: 'Data', icon: FaPython, color: '#b783ff' },
-        { title: 'Operational Intelligence & Reporting', description: 'Business analytics platforms with custom reporting.', price: 'Rs 9,000', originalPrice: 'Rs 22,000', label: 'Analytics', icon: FaFileExcel, color: '#8f38ff' },
-        { title: 'Agentic Orchestration & Workflows', description: 'Deploying autonomous agents, prompts, and orchestration workflows.', price: 'Rs 15,000', originalPrice: 'Rs 35,000', label: 'Workflow', icon: FaBrain, color: '#7aa7c7' },
-    ],
-    single: {
-        Programming: [
-            { name: 'Systems Logic & C', price: 'Rs 999', icon: SiC, color: '#8f38ff' },
-            { name: 'Advanced Logic in C++', price: 'Rs 1,499', icon: SiCplusplus, color: '#8f38ff' },
-            { name: 'Java Core Systems', price: 'Rs 1,999', icon: FaJava, color: '#8f38ff' },
-            { name: 'Python Pro Automation', price: 'Rs 1,999', icon: FaPython, color: '#8f38ff' },
-        ],
-        Development: [
-            { name: 'HTML & CSS Layouts', price: 'Rs 999', icon: FaHtml5, color: '#7aa7c7' },
-            { name: 'JavaScript Logic', price: 'Rs 1,499', icon: FaJs, color: '#7aa7c7' },
-            { name: 'React UI Systems', price: 'Rs 2,499', icon: FaReact, color: '#7aa7c7' },
-            { name: 'Node.js Core Integration', price: 'Rs 2,499', icon: FaNodeJs, color: '#7aa7c7' },
-        ],
-        Cloud: [
-            { name: 'AWS Cloud Infrastructure', price: 'Rs 1,499', icon: FaAws, color: '#b783ff' },
-            { name: 'Docker & Kubernetes', price: 'Rs 2,499', icon: FaDocker, color: '#b783ff' },
-            { name: 'Git & Version Workflows', price: 'Rs 999', icon: FaGithub, color: '#b783ff' },
-        ],
-        Database: [
-            { name: 'SQL Database Systems', price: 'Rs 1,499', icon: FaDatabase, color: '#8f38ff' },
-            { name: 'MongoDB Data Stores', price: 'Rs 1,999', icon: SiMongodb, color: '#8f38ff' },
-            { name: 'Firebase Operations', price: 'Rs 1,499', icon: SiFirebase, color: '#8f38ff' },
-        ],
-    },
-    premium: [
+    internships: [
         {
-            title: 'Elite Systems Deployment Apprenticeship',
-            description: 'For top performers moving into custom implementation and enterprise infrastructure systems.',
-            price: 'Rs 50,000',
-            originalPrice: 'Rs 95,000',
-            label: 'Premium',
-            icon: FaRocket,
-            color: '#8f38ff',
-            features: ['Client systems projects', 'Enterprise case studies', 'Deployment mentorship', 'Implementation network'],
-        },
+            title: 'AI Deployment Internship',
+            description: 'Hands-on roles deploying and maintaining specialized AI copilots on-site and inside private clouds.',
+            icon: FaBriefcase,
+            color: '#7aa7c7',
+            features: ['Database integration support', 'Model compliance checking', 'UAT testing runs', 'Client support coordination'],
+            ctaText: 'Apply for Internship'
+        }
     ],
+    projects: [
+        {
+            title: 'Tally ERP Connector Bridge',
+            description: 'Open connector framework enabling safe local SQL queries and XML data extraction from legacy ERPs.',
+            icon: FaGithub,
+            color: '#b783ff',
+            features: ['Local Service Sync', 'XML parsing optimization', 'Read-only access keys', 'Anonymization layer'],
+            ctaText: 'Contribute on GitHub'
+        },
+        {
+            title: 'Unified Lead Qualification Agent',
+            description: 'Modular conversational AI node template optimized for fast customer validation loops.',
+            icon: FaGithub,
+            color: '#8f38ff',
+            features: ['Official WhatsApp API connector', 'CRM mapping schemas', 'Intake state machine', 'Multi-language support'],
+            ctaText: 'Contribute on GitHub'
+        }
+    ],
+    research: [
+        {
+            title: 'Evaluating Private Cloud LLMs for ERP Data',
+            description: 'A study on data leakage prevention and memory retention across local Llama 3 deployments.',
+            icon: FaMicrochip,
+            color: '#7aa7c7',
+            features: ['VPC security blueprints', 'Latency optimization tables', 'Token-usage metrics', 'Privacy benchmarks'],
+            ctaText: 'Read Technical Paper'
+        },
+        {
+            title: 'Vision AI Benchmarks in Manufacturing',
+            description: 'Analyzing latency and accuracy variables on edge edge-compute servers for quality inspection.',
+            icon: FaSearch,
+            color: '#b783ff',
+            features: ['Edge hardware tests', 'PLC trigger speeds', 'Defect logging algorithms', 'Anomaly maps'],
+            ctaText: 'Read Research Paper'
+        }
+    ],
+    community: [
+        {
+            title: 'AlgoForce Engineering Club',
+            description: 'Connecting top builders from India\'s next generation of engineers in weekly hack sessions.',
+            icon: FaGlobe,
+            color: '#8f38ff',
+            features: ['Weekly code hackathons', 'Discord tech channels', 'Founder office hours', 'Early product access'],
+            ctaText: 'Join Community'
+        }
+    ]
 }
-
-const tabs = [
-    { id: 'single', label: 'Individual', title: 'Focused individual courses', text: 'Short, practical modules for builders who want one capability at a time without a long cohort commitment.' },
-    { id: 'mini', label: 'Mini Special', title: 'Bootcamps for applied capability', text: 'Compact programs for operators, students, and professionals who want guided delivery and portfolio proof.' },
-    { id: 'mega', label: 'Mega Combos', title: 'Cohorts for systems execution', text: 'Multi-week tracks for leaders, engineering teams, and operators building production-grade automation workflows.' },
-    { id: 'premium', label: 'Elite Track', title: 'Apprenticeship with deployment depth', text: 'A premium pathway for top performers moving toward real implementation work and client-ready delivery habits.' },
-]
 
 const CONTACT_NUMBER = "918448947436"
 
 const Labs = () => {
-    const [activeTab, setActiveTab] = useState('single')
-    const [contactCourse, setContactCourse] = useState(null)
+    const [activeTab, setActiveTab] = useState('programs')
+    const [selectedItem, setSelectedItem] = useState(null)
 
-    const stats = useMemo(() => {
-        const individual = Object.values(SECTIONS.single).flat().length
-        const cohortTracks = SECTIONS.mini.length + SECTIONS.mega.length + SECTIONS.premium.length
-        return [
-            ['1 Lakh+', 'Trained'],
-            [String(individual + cohortTracks), 'Programs'],
-        ]
-    }, [])
+    const activeTrack = TABS.find((tab) => tab.id === activeTab) || TABS[0]
+    const activeItems = LABS_DATA[activeTab] || []
 
-    const activeTrack = tabs.find((tab) => tab.id === activeTab) || tabs[0]
-
-    const activeCourses = useMemo(() => {
-        if (activeTab === 'single') {
-            return Object.entries(SECTIONS.single).flatMap(([category, courses]) =>
-                courses.map((course) => ({
-                    ...course,
-                    title: course.name,
-                    category,
-                    description: `${category} foundation module with guided practice, exercises, and implementation focus.`,
-                }))
-            )
-        }
-
-        return SECTIONS[activeTab]
-    }, [activeTab])
-
-    const openWhatsApp = (courseTitle) => {
-        const msg = encodeURIComponent(`Hi, I'm interested in enrolling for the ${courseTitle} at AlgoForce Labs. Please share more details.`)
+    const openWhatsApp = (title) => {
+        const msg = encodeURIComponent(`Hi, I'm interested in ${title} at AlgoForce Labs. Please share details.`)
         window.open(`https://wa.me/${CONTACT_NUMBER}?text=${msg}`, '_blank')
-    }
-
-    const callOwner = () => {
-        window.location.href = `tel:${CONTACT_NUMBER}`
-    }
-
-    const CourseCard = ({ item, index }) => {
-        const Icon = item.icon
-        const title = item.title || item.name
-
-        return (
-            <motion.article
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ delay: Math.min(index * 0.035, 0.18) }}
-                className="group flex h-full flex-col rounded-[22px] border border-[#06101d]/10 bg-white p-5 shadow-[0_20px_55px_rgba(6,47,79,0.07)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_80px_rgba(6,47,79,0.12)] md:p-6"
-            >
-                <div className="mb-5 flex items-start justify-between gap-4">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-[#06101d]/10 bg-[#f7f9fc]" style={{ color: item.color }}>
-                        {Icon && <Icon className="text-xl" />}
-                    </div>
-                    <span className="rounded-full border border-[#06101d]/10 bg-[#f7f9fc] px-3 py-1 text-[10px] font-semibold uppercase text-slate-500">
-                        {item.label || item.category || 'Labs'}
-                    </span>
-                </div>
-
-                <h3 className="mb-3 text-xl font-semibold leading-tight text-[#06101d]">
-                    {title}
-                </h3>
-                {item.description && (
-                    <p className="mb-6 text-sm leading-relaxed text-slate-600">{item.description}</p>
-                )}
-
-                <div className="mb-7 flex flex-wrap gap-2">
-                    {(item.features || ['Guided practice', 'Portfolio-ready', 'Certificate path']).slice(0, 4).map((feature) => (
-                        <span key={feature} className="inline-flex items-center gap-2 rounded-full border border-[#06101d]/10 bg-[#f7f9fc] px-3 py-1.5 text-[11px] font-semibold text-slate-500">
-                            <FaCheck size={9} className="text-[#8f38ff]" />
-                            {feature}
-                        </span>
-                    ))}
-                </div>
-
-                <div className="mt-auto flex items-end justify-between gap-4 border-t border-[#06101d]/10 pt-5">
-                    <div>
-                        {item.originalPrice && (
-                            <p className="mb-1 text-[11px] font-semibold uppercase text-slate-400 line-through">
-                                {item.originalPrice}
-                            </p>
-                        )}
-                        <p className="text-2xl font-bold" style={{ color: item.color }}>{item.price}</p>
-                    </div>
-                    <button
-                        onClick={() => setContactCourse({ ...item, title })}
-                        className="inline-flex items-center gap-2 rounded-full bg-[#06101d] px-5 py-3 text-xs font-bold text-white transition-all hover:bg-[#102640]"
-                    >
-                        Enroll <FaArrowRight size={10} />
-                    </button>
-                </div>
-            </motion.article>
-        )
     }
 
     return (
         <main className="min-h-screen bg-[#f7f9fc] text-[#06101d]">
             <SeoHead path="/labs" />
 
+            {/* Hero Section */}
             <section className="relative overflow-hidden border-b border-[#06101d]/8 bg-white pt-32 pb-14 md:pt-36 md:pb-20">
                 <div className="absolute inset-0 pointer-events-none">
                     <div className="absolute top-[-12rem] right-[-8rem] h-[28rem] w-[28rem] rounded-full bg-[#8f38ff]/10 blur-[90px]" />
@@ -247,19 +164,22 @@ const Labs = () => {
                                 <span className="h-1.5 w-1.5 rounded-full bg-[#8f38ff]" />
                                 <span className="text-[10px] font-semibold uppercase text-slate-500">AlgoForce Labs</span>
                             </div>
-                            <h1 className="mb-6 max-w-4xl text-[2.45rem] font-semibold leading-[1.03] sm:text-5xl md:text-6xl lg:text-[4.1rem]">
-                                Labs for <span className="premium-serif italic font-normal text-[#8f38ff]">execution-ready</span> builders.
+                            <h1 className="mb-6 max-w-4xl text-[2.45rem] font-semibold leading-[1.03] sm:text-5xl md:text-6xl lg:text-[4.1rem] tracking-tight">
+                                Our engineering and <span className="premium-serif italic font-normal text-[#8f38ff]">talent ecosystem.</span>
                             </h1>
-                            <p className="max-w-2xl text-base leading-relaxed text-slate-600 md:text-lg">
-                                Cohorts, bootcamps, and focused modules built for practical systems capability, portfolio proof, and confident delivery.
+                            <p className="max-w-2xl text-base leading-relaxed text-slate-600 md:text-lg font-normal">
+                                AlgoForce Labs is our engineering and talent ecosystem. Students contribute to real enterprise AI products. Learning happens through production engineering.
                             </p>
+                            
                             <div className="mt-8 grid max-w-xl grid-cols-2 gap-3">
-                                {stats.map(([value, label]) => (
-                                    <div key={label} className="rounded-2xl border border-[#06101d]/10 bg-[#f7f9fc] p-4">
-                                        <div className="text-2xl font-bold text-[#06101d]">{value}</div>
-                                        <div className="mt-1 text-[10px] font-semibold uppercase text-slate-400">{label}</div>
-                                    </div>
-                                ))}
+                                <div className="rounded-2xl border border-[#06101d]/10 bg-[#f7f9fc] p-4 text-center">
+                                    <div className="text-2xl font-bold text-[#06101d]">1000+</div>
+                                    <div className="mt-1 text-[10px] font-semibold uppercase text-slate-400">Engineers Trained</div>
+                                </div>
+                                <div className="rounded-2xl border border-[#06101d]/10 bg-[#f7f9fc] p-4 text-center">
+                                    <div className="text-2xl font-bold text-[#06101d]">24</div>
+                                    <div className="mt-1 text-[10px] font-semibold uppercase text-slate-400">Learning Programs</div>
+                                </div>
                             </div>
                         </motion.div>
 
@@ -280,10 +200,10 @@ const Labs = () => {
                                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,16,29,0.04),rgba(6,16,29,0.68))]" />
                                 <div className="absolute left-5 right-5 bottom-5 text-white">
                                     <p className="mb-2 text-[10px] font-semibold uppercase text-white/70">Labs Operating Model</p>
-                                    <h2 className="text-2xl font-semibold md:text-3xl">Coursework that points to deployment.</h2>
+                                    <h2 className="text-2xl font-semibold md:text-3xl tracking-tight">Ecosystem driven by production engineering.</h2>
                                 </div>
                             </div>
-                            <div className="mt-5 flex items-start gap-3 text-sm font-semibold text-slate-500">
+                            <div className="mt-5 flex items-start gap-3 text-sm font-semibold text-slate-500 justify-center">
                                 <FaMapMarkerAlt className="mt-0.5 text-[#8f38ff]" />
                                 <span>Office: South Delhi, Kalkaji, New Delhi 110019</span>
                             </div>
@@ -292,173 +212,123 @@ const Labs = () => {
                 </div>
             </section>
 
-        {/* Webinar Promo Section */}
-        <section className="mx-auto max-w-7xl px-5 pt-14 pb-4 sm:px-6 md:pt-20 md:pb-6">
-            <motion.div
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                onClick={() => {
-                    const message = `Hello AlgoForce Team,
-
-I would like to register for the AI, Careers & Future of Work 2026 Webinar.
-
-Name:
-College:
-Year:
-City:
-
-Please share the webinar joining details.
-
-Thank you.`;
-                    const encodedMessage = encodeURIComponent(message);
-                    window.open(`https://wa.me/918448947436?text=${encodedMessage}`, '_blank', 'noopener,noreferrer');
-                }}
-                className="group relative overflow-hidden rounded-[30px] border border-[#06101d]/10 bg-white p-6 sm:p-8 md:p-10 shadow-[0_24px_70px_rgba(6,47,79,0.08)] hover:shadow-[0_28px_80px_rgba(6,47,79,0.12)] transition-all duration-300 flex flex-col md:flex-row gap-8 items-center cursor-pointer"
-            >
-                {/* Left: Poster Image */}
-                <div className="relative w-48 sm:w-56 md:w-64 aspect-[3/4.2] overflow-hidden rounded-2xl border border-[#06101d]/10 bg-white flex-shrink-0 flex items-center justify-center">
-                    <img
-                        src="/poster-ai.png"
-                        alt="Webinar Poster"
-                        className="w-full h-full object-contain select-none transition-transform duration-500 group-hover:scale-105"
-                        loading="lazy"
-                    />
-                </div>
-
-                {/* Right: Copy & Highlights */}
-                <div className="flex-1 text-left">
-                    {/* Badge */}
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold tracking-wide rounded-full bg-[#8f38ff]/10 text-[#8f38ff] border border-[#8f38ff]/20 mb-4">
-                        🔥 Exclusive Live Session
-                    </div>
-
-                    {/* Title */}
-                    <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#06101d] mb-3 leading-tight">
-                        AI, Careers & The Future of Work 2026
-                    </h2>
-
-                    {/* Host Info */}
-                    <p className="text-sm font-semibold text-slate-500 mb-4">
-                        Hosted By <span className="text-[#06101d] font-bold">Dev N Suman</span> (Founder & CEO, AlgoForce AI)
-                    </p>
-
-                    {/* Description */}
-                    <p className="text-sm leading-relaxed text-slate-600 mb-5 max-w-2xl">
-                        Discover how AI is transforming careers, businesses, and the future of work. Learn Prompt Engineering, AI Workflows, ChatGPT, Claude, Gemini, Automation Systems, and future-ready skills.
-                    </p>
-
-                    {/* Highlights Grid */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 max-w-xl">
-                        {[
-                            'ChatGPT vs Claude vs Gemini',
-                            'Prompt Engineering Frameworks',
-                            'AI Career Opportunities',
-                            'Automation & Productivity Systems',
-                            'Future Skills for 2026+'
-                        ].map((item, idx) => (
-                            <div key={idx} className="flex items-center gap-2 text-xs text-slate-600">
-                                <span className="w-5 h-5 rounded-full bg-[#8f38ff]/10 border border-[#8f38ff]/20 flex items-center justify-center flex-shrink-0">
-                                    <FaCheck size={8} className="text-[#8f38ff]" />
-                                </span>
-                                <span>{item}</span>
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* Action details */}
-                    <div className="flex flex-wrap items-center gap-4 border-t border-[#06101d]/10 pt-5 mt-4">
-                        <button
-                            className="inline-flex items-center gap-2 rounded-full bg-[#8f38ff] hover:bg-[#7829df] px-6 py-3.5 text-xs font-bold text-white transition-all shadow-[0_8px_20px_rgba(143,56,255,0.25)] hover:shadow-[0_8px_25px_rgba(143,56,255,0.4)]"
-                        >
-                            <FaWhatsapp size={14} /> Reserve My Seat via WhatsApp
-                        </button>
-                        <span className="text-xs text-slate-400">2500+ Applicants Already Registered</span>
-                    </div>
-                </div>
-            </motion.div>
-        </section>
-
+            {/* Labs Directory and Cards */}
             <section className="mx-auto max-w-7xl px-5 py-14 sm:px-6 md:py-20">
                 <div className="grid gap-8 lg:grid-cols-[320px_minmax(0,1fr)] lg:items-start">
+                    
+                    {/* Sidebar Navigator */}
                     <aside className="rounded-[30px] border border-[#06101d]/10 bg-white p-4 shadow-[0_24px_70px_rgba(6,47,79,0.08)] md:p-5">
-                        <p className="mb-3 px-2 text-[11px] font-semibold uppercase text-[#8f38ff]">Track Selector</p>
+                        <p className="mb-3 px-2 text-[11px] font-semibold uppercase text-[#8f38ff]">Directory</p>
                         <div className="grid gap-2">
-                            {tabs.map((tab) => (
+                            {TABS.map((tab) => (
                                 <button
                                     key={tab.id}
                                     onClick={() => setActiveTab(tab.id)}
-                                    className={`rounded-[18px] px-4 py-4 text-left text-sm font-bold transition-all ${activeTab === tab.id ? 'bg-[#06101d] text-white shadow-[0_14px_32px_rgba(6,16,29,0.18)]' : 'bg-[#f7f9fc] text-slate-500 hover:text-[#06101d]'}`}
+                                    className={`rounded-[18px] px-4 py-4 text-left text-sm font-bold transition-all ${
+                                        activeTab === tab.id 
+                                            ? 'bg-[#06101d] text-white shadow-[0_14px_32px_rgba(6,16,29,0.18)]' 
+                                            : 'bg-[#f7f9fc] text-slate-500 hover:text-[#06101d]'
+                                    }`}
                                 >
                                     {tab.label}
                                 </button>
                             ))}
-                            <Link
-                                to="/pricing"
-                                className="mt-2 rounded-[18px] px-4 py-4 text-sm font-bold transition-all bg-[#8f38ff]/10 text-[#8f38ff] hover:bg-[#8f38ff]/20 flex items-center justify-between border border-[#8f38ff]/20"
-                            >
-                                <span className="flex-1 text-center">View Pricing</span>
-                                <FaArrowRight size={10} />
-                            </Link>
                         </div>
                     </aside>
 
+                    {/* Content Section */}
                     <div>
                         <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
                             <div>
-                                <p className="mb-3 text-[11px] font-semibold uppercase text-[#8f38ff]">Course Directory</p>
-                                <h2 className="text-3xl font-semibold md:text-4xl">{activeTrack.title}</h2>
+                                <p className="mb-3 text-[11px] font-semibold uppercase text-[#8f38ff]">Ecosystem Registry</p>
+                                <h2 className="text-3xl font-semibold md:text-4xl tracking-tight">{activeTrack.title}</h2>
                             </div>
-                            <p className="max-w-xl text-sm leading-relaxed text-slate-500 md:text-base">
+                            <p className="max-w-xl text-sm leading-relaxed text-slate-500 md:text-base font-normal">
                                 {activeTrack.text}
                             </p>
                         </div>
 
+                        {/* Cards Grid */}
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={activeTab}
                                 initial={{ opacity: 0, y: 18 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -18 }}
-                                className={`grid gap-5 ${activeTab === 'single' ? 'md:grid-cols-2 xl:grid-cols-3' : 'md:grid-cols-2 xl:grid-cols-3'}`}
+                                className="grid gap-5 md:grid-cols-2 xl:grid-cols-3"
                             >
-                                {activeCourses.map((item, index) => (
-                                    <CourseCard key={`${item.title}-${item.category || item.label || index}`} item={item} index={index} />
-                                ))}
+                                {activeItems.map((item, index) => {
+                                    const Icon = item.icon
+                                    return (
+                                        <motion.article
+                                            key={item.title}
+                                            initial={{ opacity: 0, y: 20 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            viewport={{ once: true, margin: "-80px" }}
+                                            transition={{ delay: Math.min(index * 0.035, 0.18) }}
+                                            className="group flex h-full flex-col rounded-[22px] border border-[#06101d]/10 bg-white p-5 shadow-[0_20px_55px_rgba(6,47,79,0.07)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_80px_rgba(6,47,79,0.12)] md:p-6 justify-between"
+                                        >
+                                            <div>
+                                                <div className="mb-5 flex items-start justify-between gap-4">
+                                                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-[#06101d]/10 bg-[#f7f9fc]" style={{ color: item.color }}>
+                                                        {Icon && <Icon className="text-xl" />}
+                                                    </div>
+                                                    <span className="rounded-full border border-[#06101d]/10 bg-[#f7f9fc] px-3 py-1 text-[10px] font-semibold uppercase text-slate-500">
+                                                        {activeTab}
+                                                    </span>
+                                                </div>
+
+                                                <h3 className="mb-3 text-xl font-semibold leading-tight text-[#06101d] tracking-tight">
+                                                    {item.title}
+                                                </h3>
+                                                <p className="mb-6 text-sm leading-relaxed text-slate-600 font-normal">{item.description}</p>
+
+                                                <div className="mb-7 flex flex-wrap gap-2">
+                                                    {item.features.map((feature) => (
+                                                        <span key={feature} className="inline-flex items-center gap-2 rounded-full border border-[#06101d]/10 bg-[#f7f9fc] px-3 py-1.5 text-[11px] font-semibold text-slate-500">
+                                                            <FaCheck size={9} className="text-[#8f38ff]" />
+                                                            {feature}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </div>
+
+                                            <div className="mt-auto flex items-center justify-between gap-4 border-t border-[#06101d]/10 pt-5">
+                                                <span className="text-[10px] font-bold uppercase text-slate-400 tracking-wider">Production Focus</span>
+                                                <button
+                                                    onClick={() => setSelectedItem(item)}
+                                                    className="inline-flex items-center gap-2 rounded-full bg-[#06101d] px-5 py-3 text-xs font-bold text-white transition-all hover:bg-[#102640] focus:outline-none"
+                                                >
+                                                    {item.ctaText || 'Learn More'} <FaArrowRight size={10} />
+                                                </button>
+                                            </div>
+                                        </motion.article>
+                                    )
+                                })}
                             </motion.div>
                         </AnimatePresence>
-
-                        <div className="mt-8 text-center bg-white border border-[#06101d]/10 rounded-[22px] p-6 shadow-[0_10px_35px_rgba(6,47,79,0.03)]">
-                            <p className="text-sm font-semibold text-slate-600">
-                                Need custom team training or corporate programs?{' '}
-                                <Link to="/contact" className="font-bold text-[#8f38ff] underline hover:text-[#06101d] transition-colors">
-                                    Contact our enterprise team
-                                </Link>
-                            </p>
-                        </div>
                     </div>
                 </div>
             </section>
 
-
-
+            {/* Collaborations Info Section */}
             <section className="mx-auto max-w-7xl px-5 pb-16 sm:px-6 md:pb-24">
                 <div className="grid gap-6 md:grid-cols-3">
                     {[
                         {
                             icon: FaLayerGroup,
-                            title: 'Structured Pathways',
-                            text: 'Tracks are grouped by outcome, so students can move from foundations to cohort depth without confusion.',
+                            title: 'Academic Collaborations',
+                            text: 'We collaborate with student communities from leading institutions (IITs, NITs, BITS, and top universities) to source elite technical minds.',
                         },
                         {
                             icon: FaBriefcase,
-                            title: 'Professional Output',
-                            text: 'Every course is framed around useful work: dashboards, automations, systems logic, and implementation confidence.',
+                            title: 'Real Product Engineering',
+                            text: "Students don't complete dummy projects. They write code for real enterprise copilots, gaining hands-on database and ERP integration experience.",
                         },
                         {
                             icon: FaRocket,
-                            title: 'Deployment Mindset',
-                            text: 'Labs training supports the wider AlgoForce execution ecosystem and real business delivery standards.',
+                            title: 'Internship & Placement Reach',
+                            text: 'Our talent engine supplies deployment-ready AI Engineers, Product Developers, and Automation Specialists to top-tier corporate operations teams.',
                         },
                     ].map((item, index) => (
                         <motion.article
@@ -472,21 +342,22 @@ Thank you.`;
                             <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl border border-[#06101d]/10 bg-[#f7f9fc] text-[#8f38ff]">
                                 <item.icon />
                             </div>
-                            <h3 className="mb-3 text-2xl font-semibold">{item.title}</h3>
-                            <p className="text-sm leading-relaxed text-slate-600">{item.text}</p>
+                            <h3 className="mb-3 text-2xl font-semibold tracking-tight">{item.title}</h3>
+                            <p className="text-sm leading-relaxed text-slate-600 font-normal">{item.text}</p>
                         </motion.article>
                     ))}
                 </div>
             </section>
 
+            {/* Interaction Popup Modal */}
             <AnimatePresence>
-                {contactCourse && (
+                {selectedItem && (
                     <div className="fixed inset-0 z-[100] flex items-center justify-center p-5">
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            onClick={() => setContactCourse(null)}
+                            onClick={() => setSelectedItem(null)}
                             className="absolute inset-0 bg-[#06101d]/55 backdrop-blur-lg"
                         />
                         <motion.div
@@ -495,28 +366,28 @@ Thank you.`;
                             exit={{ scale: 0.92, opacity: 0, y: 24 }}
                             className="relative w-full max-w-[430px] overflow-hidden rounded-[30px] border border-[#06101d]/10 bg-white p-7 shadow-[0_30px_100px_rgba(6,47,79,0.24)] md:p-8"
                         >
-                            <button onClick={() => setContactCourse(null)} className="absolute right-6 top-6 text-slate-400 hover:text-[#06101d]">
+                            <button onClick={() => setSelectedItem(null)} className="absolute right-6 top-6 text-slate-400 hover:text-[#06101d] focus:outline-none">
                                 <FaTimes />
                             </button>
                             <div className="mb-8 flex h-16 w-16 items-center justify-center rounded-2xl border border-[#06101d]/10 bg-[#f7f9fc] text-[#8f38ff]">
                                 <FaGraduationCap size={24} />
                             </div>
-                            <h2 className="mb-3 text-3xl font-semibold">Join Program</h2>
-                            <p className="mb-8 leading-relaxed text-slate-600">
-                                Confirm your interest in <span className="font-bold text-[#06101d]">{contactCourse.title || contactCourse.name}</span>. The Labs team will share the next steps.
+                            <h2 className="mb-3 text-2xl font-bold tracking-tight">Labs Ecosystem</h2>
+                            <p className="mb-8 leading-relaxed text-slate-600 text-sm font-normal">
+                                Submit your interest in the <span className="font-bold text-[#06101d]">{selectedItem.title}</span> track. Our Labs coordinator will connect with you.
                             </p>
                             <div className="space-y-3">
                                 <button
-                                    onClick={() => openWhatsApp(contactCourse.title || contactCourse.name)}
-                                    className="flex w-full items-center justify-center gap-3 rounded-full bg-[#06101d] py-4 text-sm font-bold text-white"
+                                    onClick={() => openWhatsApp(selectedItem.title)}
+                                    className="flex w-full items-center justify-center gap-3 rounded-full bg-[#06101d] py-4 text-sm font-bold text-white hover:bg-slate-900 transition-colors focus:outline-none"
                                 >
-                                    <FaWhatsapp /> WhatsApp Support
+                                    <FaWhatsapp /> Contact via WhatsApp
                                 </button>
                                 <button
-                                    onClick={callOwner}
-                                    className="flex w-full items-center justify-center gap-3 rounded-full border border-[#06101d]/10 bg-[#f7f9fc] py-4 text-sm font-bold text-[#06101d]"
+                                    onClick={() => { setSelectedItem(null); window.location.href = `tel:${CONTACT_NUMBER}` }}
+                                    className="flex w-full items-center justify-center gap-3 rounded-full border border-[#06101d]/10 bg-[#f7f9fc] py-4 text-sm font-bold text-[#06101d] hover:bg-slate-100 transition-colors focus:outline-none"
                                 >
-                                    <FaPhoneAlt /> Call Direct
+                                    <FaPhoneAlt /> Call direct
                                 </button>
                             </div>
                         </motion.div>

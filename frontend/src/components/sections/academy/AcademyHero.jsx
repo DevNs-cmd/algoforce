@@ -89,7 +89,7 @@ const AcademyHero = () => {
                             AI Systems.
                         </span>
                         <div className="text-3xl md:text-5xl lg:text-7xl text-gray-500 font-medium mt-6 tracking-normal">
-                             Cohorts. Projects. Placement.
+                             Talent Engine & AI Products.
                         </div>
                     </motion.h1>
 
@@ -100,8 +100,7 @@ const AcademyHero = () => {
                         transition={{ delay: 0.5 }}
                         className="max-w-2xl mx-auto mb-12 md:mb-16 text-sm md:text-xl text-gray-400 font-medium leading-relaxed italic"
                     >
-                        Cohort-based AI training with real-world projects, certification, apprenticeships, and job-ready portfolio proof.
-                        Learn inside the talent engine that powers the AlgoForce ecosystem.
+                        Labs is the talent engine behind AlgoForce. Students build real enterprise products, gain implementation experience, and become deployment-ready engineers.
                     </motion.p>
 
                     {/* Action CTAs */}

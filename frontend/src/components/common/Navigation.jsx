@@ -11,7 +11,7 @@ const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { user, logout } = useAuth();
-  const isLightPage = location.pathname === '/labs' || location.pathname === '/services';
+  const isLightPage = location.pathname === '/labs' || location.pathname === '/services' || location.pathname === '/products' || location.pathname === '/solutions';
 
   useEffect(() => {
     const handleScroll = rafThrottle(() => {
@@ -37,7 +37,7 @@ const Navigation = () => {
 
   const navLinks = [
     { name: "Home", path: "/" },
-    { name: "Services", path: "/services" },
+    { name: "Products", path: "/products" },
     { name: "Labs", path: "/labs" },
     { name: "Crucible", path: "https://crucible-website-omega.vercel.app/", isExternal: true },
     { name: "Pricing", path: "/pricing" },

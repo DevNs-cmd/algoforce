@@ -1,137 +1,159 @@
-import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { FaShieldAlt, FaLock, FaChartLine, FaServer, FaCode, FaLink } from 'react-icons/fa'
+import { 
+  FaLink, 
+  FaDatabase, 
+  FaCloud, 
+  FaNetworkWired,
+  FaIndustry,
+  FaHeartbeat,
+  FaHotel,
+  FaShoppingBag,
+  FaGraduationCap,
+  FaBuilding,
+  FaDollarSign,
+  FaTruck,
+  FaBriefcase,
+  FaCogs
+} from 'react-icons/fa'
+
+const INTEGRATIONS = [
+  { name: 'Tally', desc: 'Fully compatible. Syncs ledgers, vouchers, and transactions in real-time.' },
+  { name: 'Zoho', desc: 'Direct API integration. Automatically pushes qualified leads and logs conversations.' },
+  { name: 'Salesforce', desc: 'Direct REST API sync. Updates lead pipelines and synchronizes data tables.' },
+  { name: 'WhatsApp', desc: 'Official Cloud API integration. Handles customer queries and booking workflows.' },
+  { name: 'Shopify', desc: 'Webhook & API sync. Reconciles inventory levels and web sales in real-time.' },
+  { name: 'MongoDB', desc: 'Native connector. Connects unstructured databases with AI model endpoints.' },
+  { name: 'PostgreSQL', desc: 'Native connector. Direct schema syncing and structured queries.' },
+  { name: 'AWS', desc: 'Cloud hosting. Supports secure, private VPC deployments for enterprise clients.' },
+  { name: 'Azure', desc: 'Cloud hosting. Supports private subnet deployments matching security standards.' },
+  { name: 'Google Cloud', desc: 'Cloud hosting. Native deployment and Google Workspace API sync.' },
+  { name: 'SAP', desc: 'Enterprise ERP sync. Reconciles material logs, finance registries, and inventory.' },
+  { name: 'Oracle', desc: 'Enterprise database connector. Secure read/write sync for database schemas.' },
+  { name: 'HubSpot', desc: 'Pipeline connector. Syncs contact cards and schedules follow-up tasks.' },
+  { name: 'Meta', desc: 'Conversational channels. Hooks WhatsApp, Instagram, and Messenger into AI.' },
+  { name: 'REST APIs', desc: 'Universal compatibility. Syncs with any modern web service.' },
+  { name: 'Webhooks', desc: 'Real-time triggers. Runs automation scripts on database updates.' },
+  { name: 'CSV', desc: 'Offline data loader. Imports historical files and spreadsheets securely.' }
+]
+
+const INDUSTRIES = [
+  { name: 'Manufacturing', icon: <FaIndustry /> },
+  { name: 'Healthcare', icon: <FaHeartbeat /> },
+  { name: 'Hotels', icon: <FaHotel /> },
+  { name: 'Retail', icon: <FaShoppingBag /> },
+  { name: 'Education', icon: <FaGraduationCap /> },
+  { name: 'Construction', icon: <FaBuilding /> },
+  { name: 'Finance', icon: <FaDollarSign /> },
+  { name: 'Logistics', icon: <FaTruck /> },
+  { name: 'Professional Services', icon: <FaBriefcase /> },
+  { name: 'SMEs', icon: <FaCogs /> }
+]
 
 const WhyChooseUs = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.1
+    threshold: 0.05
   })
 
-  const reasons = [
-    {
-      icon: <FaShieldAlt className="text-purple-400" />,
-      title: "Enterprise Grade Security",
-      desc: "End-to-end encryption, multi-tenant separation, secure API gateways, and rigorous compliance checks matching Indian financial & cloud security standards."
-    },
-    {
-      icon: <FaLock className="text-purple-400" />,
-      title: "Absolute Data Privacy",
-      desc: "Your data stays yours. We support secure, self-hosted LLM deployments on private cloud VPCs (AWS, Azure) so that proprietary business memory never leaks."
-    },
-    {
-      icon: <FaChartLine className="text-purple-400" />,
-      title: "ROI-Driven Engineering",
-      desc: "Every system is built to move a business metric. We map out hours saved, error rate reduction, and process leaks to ensure clear financial amortization."
-    }
-  ]
-
-  const technologies = [
-    { name: "Generative AI", tools: "GPT-4o, Claude 3.5 Sonnet, Llama 3, Mistral" },
-    { name: "Automation & Code", tools: "n8n, Make, Python, Node.js, Next.js, FastAPI" },
-    { name: "Data & Storage", tools: "PostgreSQL, MongoDB, Supabase, Redis, Pinecone (Vector)" }
-  ]
-
-  const integrations = [
-    "Salesforce CRM", "Zoho Suite", "SAP ERP", "Tally Prime", "WhatsApp Cloud API", "Slack & Teams"
-  ]
+  const [activeInt, setActiveInt] = useState(null)
 
   return (
-    <section ref={ref} id="why-choose-us" className="py-16 md:py-24 bg-[#03070d] text-white relative overflow-hidden">
+    <section ref={ref} id="why-choose-us" className="py-16 md:py-24 bg-[#03070d] text-white relative overflow-hidden border-b border-white/5">
       {/* Decorative Glows */}
       <div className="absolute top-[-10rem] right-[-10rem] w-[30rem] h-[30rem] rounded-full bg-purple-600/10 blur-[100px] pointer-events-none" />
       <div className="absolute bottom-[-10rem] left-[-10rem] w-[30rem] h-[30rem] rounded-full bg-blue-600/10 blur-[100px] pointer-events-none" />
       <div className="absolute inset-0 subtle-ai-grid opacity-30 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
+        
+        {/* Integrations Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <h2 className="text-[12px] font-bold uppercase tracking-[0.4em] text-purple-400 mb-4">Enterprise Standards</h2>
-          <h3 className="text-3xl md:text-5xl font-bold leading-tight">
-            Why Indian Enterprises Trust <span className="premium-serif italic font-normal text-[#cdb4ff]">AlgoForce AI</span>
+          <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-purple-400">Ecosystem Fit</span>
+          <h3 className="text-3xl md:text-5xl font-bold leading-tight mt-2">
+            Seamless Database & <span className="premium-serif italic font-normal text-[#cdb4ff]">Software Integrations</span>
           </h3>
-          <p className="max-w-xl mx-auto text-slate-400 font-normal text-sm md:text-base mt-4">
-            We bridge the gap between cutting-edge artificial intelligence and rock-solid, production-grade business execution.
+          <p className="max-w-xl mx-auto text-slate-400 font-normal text-sm mt-3">
+            Click on any platform logo below to examine its deployment and operational compatibility status.
           </p>
         </motion.div>
 
-        {/* Reasons Grid */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
-          {reasons.map((reason, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.2 + idx * 0.1 }}
-              className="p-7 md:p-8 rounded-[24px] premium-dark-surface border border-white/5 hover:border-purple-500/30 transition-all flex flex-col items-center text-center group"
+        {/* Logos Grid */}
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 mb-10 max-w-5xl mx-auto">
+          {INTEGRATIONS.map((item, idx) => (
+            <motion.button
+              key={item.name}
+              whileHover={{ scale: 1.05, border: '1px solid rgba(143,56,255,0.4)' }}
+              onClick={() => setActiveInt(activeInt === item.name ? null : item.name)}
+              className={`p-4 rounded-xl border flex flex-col items-center justify-center font-bold text-xs uppercase tracking-wider transition-all h-20 ${
+                activeInt === item.name 
+                  ? 'bg-purple-600/20 border-purple-500 text-purple-300' 
+                  : 'bg-white/[0.01] border-white/5 text-slate-400 hover:text-white'
+              }`}
             >
-              <div className="w-14 h-14 rounded-2xl bg-purple-500/10 flex items-center justify-center text-2xl mb-6 group-hover:scale-115 transition-transform">
-                {reason.icon}
-              </div>
-              <h4 className="text-xl font-bold mb-3">{reason.title}</h4>
-              <p className="text-slate-400 text-sm leading-relaxed font-normal">{reason.desc}</p>
-            </motion.div>
+              <span>{item.name}</span>
+            </motion.button>
           ))}
         </div>
 
-        {/* Tech Stack & Integrations Row */}
-        <div className="grid lg:grid-cols-2 gap-8">
-          {/* Tech Stack */}
+        {/* Compatibility Checker Panel */}
+        <div className="max-w-xl mx-auto mb-20 h-24">
+          <AnimatePresence mode="wait">
+            {activeInt ? (
+              <motion.div
+                key={activeInt}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="p-5 rounded-2xl bg-white/[0.02] border border-white/10 text-center flex flex-col justify-center"
+              >
+                <div className="text-xs font-bold text-purple-400 uppercase tracking-widest mb-1">{activeInt} Compatibility</div>
+                <p className="text-xs text-slate-300 leading-normal">{INTEGRATIONS.find(i => i.name === activeInt)?.desc}</p>
+              </motion.div>
+            ) : (
+              <div className="p-5 rounded-2xl bg-white/[0.01] border border-white/5 border-dashed text-center flex flex-col justify-center text-xs text-slate-500 font-semibold italic">
+                Select an integration logo above to view technical compatibility status.
+              </div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        <hr className="border-white/5 my-14 max-w-5xl mx-auto" />
+
+        {/* Industries Grid */}
+        <div className="mt-12">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ delay: 0.4 }}
-            className="p-8 rounded-[28px] premium-dark-surface border border-white/5 flex flex-col justify-between"
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            className="text-center mb-12"
           >
-            <div>
-              <div className="flex items-center gap-3 mb-6">
-                <FaCode className="text-purple-400 text-xl" />
-                <h4 className="text-xl font-bold">State-of-the-Art Technology Stack</h4>
-              </div>
-              <p className="text-slate-400 text-sm leading-relaxed mb-6 font-normal">
-                We select, implement, and maintain the optimum stack tailored for your throughput requirements. No vendor lock-in.
-              </p>
-              <div className="space-y-4">
-                {technologies.map((tech, i) => (
-                  <div key={i} className="border-b border-white/5 pb-3">
-                    <h5 className="text-xs uppercase tracking-wider font-bold text-purple-400 mb-1">{tech.name}</h5>
-                    <p className="text-sm text-slate-200 font-semibold">{tech.tools}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-purple-400">Vertical Relevance</span>
+            <h3 className="text-3xl md:text-4xl font-bold leading-tight mt-2">
+              Industries <span className="premium-serif italic font-normal text-[#cdb4ff]">We Serve</span>
+            </h3>
           </motion.div>
 
-          {/* Integrations */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ delay: 0.4 }}
-            className="p-8 rounded-[28px] premium-dark-surface border border-white/5 flex flex-col justify-between"
-          >
-            <div>
-              <div className="flex items-center gap-3 mb-6">
-                <FaLink className="text-purple-400 text-xl" />
-                <h4 className="text-xl font-bold">Seamless Enterprise Integrations</h4>
-              </div>
-              <p className="text-slate-400 text-sm leading-relaxed mb-6 font-normal">
-                AI is only as good as the systems it connects to. We build direct secure conduits connecting models to your existing workspace directories, messaging pipelines, and ERP databases.
-              </p>
-              <div className="grid grid-cols-2 gap-4">
-                {integrations.map((item, i) => (
-                  <div key={i} className="flex items-center gap-2.5 p-3.5 rounded-xl bg-white/[0.02] border border-white/5 text-sm font-semibold text-slate-200 hover:bg-white/[0.04] transition-colors">
-                    <div className="w-1.5 h-1.5 rounded-full bg-purple-500" />
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 max-w-5xl mx-auto">
+            {INDUSTRIES.map((ind, idx) => (
+              <motion.div
+                key={ind.name}
+                whileHover={{ y: -3, backgroundColor: 'rgba(255,255,255,0.03)' }}
+                className="p-5 rounded-2xl border border-white/5 bg-white/[0.01] flex flex-col items-center justify-center text-center group transition-colors"
+              >
+                <div className="text-lg text-purple-400 mb-3 group-hover:scale-110 transition-transform">
+                  {ind.icon}
+                </div>
+                <span className="text-xs font-semibold text-slate-300">{ind.name}</span>
+              </motion.div>
+            ))}
+          </div>
         </div>
+
       </div>
     </section>
   )

@@ -43,7 +43,7 @@ function GoogleIcon() {
 const trustStats = [
   { label: 'Overall Rating',    value: '4.6 / 5' },
   { label: 'Avg. Response Time', value: '< 4 hrs'  },
-  { label: 'Projects Delivered', value: '50+'      },
+  { label: 'Products Implemented', value: '100+'      },
   { label: 'Client Retention',  value: '91%'       },
 ]
 
@@ -124,10 +124,10 @@ export default function CustomerReviews() {
           </div>
 
           <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-2">
-            Trusted by Indian Business Teams
+            Trusted by Operations Teams
           </h2>
-          <p className="text-gray-500 text-sm max-w-md mx-auto">
-            Enterprise AI consulting, workflow automation, and custom software — rated by
+          <p className="text-gray-400 font-normal leading-relaxed text-sm">
+            AI products and specialized copilots — rated by
             SMEs, manufacturers, healthcare providers, and hospitality businesses across India.
           </p>
         </motion.div>
@@ -183,7 +183,7 @@ export default function CustomerReviews() {
                     rows="2"
                     value={reviewText}
                     onChange={(e) => setReviewText(e.target.value)}
-                    placeholder="Describe your automation project or consultation experience..."
+                    placeholder="Describe your experience with our AI copilots or product implementation..."
                     className="w-full px-3 py-1.5 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-indigo-500 resize-none bg-white text-gray-900"
                   ></textarea>
                 </div>

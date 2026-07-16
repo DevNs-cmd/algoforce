@@ -16,7 +16,7 @@ const Footer = () => {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent" />
 
       <div className="px-6 py-12 md:py-20 mx-auto max-w-7xl relative z-10">
-        <div className="grid grid-cols-1 gap-16 md:grid-cols-4">
+        <div className="grid grid-cols-1 gap-16 md:grid-cols-5">
 
           {/* Brand */}
           <div className="md:col-span-2">
@@ -29,8 +29,7 @@ const Footer = () => {
             </div>
 
             <p className="mb-8 text-gray-500 max-w-sm font-medium leading-[1.8]">
-              The premier AI execution studio for high-growth startups and
-              ambitious founders. We engineer technical equity.
+              AlgoForce builds AI software products for business operations. We deploy, integrate, and manage AI products for finance, sales, HR, and manufacturing.
             </p>
 
             <div className="mb-8 flex flex-col gap-3 max-w-sm text-gray-500 text-sm font-medium leading-relaxed">
@@ -42,7 +41,6 @@ const Footer = () => {
               </div>
               <div className="pl-6 text-xs text-gray-600 space-y-1">
                 <p>MSME UDYAM: UDYAM-DL-08-0122150</p>
-                <p>GSTIN: Applied / Pending Registration</p>
               </div>
             </div>
 
@@ -67,20 +65,39 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Products Column */}
           <div>
-            <h4 className="mb-8 text-[10px] font-black uppercase tracking-[0.3em] text-gray-600 italic">Navigation</h4>
+            <h4 className="mb-8 text-[10px] font-black uppercase tracking-[0.3em] text-gray-600 italic">Products</h4>
             <ul className="space-y-4">
               {[
-                // { name: 'Academy', path: '/academy' },
+                { name: 'Finance', path: '/services' },
+                { name: 'Sales', path: '/services' },
+                { name: 'HR', path: '/services' },
+                { name: 'Manufacturing', path: '/services' },
+                { name: 'Hospitality', path: '/services' },
+                { name: 'Knowledge', path: '/services' }
+              ].map(link => (
+                <li key={link.name}>
+                  <Link to={link.path} className="text-gray-500 hover:text-white transition-colors text-sm font-bold italic">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Company Column */}
+          <div>
+            <h4 className="mb-8 text-[10px] font-black uppercase tracking-[0.3em] text-gray-600 italic">Company</h4>
+            <ul className="space-y-4">
+              {[
+                { name: 'About', path: '/about' },
                 { name: 'Labs', path: '/labs' },
-                { name: 'Pricing', path: '/pricing' },
-                { name: 'Meet Our Founder', path: '/founder' },
-                { name: 'Meet Our Team', path: '/team' },
-                { name: 'What is AlgoForce?', path: '/what-is-algoforce' },
-                { name: 'Blog Insights', path: '/blog' }
+                { name: 'Careers', path: '/labs' },
+                { name: 'Blog', path: '/blog' },
+                { name: 'Resources', path: '/blog' }
               ].map(link => (
-                <li key={link.path}>
+                <li key={link.name}>
                   <Link to={link.path} className="text-gray-500 hover:text-white transition-colors text-sm font-bold italic">
                     {link.name}
                   </Link>
@@ -89,17 +106,17 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* SEO Pillars */}
+          {/* Assessment Column */}
           <div>
-            <h4 className="mb-8 text-[10px] font-black uppercase tracking-[0.3em] text-purple-600 italic">Industrial Proof</h4>
+            <h4 className="mb-8 text-[10px] font-black uppercase tracking-[0.3em] text-purple-600 italic">Assessment</h4>
             <ul className="space-y-4">
               {[
-                { name: 'AI Course for Beginners', path: '/ai-course' },
-                { name: 'AI Projects for Students', path: '/ai-course-for-students' },
-                { name: 'Build AI App No-Code', path: '/build-ai-app-without-coding' },
-                { name: 'AI Certification India', path: '/ai-certification-india' }
+                { name: 'Implementation', path: '/pricing' },
+                { name: 'Pricing', path: '/pricing' },
+                { name: 'Support', path: '/contact' },
+                { name: 'Contact', path: '/contact' }
               ].map(link => (
-                <li key={link.path}>
+                <li key={link.name}>
                   <Link to={link.path} className="text-gray-500 hover:text-white transition-colors text-sm font-bold italic">
                     {link.name}
                   </Link>
@@ -108,35 +125,25 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Legal Section moved to Bottom or separate grid */}
         </div>
 
+        {/* Bottom bar links */}
         <div className="pt-16 mt-16 flex flex-wrap justify-center gap-8 border-t border-white/5 opacity-50">
              {[
-                { name: 'Crucible', path: 'https://crucible-website-omega.vercel.app/', isExternal: true },
                 { name: 'Privacy', path: '/privacy-policy' },
                 { name: 'Terms', path: '/terms-and-conditions' },
-                { name: 'Refunds', path: '/refund-policy' },
-                { name: 'Cancellation', path: '/cancellation-policy' },
-                { name: 'Cookies', path: '/cookie-policy' },
-                { name: 'AI Policy', path: '/ai-policy' }
+                { name: 'Cookies', path: '/cookie-policy' }
               ].map(link => (
-                link.isExternal ? (
-                  <a key={link.name} href={link.path} target="_blank" rel="noopener noreferrer" className="text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition-all">
-                    {link.name}
-                  </a>
-                ) : (
-                  <Link key={link.path} to={link.path} className="text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition-all">
-                    {link.name}
-                  </Link>
-                )
+                <Link key={link.path} to={link.path} className="text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition-all">
+                  {link.name}
+                </Link>
               ))}
         </div>
 
-        {/* Bottom bar */}
+        {/* Copyright */}
         <div className="pt-16 mt-16 text-center border-t border-white/5">
           <p className="text-[10px] font-black uppercase tracking-[0.5em] text-gray-800">
-            Copyright {currentYear} AlgoForce AI
+            Copyright {currentYear} AlgoForce
           </p>
         </div>
       </div>

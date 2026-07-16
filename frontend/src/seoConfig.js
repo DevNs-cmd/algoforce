@@ -1,15 +1,18 @@
 const siteUrl = "https://www.algoforceaii.com";
-const siteName = "AlgoForce AI";
+const siteName = "AlgoForce";
 const ogImage = `${siteUrl}/logo.png`;
-
+ 
 const coreKeywords = [
-  "Enterprise AI Company India",
-  "AI Consulting India",
+  "Enterprise AI Products Company",
+  "Specialized AI Copilots",
+  "TallyGPT Finance Copilot",
+  "LeadBolt Sales Copilot",
+  "GST Autopilot Compliance",
   "Business Process Automation",
   "AI Automation Company",
   "Workflow Automation",
-  "Custom AI Development",
-  "AI Software Development",
+  "Custom AI Copilots",
+  "AI Software Products",
   "AI Agents for Business",
   "Business Automation Company",
   "Enterprise AI Solutions",
@@ -17,7 +20,7 @@ const coreKeywords = [
   "AI Digital Transformation",
   "Automation Services India",
   "AI Integration Company",
-  "Generative AI Consulting",
+  "Generative AI Copilots",
   "AI for Manufacturing",
   "AI for Healthcare",
   "AI for Hotels",
@@ -27,21 +30,19 @@ const coreKeywords = [
   "AI Company in New Delhi",
   "Business Automation Delhi",
   "Enterprise AI India",
-  "Custom Software Delhi",
-  "AlgoForce AI",
+  "AlgoForce",
   "AlgoForce Labs",
   "Crucible",
   "Velqora"
 ];
-
+ 
 const pageKeywords = {
   home: [
-    "Enterprise AI Company India",
-    "AI Consulting India",
+    "Enterprise AI Products Company",
+    "Specialized AI Copilots",
     "Business Process Automation",
     "AI Automation Company",
     "Workflow Automation India",
-    "Custom AI Development Delhi",
     "AI Company in New Delhi",
     "Enterprise AI India"
   ],
@@ -49,7 +50,7 @@ const pageKeywords = {
     "Enterprise AI Solutions",
     "Business Automation Company",
     "AI Integration Company",
-    "Generative AI Consulting",
+    "Generative AI Copilots",
     "AI Workflow Automation",
     "Automation Services India",
     "AI for Manufacturing",
@@ -57,29 +58,28 @@ const pageKeywords = {
     "AI for Hotels"
   ],
   contact: [
-    "Talk to an AI Solutions Consultant",
-    "Book Free AI Consultation",
-    "AI Consulting India",
-    "Generative AI Consulting",
-    "Custom AI Development Delhi"
+    "Request AI Copilot Assessment",
+    "AI Copilot Subscription Price",
+    "Business AI Assessment Delhi",
+    "Specialized AI Copilots Delhi"
   ],
   pricing: [
-    "custom software pricing India",
-    "AI consulting cost",
-    "enterprise automation pricing",
-    "AI software development cost"
+    "AI copilot subscription price",
+    "business assessment pricing",
+    "copilot setup cost",
+    "AI subscription pricing"
   ],
   labs: [
-    "Talent Development Division",
+    "Talent Engine",
     "AI training New Delhi",
     "full-stack development India",
     "AI course India students"
   ],
   crucible: [
-    "startup incubation platform India",
+    "startup execution platform India",
     "startup operating system",
     "MVP builder India",
-    "startup incubation Delhi"
+    "startup execution Delhi"
   ]
 };
 
@@ -123,7 +123,7 @@ const buildSchema = (path, meta) => {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "@id": `${siteUrl}/#localbusiness`,
-    "name": "AlgoForce AI",
+    "name": "AlgoForce",
     "image": ogImage,
     "url": siteUrl,
     "telephone": "+918448947436",
@@ -156,8 +156,8 @@ const buildSchema = (path, meta) => {
     "@context": "https://schema.org",
     "@type": "Organization",
     "@id": `${siteUrl}/#organization`,
-    "name": "AlgoForce AI",
-    "alternateName": ["AlgoForce", "AlgoForce AI Systems"],
+    "name": "AlgoForce",
+    "alternateName": ["AlgoForce", "AlgoForce Copilots"],
     "url": siteUrl,
     "logo": ogImage,
     "foundingDate": "2026",
@@ -167,7 +167,7 @@ const buildSchema = (path, meta) => {
       "jobTitle": "Founder & CEO",
       "url": `${siteUrl}/founder`
     },
-    "description": "AlgoForce AI is a premier Enterprise AI Company in India, delivering custom AI systems, workflow automation, and digital transformation.",
+    "description": "AlgoForce is an Enterprise AI Products Company. We build specialized, out-of-the-box AI copilots (TallyGPT, LeadBolt, GST Autopilot) for business functions on a monthly subscription model.",
     "email": "af@algoforceaii.com",
     "telephone": "+918448947436",
     "address": {
@@ -190,110 +190,104 @@ const buildSchema = (path, meta) => {
     ]
   };
 
-  // 4. Service Schema mapping the 13 services
+  // 4. Service Schema mapping the services
   const servicesCatalog = [
-    { name: "Enterprise AI Solutions", desc: "Custom AI strategy, architecture, and system design for high-scale enterprise operations." },
-    { name: "Business Automation", desc: "Automating manual back-office tasks and data flows to improve organizational throughput." },
-    { name: "AI Agents", desc: "Autonomous AI agents executing multi-step business operations and customer support workflows." },
-    { name: "Custom Software", desc: "High-performance enterprise software tailored to replace legacy bottlenecks." },
-    { name: "CRM Automation", desc: "Automating customer relation workflows, pipeline updates, and follow-ups within Salesforce/Zoho." },
-    { name: "ERP Integration", desc: "Connecting enterprise resource planning tools with intelligence models and messaging queues." },
-    { name: "WhatsApp Automation", desc: "Building 24/7 client booking, support, and lead capture systems via WhatsApp Cloud API." },
-    { name: "Workflow Automation", desc: "Orchestrating workflows using enterprise n8n and Make pipelines for cross-system data sync." },
-    { name: "Internal AI Assistants", desc: "Deploying secure, custom RAG search engines for employee training and file extraction." },
-    { name: "Knowledge Management", desc: "Structuring unstructured data, PDFs, and training logs into a unified corporate memory." },
-    { name: "Reporting Dashboards", desc: "Real-time decision intelligence dashboards showing process bottlenecks, ROI, and metrics." },
-    { name: "Data Integration", desc: "Connecting scattered database silos into a clean, queryable operational data warehouse." },
-    { name: "Digital Transformation", desc: "Modernizing legacy pipelines into automated, secure, and cloud-enabled digital engines." }
+    { name: "TallyGPT Finance Copilot", desc: "Specialized AI copilot automating ledger reconciliation, manual voucher entry, and tax readiness." },
+    { name: "LeadBolt Sales Copilot", desc: "Specialized AI copilot for 24/7 lead qualification, booking meetings, and automated CRM sync." },
+    { name: "GST Autopilot Compliance", desc: "Specialized AI copilot matching purchase registers with GSTR-2B to prevent tax leakage." },
+    { name: "HR & Onboarding Copilot", desc: "Specialized AI copilot acting as a private corporate knowledge operating layer for company memory." },
+    { name: "HotelGPT Booking Copilot", desc: "Specialized AI copilot handling 24/7 guest bookings and queries across WhatsApp and messaging." },
+    { name: "FactoryGPT & Quality Vision AI", desc: "Specialized AI copilot automating manufacturing quality control via real-time camera inspection." },
+    { name: "Business AI Assessment", desc: "One-time operations audit mapping workflows and identifying automation opportunities." }
   ].map((srv) => ({
     "@type": "Service",
     "name": srv.name,
     "description": srv.desc,
-    "provider": { "@type": "LocalBusiness", "name": "AlgoForce AI", "url": siteUrl },
+    "provider": { "@type": "LocalBusiness", "name": "AlgoForce", "url": siteUrl },
     "areaServed": "IN"
   }));
 
   // 5. 20 SEO FAQs Schema
   const faqsList = [
     {
-      q: "What does AlgoForce AI do?",
-      a: "AlgoForce AI is a premier Enterprise AI Company in India. We design and build custom AI software, deploy AI agents, build CRM/ERP integrations, and automate business processes to reduce manual work and drive measurable ROI."
+      q: "What does AlgoForce do?",
+      a: "AlgoForce is an Enterprise AI Products Company. We build specialized, out-of-the-box AI copilots (such as TallyGPT, LeadBolt, and GST Autopilot) for specific business functions, helping organizations automate operations under a subscription model."
     },
     {
-      q: "What is an Enterprise AI Company?",
-      a: "An Enterprise AI Company specializes in designing, building, and integrating custom artificial intelligence systems, databases, and automated workflows directly into business operations to replace manual processes."
+      q: "What is an Enterprise AI Products Company?",
+      a: "An Enterprise AI Products Company builds specialized, pre-configured AI software and copilots designed for specific corporate functions, deployed on a subscription model."
     },
     {
-      q: "Where is AlgoForce AI headquartered?",
-      a: "AlgoForce AI is headquartered in Kalkaji, South East Delhi, New Delhi - 110019, India. We serve clients across all of India and globally."
+      q: "Where is AlgoForce headquartered?",
+      a: "AlgoForce is headquartered in Kalkaji, South East Delhi, New Delhi - 110019, India. We serve clients across all of India and globally."
     },
     {
-      q: "Do you offer AI consulting services in India?",
-      a: "Yes, AlgoForce AI is a leading AI Consulting Company in India. We provide strategic generative AI advisory, system architecture design, technology stack mapping, and ROI discovery audits."
+      q: "Do you offer Business Assessments?",
+      a: "Yes, AlgoForce provides a one-time Business Assessment (₹49,999) to audit operations, map database schemas, identify process leaks, and select the right AI Copilot."
     },
     {
       q: "How can business process automation reduce manual work?",
-      a: "By automating manual workflows (e.g. using n8n, Make), synchronizing CRM/ERP data, sending auto-replies via WhatsApp, and deploying AI assistants, businesses can eliminate administrative tasks and save hundreds of employee hours."
+      a: "By deploying specialized AI copilots to automate data reconciliation, client booking, compliance reporting, and sales pipelines, companies can save hundreds of administrative hours."
     },
     {
-      q: "What are AI agents for business?",
-      a: "AI agents are autonomous software assistants configured to handle complex business operations, such as answering client support tickets, qualifying leads, reading files, and executing API calls without human intervention."
+      q: "What are AI copilots for business?",
+      a: "AI copilots are pre-built, specialized software assistants configured to automate operational workflows like finance entries, CRM logs, and customer support."
     },
     {
-      q: "How does custom software development benefit SMEs in Delhi?",
-      a: "Custom software development solves specific bottlenecks unique to your business. Unlike generic SaaS subscriptions, it integrates with your existing workflows, carries no per-seat licensing costs, and builds a permanent digital asset."
+      q: "How does TallyGPT help finance teams?",
+      a: "TallyGPT connects to Tally ERP to auto-reconcile transactions, answer financial queries, parse invoices, and eliminate manual entry errors."
     },
     {
-      q: "What industries does AlgoForce AI serve?",
-      a: "We build custom systems for Manufacturing, Healthcare, Hotels, Retail, Education, and SMEs. We adapt our enterprise architectures to fit the workflows and regulatory compliance of each industry."
+      q: "What industries does AlgoForce serve?",
+      a: "We serve Manufacturing, Healthcare, Hotels, Retail, Education, and SMEs, configuring copilots to match each sector's specific workflow requirements."
     },
     {
-      q: "What is your AI readiness audit?",
-      a: "Our AI readiness audit is a 1-2 week technical evaluation. We map your workflows, detect operational data leaks, assess model feasibility, and outline a high-ROI roadmap for deploying automation."
+      q: "What is the Business Assessment?",
+      a: "Our Business Assessment is a 1-2 week operational audit where our team maps workflows, analyzes ERP/CRM data readiness, and selects the ideal specialized AI Copilot for your business."
     },
     {
       q: "How do you integrate AI with CRM systems like Salesforce or Zoho?",
-      a: "We connect CRM software via secure webhooks, custom endpoints, and automation middleware. We enable automatic lead scoring, instant WhatsApp updates, database synching, and automated quotation generators."
+      a: "Our LeadBolt sales copilot connects to CRM software via secure API webhooks to automate lead scoring, CRM updates, and scheduling callbacks."
     },
     {
-      q: "Can you connect AI systems with legacy ERP systems?",
-      a: "Yes. We design secure database bridges and middleware APIs to interface with legacy ERP software like SAP, Tally, or Microsoft Dynamics, enabling real-time dashboards and automated analytics."
+      q: "Can you connect AI copilots with legacy ERP systems?",
+      a: "Yes. TallyGPT and our other copilots integrate with ERP systems like Tally, SAP, and custom databases via secure middleware pipelines."
     },
     {
-      q: "What is the implementation timeline for custom AI software?",
-      a: "Implementation typically takes 4 to 8 weeks. This includes system mapping, pipeline design, API integration, data testing, user acceptance testing, and team training."
+      q: "What is the implementation timeline for an AI Copilot?",
+      a: "Product implementation takes 2 to 6 weeks, which covers database connection, business rule configuration, security setups, and validation testing."
     },
     {
-      q: "How does WhatsApp automation improve lead capture?",
-      a: "By using the official WhatsApp Cloud API, we build automated chat engines that interact with incoming leads 24/7, record interest details directly into your CRM, and schedule callback consultations instantly."
+      q: "How does WhatsApp booking automation work?",
+      a: "HotelGPT and LeadBolt connect to the official WhatsApp Cloud API, allowing clients to make reservations, log details, and book slots 24/7."
     },
     {
-      q: "What are internal AI assistants?",
-      a: "Internal AI assistants are secure, company-hosted chatbots that allow employees to search corporate documentation, HR policies, sales collateral, and past project guidelines securely using RAG technology."
+      q: "What are internal HR copilots?",
+      a: "HR copilots act as private knowledge layers, allowing employees to query internal documentation, manuals, policies, and training materials securely."
     },
     {
-      q: "Is business data secure with AlgoForce AI?",
-      a: "Yes. Data security is our core pillar. We use end-to-end encryption, secure APIs, and can deploy open-source models (like Llama-3 or Mistral) on private self-hosted cloud servers so your data never leaves your control."
+      q: "Is business data secure with AlgoForce copilots?",
+      a: "Yes. Security is our core priority. We use end-to-end encryption, secure database channels, and can deploy copilots on private VPC cloud servers."
     },
     {
-      q: "How does AlgoForce AI measure ROI?",
-      a: "We track clear operational metrics: reduction in manual hours, decrease in data entry errors, improvement in response times for customer inquiries, and direct cost savings from replacing legacy per-seat licensing."
+      q: "How do you measure copilot performance?",
+      a: "We monitor performance metrics: reduction in entry errors, turnaround time for support tickets, lead conversion latency, and operational cost savings."
     },
     {
-      q: "What is the difference between AlgoForce AI and a traditional software vendor?",
-      a: "Traditional vendors build software specs exactly as written. AlgoForce AI operates as a strategic consulting and engineering partner, evaluating your business leaks, designing workflows, and supporting deployment for measurable ROI."
+      q: "What is the difference between AlgoForce and a traditional software vendor?",
+      a: "Traditional vendors charge high custom development retainers. AlgoForce builds specialized, pre-built AI copilots, charging a simple setup fee and a monthly subscription."
     },
     {
       q: "What is the role of AlgoForce Labs?",
-      a: "AlgoForce Labs is our Talent Development Division. It trains developers and operational specialists on advanced AI systems and automation tools, creating a continuous talent pool for deployment."
+      a: "AlgoForce Labs is our Talent Engine, training top developers and engineers by building real enterprise AI products."
     },
     {
       q: "What is Crucible?",
-      a: "Crucible is our Startup Incubation Platform. It helps early-stage founders scale their workflows, build MVPs, and manage investor relations using structured software and execution routines."
+      a: "Crucible is our Startup Execution Platform, providing founders with a Startup Operating System to validate concepts, build MVPs, and scale products."
     },
     {
-      q: "How can we book a free AI consultation?",
-      a: "You can book a consultation directly through our contact page by requesting a Discovery Call, AI Assessment, or Enterprise Quote. Our engineering team will reach out within 24 hours to schedule the session."
+      q: "How do we get started?",
+      a: "You can get started by requesting a Business Assessment on our contact page or by browsing our specialized AI copilots."
     }
   ];
 
@@ -358,8 +352,8 @@ const buildSchema = (path, meta) => {
 
 const seoConfig = {
   "/": {
-    title: "Enterprise AI Company India | Business Automation & Software | AlgoForce AI",
-    description: "AlgoForce AI is a leading Enterprise AI Company in India. We develop custom AI systems, workflow automation, CRM/ERP integration, and AI agents for Indian businesses to reduce manual work and drive ROI.",
+    title: "Enterprise AI Products Company India | AI Copilots for Business | AlgoForce",
+    description: "AlgoForce is an Enterprise AI Products Company. We build specialized AI copilots — TallyGPT, LeadBolt, GST Autopilot — for business functions on a monthly subscription model.",
     keywords: combineKeywords(pageKeywords.home, coreKeywords),
     image: ogImage,
     robots: "index, follow",
@@ -367,8 +361,8 @@ const seoConfig = {
     schemaType: "WebPage",
   },
   "/services": {
-    title: "Enterprise AI Solutions & Workflow Automation Services | AlgoForce AI",
-    description: "Explore our custom enterprise AI solutions, business process automation, CRM/ERP integration, WhatsApp workflows, and AI agents. Start with a free AI Readiness Audit. Delhi, India.",
+    title: "Specialized AI Copilots for Business | TallyGPT, LeadBolt, GST Autopilot | AlgoForce",
+    description: "Browse AlgoForce's specialized AI copilots for Finance, Sales, GST Compliance, HR, Hotels, and Manufacturing. Monthly subscription. Business Assessment included.",
     keywords: combineKeywords(pageKeywords.services, coreKeywords),
     image: ogImage,
     robots: "index, follow",
@@ -376,8 +370,8 @@ const seoConfig = {
     schemaType: "Service",
   },
   "/ai-consulting": {
-    title: "Enterprise AI Consulting India | Business Automation Company",
-    description: "Enterprise AI consulting retainers and digital transformation systems. Discover operational leaks and integrate secure generative AI agents for maximum ROI.",
+    title: "AI Copilot Products for Enterprise | Business Automation | AlgoForce",
+    description: "AlgoForce builds pre-configured AI copilots for business operations. Subscription-based AI products for finance, sales, compliance, and more.",
     keywords: combineKeywords(pageKeywords.services, coreKeywords),
     image: ogImage,
     robots: "index, follow",
@@ -385,8 +379,8 @@ const seoConfig = {
     schemaType: "Service",
   },
   "/contact": {
-    title: "Talk to an AI Solutions Consultant | AlgoForce AI",
-    description: "Contact AlgoForce AI to speak with an enterprise AI solutions consultant. Book a discovery call, request a custom AI assessment, or get an enterprise software quote.",
+    title: "Request a Business AI Assessment | AlgoForce Copilots",
+    description: "Contact AlgoForce to request a Business Assessment and discover which AI Copilot fits your operations. Assessment → Implementation → Monthly Subscription.",
     keywords: combineKeywords(pageKeywords.contact, coreKeywords),
     image: ogImage,
     robots: "index, follow",
@@ -394,8 +388,8 @@ const seoConfig = {
     schemaType: "ContactPage",
   },
   "/pricing": {
-    title: "Enterprise AI Solutions & Custom Software Pricing | AlgoForce AI",
-    description: "Transparent pricing models for custom AI development, business automation integration, workflow systems, and enterprise consulting retainers.",
+    title: "AI Copilot Pricing & Subscription Plans | AlgoForce",
+    description: "Transparent pricing for AlgoForce AI Copilots — Business Assessment (₹49,999), Product Implementation (₹2,49,999), Monthly Subscription from ₹49,999/month.",
     keywords: combineKeywords(pageKeywords.pricing, coreKeywords),
     image: ogImage,
     robots: "index, follow",
@@ -403,8 +397,8 @@ const seoConfig = {
     schemaType: "PricingPage",
   },
   "/labs": {
-    title: "Talent Development Division | AlgoForce Labs New Delhi",
-    description: "AlgoForce Labs is our talent development division, training next-generation builders to deploy enterprise AI software, automation pipelines, and custom software.",
+    title: "AlgoForce Labs — Talent Engine Building Real AI Copilots | New Delhi",
+    description: "AlgoForce Labs is the talent engine behind AlgoForce's AI copilots — training IIT/NIT engineers and developers by building real enterprise products.",
     keywords: combineKeywords(pageKeywords.labs, coreKeywords),
     image: ogImage,
     robots: "index, follow",
@@ -412,8 +406,8 @@ const seoConfig = {
     schemaType: "EducationalOrganization",
   },
   "/training": {
-    title: "Talent Development Division | AlgoForce Labs New Delhi",
-    description: "AlgoForce Labs is our talent development division, training next-generation builders to deploy enterprise AI software, automation pipelines, and custom software.",
+    title: "AlgoForce Labs — Talent Engine Building Real AI Copilots | New Delhi",
+    description: "AlgoForce Labs is the talent engine behind AlgoForce's AI copilots — training IIT/NIT engineers and developers by building real enterprise products.",
     keywords: combineKeywords(pageKeywords.labs, coreKeywords),
     image: ogImage,
     robots: "index, follow",
@@ -421,8 +415,8 @@ const seoConfig = {
     schemaType: "EducationalOrganization",
   },
   "/crucible": {
-    title: "Startup Incubation Platform | Crucible by AlgoForce AI",
-    description: "Crucible is our startup incubation platform, helping founders validate ideas, launch MVPs, and scale operations with robust software systems.",
+    title: "Crucible — Startup Execution OS by AlgoForce | Build & Launch MVPs",
+    description: "Crucible is the Startup Operating System by AlgoForce, helping founders validate concepts, build MVPs fast, source technical talent, and scale with real execution infrastructure.",
     keywords: combineKeywords(pageKeywords.crucible, coreKeywords),
     image: ogImage,
     robots: "index, follow",
@@ -439,26 +433,26 @@ const seoConfig = {
     schemaType: "SoftwareApplication",
   },
   "/about": {
-    title: "About AlgoForce AI — Founder Dev N Suman | New Delhi, India",
-    description: "AlgoForce AI was founded in 2026 by Dev N Suman in New Delhi. We build custom AI software and business automation systems for enterprises and SMEs across India.",
-    keywords: "About AlgoForce AI, Dev N Suman, execution infrastructure India, Delhi AI Company",
+    title: "About AlgoForce — Enterprise AI Products Company | Dev N Suman | New Delhi",
+    description: "AlgoForce is an Enterprise AI Products Company founded in 2026 by Dev N Suman in New Delhi. We build specialized AI copilots on a subscription model for businesses across India.",
+    keywords: "About AlgoForce, Dev N Suman, Enterprise AI Products Company, Delhi AI Copilots",
     image: ogImage,
     robots: "index, follow",
     canonical: `${siteUrl}/about`,
     schemaType: "AboutPage",
   },
   "/cancellation-policy": {
-    title: "Cancellation Policy | AlgoForce AI",
-    description: "Read the cancellation policy for AlgoForce AI services, software contracts, monthly retainers, and subscriptions.",
-    keywords: "cancellation policy AlgoForce, software service cancellation",
+    title: "Cancellation Policy | AlgoForce",
+    description: "Read the cancellation and refund policy for AlgoForce AI Copilot subscriptions, Business Assessments, and Product Implementation agreements.",
+    keywords: "cancellation policy AlgoForce, AI copilot subscription cancellation",
     image: ogImage,
     robots: "index, follow",
     canonical: `${siteUrl}/cancellation-policy`,
     schemaType: "WebPage",
   },
   "/cookie-policy": {
-    title: "Cookie Policy | AlgoForce AI",
-    description: "Learn how AlgoForce AI uses cookies and tracking technologies to optimize our enterprise AI platform website.",
+    title: "Cookie Policy | AlgoForce",
+    description: "Learn how AlgoForce uses cookies and tracking technologies on our Enterprise AI Copilot products website.",
     keywords: "cookie policy AlgoForce, cookie consent New Delhi",
     image: ogImage,
     robots: "index, follow",
@@ -466,17 +460,17 @@ const seoConfig = {
     schemaType: "WebPage",
   },
   "/ai-policy": {
-    title: "Artificial Intelligence (AI) Policy | AlgoForce AI",
-    description: "AlgoForce AI policy regarding transparency, data privacy, LLM hosting, and secure artificial intelligence systems.",
-    keywords: "AI policy, database privacy AI, self-hosted LLM security",
+    title: "Artificial Intelligence Policy | AlgoForce",
+    description: "AlgoForce policy on AI transparency, data privacy, LLM hosting, and secure AI copilot deployments.",
+    keywords: "AI policy AlgoForce, copilot data privacy, self-hosted LLM security",
     image: ogImage,
     robots: "index, follow",
     canonical: `${siteUrl}/ai-policy`,
     schemaType: "WebPage",
   },
   default: {
-    title: "AlgoForce AI | Enterprise AI Company India",
-    description: "AlgoForce AI builds custom enterprise AI, digital transformation systems, workflow automation, and custom business platforms.",
+    title: "AlgoForce | Enterprise AI Products Company India",
+    description: "AlgoForce builds specialized AI copilots (TallyGPT, LeadBolt, GST Autopilot, HR Copilot) for business functions on a monthly subscription. Business Assessment → Implementation → Subscription.",
     keywords: defaultKeywords,
     image: ogImage,
     robots: "index, follow",

@@ -3,9 +3,9 @@ import { FaLaptopCode, FaBriefcase, FaUserGraduate } from 'react-icons/fa'
 
 const Webinars = () => {
     const webinars = [
-        { title: "How to Build AI Startup", icon: FaLaptopCode, color: "text-blue-400" },
-        { title: "Crack Tech Internships", icon: FaBriefcase, color: "text-green-400" },
-        { title: "Zero to SaaS Founder", icon: FaUserGraduate, color: "text-orange-400" }
+        { title: "AI Products & Copilots", icon: FaLaptopCode, color: "text-blue-400" },
+        { title: "Academic Collaborations", icon: FaBriefcase, color: "text-green-400" },
+        { title: "Startup Execution OS", icon: FaUserGraduate, color: "text-orange-400" }
     ]
 
     return (
