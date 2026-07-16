@@ -1,47 +1,45 @@
-# AlgoForce – Premium AI & Automation Agency
+# AlgoForce — AI Software for Business Operations
 
-AlgoForce is a high-speed AI execution studio and digital agency that builds technical equity for startups and ambitious founders. We specialize in transforming bold visions into scalable SaaS MVPs and AI-driven growth systems.
+AlgoForce is an AI software company. We build and deploy specialized, repeatable AI products that integrate with existing software systems (Tally, SAP, Zoho CRM, Salesforce) to automate core business operations.
+
+We do not build custom software on the fly or operate as a consulting agency. Instead, every client engagement begins with a Business Assessment to map database structures, followed by implementation configuration and ongoing product subscription.
 
 ## 🚀 The Nexus Workspace
 
-Nexus is our proprietary AI-powered development workspace. It’s designed for "Vibe Coding"—where you build full-stack applications through pure intuition and multi-model orchestration.
+Nexus is our proprietary AI-powered development workspace. It’s designed for rapid product testing, workflow mapping, and operational integration simulation.
 
 ### Key Features:
-- **Multi-Model Intelligence**: Seamlessly switch between Claude 3.5 Sonnet, GPT-4o, and other elite LLMs.
-- **Vibe Coding Interface**: A zero-friction environment optimized for rapid prototyping and iterative development.
-- **Nexus Logs**: Persistent session history that allows you to pick up exactly where you left off.
-- **Integrated Artifacts**: A side-by-side workspace with a real-time Monaco Editor and Live Preview for instant validation.
-- **Export Ready**: Download your generated projects as ready-to-deploy ZIP files.
-- **3D Ambiance**: A premium, distraction-free atmosphere powered by Three.js visuals.
+- **AI Products Integration**: Configured to sync with our pre-built copilots (TallyGPT, LeadBolt, HotelGPT, GST Autopilot).
+- **VPC Cloud Compatibility**: Designed for secure, private cloud deployments on AWS and Azure.
+- **Workflow Auditing**: Tools to map database schemas, API connections, and automated pipelines.
+- **Academic Network Integration**: Powers collaboration projects with student engineering communities across India.
 
-## �️ Technology Stack
+## ⚙️ Technology Stack
 
 ### Frontend:
 - **React 18**: Core framework.
 - **Vite**: Ultra-fast build tool and development server.
-- **TailwindCSS**: Utility-first styling for precise UI control.
-- **Framer Motion**: Advanced animations and layout transitions.
-- **React Three Fiber / Drei**: Immersive 3D visual components.
-- **Monaco Editor**: The power of VS Code directly in the browser.
+- **TailwindCSS**: Utility-first styling for clean, premium layouts.
+- **Framer Motion**: Advanced transitions and micro-animations.
 
 ### Backend:
-- **Node.js & Express**: High-performance server architecture.
-- **MongoDB**: Flexible data storage for sessions, projects, and users.
-- **AI Orchestration**: Custom integration with various LLM providers.
+- **Node.js & Express**: High-performance API server.
+- **MongoDB**: Flexible document database for session storage and user states.
+- **Database Connectors**: Native query translation and database connectors (Tally XML, SQL Gateway, Zoho, Salesforce APIs).
 
-## � Project Structure
+## 📂 Project Structure
 
 ```bash
-├── backend/            # Express server, routes, and models
-│   ├── models/         # Database schemas (User, Project)
+├── backend/            # Express server, routes, and database models
+│   ├── models/         # Database schemas
 │   ├── routes/         # API endpoints (Auth, Projects, AI)
 │   └── config/         # Server configuration
 ├── frontend/           # Vite-React application
 │   ├── src/
 │   │   ├── components/ # Atomic UI components & sections
-│   │   ├── pages/      # Core pages (Nexus, Home, Labs, etc.)
+│   │   ├── pages/      # Core pages (Products, Home, Labs, etc.)
 │   │   ├── services/   # API and AI service layers
-│   │   └── contexts/   # Global state management (Auth)
+│   │   └── contexts/   # Global state management
 ```
 
 ## ⚡ Getting Started
@@ -75,10 +73,10 @@ Nexus is our proprietary AI-powered development workspace. It’s designed for "
 
 ## 🌐 Deployment
 
-AlgoForce is designed for modern cloud platforms like **Vercel** and **Render**. 
-- The frontend is optimized for static hosting on Vercel.
-- The backend is built for serverless or containerized deployment on Render/AWS.
+- **Private VPC Cloud**: Configured for private hosting inside client AWS/Azure infrastructure to ensure total data privacy.
+- **Static Hosting**: Frontend is optimized for CDN edge deployments (Vercel, Netlify).
+- **Containerized APIs**: Backend is optimized for containerized services (Render, AWS ECS, Google Cloud Run).
 
 ---
-**Engineered by Dev N Suman.**  
-*Scaling Faster with AlgoForce.*
+**AlgoForce AI**  
+*AI products that automate business operations.*
