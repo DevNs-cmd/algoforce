@@ -3,33 +3,25 @@ const siteName = "AlgoForce";
 const ogImage = `${siteUrl}/logo.png`;
  
 const coreKeywords = [
-  "Enterprise AI Products Company",
-  "Specialized AI Copilots",
-  "TallyGPT Finance Copilot",
-  "LeadBolt Sales Copilot",
-  "GST Autopilot Compliance",
+  "AI Software Company",
+  "AI Software Products",
+  "TallyGPT Accounting Software",
+  "LeadBolt Lead Management Software",
+  "GST Autopilot Automation",
   "Business Process Automation",
   "AI Automation Company",
   "Workflow Automation",
-  "Custom AI Copilots",
-  "AI Software Products",
-  "AI Agents for Business",
+  "AI Software for Business",
   "Business Automation Company",
-  "Enterprise AI Solutions",
-  "Artificial Intelligence Company India",
-  "AI Digital Transformation",
-  "Automation Services India",
   "AI Integration Company",
-  "Generative AI Copilots",
   "AI for Manufacturing",
   "AI for Healthcare",
-  "AI for Hotels",
+  "AI for Hospitality",
   "AI for SMEs",
   "AI Workflow Automation",
   "Delhi AI Company",
   "AI Company in New Delhi",
   "Business Automation Delhi",
-  "Enterprise AI India",
   "AlgoForce",
   "AlgoForce Labs",
   "Crucible",
@@ -38,48 +30,45 @@ const coreKeywords = [
  
 const pageKeywords = {
   home: [
-    "Enterprise AI Products Company",
-    "Specialized AI Copilots",
+    "AI Software Company",
+    "AI Software Products",
     "Business Process Automation",
     "AI Automation Company",
     "Workflow Automation India",
-    "AI Company in New Delhi",
-    "Enterprise AI India"
+    "AI Company in New Delhi"
   ],
   services: [
-    "Enterprise AI Solutions",
+    "AI Software Products",
     "Business Automation Company",
     "AI Integration Company",
-    "Generative AI Copilots",
     "AI Workflow Automation",
     "Automation Services India",
     "AI for Manufacturing",
     "AI for Healthcare",
-    "AI for Hotels"
+    "AI for Hospitality"
   ],
   contact: [
-    "Request AI Copilot Assessment",
-    "AI Copilot Subscription Price",
+    "Book Business Assessment",
+    "AI Software Subscription",
     "Business AI Assessment Delhi",
-    "Specialized AI Copilots Delhi"
+    "AI Software Company Delhi"
   ],
   pricing: [
-    "AI copilot subscription price",
-    "business assessment pricing",
-    "copilot setup cost",
-    "AI subscription pricing"
+    "AI software subscription",
+    "business assessment",
+    "software setup",
+    "AI subscription"
   ],
   labs: [
-    "Talent Engine",
+    "Labs Talent Training",
     "AI training New Delhi",
-    "full-stack development India",
-    "AI course India students"
+    "software development India"
   ],
   crucible: [
-    "startup execution platform India",
-    "startup operating system",
+    "startup platform India",
+    "startup platform",
     "MVP builder India",
-    "startup execution Delhi"
+    "startup platform Delhi"
   ]
 };
 

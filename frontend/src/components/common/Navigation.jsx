@@ -103,16 +103,32 @@ const Navigation = () => {
           <div className="flex items-center gap-4">
             <div className="hidden md:flex items-center gap-4">
               {user ? (
-                <Link to="/dashboard" className="w-10 h-10 rounded-full bg-white/8 border border-white/12 flex items-center justify-center text-[11px] text-white font-bold hover:bg-white/12 transition-all">
-                  {user.name?.[0].toUpperCase()}
-                </Link>
+                <div className="flex items-center gap-3">
+                  <Link 
+                    to="/workspace/overview"
+                    className="px-5 py-2 border border-white/15 hover:bg-white/5 rounded-full text-[13px] font-bold text-white transition-all"
+                  >
+                    Workspace
+                  </Link>
+                  <Link to="/workspace/overview" className="w-10 h-10 rounded-full bg-white/8 border border-white/12 flex items-center justify-center text-[11px] text-white font-bold hover:bg-white/12 transition-all">
+                    {user.name?.[0].toUpperCase()}
+                  </Link>
+                </div>
               ) : (
-                <button
-                  onClick={() => setAuthModalOpen(true)}
-                  className="px-7 py-2.5 bg-white text-[#06101d] hover:bg-[#f6f1ff] rounded-full text-[13px] font-bold transition-all shadow-[0_12px_28px_rgba(143,56,255,0.14)]"
-                >
-                  Join
-                </button>
+                <div className="flex items-center gap-4">
+                  <Link
+                    to="/login"
+                    className="text-[13px] font-semibold text-slate-300 hover:text-white transition-all"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to="/login?mode=signup"
+                    className="px-5 py-2 bg-white text-[#06101d] hover:bg-[#f6f1ff] rounded-full text-[13px] font-bold transition-all shadow-md"
+                  >
+                    Get Started
+                  </Link>
+                </div>
               )}
             </div>
 
@@ -194,19 +210,38 @@ const Navigation = () => {
                   className="mt-4"
                 >
                   {!user ? (
-                    <button
-                      onClick={() => { setMobileMenuOpen(false); setAuthModalOpen(true); }}
-                      className="w-full py-4 bg-white text-black rounded-full font-bold text-base active:scale-95 transition-all shadow-xl"
-                    >
-                      Join
-                    </button>
+                    <div className="flex flex-col gap-3">
+                      <Link
+                        to="/login"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="w-full py-3 border border-white/10 text-white text-center rounded-full font-bold text-sm active:scale-95 transition-all"
+                      >
+                        Login
+                      </Link>
+                      <Link
+                        to="/login?mode=signup"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="w-full py-3 bg-white text-black text-center rounded-full font-bold text-sm active:scale-95 transition-all shadow-xl"
+                      >
+                        Get Started
+                      </Link>
+                    </div>
                   ) : (
-                    <button
-                      onClick={logout}
-                      className="w-full py-4 border border-white/10 text-white rounded-full font-bold text-base active:scale-95 transition-all"
-                    >
-                      Log Out
-                    </button>
+                    <div className="flex flex-col gap-3">
+                      <Link
+                        to="/workspace/overview"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="w-full py-3 bg-white text-black text-center rounded-full font-bold text-sm active:scale-95 transition-all shadow-xl"
+                      >
+                        Workspace
+                      </Link>
+                      <button
+                        onClick={() => { setMobileMenuOpen(false); logout(); }}
+                        className="w-full py-3 border border-white/10 text-white rounded-full font-bold text-sm active:scale-95 transition-all"
+                      >
+                        Log Out
+                      </button>
+                    </div>
                   )}
                 </motion.div>
               </div>

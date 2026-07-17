@@ -44,6 +44,11 @@ const Team = lazy(() => import('./pages/Team'))
 const WhatIsAlgoForcePage = lazy(() => import('./pages/WhatIsAlgoForce'))
 const Crucible = lazy(() => import('./pages/Crucible'))
 const Velqora = lazy(() => import('./pages/Velqora'))
+const Login = lazy(() => import('./pages/Login'))
+const Workspace = lazy(() => import('./pages/Workspace'))
+const LabsPortal = lazy(() => import('./pages/LabsPortal'))
+const AdminPortal = lazy(() => import('./pages/AdminPortal'))
+const ClientPortal = lazy(() => import('./pages/ClientPortal'))
 
 // Minimal full-screen spinner for lazy page transitions
 const PageLoader = () => (
@@ -53,15 +58,22 @@ const PageLoader = () => (
 )
 
 
-// Conditionally show footer and chatbot (not on AI Builder or Nexus page)
+// Conditionally show footer and chatbot (not on Workspace, Admin, or Labs Portal pages)
 const AppShell = () => {
   const location = useLocation()
   const isBuilderPage = location.pathname === '/ai-builder'
   const isNexusPage = location.pathname === '/nexus'
+  const isWorkspace = location.pathname.startsWith('/workspace')
+  const isLabsPortal = location.pathname.startsWith('/labs-portal')
+  const isAdminPortal = location.pathname.startsWith('/admin')
+  const isLoginPage = location.pathname === '/login'
+  const isClientPortal = location.pathname.startsWith('/client')
+
+  const hideMarketingShells = isBuilderPage || isNexusPage || isWorkspace || isLabsPortal || isAdminPortal || isLoginPage || isClientPortal
+
   const routesWithOwnSurface = ['/pricing', '/labs', '/founder', '/team', '/contact']
   const hasPageVideoBackdrop =
-    !isBuilderPage &&
-    !isNexusPage &&
+    !hideMarketingShells &&
     location.pathname !== '/' &&
     !routesWithOwnSurface.includes(location.pathname)
 
@@ -96,7 +108,7 @@ const AppShell = () => {
   }, [location])
 
   return (
-    <div className={(isBuilderPage) ? 'h-screen overflow-hidden' : 'relative min-h-screen bg-black isolation-isolate'}>
+    <div className={(isBuilderPage || isWorkspace || isLabsPortal || isAdminPortal) ? 'h-screen overflow-hidden' : 'relative min-h-screen bg-black isolation-isolate'}>
       {hasPageVideoBackdrop && (
         <div className="fixed inset-0 z-0">
           <PageVideoBackdrop src="/video1.mp4" videoClassName="opacity-[0.16]" />
@@ -104,9 +116,9 @@ const AppShell = () => {
       )}
       <SeoHead path={location.pathname} />
       <SplashScreen />
-      <Navigation />
+      {!hideMarketingShells && <Navigation />}
       <div className="relative z-10">
-        {!isBuilderPage && !isNexusPage && location.pathname !== '/' && <Breadcrumbs />}
+        {!hideMarketingShells && location.pathname !== '/' && <Breadcrumbs />}
 
         <Suspense fallback={<PageLoader />}>
           <Routes>
@@ -137,6 +149,11 @@ const AppShell = () => {
             <Route path="/founder" element={<Founder />} />
             <Route path="/team" element={<Team />} />
             <Route path="/what-is-algoforce" element={<WhatIsAlgoForcePage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/workspace/*" element={<Workspace />} />
+            <Route path="/client/*" element={<ClientPortal />} />
+            <Route path="/labs-portal/*" element={<LabsPortal />} />
+            <Route path="/admin/*" element={<AdminPortal />} />
 
             {/* SEO Landing Pages */}
             <Route path="/ai-course" element={<AICourse />} />
@@ -152,11 +169,11 @@ const AppShell = () => {
           </Routes>
         </Suspense>
 
-        {!isBuilderPage && !isNexusPage && <Footer />}
+        {!hideMarketingShells && <Footer />}
       </div>
-      {!isBuilderPage && !isNexusPage && <Chatbot />}
-      {!isBuilderPage && !isNexusPage && <ConsultancyButton />}
-      {!isBuilderPage && !isNexusPage && <WebinarPopup />}
+      {!hideMarketingShells && <Chatbot />}
+      {!hideMarketingShells && <ConsultancyButton />}
+      {!hideMarketingShells && <WebinarPopup />}
     </div>
   )
 }
@@ -165,7 +182,7 @@ function App() {
   return (
     <HelmetProvider>
       <AuthProvider>
-        <Router>
+        <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <AppShell />
         </Router>
       </AuthProvider>

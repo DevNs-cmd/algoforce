@@ -7,27 +7,27 @@ import { defaultKeywords } from "../seoConfig";
 const ecosystemUnits = [
   {
     icon: <FaBriefcase />,
-    title: "AlgoForce AI Copilots",
+    title: "AlgoForce AI Software",
     description:
-      "Specialized out-of-the-box AI copilots (TallyGPT, LeadBolt, GST Autopilot) automating accounting, sales, and compliance operations.",
+      "Ready-to-use software products automating accounting, sales, and compliance operations.",
   },
   {
     icon: <FaRocket />,
-    title: "Crucible Platform",
+    title: "Crucible",
     description:
-      "Our Startup Execution Platform, providing a Startup Operating System to validate concepts, build MVPs, and scale products.",
+      "Our startup platform helping founders validate, build, and launch software products.",
   },
   {
     icon: <FaBrain />,
-    title: "AlgoForce Labs Talent",
+    title: "AlgoForce Labs",
     description:
-      "Our Talent Engine, where students learn by building real enterprise products to become deployment-ready engineers.",
+      "Our talent ecosystem where future software engineers learn by building real products.",
   },
   {
     icon: <FaMusic />,
-    title: "Velqora Operating System",
+    title: "Velqora",
     description:
-      "A specialized operational OS for live entertainment organizers, automation of bookings, and contract workflows.",
+      "Specialized software for live event organizers to manage bookings and contracts.",
   },
 ];
 
@@ -35,14 +35,14 @@ const WhatIsAlgoForce = () => {
   return (
     <main className="min-h-screen bg-[#020205] text-white pt-32 pb-20 selection:bg-purple-500/30">
       <Helmet>
-        <title>What is AlgoForce? | Enterprise AI Products Ecosystem</title>
+        <title>What is AlgoForce? | AI Software Company</title>
         <meta
           name="description"
-          content="AlgoForce is an Enterprise AI Products Company. Discover our specialized copilots, Crucible Startup OS, and Labs Talent Engine."
+          content="AlgoForce is an AI Software Company. Discover our ready-to-use software products, Crucible startup platform, and Labs talent ecosystem."
         />
         <meta
           name="keywords"
-          content={`${defaultKeywords}, what is AlgoForce, enterprise AI products, specialized copilots, Crucible Startup OS, Labs Talent Engine`}
+          content={`${defaultKeywords}, what is AlgoForce, AI software company, software products, Crucible, Labs`}
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.algoforceaii.com/what-is-algoforce" />
@@ -58,7 +58,7 @@ const WhatIsAlgoForce = () => {
               What is AlgoForce?
             </h1>
             <p className="mx-auto max-w-3xl text-lg font-medium leading-8 text-gray-400 md:text-xl">
-              AlgoForce is an Enterprise AI Products Company. We build specialized, out-of-the-box AI copilots for business functions on a monthly subscription model.
+              AlgoForce is an AI Software Company. We build and deploy business software powered by AI to automate business operations.
             </p>
           </motion.div>
         </header>
@@ -83,10 +83,10 @@ const WhatIsAlgoForce = () => {
 
         <section className="mx-auto max-w-4xl rounded-3xl border border-white/10 bg-white/[0.035] p-8 text-center md:p-12">
           <h2 className="mb-5 text-3xl font-black tracking-tight md:text-4xl">
-            Your Ambition Deserves Infrastructure
+            Ready to Automate Your Operations?
           </h2>
           <p className="mx-auto mb-8 max-w-2xl leading-7 text-gray-400">
-            Book a Business Assessment, explore our specialized AI copilots, and activate your monthly subscription.
+            Book a Business Assessment to find the right software products for your company operations.
           </p>
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <Link

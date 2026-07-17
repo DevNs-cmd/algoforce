@@ -13,32 +13,32 @@ const AssessmentSection = () => {
     {
       icon: <FaClock className="text-purple-600" />,
       title: "We study your workflows",
-      desc: "Our systems engineers analyze your current operational routines and database entries."
+      desc: "Our team analyzes your current operational routines and manual tasks."
     },
     {
       icon: <FaClipboardList className="text-purple-600" />,
       title: "We identify bottlenecks",
-      desc: "We pinpoint manual processes, data leaks, and compliance gaps causing delays."
+      desc: "We pinpoint manual processes, data silos, and communication delays."
     },
     {
       icon: <FaBullseye className="text-purple-600" />,
-      title: "We recommend products",
-      desc: "We match your specific operational needs with our pre-built, specialized AI copilots."
+      title: "We recommend software",
+      desc: "We match your business needs with the right AI software products from our catalog."
     },
     {
       icon: <FaMap className="text-purple-600" />,
-      title: "We build your roadmap",
-      desc: "We map out database schemas, connectors, and deployment timelines."
+      title: "We plan implementation",
+      desc: "We outline database compatibility, integrations, and deployment timelines."
     }
   ]
 
   const outputs = [
-    "Assessment Report",
-    "AI Opportunity Map",
-    "Recommended Products",
-    "Implementation Plan",
-    "Investment Estimate",
-    "Timeline"
+    "Assessment Summary",
+    "System Audit",
+    "Product Selection",
+    "Deployment Plan",
+    "Pricing Details",
+    "Implementation Timeline"
   ]
 
   return (
@@ -56,7 +56,7 @@ const AssessmentSection = () => {
               Every deployment starts with a <span className="premium-serif italic font-normal text-purple-600">Business Assessment.</span>
             </h3>
             <p className="text-gray-500 text-sm mt-4 font-normal leading-relaxed">
-              We do not build custom software on the fly. We assess your operations first to ensure our pre-built AI products fit your database parameters.
+              We do not build custom software from scratch. We assess your operations first to ensure our pre-built AI software products fit your business needs.
             </p>
           </div>
 

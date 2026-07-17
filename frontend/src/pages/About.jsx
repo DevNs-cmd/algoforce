@@ -71,21 +71,21 @@ const About = () => {
               </div>
               <h2 className="text-2xl font-black mb-4">Vision</h2>
               <p className="text-gray-400 text-sm leading-relaxed font-normal">
-                A unified operational layer for businesses powered by specialized AI products that share data and operational context.
+                AI software products that automate business operations, helping companies eliminate manual work.
               </p>
             </div>
           </motion.div>
         </section>
-
+ 
         {/* What We Build & How We Work */}
         <section className="mb-20 p-8 md:p-12 rounded-[30px] bg-white/[0.01] border border-white/5">
           <div className="max-w-3xl">
             <h2 className="text-3xl font-black mb-6">What we build & How we work</h2>
             <p className="text-gray-400 text-sm leading-relaxed mb-6 font-normal">
-              We specialize in productized operational AI. Rather than billing by the hour or launching custom consulting code from scratch, we offer pre-built specialized AI copilots ready to configure for Tally, SAP, and major CRMs.
+              We build and deploy business software powered by AI. Rather than billing by the hour or writing custom code from scratch, we offer ready-to-use software products configured for Tally, SAP, CRM, and other existing systems.
             </p>
             <p className="text-gray-400 text-sm leading-relaxed font-normal">
-              Every client engagement begins with a Business Assessment to map database structures. Once matched, we run setup configuration (Implementation) and launch on a monthly platform subscription.
+              Every client engagement begins with a Business Assessment to understand your operations. Once matched, we deploy the software and support it on a monthly subscription.
             </p>
           </div>
         </section>

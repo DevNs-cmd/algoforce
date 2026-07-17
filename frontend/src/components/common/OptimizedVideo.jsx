@@ -113,7 +113,6 @@ const OptimizedVideo = ({
       autoPlay
       loop
       muted
-      defaultMuted
       playsInline
       webkit-playsinline="true"
       preload={activePreload}

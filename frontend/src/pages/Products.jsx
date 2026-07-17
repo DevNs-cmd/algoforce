@@ -39,142 +39,128 @@ const PRODUCTS = [
   {
     id: 'tallygpt',
     title: 'TallyGPT',
-    tagline: 'AI Finance Copilot',
-    problem: 'Manual ledger reconciliation and delayed bookkeeping errors.',
-    howItWorks: 'Direct read-only ERP database queries via natural language interface.',
-    integrations: 'Tally Prime, Tally ERP 9, local database sync.',
-    timeToDeploy: '3–4 weeks',
-    outcome: 'Reconcile books 10x faster and secure real-time financial intelligence.',
+    tagline: 'Accounting software powered by AI.',
+    problem: 'Matching bank statements, updating bills, and reconciling ledgers manually takes hours and leads to mistakes.',
+    howItWorks: 'Connects directly to your Tally system to automate bank reconciliation and voucher entries in plain English.',
+    integrations: 'Tally Prime, Tally ERP 9, Local database sync.',
+    timeToDeploy: '3 weeks',
+    outcome: 'Reconcile books 10x faster and identify accounting mistakes automatically.',
     category: 'finance',
     icon: FaBrain,
     color: '#8f38ff',
-    details: 'Automates routine ledger updates, maps accounts payable/receivable, flags anomalies, and allows managers to ask natural language questions about financial records.'
+    details: 'Automates routine ledger updates, maps accounts payable and receivable, flags invoice anomalies, and answers financial questions in plain English.'
   },
   {
     id: 'leadbolt',
     title: 'LeadBolt',
-    tagline: 'AI Sales Copilot',
-    problem: 'Dropped B2B leads due to late manual follow-ups.',
-    howItWorks: 'Autonomous WhatsApp & web conversation agents qualifying leads.',
+    tagline: 'AI software for lead management.',
+    problem: 'Potential customers leave when sales representatives take hours or days to reply to new inquiries.',
+    howItWorks: 'An automated responder that answers web and WhatsApp inquiries instantly 24/7.',
     integrations: 'Zoho CRM, Salesforce, HubSpot, WhatsApp Cloud API.',
-    timeToDeploy: '2–3 weeks',
-    outcome: '24/7 lead qualification and 24% increase in sales conversions.',
+    timeToDeploy: '2 weeks',
+    outcome: '24/7 instant replies and a 24% increase in sales meetings booked.',
     category: 'sales',
     icon: FaChartLine,
     color: '#7aa7c7',
-    details: 'Engages inbound traffic and WhatsApp chats instantly, qualifies prospect criteria, registers leads in CRM, and schedules live validation calls with sales engineers.'
+    details: 'Greets inbound web traffic and WhatsApp inquiries instantly, qualifies prospect criteria, logs lead details in CRM, and schedules calls with your sales team.'
   },
   {
     id: 'hotelgpt',
     title: 'HotelGPT',
-    tagline: 'AI Hospitality Copilot',
-    problem: 'Losing direct guest reservations during peak hours or overnight.',
-    howItWorks: 'Conversational booking AI linked to Property Management Systems.',
-    integrations: 'WhatsApp API, HMS databases, Stripe.',
+    tagline: 'Guest communication software.',
+    problem: 'Front desks lose booking revenue when guests have to wait on hold or send emails to check room availability.',
+    howItWorks: 'A virtual guest host that answers room inquiries, checks availability, and books reservations 24/7.',
+    integrations: 'Property Management Systems, WhatsApp, Stripe.',
     timeToDeploy: '2 weeks',
-    outcome: '19% increase in booking conversions; zero missed reservations.',
+    outcome: '19% more direct bookings and zero missed guest calls.',
     category: 'hospitality',
     icon: FaHotel,
     color: '#b783ff',
-    details: 'Manages room queries, books guests directly, triggers check-in/out workflows, and answers general guest questions without front desk intervention.'
-  },
-  {
-    id: 'gst-autopilot',
-    title: 'GST Autopilot',
-    tagline: 'AI Compliance Copilot',
-    problem: 'Manual invoice matching errors causing Input Tax Credit leaks.',
-    howItWorks: 'Automated GSTR reconciliation script checking invoices.',
-    integrations: 'GST Portal API, Tally, SAP.',
-    timeToDeploy: '2 weeks',
-    outcome: 'Zero Input Tax Credit leakage and 40+ hours saved monthly.',
-    category: 'finance',
-    icon: FaCogs,
-    color: '#8f38ff',
-    details: 'Automates Input Tax Credit (ITC) matching, highlights tax anomalies, maps incoming purchase registries, and streamlines the preparation of compliance data.'
-  },
-  {
-    id: 'hr-copilot',
-    title: 'HR Copilot',
-    tagline: 'AI HR Copilot',
-    problem: 'Internal support teams losing hours to employee onboarding FAQ.',
-    howItWorks: 'Retrieval-augmented search over secure internal HR directories.',
-    integrations: 'Slack, MS Teams, Notion, Google Workspace.',
-    timeToDeploy: '3 weeks',
-    outcome: '90% reduction in employee internal query response times.',
-    category: 'hr',
-    icon: FaUsers,
-    color: '#8f38ff',
-    details: 'Acts as an internal knowledge directory, allowing employees to query internal policies, request leave info, and navigate onboarding protocols.'
+    details: 'Integrates with room databases to handle check-in/out workflows, answer general guest questions, and coordinate room reservations via WhatsApp.'
   },
   {
     id: 'factorygpt',
     title: 'FactoryGPT',
-    tagline: 'Vision AI Copilot',
-    problem: 'Manual assembly checks causing quality assurance defects.',
-    howItWorks: 'Vision AI model scanning live assembly camera streams.',
-    integrations: 'Industrial PLC systems, video feeds, ERP logs.',
-    timeToDeploy: '4–6 weeks',
-    outcome: '42% reduction in quality defects and automated error logs.',
+    tagline: 'AI quality inspection software.',
+    problem: 'Manual visual inspection of parts is slow and occasionally lets defective products ship to clients.',
+    howItWorks: 'Vision AI software that scans products on your assembly line and flags defects automatically.',
+    integrations: 'Factory cameras, Industrial PLCs, ERP systems.',
+    timeToDeploy: '4 weeks',
+    outcome: '42% reduction in quality defects and automatic error logs.',
     category: 'manufacturing',
     icon: FaIndustry,
     color: '#7aa7c7',
-    details: 'Analyzes video streams on assembly lines in real-time, flags physical defects, monitors safety gear compliance, and triggers automated defect logs in the ERP.'
-  },
-  {
-    id: 'inventory-copilot',
-    title: 'Inventory Copilot',
-    tagline: 'AI Inventory Copilot',
-    problem: 'Stockouts and inventory desync between offline ERP and online sales.',
-    howItWorks: 'Automated webhook inventory sync matching warehouses.',
-    integrations: 'Shopify, Amazon Central, Tally ERP, SAP.',
-    timeToDeploy: '3 weeks',
-    outcome: '25% decrease in over-stocking and automated reorder alerts.',
-    category: 'operations',
-    icon: FaDatabase,
-    color: '#b783ff',
-    details: 'Monitors and reconciles inventory databases across retail registers and e-commerce warehouses, triggering automatic re-order alerts to avoid stockouts.'
+    details: 'Analyzes assembly line video feeds in real time, automatically flags missing parts or cracks, and triggers defect logs in your ERP database.'
   },
   {
     id: 'corporate-brain',
     title: 'Corporate Brain',
-    tagline: 'AI Knowledge Copilot',
-    problem: 'Proprietary project memory lost when developers or managers exit.',
-    howItWorks: 'Semantic index search across internal documents and sheets.',
-    integrations: 'Google Drive, MS Office 365, internal databases.',
+    tagline: 'Company knowledge software.',
+    problem: 'Employees waste hours searching through files, folders, and emails to find company procedures, templates, or past decisions.',
+    howItWorks: 'A secure search engine that indexes your company folders and documents for instant lookup.',
+    integrations: 'Google Workspace, Microsoft 365, Notion, Confluence.',
     timeToDeploy: '4 weeks',
-    outcome: 'Secure retention of company IP and instant SOP lookups.',
+    outcome: 'Access company procedures instantly and protect institutional memory.',
     category: 'knowledge',
     icon: FaBrain,
     color: '#8f38ff',
-    details: 'Indexes and unifies historical documents, files, emails, and database records into a single secure interface with vector search capability.'
+    details: 'Indexes and unifies historical documents, standard operating procedures, email records, and company templates into a single secure search interface.'
   },
   {
     id: 'operational-intelligence',
     title: 'Operational Intelligence',
-    tagline: 'AI Analytics Copilot',
-    problem: 'Management flying blind due to manual spreadsheet calculations.',
-    howItWorks: 'Real-time process bottleneck data ingestion dashboard.',
-    integrations: 'PostgreSQL, MongoDB, Supabase, BigQuery.',
+    tagline: 'Business analytics software.',
+    problem: 'Managers make critical decisions using outdated or manually compiled spreadsheets that take days to prepare.',
+    howItWorks: 'Real-time dashboards that connect directly to your databases to show key operational metrics.',
+    integrations: 'PostgreSQL, MongoDB, BigQuery, Excel.',
     timeToDeploy: '3 weeks',
-    outcome: '100% visibility over operational leakage and automated reports.',
+    outcome: '100% visibility over operational costs and automated weekly reports.',
     category: 'analytics',
     icon: FaCogs,
     color: '#7aa7c7',
-    details: 'Synthesizes scattered database metrics into real-time decision dashboards, highlighting process bottlenecks and calculating department ROI automatically.'
+    details: 'Synthesizes scattered database tables into real-time decision dashboards, highlighting process bottlenecks and calculating department ROI automatically.'
   },
   {
-    id: 'unified-data-platform',
-    title: 'Unified Data Platform',
-    tagline: 'AI Data Copilot',
-    problem: 'Conflicting numbers due to isolated database schemas.',
-    howItWorks: 'Automated ETL processing pipeline warehousing databases.',
-    integrations: 'PostgreSQL, MongoDB, MySQL, Oracle DB.',
-    timeToDeploy: '4 weeks',
-    outcome: 'Single source of truth; zero manually matched tables.',
+    id: 'inventory-copilot',
+    title: 'Inventory Copilot',
+    tagline: 'Inventory management software.',
+    problem: 'E-commerce stores and warehouses run out of stock or over-purchase because inventory counts are updated manually.',
+    howItWorks: 'Software that links your online store and warehouse databases to synchronize stock counts in real time.',
+    integrations: 'Shopify, Amazon, Tally, SAP.',
+    timeToDeploy: '3 weeks',
+    outcome: '25% lower holding costs and zero stockout emergencies.',
     category: 'operations',
     icon: FaDatabase,
     color: '#b783ff',
-    details: 'Integrates databases into a clean operational storage warehouse, handling ETL processes and database schemas automatically to supply copilots with structured data.'
+    details: 'Monitors inventory databases, reconciles sales registers, triggers automatic reorder alerts, and drafts purchase orders.'
+  },
+  {
+    id: 'gst-autopilot',
+    title: 'GST Autopilot',
+    tagline: 'GST automation software.',
+    problem: 'Comparing purchase bills with government portals manually is tedious and results in unclaimed tax credits.',
+    howItWorks: 'Automates purchase register comparison against portal entries to match Input Tax Credit claims.',
+    integrations: 'Government GST Portal, Tally, SAP ERP.',
+    timeToDeploy: '2 weeks',
+    outcome: 'Stop tax credit leakage and save 40+ accounting hours monthly.',
+    category: 'finance',
+    icon: FaCogs,
+    color: '#8f38ff',
+    details: 'Imports purchase registers and matches them against portal entries, highlighting mismatches and alerting vendors about missing tax filings.'
+  },
+  {
+    id: 'hr-copilot',
+    title: 'HR Copilot',
+    tagline: 'Employee support software.',
+    problem: 'HR managers spend a third of their day answering the same repetitive questions about leave policies, salaries, and insurance.',
+    howItWorks: 'An interactive internal assistant that resolves employee policy questions and coordinates onboarding.',
+    integrations: 'Slack, Microsoft Teams, HR databases.',
+    timeToDeploy: '3 weeks',
+    outcome: '90% faster employee query resolution and automated onboarding checklists.',
+    category: 'hr',
+    icon: FaUsers,
+    color: '#8f38ff',
+    details: 'Acts as an internal support assistant, allowing team members to ask questions about leave policy, holiday calendars, and onboarding setup.'
   }
 ]
 
@@ -185,7 +171,7 @@ const Products = () => {
     const [selectedProduct, setSelectedProduct] = useState(null)
 
     const stats = [
-        ['10', 'AI Products'],
+        ['9', 'AI Products'],
         ['100%', 'Execution Standard'],
         ['UDYAM', 'MSME Registered'],
     ]
@@ -226,10 +212,10 @@ const Products = () => {
                                 <span className="text-[10px] font-semibold uppercase text-slate-500">AI Software Company</span>
                             </div>
                             <h1 className="mb-6 max-w-4xl text-[2.45rem] font-semibold leading-[1.03] sm:text-5xl md:text-6xl lg:text-[4.1rem] tracking-tight">
-                                AI Products & <span className="premium-serif italic font-normal text-[#8f38ff]">Business Copilots</span>
+                                AI Products for <span className="premium-serif italic font-normal text-[#8f38ff]">Business Operations</span>
                             </h1>
                             <p className="max-w-2xl text-base leading-relaxed text-slate-600 md:text-lg font-normal">
-                                We configure and deploy specialized AI products for finance, sales, HR, manufacturing, hospitality and operations.
+                                We deploy ready-to-use software products for finance, sales, HR, manufacturing, customer support and operations.
                             </p>
                             <div className="mt-8 grid max-w-xl grid-cols-3 gap-3">
                                 {stats.map(([value, label]) => (
@@ -257,8 +243,8 @@ const Products = () => {
                                 />
                                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,16,29,0.04),rgba(6,16,29,0.68))]" />
                                 <div className="absolute left-5 right-5 bottom-5 text-white">
-                                    <p className="mb-2 text-[10px] font-semibold uppercase text-white/70">Implementation & Subscription</p>
-                                    <h2 className="text-2xl font-semibold md:text-3xl tracking-tight">AI products built for operational parameters.</h2>
+                                    <p className="mb-2 text-[10px] font-semibold uppercase text-white/70">Implementation & Support</p>
+                                    <h2 className="text-2xl font-semibold md:text-3xl tracking-tight">AI products built to automate work.</h2>
                                 </div>
                             </div>
                             <div className="mt-5 flex items-start gap-3 text-sm font-semibold text-slate-500 justify-center">

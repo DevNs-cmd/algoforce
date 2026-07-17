@@ -4,19 +4,21 @@ import { Link } from 'react-router-dom'
 import { FaGraduationCap, FaCode, FaFlask, FaUsers, FaArrowRight } from 'react-icons/fa'
 
 const INSTITUTIONS = [
-  { name: 'Amity University', abbr: 'AU' },
-  { name: 'NIT Delhi', abbr: 'NIT' },
+  { name: 'Amity University', abbr: 'AMITY' },
+  { name: 'NIT Delhi', abbr: 'NITD' },
   { name: 'DTU', abbr: 'DTU' },
   { name: 'NSUT', abbr: 'NSUT' },
-  { name: 'IIIT Delhi', abbr: 'IIIT' },
-  { name: 'IIT Community', abbr: 'IIT' },
+  { name: 'IIIT Delhi', abbr: 'IIITD' },
+  { name: 'IIT Communities', abbr: 'IIT' },
 ]
 
 const COLLABORATION_TYPES = [
-  { icon: <FaGraduationCap />, label: 'Internships' },
-  { icon: <FaCode />, label: 'Open Projects' },
-  { icon: <FaFlask />, label: 'Research' },
+  { icon: <FaGraduationCap />, label: 'Internship programs' },
+  { icon: <FaFlask />, label: 'Research initiatives' },
+  { icon: <FaCode />, label: 'Engineering workshops' },
   { icon: <FaUsers />, label: 'Hackathons' },
+  { icon: <FaGraduationCap />, label: 'Student innovation programs' },
+  { icon: <FaCode />, label: 'Product development' },
 ]
 
 const EcosystemSection = () => {
@@ -40,10 +42,10 @@ const EcosystemSection = () => {
         >
           <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-purple-400">Academic & Innovation Partners</span>
           <h2 className="text-3xl md:text-4xl font-bold leading-tight mt-2 tracking-tight">
-            University Collaborations
+            Academic & Innovation Partners
           </h2>
           <p className="text-slate-400 text-sm mt-4 font-normal leading-relaxed max-w-2xl mx-auto">
-            AlgoForce collaborates with universities and student communities across India on internships, open-source projects, research programs, product development, and engineering workshops.
+            AlgoForce collaborates with universities and engineering communities across India for internships, product engineering, hackathons, research and workforce development.
           </p>
         </motion.div>
 

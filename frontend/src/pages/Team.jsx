@@ -9,7 +9,7 @@ const teamMembers = [
     department: "Leadership",
     location: "New Delhi",
     photo: "",
-    bio: "Building AlgoForce as an Enterprise AI Products Company across specialized copilots, Labs talent engine, and Crucible startup OS.",
+    bio: "Building AlgoForce as an AI Software Company across ready-to-use software products, Labs talent training, and the Crucible platform.",
     linkedin: "https://www.linkedin.com/in/dev-n-suman-3616a6377/",
     email: "af@algoforceaii.com",
   },
@@ -19,7 +19,7 @@ const teamMembers = [
     department: "Growth & Brand",
     location: "New Delhi",
     photo: "",
-    bio: "Leads product positioning, subscription campaigns, collaborations, and market growth for AlgoForce enterprise copilots.",
+    bio: "Leads product positioning, subscription campaigns, collaborations, and market growth for AlgoForce software.",
     linkedin: "https://www.linkedin.com/company/algoforceofficial/",
     email: "af@algoforceaii.com",
   },
@@ -39,7 +39,7 @@ const teamMembers = [
     department: "Operations",
     location: "New Delhi",
     photo: "",
-    bio: "Coordinates delivery systems, team operations, execution cadence, client workflows, and day-to-day organizational performance.",
+    bio: "Coordinates delivery processes, team operations, client workflows, and day-to-day organizational performance.",
     linkedin: "https://www.linkedin.com/company/algoforceofficial/",
     email: "af@algoforceaii.com",
   },
@@ -49,7 +49,7 @@ const teamMembers = [
     department: "Client Experience",
     location: "New Delhi",
     photo: "",
-    bio: "Owns client experience, service quality, journey design, stakeholder communication, and the premium feel of every AlgoForce interaction.",
+    bio: "Owns client experience, service quality, stakeholder communication, and the premium feel of every AlgoForce interaction.",
     linkedin: "https://www.linkedin.com/company/algoforceofficial/",
     email: "af@algoforceaii.com",
   },
@@ -106,7 +106,7 @@ const Team = () => {
         <title>Meet Our Team | AlgoForce</title>
         <meta
           name="description"
-          content="Meet the AlgoForce team behind our specialized AI copilots, Labs talent engine, and Crucible startup execution OS."
+          content="Meet the AlgoForce team behind our ready-to-use software products, Labs talent training, and Crucible platform."
         />
         <link rel="canonical" href="https://www.algoforceaii.com/team" />
       </Helmet>

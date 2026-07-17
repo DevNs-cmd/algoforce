@@ -29,17 +29,12 @@ const Pricing = () => {
   }
 
   const investmentFactors = [
-    { icon: <FaBuilding />, label: 'Business size' },
-    { icon: <FaUsers />, label: 'Number of users' },
-    { icon: <FaDatabase />, label: 'Database complexity' },
-    { icon: <FaPlug />, label: 'ERP integrations' },
-    { icon: <FaChartBar />, label: 'CRM integrations' },
-    { icon: <FaWhatsapp />, label: 'WhatsApp integrations' },
-    { icon: <FaCogs />, label: 'Custom workflows' },
-    { icon: <FaCloud />, label: 'Private cloud requirements' },
-    { icon: <FaShieldAlt />, label: 'Compliance requirements' },
-    { icon: <FaFileAlt />, label: 'Number of AI products' },
-    { icon: <FaHeadset />, label: 'Support SLA' },
+    { icon: <FaBuilding />, label: 'Company size' },
+    { icon: <FaUsers />, label: 'Users' },
+    { icon: <FaDatabase />, label: 'Existing software' },
+    { icon: <FaPlug />, label: 'Required integrations' },
+    { icon: <FaCloud />, label: 'Deployment environment' },
+    { icon: <FaHeadset />, label: 'Support requirements' },
   ]
 
   const includedItems = [
@@ -104,10 +99,10 @@ const Pricing = () => {
             </h1>
 
             <p className="max-w-2xl mx-auto text-base sm:text-lg leading-relaxed text-gray-500 mb-4 font-normal">
-              Every deployment is different.
+              Every company is different.
             </p>
             <p className="max-w-2xl mx-auto text-sm leading-relaxed text-gray-400 mb-10 font-normal">
-              Your Business Assessment determines the final implementation scope, deployment effort and ongoing operational support.
+              Pricing depends on company size, users, existing software, required integrations, deployment environment, and support requirements. Final pricing is shared after the Business Assessment.
             </p>
 
             <Link
@@ -135,14 +130,13 @@ const Pricing = () => {
                 <FaSearch />
               </div>
               <span className="text-[9px] font-black uppercase text-gray-400 tracking-widest">Step 01</span>
-              <h3 className="text-lg font-bold text-gray-900 mt-1 mb-4">Business Assessment</h3>
+              <h3 className="text-lg font-bold text-gray-900 mt-1 mb-2">Business Assessment</h3>
+              <p className="text-xs text-purple-600 font-bold mb-4">Every project begins with understanding your business.</p>
               <ul className="space-y-2.5 text-xs text-gray-500 font-normal">
-                <li>Understand operations</li>
-                <li>Review systems</li>
-                <li>Map workflows</li>
-                <li>Identify automation opportunities</li>
-                <li>Recommend products</li>
-                <li>Deliver implementation roadmap</li>
+                <li>Study operational workflows</li>
+                <li>Audit existing databases</li>
+                <li>Map repetitive tasks</li>
+                <li>Select software products</li>
               </ul>
               <div className="hidden md:flex absolute -right-5 top-1/2 -translate-y-1/2 z-10 w-6 h-6 rounded-full bg-purple-100 text-purple-600 items-center justify-center text-[10px]">→</div>
             </div>
@@ -153,13 +147,14 @@ const Pricing = () => {
                 <FaCogs />
               </div>
               <span className="text-[9px] font-black uppercase text-gray-400 tracking-widest">Step 02</span>
-              <h3 className="text-lg font-bold text-gray-900 mt-1 mb-4">Implementation</h3>
+              <h3 className="text-lg font-bold text-gray-900 mt-1 mb-2">Implementation</h3>
+              <p className="text-xs text-purple-600 font-bold mb-4">We configure and deploy the software.</p>
               <ul className="space-y-2.5 text-xs text-gray-500 font-normal">
-                <li>Configure products</li>
-                <li>Connect databases</li>
-                <li>Build integrations</li>
-                <li>Validate workflows</li>
-                <li>Deploy production environment</li>
+                <li>Configure pre-built products</li>
+                <li>Connect database integrations</li>
+                <li>Map custom business logic</li>
+                <li>Validate output correctness</li>
+                <li>Deploy to cloud or server</li>
               </ul>
               <div className="hidden md:flex absolute -right-5 top-1/2 -translate-y-1/2 z-10 w-6 h-6 rounded-full bg-purple-100 text-purple-600 items-center justify-center text-[10px]">→</div>
             </div>
@@ -170,14 +165,14 @@ const Pricing = () => {
                 <FaRegCalendarAlt />
               </div>
               <span className="text-[9px] font-black uppercase text-gray-400 tracking-widest">Step 03</span>
-              <h3 className="text-lg font-bold text-gray-900 mt-1 mb-4">Subscription</h3>
+              <h3 className="text-lg font-bold text-gray-900 mt-1 mb-2">Monthly Subscription</h3>
+              <p className="text-xs text-purple-600 font-bold mb-4">We maintain, improve and support it.</p>
               <ul className="space-y-2.5 text-xs text-gray-500 font-normal">
-                <li>Cloud hosting</li>
-                <li>AI model maintenance</li>
-                <li>Security updates</li>
-                <li>Performance monitoring</li>
-                <li>Customer Success</li>
-                <li>Continuous improvements</li>
+                <li>Handle cloud hosting</li>
+                <li>Perform security audits</li>
+                <li>Install model and software updates</li>
+                <li>Provide ongoing support</li>
+                <li>Deliver continuous improvements</li>
               </ul>
             </div>
           </div>

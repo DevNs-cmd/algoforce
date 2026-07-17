@@ -13,25 +13,25 @@ const WhoItsFor = () => {
     {
       icon: <FaRocket />,
       title: 'Startups & Founders',
-      desc: 'Deploying AI Copilots through Crucible to rapidly validate ideas, launch MVPs, and scale startup operations.',
+      desc: 'Deploying AI software through Crucible to rapidly validate ideas, launch MVPs, and scale startup operations.',
       color: 'bg-purple-600/20 text-purple-400'
     },
     {
       icon: <FaBuilding />,
       title: 'SMEs & Mid-Market',
-      desc: 'Subscribing to specialized AI Copilots (TallyGPT, LeadBolt, GST Autopilot) to automate core business functions and eliminate manual spreadsheets.',
+      desc: 'Subscribing to ready-to-use AI software products (TallyGPT, LeadBolt, GST Autopilot) to automate core business functions and eliminate manual spreadsheets.',
       color: 'bg-blue-600/10 text-blue-400'
     },
     {
       icon: <FaUserTie />,
       title: 'Enterprises & Corporates',
-      desc: 'Deploying secure, self-hosted AI operating layers that preserve organizational knowledge and scale business operations.',
+      desc: 'Deploying secure, self-hosted AI software products that preserve organizational knowledge and scale business operations.',
       color: 'bg-green-600/10 text-green-400'
     },
     {
       icon: <FaMicrochip />,
       title: 'Strategic Tech Partners',
-      desc: 'Expanding business capabilities through product licensing, custom implementations, and ongoing customer success programs.',
+      desc: 'Expanding business capabilities through product licensing, configured software products, and ongoing customer success programs.',
       color: 'bg-cyan-600/10 text-cyan-400'
     }
   ]
@@ -47,10 +47,10 @@ const WhoItsFor = () => {
         >
           <h2 className="text-[12px] font-bold uppercase tracking-[0.5em] text-gray-500 mb-6">Target Segments</h2>
           <h3 className="text-3xl md:text-5xl font-bold mb-6 leading-tight tracking-tight">
-            AI Copilots for <span className="text-purple-500">Every Scale.</span>
+            AI Software for <span className="text-purple-500">Every Scale.</span>
           </h3>
           <p className="max-w-xl mx-auto text-gray-400 font-normal text-sm md:text-base">
-            We offer specialized AI copilots and enterprise products that fit seamlessly into businesses of any size, from startups to large scale enterprises.
+            We offer ready-to-use AI software products that fit seamlessly into businesses of any size, from startups to large scale enterprises.
           </p>
         </motion.div>
 
@@ -77,19 +77,19 @@ const WhoItsFor = () => {
 
         {/* Final Statement Block */}
         <div className="relative z-10 mt-10 md:mt-14 p-7 md:p-12 selection:bg-purple-500/30 rounded-[28px] bg-white text-black text-center">
-          <h4 className="text-2xl md:text-3xl font-bold mb-5 leading-tight">Identify Your AI Copilot.</h4>
+          <h4 className="text-2xl md:text-3xl font-bold mb-5 leading-tight">Find Your AI Software.</h4>
           <p className="text-gray-600 text-sm md:text-base mb-8 max-w-xl mx-auto font-normal">
-            Request a Business Assessment to find the right specialized AI Copilots for your operations, and start your product implementation and monthly subscription.
+            Request a Business Assessment to find the right ready-to-use AI software products for your operations, and start your product implementation and monthly subscription.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link to="/contact">
               <button className="px-8 py-4 bg-black text-white hover:bg-gray-900 rounded-xl font-bold text-xs uppercase tracking-widest transition-all">
-                Request Assessment
+                Book Business Assessment
               </button>
             </Link>
-            <Link to="/services">
+            <Link to="/products">
               <button className="px-8 py-4 bg-gray-100 text-black border border-gray-200 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-white transition-all">
-                Browse Products
+                Explore Products
               </button>
             </Link>
           </div>

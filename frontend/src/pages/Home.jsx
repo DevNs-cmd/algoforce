@@ -29,8 +29,8 @@ const Home = () => {
         <WhyAlgoForce />
         <CustomerReviews />
         <PaymentGateway
-          title="AI Copilot Subscription & Setup"
-          subtitle="Scan the QR code to initiate your Business Assessment, fund product implementation, or activate your monthly platform subscription."
+          title="AI Software Subscription & Deployment"
+          subtitle="Scan the QR code to initiate your Business Assessment, fund product deployment, or activate your monthly software subscription."
         />
         <EnterpriseFaq />
       </div>

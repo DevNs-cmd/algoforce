@@ -30,15 +30,14 @@ const WhatIsAlgoForce = ({ setActiveCategory }) => {
   ]
 
   const assistanceItems = [
-    { title: 'Reduce manual work', category: 'operations', desc: 'Automate repetitive workflows and tasks.' },
-    { title: 'Automate finance', category: 'finance', desc: 'Sync accounting, reconciliation, and GST compliance.' },
-    { title: 'Improve sales', category: 'sales', desc: 'Qualify and follow up with leads automatically.' },
-    { title: 'Manage inventory', category: 'operations', desc: 'Synchronize inventory metrics in real time.' },
-    { title: 'Quality inspection', category: 'manufacturing', desc: 'Vision AI defect detection for assembly lines.' },
-    { title: 'Knowledge management', category: 'knowledge', desc: 'Preserve company memory and enable internal document search.' },
-    { title: 'Customer support', category: 'hospitality', desc: 'Handle reservations and queries 24/7.' },
-    { title: 'Employee onboarding', category: 'hr', desc: 'Automate onboarding pathways and FAQ.' },
-    { title: 'Business dashboards', category: 'analytics', desc: 'Real-time executive decision dashboards.' }
+    { title: 'Reduce manual work', category: 'operations', icon: <FaTasks /> },
+    { title: 'Automate repetitive tasks', category: 'operations', icon: <FaTasks /> },
+    { title: 'Improve sales response', category: 'sales', icon: <FaChartLine /> },
+    { title: 'Manage inventory', category: 'operations', icon: <FaTasks /> },
+    { title: 'Speed up accounting', category: 'finance', icon: <FaDollarSign /> },
+    { title: 'Automate customer support', category: 'hospitality', icon: <FaHotel /> },
+    { title: 'Improve manufacturing quality', category: 'manufacturing', icon: <FaIndustry /> },
+    { title: 'Organize company knowledge', category: 'knowledge', icon: <FaBrain /> }
   ]
 
   const handleSelectCategory = (categoryId) => {
@@ -81,20 +80,20 @@ const WhatIsAlgoForce = ({ setActiveCategory }) => {
               ))}
             </div>
           </div>
-
+ 
           <hr className="border-gray-100 my-10 max-w-6xl mx-auto" />
-
+ 
           {/* Third Section: What can AlgoForce help you with? */}
           <div className="mt-12">
             <div className="text-center mb-10">
-              <h2 className="text-[11px] font-bold uppercase tracking-[0.4em] text-purple-600 mb-4">Operational Needs</h2>
+              <h2 className="text-[11px] font-bold uppercase tracking-[0.4em] text-purple-600 mb-4">Problems We Solve</h2>
               <h3 className="text-3xl md:text-4xl font-bold leading-tight tracking-tight">
-                What can AlgoForce help you with?
+                What problems do we solve?
               </h3>
             </div>
-
+ 
             {/* Assistance Grid */}
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
               {assistanceItems.map((item, idx) => (
                 <motion.div
                   key={idx}
@@ -102,15 +101,17 @@ const WhatIsAlgoForce = ({ setActiveCategory }) => {
                   onClick={() => handleSelectCategory(item.category)}
                   className="p-6 rounded-[22px] bg-gray-50 border border-gray-100 hover:border-purple-500/30 hover:bg-white hover:shadow-xl hover:shadow-purple-500/5 transition-all cursor-pointer group flex flex-col justify-between"
                 >
-                  <div>
-                    <h4 className="text-lg font-bold text-gray-900 group-hover:text-purple-600 transition-colors mb-2">
-                      {item.title}
-                    </h4>
-                    <p className="text-gray-500 font-normal text-xs leading-relaxed">
-                      {item.desc}
-                    </p>
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-base shrink-0 mt-0.5 group-hover:bg-purple-600 group-hover:text-white transition-all duration-300">
+                      {item.icon}
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-bold text-gray-900 group-hover:text-purple-600 transition-colors">
+                        {item.title}
+                      </h4>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2 mt-4 text-[10px] font-bold uppercase tracking-wider text-purple-600 opacity-80 group-hover:opacity-100 transition-opacity">
+                  <div className="flex items-center gap-2 mt-6 text-[10px] font-bold uppercase tracking-wider text-purple-600 opacity-80 group-hover:opacity-100 transition-opacity">
                     View AI Product <FaArrowRight size={8} className="transform group-hover:translate-x-1 transition-transform" />
                   </div>
                 </motion.div>

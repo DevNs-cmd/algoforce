@@ -16,18 +16,18 @@ const ImplementationProcess = () => {
     },
     {
       icon: <FaList />,
-      title: "Product Selection",
-      desc: "We recommend the exact specialized AI products for your business."
+      title: "Choose Software",
+      desc: "We recommend the exact software products for your business."
     },
     {
       icon: <FaCogs />,
-      title: "Implementation",
-      desc: "We configure, integrate, and deploy the selected products."
+      title: "Deployment",
+      desc: "We configure, integrate, and deploy the software."
     },
     {
       icon: <FaRegCalendarAlt />,
-      title: "Monthly Subscription",
-      desc: "We manage hosting, models, security, and updates."
+      title: "Monthly Support",
+      desc: "We manage hosting, updates, security, and ongoing support."
     }
   ]
 

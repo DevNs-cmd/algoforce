@@ -20,109 +20,78 @@ import {
     FaWhatsapp,
     FaCheck,
     FaMicrochip,
-    FaSearch
+    FaSearch,
+    FaUsers
 } from 'react-icons/fa'
 import OptimizedVideo from '../components/common/OptimizedVideo'
 
 const TABS = [
-    { id: 'programs', label: 'Programs', title: 'Cohort Programs', text: 'Guided cohorts for next-generation systems engineers to transition from academic logic into real product engineering.' },
-    { id: 'tracks', label: 'Engineering Tracks', title: 'Production Engineering Tracks', text: 'Specialized deep-dives into LLM architectures, pipeline orchestrations (n8n/Make), and legacy database integrations.' },
-    { id: 'internships', label: 'Internships', title: 'Ecosystem Internships', text: 'Structured placements inside our enterprise deployment teams, working directly with client software environments.' },
-    { id: 'projects', label: 'Open Projects', title: 'Ecosystem Contributions', text: 'Active repository challenges where students contribute features, connectors, and tools directly to enterprise-ready products.' },
-    { id: 'research', label: 'Research & Studies', title: 'AI Systems Research', text: 'Technical writeups on local database integrations, secure self-hosted LLM configurations, and vision AI metrics.' },
-    { id: 'community', label: 'Community', title: 'Talent Community', text: 'A network of engineers from top colleges collaborating on events, validation challenges, and production engineering.' },
+    { id: 'internships', label: 'Internships', title: 'Internship Programs', text: 'Work alongside our deployment team on active client software environments.' },
+    { id: 'research', label: 'Research', title: 'Research Initiatives', text: 'Investigate AI system latency, edge-compute performance, and local database security benchmarks.' },
+    { id: 'hackathons', label: 'Hackathons', title: 'Student Hackathons', text: 'Participate in engineering sprints to build prototypes and solve speed benchmarks.' },
+    { id: 'workshops', label: 'Engineering Workshops', title: 'Engineering Workshops', text: 'Learn how to build, deploy, and scale business automation pipelines.' },
+    { id: 'projects', label: 'Open Source', title: 'Open-Source Projects', text: 'Contribute to shared databases, connectors, and software tools on GitHub.' },
+    { id: 'collaborations', label: 'University Collaborations', title: 'University Collaborations', text: 'Collaborate with college engineering cells and developer communities across India.' },
 ]
 
 const LABS_DATA = {
-    programs: [
-        {
-            title: 'AI Systems & Operational Automation',
-            description: '8-week cohort for advanced developers building process automations and operational integrations.',
-            icon: FaGraduationCap,
-            color: '#8f38ff',
-            features: ['AI Systems Architecture', 'Business Process Automation', 'Operational Integration', 'Live Capstone Projects'],
-            ctaText: 'Apply to Program'
-        },
-        {
-            title: 'Automation Infrastructure Program',
-            description: '10-week cohort for operations and technology builders designing automated pipelines and integrations.',
-            icon: FaBrain,
-            color: '#7aa7c7',
-            features: ['Intelligent Workflows', 'Prompt & Agent Orchestration', 'n8n & Make Infrastructure', 'Validation Runs'],
-            ctaText: 'Apply to Program'
-        }
-    ],
-    tracks: [
-        {
-            title: 'AI Systems Architect & Engineering Track',
-            description: 'Advanced production-grade learning track focusing on custom model fine-tuning and API gateways.',
-            icon: FaCode,
-            color: '#b783ff',
-            features: ['Custom AI Architectures', 'Secure Cloud Integration', 'Workflow Orchestration', 'Operational Dashboards'],
-            ctaText: 'Explore Track'
-        },
-        {
-            title: 'Data & Database Connector Engineering',
-            description: 'Specialized track for syncing structured data layers like Tally ERP, SAP, PostgreSQL, and Oracle.',
-            icon: FaDatabase,
-            color: '#8f38ff',
-            features: ['Database Schema Mapping', 'ERP Sync Architecture', 'Secure API Integration', 'Data Warehousing'],
-            ctaText: 'Explore Track'
-        }
-    ],
     internships: [
         {
-            title: 'AI Deployment Internship',
-            description: 'Hands-on roles deploying and maintaining specialized AI copilots on-site and inside private clouds.',
+            title: 'AI Software Deployment',
+            description: 'Hands-on roles deploying and configuring our ready-to-use software products.',
             icon: FaBriefcase,
             color: '#7aa7c7',
-            features: ['Database integration support', 'Model compliance checking', 'UAT testing runs', 'Client support coordination'],
+            features: ['Database connection support', 'UAT testing runs', 'Client support coordination'],
             ctaText: 'Apply for Internship'
-        }
-    ],
-    projects: [
-        {
-            title: 'Tally ERP Connector Bridge',
-            description: 'Open connector framework enabling safe local SQL queries and XML data extraction from legacy ERPs.',
-            icon: FaGithub,
-            color: '#b783ff',
-            features: ['Local Service Sync', 'XML parsing optimization', 'Read-only access keys', 'Anonymization layer'],
-            ctaText: 'Contribute on GitHub'
-        },
-        {
-            title: 'Unified Lead Qualification Agent',
-            description: 'Modular conversational AI node template optimized for fast customer validation loops.',
-            icon: FaGithub,
-            color: '#8f38ff',
-            features: ['Official WhatsApp API connector', 'CRM mapping schemas', 'Intake state machine', 'Multi-language support'],
-            ctaText: 'Contribute on GitHub'
         }
     ],
     research: [
         {
-            title: 'Evaluating Private Cloud LLMs for ERP Data',
-            description: 'A study on data leakage prevention and memory retention across local Llama 3 deployments.',
+            title: 'Evaluating Edge-Compute for Defect Detection',
+            description: 'An analysis of latency and camera trigger benchmarks on local manufacturing floors.',
             icon: FaMicrochip,
-            color: '#7aa7c7',
-            features: ['VPC security blueprints', 'Latency optimization tables', 'Token-usage metrics', 'Privacy benchmarks'],
-            ctaText: 'Read Technical Paper'
-        },
-        {
-            title: 'Vision AI Benchmarks in Manufacturing',
-            description: 'Analyzing latency and accuracy variables on edge edge-compute servers for quality inspection.',
-            icon: FaSearch,
             color: '#b783ff',
-            features: ['Edge hardware tests', 'PLC trigger speeds', 'Defect logging algorithms', 'Anomaly maps'],
+            features: ['Edge hardware tests', 'PLC trigger speeds', 'Defect logging algorithms'],
             ctaText: 'Read Research Paper'
         }
     ],
-    community: [
+    hackathons: [
         {
-            title: 'AlgoForce Engineering Club',
-            description: 'Connecting top builders from India\'s next generation of engineers in weekly hack sessions.',
+            title: 'Operational Software Hackathon',
+            description: 'Engineering sprints to optimize speed benchmarks for database search queries.',
             icon: FaGlobe,
             color: '#8f38ff',
-            features: ['Weekly code hackathons', 'Discord tech channels', 'Founder office hours', 'Early product access'],
+            features: ['Query speed contests', 'API mapping challenges', 'Open to college students'],
+            ctaText: 'Register for Hackathon'
+        }
+    ],
+    workshops: [
+        {
+            title: 'Business Automation Workshops',
+            description: 'Practical training on mapping business processes and writing integration scripts.',
+            icon: FaGraduationCap,
+            color: '#8f38ff',
+            features: ['Process map training', 'Database setup worksheets', 'Integration guidelines'],
+            ctaText: 'Join Workshop'
+        }
+    ],
+    projects: [
+        {
+            title: 'Tally Database Connector Bridge',
+            description: 'Open connector framework enabling safe local SQL queries and data extraction.',
+            icon: FaGithub,
+            color: '#b783ff',
+            features: ['Local service sync', 'XML parsing optimization', 'Read-only access keys'],
+            ctaText: 'Contribute on GitHub'
+        }
+    ],
+    collaborations: [
+        {
+            title: 'University Developer Cells',
+            description: 'Partnering with college engineering clubs to run hackathons and internship programs.',
+            icon: FaUsers,
+            color: '#8f38ff',
+            features: ['Joint hackathons', 'Engineering club meets', 'Workshops for students'],
             ctaText: 'Join Community'
         }
     ]
@@ -131,7 +100,7 @@ const LABS_DATA = {
 const CONTACT_NUMBER = "918448947436"
 
 const Labs = () => {
-    const [activeTab, setActiveTab] = useState('programs')
+    const [activeTab, setActiveTab] = useState('internships')
     const [selectedItem, setSelectedItem] = useState(null)
 
     const activeTrack = TABS.find((tab) => tab.id === activeTab) || TABS[0]
@@ -154,82 +123,82 @@ const Labs = () => {
                 </div>
 
                 <div className="relative mx-auto max-w-7xl px-5 sm:px-6">
-                    <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.75 }}
-                        >
-                            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#06101d]/10 bg-[#f7f9fc] px-4 py-2">
-                                <span className="h-1.5 w-1.5 rounded-full bg-[#8f38ff]" />
-                                <span className="text-[10px] font-semibold uppercase text-slate-500">AlgoForce Labs</span>
-                            </div>
-                            <h1 className="mb-6 max-w-4xl text-[2.45rem] font-semibold leading-[1.03] sm:text-5xl md:text-6xl lg:text-[4.1rem] tracking-tight">
-                                Our engineering and <span className="premium-serif italic font-normal text-[#8f38ff]">talent ecosystem.</span>
-                            </h1>
-                            <p className="max-w-2xl text-base leading-relaxed text-slate-600 md:text-lg font-normal">
-                                AlgoForce Labs is our engineering and talent ecosystem. Students contribute to real enterprise AI products. Learning happens through production engineering.
-                            </p>
-                            
-                            <div className="mt-8 grid max-w-xl grid-cols-2 gap-3">
-                                <div className="rounded-2xl border border-[#06101d]/10 bg-[#f7f9fc] p-4 text-center">
-                                    <div className="text-2xl font-bold text-[#06101d]">1000+</div>
-                                    <div className="mt-1 text-[10px] font-semibold uppercase text-slate-400">Engineers Trained</div>
-                                </div>
-                                <div className="rounded-2xl border border-[#06101d]/10 bg-[#f7f9fc] p-4 text-center">
-                                    <div className="text-2xl font-bold text-[#06101d]">24</div>
-                                    <div className="mt-1 text-[10px] font-semibold uppercase text-slate-400">Learning Programs</div>
-                                </div>
-                            </div>
-                        </motion.div>
-
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.08, duration: 0.75 }}
-                            className="overflow-hidden rounded-[30px] border border-[#06101d]/10 bg-white p-4 shadow-[0_24px_70px_rgba(6,47,79,0.08)]"
-                        >
-                            <div className="relative aspect-[16/10] min-h-[260px] overflow-hidden rounded-[24px] border border-[#06101d]/10 bg-[#eef2f7]">
-                                <OptimizedVideo
-                                    src="/vecteezy.mp4"
-                                    inView
-                                    preload="metadata"
-                                    mobilePreload="none"
-                                    className="absolute inset-0 h-full w-full object-cover opacity-80"
-                                />
-                                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,16,29,0.04),rgba(6,16,29,0.68))]" />
-                                <div className="absolute left-5 right-5 bottom-5 text-white">
-                                    <p className="mb-2 text-[10px] font-semibold uppercase text-white/70">Labs Operating Model</p>
-                                    <h2 className="text-2xl font-semibold md:text-3xl tracking-tight">Ecosystem driven by production engineering.</h2>
-                                </div>
-                            </div>
-                            <div className="mt-5 flex items-start gap-3 text-sm font-semibold text-slate-500 justify-center">
-                                <FaMapMarkerAlt className="mt-0.5 text-[#8f38ff]" />
-                                <span>Office: South Delhi, Kalkaji, New Delhi 110019</span>
-                            </div>
-                        </motion.div>
+            <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.75 }}
+                >
+                    <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#06101d]/10 bg-[#f7f9fc] px-4 py-2">
+                        <span className="h-1.5 w-1.5 rounded-full bg-[#8f38ff]" />
+                        <span className="text-[10px] font-semibold uppercase text-slate-500">AlgoForce Labs</span>
                     </div>
-                </div>
-            </section>
-
-            {/* Labs Directory and Cards */}
-            <section className="mx-auto max-w-7xl px-5 py-14 sm:px-6 md:py-20">
-                <div className="grid gap-8 lg:grid-cols-[320px_minmax(0,1fr)] lg:items-start">
+                    <h1 className="mb-6 max-w-4xl text-[2.45rem] font-semibold leading-[1.03] sm:text-5xl md:text-6xl lg:text-[4.1rem] tracking-tight">
+                        AlgoForce Labs trains <span className="premium-serif italic font-normal text-[#8f38ff]">future software engineers.</span>
+                    </h1>
+                    <p className="max-w-2xl text-base leading-relaxed text-slate-600 md:text-lg font-normal">
+                        Students learn by building real software products, not dummy projects. We collaborate with universities and student developer cells across India.
+                    </p>
                     
-                    {/* Sidebar Navigator */}
-                    <aside className="rounded-[30px] border border-[#06101d]/10 bg-white p-4 shadow-[0_24px_70px_rgba(6,47,79,0.08)] md:p-5">
-                        <p className="mb-3 px-2 text-[11px] font-semibold uppercase text-[#8f38ff]">Directory</p>
-                        <div className="grid gap-2">
-                            {TABS.map((tab) => (
-                                <button
-                                    key={tab.id}
-                                    onClick={() => setActiveTab(tab.id)}
-                                    className={`rounded-[18px] px-4 py-4 text-left text-sm font-bold transition-all ${
-                                        activeTab === tab.id 
-                                            ? 'bg-[#06101d] text-white shadow-[0_14px_32px_rgba(6,16,29,0.18)]' 
-                                            : 'bg-[#f7f9fc] text-slate-500 hover:text-[#06101d]'
-                                    }`}
-                                >
+                    <div className="mt-8 grid max-w-xl grid-cols-2 gap-3">
+                        <div className="rounded-2xl border border-[#06101d]/10 bg-[#f7f9fc] p-4 text-center">
+                            <div className="text-2xl font-bold text-[#06101d]">1,000+</div>
+                            <div className="mt-1 text-[10px] font-semibold uppercase text-slate-400">Students Trained</div>
+                        </div>
+                        <div className="rounded-2xl border border-[#06101d]/10 bg-[#f7f9fc] p-4 text-center">
+                            <div className="text-2xl font-bold text-[#06101d]">Real Products</div>
+                            <div className="mt-1 text-[10px] font-semibold uppercase text-slate-400">Built in Labs</div>
+                        </div>
+                    </div>
+                </motion.div>
+
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.08, duration: 0.75 }}
+                    className="overflow-hidden rounded-[30px] border border-[#06101d]/10 bg-white p-4 shadow-[0_24px_70px_rgba(6,47,79,0.08)]"
+                >
+                    <div className="relative aspect-[16/10] min-h-[260px] overflow-hidden rounded-[24px] border border-[#06101d]/10 bg-[#eef2f7]">
+                        <OptimizedVideo
+                            src="/vecteezy.mp4"
+                            inView
+                            preload="metadata"
+                            mobilePreload="none"
+                            className="absolute inset-0 h-full w-full object-cover opacity-80"
+                        />
+                        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,16,29,0.04),rgba(6,16,29,0.68))]" />
+                        <div className="absolute left-5 right-5 bottom-5 text-white">
+                            <p className="mb-2 text-[10px] font-semibold uppercase text-white/70">Labs Focus</p>
+                            <h2 className="text-2xl font-semibold md:text-3xl tracking-tight">Software engineering driven by real products.</h2>
+                        </div>
+                    </div>
+                    <div className="mt-5 flex items-start gap-3 text-sm font-semibold text-slate-500 justify-center">
+                        <FaMapMarkerAlt className="mt-0.5 text-[#8f38ff]" />
+                        <span>Office: South Delhi, Kalkaji, New Delhi 110019</span>
+                    </div>
+                </motion.div>
+            </div>
+        </div>
+    </section>
+
+    {/* Labs Directory and Cards */}
+    <section className="mx-auto max-w-7xl px-5 py-14 sm:px-6 md:py-20">
+        <div className="grid gap-8 lg:grid-cols-[320px_minmax(0,1fr)] lg:items-start">
+            
+            {/* Sidebar Navigator */}
+            <aside className="rounded-[30px] border border-[#06101d]/10 bg-white p-4 shadow-[0_24px_70px_rgba(6,47,79,0.08)] md:p-5">
+                <p className="mb-3 px-2 text-[11px] font-semibold uppercase text-[#8f38ff]">Directory</p>
+                <div className="grid gap-2">
+                    {TABS.map((tab) => (
+                        <button
+                            key={tab.id}
+                            onClick={() => setActiveTab(tab.id)}
+                            className={`rounded-[18px] px-4 py-4 text-left text-sm font-bold transition-all ${
+                                activeTab === tab.id 
+                                    ? 'bg-[#06101d] text-white shadow-[0_14px_32px_rgba(6,16,29,0.18)]' 
+                                    : 'bg-[#f7f9fc] text-slate-500 hover:text-[#06101d]'
+                            }`}
+                        >
                                     {tab.label}
                                 </button>
                             ))}
@@ -317,18 +286,18 @@ const Labs = () => {
                     {[
                         {
                             icon: FaLayerGroup,
-                            title: 'Academic Collaborations',
-                            text: 'We collaborate with student communities from leading institutions (IITs, NITs, BITS, and top universities) to source elite technical minds.',
+                            title: 'University Collaborations',
+                            text: 'We collaborate with student communities from leading institutions (IITs, NITs, and top universities) to train future developers.',
                         },
                         {
                             icon: FaBriefcase,
-                            title: 'Real Product Engineering',
-                            text: "Students don't complete dummy projects. They write code for real enterprise copilots, gaining hands-on database and ERP integration experience.",
+                            title: 'Real Software Products',
+                            text: "Students don't complete dummy projects. They write code for real business software, gaining hands-on database and integration experience.",
                         },
                         {
                             icon: FaRocket,
-                            title: 'Internship & Placement Reach',
-                            text: 'Our talent engine supplies deployment-ready AI Engineers, Product Developers, and Automation Specialists to top-tier corporate operations teams.',
+                            title: 'Career Development',
+                            text: 'Our programs prepare elite student engineering talent to launch their software careers or join top product teams.',
                         },
                     ].map((item, index) => (
                         <motion.article

@@ -128,7 +128,7 @@ const Hero = () => {
             transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="text-[2.35rem] sm:text-5xl md:text-6xl lg:text-[4.65rem] font-bold mb-6 leading-[1.06] text-white max-w-6xl mx-auto tracking-tight animate-pulse-subtle"
           >
-            AI software for <span className="premium-serif italic font-normal text-[#cdb4ff]">business operations.</span>
+            We build AI software that automates <span className="premium-serif italic font-normal text-[#cdb4ff]">business operations.</span>
           </motion.h1>
 
           {/* Subtitle */}
@@ -138,7 +138,7 @@ const Hero = () => {
             transition={{ delay: 0.4 }}
             className="max-w-3xl mx-auto mb-8 md:mb-10 text-base md:text-lg text-slate-300 font-normal leading-relaxed"
           >
-            Deploy AI products that automate finance, sales, HR, customer support and operations.
+            Deploy ready-to-use software for Finance, Sales, HR, Manufacturing, Customer Support and Operations.
           </motion.p>
 
           {/* Engagement Workflow Indicators */}
@@ -149,13 +149,13 @@ const Hero = () => {
             className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-10 text-xs sm:text-sm font-bold text-slate-400 tracking-wider uppercase"
           >
             <span className="flex items-center gap-1.5">
-              <span className="w-1 h-1 bg-[#8f38ff] rounded-full" /> Assessment
+              <span className="w-1 h-1 bg-[#8f38ff] rounded-full" /> Business Assessment
             </span>
             <span className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 bg-[#8f38ff] rounded-full" /> Implementation
+              <span className="w-1.5 h-1.5 bg-[#8f38ff] rounded-full" /> Deployment
             </span>
             <span className="flex items-center gap-1.5">
-              <span className="w-1 h-1 bg-[#8f38ff] rounded-full" /> Monthly Subscription
+              <span className="w-1 h-1 bg-[#8f38ff] rounded-full" /> Monthly Support
             </span>
           </motion.div>
 
@@ -172,7 +172,7 @@ const Hero = () => {
                 whileTap={{ scale: 0.95 }}
                 className="w-full px-8 py-4 sm:px-11 sm:py-4 bg-white text-[#06101d] rounded-full font-bold text-sm sm:text-[14px] flex items-center justify-center gap-3 shadow-[0_20px_50px_rgba(143,56,255,0.16)] active:bg-gray-100 transition-all"
               >
-                Request Business Assessment {'->'}
+                Book Business Assessment
               </motion.button>
             </Link>
             <a href="#products" className="w-full sm:w-auto">
@@ -181,7 +181,7 @@ const Hero = () => {
                 whileTap={{ scale: 0.95 }}
                 className="w-full px-8 py-4 sm:px-11 sm:py-4 border border-white/14 rounded-full font-bold text-sm sm:text-[14px] text-white hover:border-white/30 backdrop-blur-xl transition-all"
               >
-                Explore Products
+                Explore Products {'->'}
               </motion.button>
             </a>
           </motion.div>

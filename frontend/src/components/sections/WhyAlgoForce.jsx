@@ -19,33 +19,33 @@ const WhyAlgoForce = () => {
 
   const advantages = [
     {
-      title: 'Pre-built AI Products',
-      desc: 'Tested and ready to deploy. No custom code required to get started.',
+      title: 'Ready-to-use software',
+      desc: 'Deploy pre-built software immediately without starting from scratch.',
       icon: <FaCogs />
     },
     {
-      title: 'Monthly subscription model',
-      desc: 'Predictable operational cost covering models, hosting, and dedicated support.',
+      title: 'Fast deployment',
+      desc: 'Get up and running in 2 to 4 weeks with our configured software products.',
       icon: <FaRegCalendarAlt />
     },
     {
       title: 'Works with existing software',
-      desc: 'Native connectors to sync with Tally ERP, SAP, Zoho CRM, and Salesforce.',
+      desc: 'Connects directly with Tally, SAP, Zoho, Salesforce, WhatsApp, and other tools you use.',
       icon: <FaLink />
     },
     {
-      title: 'Private deployment available',
-      desc: 'Full VPC deployment options on AWS and Azure to ensure total data privacy.',
+      title: 'Secure deployment',
+      desc: 'Runs securely in your own cloud account or on-premises to protect your data.',
       icon: <FaLock />
     },
     {
-      title: 'Continuous product improvements',
-      desc: 'Automated model tuning, performance updates, and ongoing feature updates.',
+      title: 'Monthly updates',
+      desc: 'Receive continuous improvements, new features, and model updates automatically.',
       icon: <FaArrowUp />
     },
     {
-      title: 'Business-first implementation',
-      desc: 'Rollouts are guided by specific operational goals and workflow mapping.',
+      title: 'Dedicated support',
+      desc: 'Get ongoing maintenance and direct support to keep your software running smoothly.',
       icon: <FaBriefcase />
     }
   ];
@@ -62,7 +62,7 @@ const WhyAlgoForce = () => {
           <div className="text-center mb-16 px-2">
             <h2 className="text-[12px] font-bold uppercase tracking-[0.4em] text-purple-600 mb-6">Why AlgoForce</h2>
             <h3 className="text-3xl md:text-5xl font-bold mb-6 leading-tight tracking-tight">
-              Built for <span className="premium-serif italic font-normal text-purple-600">business operations.</span>
+              Why businesses <span className="premium-serif italic font-normal text-purple-600">choose AlgoForce.</span>
             </h3>
           </div>
 
@@ -83,14 +83,14 @@ const WhyAlgoForce = () => {
           <div className="rounded-[28px] bg-gray-50 border border-gray-100 overflow-hidden shadow-sm max-w-5xl mx-auto mb-14">
             <div className="grid grid-cols-3 bg-black text-white p-6 font-bold uppercase text-[10px] sm:text-[11px] tracking-widest text-center">
               <div className="text-left">Factor</div>
-              <div>Custom Development Agency</div>
-              <div className="text-purple-400 font-bold">AlgoForce AI Products</div>
+              <div>Custom Software Development</div>
+              <div className="text-purple-400 font-bold">AlgoForce Software</div>
             </div>
             {[
-              { factor: 'Delivery Model', trad: 'Custom code from scratch', af: 'Pre-built specialized AI products' },
-              { factor: 'Financial Model', trad: 'One-off consulting retainers', af: 'Predictable monthly subscription' },
-              { factor: 'Data Security', trad: 'Public API dependencies', af: 'Private VPC cloud deployment' },
-              { factor: 'Maintenance', trad: 'Hourly support billing', af: 'Continuous success & updates included' }
+              { factor: 'Delivery Model', trad: 'Custom code from scratch', af: 'Ready-to-use software products' },
+              { factor: 'Financial Model', trad: 'Unpredictable hourly bills', af: 'Simple monthly subscription' },
+              { factor: 'Data Security', trad: 'Public shared APIs', af: 'Private secure deployment' },
+              { factor: 'Updates', trad: 'Pay extra for maintenance', af: 'Ongoing support and updates included' }
             ].map((row, i) => (
               <div key={i} className={`grid grid-cols-3 gap-3 p-4 sm:p-5 border-t border-gray-100 text-xs font-bold items-center text-center ${i % 2 === 0 ? 'bg-white' : ''}`}>
                 <div className="text-left text-gray-400 uppercase tracking-widest text-[9px]">{row.factor}</div>

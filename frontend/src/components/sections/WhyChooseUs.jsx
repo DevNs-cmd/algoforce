@@ -19,31 +19,29 @@ import {
 } from 'react-icons/fa'
 
 const INTEGRATIONS = [
-  { name: 'Tally', desc: 'Fully compatible. Syncs ledgers, vouchers, and transactions in real-time.' },
-  { name: 'Zoho', desc: 'Direct API integration. Automatically pushes qualified leads and logs conversations.' },
-  { name: 'Salesforce', desc: 'Direct REST API sync. Updates lead pipelines and synchronizes data tables.' },
-  { name: 'WhatsApp', desc: 'Official Cloud API integration. Handles customer queries and booking workflows.' },
-  { name: 'Shopify', desc: 'Webhook & API sync. Reconciles inventory levels and web sales in real-time.' },
-  { name: 'MongoDB', desc: 'Native connector. Connects unstructured databases with AI model endpoints.' },
-  { name: 'PostgreSQL', desc: 'Native connector. Direct schema syncing and structured queries.' },
-  { name: 'AWS', desc: 'Cloud hosting. Supports secure, private VPC deployments for enterprise clients.' },
-  { name: 'Azure', desc: 'Cloud hosting. Supports private subnet deployments matching security standards.' },
-  { name: 'Google Cloud', desc: 'Cloud hosting. Native deployment and Google Workspace API sync.' },
-  { name: 'SAP', desc: 'Enterprise ERP sync. Reconciles material logs, finance registries, and inventory.' },
-  { name: 'Oracle', desc: 'Enterprise database connector. Secure read/write sync for database schemas.' },
-  { name: 'HubSpot', desc: 'Pipeline connector. Syncs contact cards and schedules follow-up tasks.' },
-  { name: 'Meta', desc: 'Conversational channels. Hooks WhatsApp, Instagram, and Messenger into AI.' },
-  { name: 'REST APIs', desc: 'Universal compatibility. Syncs with any modern web service.' },
-  { name: 'Webhooks', desc: 'Real-time triggers. Runs automation scripts on database updates.' },
-  { name: 'CSV', desc: 'Offline data loader. Imports historical files and spreadsheets securely.' }
+  { name: 'Tally', desc: 'Compatible. Connects to your local Tally database.' },
+  { name: 'SAP', desc: 'Requires connector. Connects via secure SAP integration gateway.' },
+  { name: 'Zoho', desc: 'Native Integration. Syncs contact details and logs meetings instantly.' },
+  { name: 'Salesforce', desc: 'Native Integration. Connects directly to update sales pipelines.' },
+  { name: 'WhatsApp', desc: 'Native Integration. Connects with the official Cloud API.' },
+  { name: 'Shopify', desc: 'Native Integration. Syncs store orders and inventory levels.' },
+  { name: 'HubSpot', desc: 'Native Integration. Synchronizes leads and scheduling records.' },
+  { name: 'Google Workspace', desc: 'Native Integration. Connects to Google Drive and Calendar.' },
+  { name: 'Microsoft 365', desc: 'Native Integration. Syncs with OneDrive and Outlook.' },
+  { name: 'Oracle', desc: 'Requires connector. Reconciles database records securely.' },
+  { name: 'MongoDB', desc: 'Native Integration. Connects database fields to AI copilots.' },
+  { name: 'PostgreSQL', desc: 'Native Integration. Reads database schemas directly.' },
+  { name: 'AWS', desc: 'Compatible. Supports secure private hosting.' },
+  { name: 'Azure', desc: 'Compatible. Supports enterprise deployment networks.' },
+  { name: 'Google Cloud', desc: 'Compatible. Supports secure hosting and API integrations.' }
 ]
 
 const INDUSTRIES = [
   { name: 'Manufacturing', icon: <FaIndustry /> },
   { name: 'Healthcare', icon: <FaHeartbeat /> },
-  { name: 'Hotels', icon: <FaHotel /> },
   { name: 'Retail', icon: <FaShoppingBag /> },
   { name: 'Education', icon: <FaGraduationCap /> },
+  { name: 'Hospitality', icon: <FaHotel /> },
   { name: 'Construction', icon: <FaBuilding /> },
   { name: 'Finance', icon: <FaDollarSign /> },
   { name: 'Logistics', icon: <FaTruck /> },
@@ -79,7 +77,7 @@ const WhyChooseUs = () => {
             Seamless Database & <span className="premium-serif italic font-normal text-[#cdb4ff]">Software Integrations</span>
           </h3>
           <p className="max-w-xl mx-auto text-slate-400 font-normal text-sm mt-3">
-            Click on any platform logo below to examine its deployment and operational compatibility status.
+            Click on any platform logo below to view integration details.
           </p>
         </motion.div>
 
@@ -112,12 +110,12 @@ const WhyChooseUs = () => {
                 exit={{ opacity: 0, y: -10 }}
                 className="p-5 rounded-2xl bg-white/[0.02] border border-white/10 text-center flex flex-col justify-center"
               >
-                <div className="text-xs font-bold text-purple-400 uppercase tracking-widest mb-1">{activeInt} Compatibility</div>
+                <div className="text-xs font-bold text-purple-400 uppercase tracking-widest mb-1">{activeInt} Integration</div>
                 <p className="text-xs text-slate-300 leading-normal">{INTEGRATIONS.find(i => i.name === activeInt)?.desc}</p>
               </motion.div>
             ) : (
               <div className="p-5 rounded-2xl bg-white/[0.01] border border-white/5 border-dashed text-center flex flex-col justify-center text-xs text-slate-500 font-semibold italic">
-                Select an integration logo above to view technical compatibility status.
+                Select an integration logo above to view compatibility.
               </div>
             )}
           </AnimatePresence>

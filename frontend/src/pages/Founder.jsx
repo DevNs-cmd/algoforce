@@ -18,12 +18,12 @@ const pillars = [
   {
     icon: FaBrain,
     title: "Systems Thinking",
-    text: "Turning scattered ideas into repeatable AI, automation, and execution infrastructure.",
+    text: "Turning manual processes into automated, repeatable business software.",
   },
   {
     icon: FaRocket,
     title: "Founder Execution",
-    text: "Building practical operating layers for founders who need speed, accountability, and sharper follow-through.",
+    text: "Building practical software products for business owners who need speed, accountability, and sharper follow-through.",
   },
   {
     icon: FaShieldAlt,
@@ -35,18 +35,18 @@ const pillars = [
 const engines = [
   {
     icon: FaBriefcase,
-    title: "AlgoForce AI Copilots",
-    text: "Pre-built specialized AI copilots (TallyGPT, LeadBolt, GST Autopilot) automating accounting, sales, and compliance.",
+    title: "AlgoForce AI Software",
+    text: "Ready-to-use software products (TallyGPT, LeadBolt, GST Autopilot) automating accounting, sales, and compliance.",
   },
   {
     icon: FaBrain,
-    title: "AlgoForce Labs Talent",
-    text: "Our Talent Engine training top developers and engineers by building real enterprise AI products.",
+    title: "AlgoForce Labs",
+    text: "Our talent ecosystem training future software engineers by building real products, not dummy projects.",
   },
   {
     icon: FaGlobe,
-    title: "Startup Execution OS",
-    text: "Startup Operating System providing founders with tools to validate, build, launch, and scale MVPs.",
+    title: "Crucible",
+    text: "Our startup platform helping founders validate, build, and launch software products.",
   },
 ]
 
@@ -109,12 +109,12 @@ const Founder = () => {
                 <span className="text-[10px] font-semibold uppercase text-slate-500">Meet the Founder</span>
               </div>
               <h1 className="mb-6 max-w-4xl text-[2.5rem] font-semibold leading-[1.03] sm:text-5xl md:text-6xl lg:text-[4.15rem]">
-                Dev N Suman leads product strategy for <span className="premium-serif italic font-normal text-[#8f38ff]">specialized copilots</span> at AlgoForce.
+                Dev N Suman leads product strategy at <span className="premium-serif italic font-normal text-[#8f38ff]">AlgoForce.</span>
               </h1>
               <p className="max-w-2xl text-base leading-relaxed text-slate-600 md:text-lg">
-                A profile of the founder shaping AlgoForce's enterprise AI products, Labs talent engine, and Crucible startup operating system.
+                A profile of the founder shaping AlgoForce's software products, Labs engineering training, and Crucible platform.
               </p>
-
+ 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <a
                   href="https://www.linkedin.com/in/dev-n-suman-3616a6377/"
@@ -134,10 +134,10 @@ const Founder = () => {
                   to="/contact"
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-[#06101d]/10 bg-white px-6 py-3.5 text-sm font-bold text-[#06101d] transition-all hover:border-[#8f38ff]/40 hover:text-[#8f38ff]"
                 >
-                  Request Assessment <FaArrowRight size={11} />
+                  Book Business Assessment <FaArrowRight size={11} />
                 </Link>
               </div>
-
+ 
               <div className="mt-8 flex items-start gap-3 rounded-[24px] border border-[#06101d]/10 bg-[#f7f9fc] p-5 text-sm font-semibold text-slate-500">
                 <FaMapMarkerAlt className="mt-0.5 text-[#8f38ff]" />
                 <span>Office: South Delhi, Kalkaji, New Delhi 110019</span>
@@ -146,7 +146,7 @@ const Founder = () => {
           </div>
         </div>
       </section>
-
+ 
       <section className="mx-auto max-w-7xl px-5 py-14 sm:px-6 md:py-20">
         <div className="mb-10 flex flex-col gap-4 md:mb-12 md:flex-row md:items-end md:justify-between">
           <div>
@@ -154,7 +154,7 @@ const Founder = () => {
             <h2 className="text-3xl font-semibold md:text-4xl">Leadership with a systems lens</h2>
           </div>
           <p className="max-w-xl text-sm leading-relaxed text-slate-500 md:text-base font-normal">
-            We believe operational intelligence is the ultimate lever for growing businesses. Our focus is delivering pre-built enterprise products that drive measurable outcomes.
+            We believe operational software is the ultimate lever for growing businesses. Our focus is delivering ready-to-use software products that automate business operations.
           </p>
         </div>
 

@@ -79,25 +79,25 @@ const Contact = () => {
 
   const inquiryTypes = [
     { value: 'assessment', label: 'Business Assessment' },
-    { value: 'implementation', label: 'Product Implementation Setup' },
-    { value: 'subscription', label: 'Monthly Copilot Subscription' }
+    { value: 'implementation', label: 'Product Deployment' },
+    { value: 'subscription', label: 'Monthly Support' }
   ]
 
   const assessmentPillars = [
-    { title: 'Current software', desc: 'Analyzing ERP (Tally, SAP) and CRM (Zoho, Salesforce) database schemas.' },
-    { title: 'Operational pain points', desc: 'Locating manual record entry delays and input credit tax leaks.' },
-    { title: 'Manual processes', desc: 'Auditing accounting, sales follow-ups, and booking checklists to automate.' },
-    { title: 'Company goals', desc: 'Understanding target scaling numbers and operational timelines.' },
-    { title: 'Recommended products', desc: 'Selecting the exact specialized AI copilots from our pre-built catalog.' }
+    { title: 'Understand your business', desc: 'Identify where manual tasks are slowing down your operations.' },
+    { title: 'Map existing systems', desc: 'Check compatibility with Tally, SAP, Zoho, Salesforce, or other software you use.' },
+    { title: 'Recommend software products', desc: 'Select the ready-to-use AI software that matches your operational needs.' },
+    { title: 'Scope implementation', desc: 'Plan how to configure and deploy the software in 2 to 4 weeks.' },
+    { title: 'Answer your questions', desc: 'Discuss pricing, secure hosting options, and ongoing monthly support.' }
   ]
 
   return (
     <>
       <Helmet>
-        <title>Book Business Assessment | AlgoForce</title>
+        <title>Book a Business Assessment | AlgoForce</title>
         <meta
           name="description"
-          content="Contact the AlgoForce product team to schedule a 30-60 minute Business Assessment. We map software environments, paint points, and select AI copilots."
+          content="Book a Business Assessment with the AlgoForce product team. We map your software environment, understand your processes, and recommend software products."
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.algoforceaii.com/contact" />
@@ -117,10 +117,10 @@ const Contact = () => {
               transition={{ duration: 0.8 }}
             >
               <h1 className="mb-6 text-4xl md:text-6xl font-extrabold tracking-tight leading-tight">
-                Let's understand your business.
+                Book a Business Assessment
               </h1>
               <p className="max-w-3xl mx-auto text-lg md:text-xl text-slate-300 leading-relaxed font-normal">
-                The Business Assessment takes 30–60 minutes. We will align on your current software, pain points, processes, goals, and recommended products.
+                Talk to our product specialists. We will understand your business, recommend suitable software, discuss implementation, and answer your questions.
               </p>
             </motion.div>
           </div>
@@ -197,7 +197,7 @@ const Contact = () => {
                     </motion.div>
                   ) : (
                     <form onSubmit={handleSubmit} className="p-6 md:p-8 premium-light-surface rounded-[24px] border border-slate-200/50">
-                      <h3 className="mb-6 text-2xl font-bold text-[#06101d] tracking-tight">Request Assessment</h3>
+                      <h3 className="mb-6 text-2xl font-bold text-[#06101d] tracking-tight">Book Business Assessment</h3>
  
                       <div className="grid md:grid-cols-2 gap-6">
                         <div className="mb-4">
@@ -247,8 +247,8 @@ const Contact = () => {
                       </div>
  
                       <div className="mb-6">
-                        <label className="block mb-2 font-bold text-slate-700 text-[10px] uppercase tracking-wider">Briefly describe your software setup, pain points, processes, and goals *</label>
-                        <textarea name="problem" value={formData.problem} onChange={handleChange} required rows="4" placeholder="Detail your operational bottlenecks, current database setups (Tally, SAP, Salesforce, etc.), and scaling objectives." className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none text-xs bg-white font-normal resize-none" />
+                        <label className="block mb-2 font-bold text-slate-700 text-[10px] uppercase tracking-wider">Briefly describe your software setup, manual tasks, and goals *</label>
+                        <textarea name="problem" value={formData.problem} onChange={handleChange} required rows="4" placeholder="Detail your manual bottlenecks, current software (Tally, SAP, CRM, etc.), and goals." className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none text-xs bg-white font-normal resize-none" />
                       </div>
  
                       {status.error && <div className="p-4 mb-6 text-red-700 bg-red-50 border border-red-200 rounded-xl text-xs">{status.error}</div>}
