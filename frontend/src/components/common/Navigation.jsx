@@ -104,12 +104,6 @@ const Navigation = () => {
             <div className="hidden md:flex items-center gap-4">
               {user ? (
                 <div className="flex items-center gap-3">
-                  <Link 
-                    to="/workspace/overview"
-                    className="px-5 py-2 border border-white/15 hover:bg-white/5 rounded-full text-[13px] font-bold text-white transition-all"
-                  >
-                    Workspace
-                  </Link>
                   <Link to="/workspace/overview" className="w-10 h-10 rounded-full bg-white/8 border border-white/12 flex items-center justify-center text-[11px] text-white font-bold hover:bg-white/12 transition-all">
                     {user.name?.[0].toUpperCase()}
                   </Link>
@@ -215,13 +209,6 @@ const Navigation = () => {
                     </div>
                   ) : (
                     <div className="flex flex-col gap-3">
-                      <Link
-                        to="/workspace/overview"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="w-full py-3 bg-white text-black text-center rounded-full font-bold text-sm active:scale-95 transition-all shadow-xl"
-                      >
-                        Workspace
-                      </Link>
                       <button
                         onClick={() => { setMobileMenuOpen(false); logout(); }}
                         className="w-full py-3 border border-white/10 text-white rounded-full font-bold text-sm active:scale-95 transition-all"
