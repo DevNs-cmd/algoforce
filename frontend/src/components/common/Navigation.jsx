@@ -117,6 +117,12 @@ const Navigation = () => {
               ) : (
                 <div className="flex items-center gap-4">
                   <Link
+                    to="/login"
+                    className="text-[13px] font-semibold text-slate-300 hover:text-white transition-all"
+                  >
+                    Login
+                  </Link>
+                  <Link
                     to="/login?mode=signup"
                     className="px-5 py-2 bg-white text-[#06101d] hover:bg-[#f6f1ff] rounded-full text-[13px] font-bold transition-all shadow-md"
                   >
@@ -205,6 +211,13 @@ const Navigation = () => {
                 >
                   {!user ? (
                     <div className="flex flex-col gap-3">
+                      <Link
+                        to="/login"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="w-full py-3 border border-white/10 text-white text-center rounded-full font-bold text-sm active:scale-95 transition-all"
+                      >
+                        Login
+                      </Link>
                       <Link
                         to="/login?mode=signup"
                         onClick={() => setMobileMenuOpen(false)}

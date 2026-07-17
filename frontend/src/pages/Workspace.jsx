@@ -7,6 +7,7 @@ import { useEffect, useState, useCallback, useRef, lazy, Suspense } from 'react'
 import { Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import AIChat from './workspace/AIChat'
+import { ProductsPage, DownloadsPage, DeploymentsPage, LicensesPage, ApiKeysPage, MarketplacePage, DocumentationPage, OrganizationPage } from './workspace/PortalExperience'
 
 // Lazy load modules
 const CommandCenter          = lazy(() => import('./workspace/CommandCenter'))
@@ -213,7 +214,7 @@ export default function Workspace() {
           <span className="text-[10px] font-bold tracking-wider uppercase bg-[#06101d] text-white px-1.5 py-0.5 rounded-md">OS</span>
         </Link>
         <div className="w-px h-5 bg-[#06101d]/15 flex-shrink-0" />
-        <span className="text-sm text-slate-500 font-medium truncate">{company?.name || 'Operations Hub'}</span>
+        <span className="text-sm text-slate-500 font-medium truncate">{company?.name || 'AlgoForce Hub'}</span>
 
         <div className="ml-auto flex items-center gap-4 relative">
           {/* Notifications Bell */}
@@ -317,32 +318,40 @@ export default function Workspace() {
             <Suspense fallback={<ModuleLoader />}>
               <Routes>
                 <Route path="/" element={<CommandCenter />} />
-                <Route path="/projects"        element={<Projects />} />
-                <Route path="/tasks"           element={<Tasks />} />
-                <Route path="/approvals"       element={<Approvals />} />
-                <Route path="/crm"             element={<CRMLite />} />
-                <Route path="/vault"           element={<CompanyVault />} />
-                <Route path="/chat"            element={<AIChat />} />
-                <Route path="/meetings"        element={<Meetings />} />
-                <Route path="/client-portal"   element={<ClientPortalInfo />} />
-                <Route path="/contracts"       element={<CompanyVault category="contract" />} />
-                <Route path="/knowledge"       element={<KnowledgeBase />} />
-                <Route path="/search"          element={<KnowledgeSearch />} />
-                <Route path="/documents"       element={<DocumentAnalyzer />} />
-                <Route path="/meeting-notes"   element={<MeetingNotes />} />
-                <Route path="/sop"             element={<SOPGenerator />} />
-                <Route path="/proposals"       element={<DocumentGenerator />} />
-                <Route path="/marketplace"     element={<DeployMarketplace />} />
-                <Route path="/assessment"      element={<BusinessAssessment />} />
+                <Route path="/overview"       element={<CommandCenter />} />
+                <Route path="/products"       element={<ProductsPage />} />
+                <Route path="/downloads"      element={<DownloadsPage />} />
+                <Route path="/deployments"    element={<DeploymentsPage />} />
+                <Route path="/licenses"       element={<LicensesPage />} />
+                <Route path="/api-keys"       element={<ApiKeysPage />} />
+                <Route path="/documentation"  element={<DocumentationPage />} />
+                <Route path="/marketplace"    element={<MarketplacePage />} />
+                <Route path="/organization"   element={<OrganizationPage />} />
+                <Route path="/projects"       element={<Projects />} />
+                <Route path="/tasks"          element={<Tasks />} />
+                <Route path="/approvals"      element={<Approvals />} />
+                <Route path="/crm"            element={<CRMLite />} />
+                <Route path="/vault"          element={<CompanyVault />} />
+                <Route path="/chat"           element={<AIChat />} />
+                <Route path="/meetings"       element={<Meetings />} />
+                <Route path="/client-portal"  element={<ClientPortalInfo />} />
+                <Route path="/contracts"      element={<CompanyVault category="contract" />} />
+                <Route path="/knowledge"      element={<KnowledgeBase />} />
+                <Route path="/search"         element={<KnowledgeSearch />} />
+                <Route path="/documents"      element={<DocumentAnalyzer />} />
+                <Route path="/meeting-notes"  element={<MeetingNotes />} />
+                <Route path="/sop"            element={<SOPGenerator />} />
+                <Route path="/proposals"      element={<DocumentGenerator />} />
+                <Route path="/assessment"     element={<BusinessAssessment />} />
                 <Route path="/recommendations" element={<AutomationRecs />} />
-                <Route path="/health"          element={<HealthScore />} />
-                <Route path="/integrations"    element={<Integrations />} />
-                <Route path="/support"         element={<Support />} />
-                <Route path="/billing"         element={<Billing />} />
-                <Route path="/team"            element={<Team />} />
+                <Route path="/health"         element={<HealthScore />} />
+                <Route path="/integrations"   element={<Integrations />} />
+                <Route path="/support"        element={<Support />} />
+                <Route path="/billing"        element={<Billing />} />
+                <Route path="/team"           element={<Team />} />
                 <Route path="/executive-reports" element={<ExecutiveReports />} />
-                <Route path="/timeline"        element={<Timeline />} />
-                <Route path="/settings"        element={<WorkspaceSettings />} />
+                <Route path="/timeline"       element={<Timeline />} />
+                <Route path="/settings"       element={<WorkspaceSettings />} />
               </Routes>
             </Suspense>
           </div>
