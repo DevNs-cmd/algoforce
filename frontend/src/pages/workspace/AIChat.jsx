@@ -23,6 +23,28 @@ export default function AIChat({ isFloating = false }) {
   const [context, setContext] = useState(null)
   const [loadingContext, setLoadingContext] = useState(true)
 
+  const getTodayPriorities = () => {
+    const fallback = [
+      'Connect Tally or your ERP',
+      'Upload GST returns and invoices',
+      'Invite finance and operations leads',
+      'Review the AI recommendations'
+    ]
+
+    if (!context) return fallback
+
+    const taskList = (context.tasks || []).filter(t => t.status !== 'done').slice(0, 3).map(t => t.title)
+    const hasAssessment = Boolean(context.assessment && Object.keys(context.assessment).length)
+
+    if (taskList.length) return taskList
+    if (hasAssessment) return [
+      'Review the AI recommendations',
+      'Connect your current ERP or CRM',
+      'Upload the latest financial documents'
+    ]
+    return fallback
+  }
+
   useEffect(() => {
     if (company?.id) {
       loadWorkspaceContext()
@@ -137,8 +159,8 @@ Answer client requests with this knowledge. If they ask to locate a document, te
       {!isFloating && (
         <div className="flex-shrink-0 px-6 py-5 border-b border-[#06101d]/8 flex items-center justify-between">
           <div>
-            <h1 className="text-xl font-semibold text-[#06101d]">Ask Anything</h1>
-            <p className="text-sm text-slate-500 mt-0.5">Chat with the AI that has access to your entire company repository, tasks, CRM registry, and vaults.</p>
+            <h1 className="text-xl font-semibold text-[#06101d]">AlgoForce Assistant</h1>
+            <p className="text-sm text-slate-500 mt-0.5">Get help with products, documentation, APIs, releases and support from one workspace assistant.</p>
           </div>
           <button
             onClick={loadWorkspaceContext}
@@ -155,12 +177,20 @@ Answer client requests with this knowledge. If they ask to locate a document, te
           <div className="flex items-center justify-center h-full">
             <div className="text-center max-w-md">
               <span className="text-4xl block mb-4">💬</span>
-              <h3 className="font-bold text-[#06101d] mb-1">Ask Anything</h3>
+              <h3 className="font-bold text-[#06101d] mb-1">AlgoForce Assistant</h3>
               <p className="text-sm text-slate-500 leading-relaxed">
-                This assistant is loaded with context from your active workspace. You can query tasks, lookup CRM prospects, draft business proposals, or summarize files.
+                Ask about your products, downloads, licenses, integrations, release notes, or support requirements without leaving the workspace.
               </p>
+              <div className="mt-5 rounded-2xl border border-[#06101d]/8 bg-[#f7f9fc] p-4 text-left">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#8f38ff]">Today’s priorities</p>
+                <ol className="mt-3 space-y-2 text-sm text-slate-600">
+                  {getTodayPriorities().slice(0, 4).map((item, index) => (
+                    <li key={item} className="flex gap-2"><span className="font-semibold text-[#06101d]">{index + 1}.</span><span>{item}</span></li>
+                  ))}
+                </ol>
+              </div>
               <div className="mt-5 space-y-2">
-                {['What tasks are overdue?', 'Do we have any pending approvals?', 'Show active prospects in the CRM'].map(q => (
+                {['How do I install Aura AI?', 'Show me the latest releases for LeadBolt', 'What integrations are available for my workspace?'].map(q => (
                   <button
                     key={q}
                     onClick={() => { setInput(q) }}
@@ -212,7 +242,7 @@ Answer client requests with this knowledge. If they ask to locate a document, te
             value={input}
             onChange={e => setInput(e.target.value)}
             disabled={thinking}
-            placeholder={loadingContext ? 'Syncing OS context...' : 'Ask the OS assistant... e.g. What proposals do we have active?'}
+            placeholder={loadingContext ? 'Syncing workspace context...' : 'Ask the assistant about your products, docs or support...'}
             className="flex-1 px-4 py-3 rounded-xl border border-[#06101d]/12 bg-[#f7f9fc] text-xs focus:outline-none focus:ring-1 focus:ring-[#8f38ff]"
           />
           <button

@@ -38,7 +38,8 @@ const ClientPortalInfo       = lazy(() => import('./workspace/ClientPortalInfo')
 
 const NAV_ITEMS = [
   // WORK
-  { path: '/workspace',                 label: 'Home',                     icon: '🏠', group: 'WORK' },
+  { path: '/workspace',                 label: 'Overview',                 icon: '🏠', group: 'WORK' },
+  { path: '/workspace/products',        label: 'Software Library',         icon: '🧩', group: 'WORK' },
   { path: '/workspace/tasks',           label: 'Tasks',                    icon: '✅', group: 'WORK' },
   { path: '/workspace/approvals',       label: 'Approvals',                icon: '📥', group: 'WORK' },
   { path: '/workspace/meetings',        label: 'Meetings',                 icon: '📅', group: 'WORK' },
@@ -136,7 +137,7 @@ export default function Workspace() {
               <div key={i} className="w-2 h-2 bg-[#06101d]/30 rounded-full animate-bounce" style={{ animationDelay: `${i * 150}ms` }} />
             ))}
           </div>
-          <p className="text-sm text-slate-400">Loading OS Hub...</p>
+          <p className="text-sm text-slate-400">Loading AlgoForce Workspace...</p>
         </div>
       </div>
     )
@@ -150,13 +151,14 @@ export default function Workspace() {
     if (role === 'owner' || role === 'admin') return true
 
     if (role === 'viewer') {
-      const allowed = ['/workspace', '/workspace/vault', '/workspace/tasks', '/workspace/support']
+      const allowed = ['/workspace', '/workspace/products', '/workspace/vault', '/workspace/tasks', '/workspace/support']
       return allowed.includes(item.path)
     }
 
     if (role === 'employee' || !role) {
       const allowed = [
         '/workspace',
+        '/workspace/products',
         '/workspace/tasks',
         '/workspace/vault',
         '/workspace/documents',
@@ -171,6 +173,7 @@ export default function Workspace() {
     if (role === 'manager') {
       const allowed = [
         '/workspace',
+        '/workspace/products',
         '/workspace/tasks',
         '/workspace/vault',
         '/workspace/documents',
@@ -189,6 +192,7 @@ export default function Workspace() {
     if (role === 'finance') {
       const allowed = [
         '/workspace',
+        '/workspace/products',
         '/workspace/tasks',
         '/workspace/vault',
         '/workspace/documents',
@@ -210,11 +214,14 @@ export default function Workspace() {
       {/* Top Header */}
       <header className="flex-shrink-0 h-14 bg-white border-b border-[#06101d]/10 flex items-center px-4 gap-4 z-45 sticky top-0 shadow-xs">
         <Link to="/" className="flex items-center gap-2.5 flex-shrink-0">
-          <img src="/logo.png" alt="AlgoForce" className="h-5 w-auto object-contain" />
-          <span className="text-[10px] font-bold tracking-wider uppercase bg-[#06101d] text-white px-1.5 py-0.5 rounded-md">OS</span>
+          <div className="flex h-8 w-8 items-center justify-center rounded-2xl bg-[#8f38ff] text-sm font-semibold text-white shadow-sm">A</div>
+          <div className="leading-none">
+            <div className="text-sm font-semibold tracking-tight text-[#06101d]">AlgoForce</div>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">Workspace</div>
+          </div>
         </Link>
         <div className="w-px h-5 bg-[#06101d]/15 flex-shrink-0" />
-        <span className="text-sm text-slate-500 font-medium truncate">{company?.name || 'AlgoForce Hub'}</span>
+        <span className="text-sm text-slate-500 font-medium truncate">{company?.name || 'Customer Portal'}</span>
 
         <div className="ml-auto flex items-center gap-4 relative">
           {/* Notifications Bell */}
@@ -358,18 +365,18 @@ export default function Workspace() {
         </main>
       </div>
 
-      {/* Floating Ask Anything AI Helper Widget */}
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
-        {showFloatingChat && (
-          <div className="w-[380px] h-[500px] bg-white rounded-3xl border border-[#06101d]/12 shadow-2xl overflow-hidden flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-250">
+      {/* Docked AI Assistant */}
+      <div className="fixed inset-y-0 right-0 z-50 flex items-end pointer-events-none">
+        <div className={`transition-all duration-300 ${showFloatingChat ? 'translate-x-0' : 'translate-x-full'}`}>
+          <div className="h-[calc(100vh-2rem)] w-[380px] max-w-[90vw] m-4 rounded-[28px] border border-[#06101d]/10 bg-white shadow-2xl overflow-hidden flex flex-col pointer-events-auto">
             <div className="px-4 py-3 bg-[#06101d] text-white flex justify-between items-center flex-shrink-0">
               <div>
-                <h4 className="font-bold text-xs">Ask Anything</h4>
-                <p className="text-[9px] text-slate-455 mt-0.5">AlgoForce Company Assistant</p>
+                <h4 className="font-semibold text-sm">AlgoForce Assistant</h4>
+                <p className="text-[10px] text-slate-300 mt-0.5">Documentation · products · support</p>
               </div>
               <button
                 onClick={() => setShowFloatingChat(false)}
-                className="text-xs hover:text-slate-300 p-1"
+                className="text-sm hover:text-slate-300 p-1"
               >
                 ✕
               </button>
@@ -378,10 +385,10 @@ export default function Workspace() {
               <AIChat isFloating={true} />
             </div>
           </div>
-        )}
+        </div>
         <button
           onClick={() => setShowFloatingChat(!showFloatingChat)}
-          className="w-12 h-12 bg-[#06101d] hover:bg-[#142940] text-white rounded-full flex items-center justify-center shadow-xl border border-white/10 transition-all hover:scale-105"
+          className="mb-6 mr-6 pointer-events-auto w-12 h-12 bg-[#8f38ff] hover:bg-[#7327d6] text-white rounded-full flex items-center justify-center shadow-xl border border-white/10 transition-all hover:scale-105"
         >
           <span className="text-xl">💬</span>
         </button>
