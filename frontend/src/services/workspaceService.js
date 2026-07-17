@@ -53,6 +53,57 @@ export async function getUserCompany(userId) {
   }
 }
 
+export async function saveCompanyProfile(companyId, profileData) {
+  if (!companyId) return null
+
+  const updateData = {
+    name: profileData.companyName || undefined,
+    industry: profileData.industry || null,
+    employee_count: profileData.employees || null,
+    annual_revenue: profileData.annualRevenue || null,
+    current_erp: profileData.currentErp || null,
+    current_crm: profileData.currentCrm || null,
+    current_problems: profileData.currentProblems || null,
+    updated_at: new Date().toISOString(),
+  }
+
+  const { data, error } = await supabase
+    .from('companies')
+    .update(updateData)
+    .eq('id', companyId)
+    .select()
+    .single()
+
+  if (error) throw error
+  return data
+}
+
+export async function updateCompanyAssessmentInsights(companyId, insights) {
+  if (!companyId) return null
+
+  const updateData = {
+    operational_score: insights.operationalScore ?? null,
+    automation_score: insights.automationScore ?? null,
+    risk_score: insights.riskScore ?? null,
+    expected_roi: insights.expectedRoi || null,
+    impl_time: insights.implTime || null,
+    ai_opportunities: insights.aiOpportunities || [],
+    rec_products: insights.recProducts || [],
+    onboarding_completed: true,
+    updated_at: new Date().toISOString(),
+  }
+
+  const { data, error } = await supabase
+    .from('companies')
+    .update(updateData)
+    .eq('id', companyId)
+    .select()
+    .single()
+
+  if (error) throw error
+  return data
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // DOCUMENTS
 // ─────────────────────────────────────────────────────────────────────────────

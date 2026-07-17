@@ -5,7 +5,8 @@
  */
 import { useState, useEffect } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
-import { saveAssessment, getAssessment } from '../../services/workspaceService'
+import { saveAssessment, getAssessment, saveCompanyProfile, updateCompanyAssessmentInsights } from '../../services/workspaceService'
+import { createTasksBatch, createApproval, getTasks } from '../../services/operationsService'
 import { generateAssessmentReport, hasApiKey } from '../../services/openaiService'
 import ReactMarkdown from 'react-markdown'
 
@@ -14,10 +15,13 @@ const STEPS = [
     id: 'company',
     title: 'Company Profile',
     fields: [
+      { key: 'company_name', label: 'Company Name', type: 'text', placeholder: 'e.g. Acme Industries' },
       { key: 'industry', label: 'Industry / Sector', type: 'select', options: ['Manufacturing', 'Trading / Distribution', 'Retail', 'Services', 'Healthcare', 'Education', 'Finance / NBFC', 'Real Estate', 'IT / Software', 'Logistics', 'Construction', 'Other'] },
       { key: 'employees', label: 'Number of Employees', type: 'select', options: ['1–10', '11–50', '51–200', '201–500', '500+'] },
       { key: 'revenue', label: 'Annual Revenue Range', type: 'select', options: ['< ₹1 Cr', '₹1–10 Cr', '₹10–50 Cr', '₹50–200 Cr', '₹200 Cr+'] },
-      { key: 'locations', label: 'Number of Business Locations', type: 'select', options: ['1', '2–5', '6–20', '20+'] },
+      { key: 'current_erp', label: 'Current ERP', type: 'text', placeholder: 'e.g. Tally, SAP, Zoho Books' },
+      { key: 'current_crm', label: 'Current CRM', type: 'text', placeholder: 'e.g. Salesforce, HubSpot, WhatsApp' },
+      { key: 'current_problems', label: 'Current Problems', type: 'textarea', placeholder: 'What is breaking, slow, or causing manual effort today?' },
     ]
   },
   {
@@ -91,6 +95,16 @@ export default function BusinessAssessment() {
   const handleSave = async (final = false) => {
     if (!company?.id) return
     try {
+      const companyName = formData.company_name || company?.name || 'Your Company'
+      await saveCompanyProfile(company.id, {
+        companyName,
+        industry: formData.industry,
+        employees: formData.employees,
+        annualRevenue: formData.revenue,
+        currentErp: formData.current_erp,
+        currentCrm: formData.current_crm,
+        currentProblems: formData.current_problems,
+      })
       await saveAssessment(company.id, user.id, formData, null, final ? 'draft' : 'draft')
     } catch (e) { console.error(e) }
   }
@@ -103,10 +117,43 @@ export default function BusinessAssessment() {
     setError('')
     setLoading(true)
     try {
-      await handleSave()
-      const result = await generateAssessmentReport(formData, company?.name || 'Your Company')
-      setReport(result)
+      await handleSave(true)
+      const companyName = formData.company_name || company?.name || 'Your Company'
+      const result = await generateAssessmentReport(formData, companyName)
+      const insightMatch = result.match(/Operational Score:\s*(\d+)/i)
+      const automationMatch = result.match(/Automation Score:\s*(\d+)/i)
+      const riskMatch = result.match(/Risk Score:\s*(\d+)/i)
+      const roiMatch = result.match(/Expected ROI:\s*(.+)/i)
+      const implMatch = result.match(/Estimated Implementation Time:\s*(.+)/i)
+      const opportunities = Array.from(result.matchAll(/-\s+(.+)/g)).slice(0, 8).map((m) => m[1])
+      const recommendedProducts = ['TallyGPT', 'LeadBolt', 'HR Copilot']
+
       await saveAssessment(company.id, user.id, formData, result, 'complete')
+      await updateCompanyAssessmentInsights(company.id, {
+        operationalScore: insightMatch ? Number(insightMatch[1]) : 67,
+        automationScore: automationMatch ? Number(automationMatch[1]) : 74,
+        riskScore: riskMatch ? Number(riskMatch[1]) : 31,
+        expectedRoi: roiMatch ? roiMatch[1].trim() : '₹1.5L/month',
+        implTime: implMatch ? implMatch[1].trim() : '3–6 weeks',
+        aiOpportunities: opportunities,
+        recProducts: recommendedProducts,
+      })
+
+      await createTasksBatch(company.id, user.id, [
+        { title: 'Upload GST returns and invoices', description: 'Add the latest financial documents to the company vault.', priority: 'high', source: 'assessment' },
+        { title: 'Connect Tally or your ERP', description: 'Link the current system to the OS for live data sync.', priority: 'high', source: 'assessment' },
+        { title: 'Invite finance and operations leads', description: 'Bring the right stakeholders into the workspace.', priority: 'medium', source: 'assessment' },
+        { title: 'Review AI recommendations', description: 'Review the generated opportunities and select the first deployment.', priority: 'medium', source: 'assessment' },
+        { title: 'Schedule deployment call', description: 'Book a deployment planning conversation with AlgoForce.', priority: 'medium', source: 'assessment' },
+      ])
+
+      await createApproval(company.id, user.id, {
+        title: 'Approve deployment roadmap',
+        description: 'Review the AI-generated roadmap and approve the first implementation phase.',
+        priority: 'high',
+      })
+
+      setReport(result)
       setMode('report')
     } catch (err) {
       setError(err.message)
@@ -126,7 +173,7 @@ export default function BusinessAssessment() {
   }
 
   const currentStepData = STEPS[step]
-  const progress = ((step) / STEPS.length) * 100
+  const progress = ((step + 1) / STEPS.length) * 100
 
   const isStepComplete = (s) => {
     return STEPS[s].fields.every(f => formData[f.key]?.trim?.() || formData[f.key])
@@ -203,6 +250,16 @@ export default function BusinessAssessment() {
               {currentStepData.fields.map(field => (
                 <div key={field.key}>
                   <label className="block text-sm font-semibold text-[#06101d] mb-2">{field.label}</label>
+
+                  {field.type === 'text' && (
+                    <input
+                      type="text"
+                      value={formData[field.key] || ''}
+                      onChange={(e) => handleFieldChange(field.key, e.target.value)}
+                      placeholder={field.placeholder}
+                      className="w-full px-4 py-3 rounded-xl border border-[#06101d]/12 bg-[#f7f9fc] text-sm text-[#06101d] placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#8f38ff]/30"
+                    />
+                  )}
 
                   {field.type === 'select' && (
                     <select

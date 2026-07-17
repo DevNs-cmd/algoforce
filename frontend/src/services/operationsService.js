@@ -325,6 +325,28 @@ export async function getProjects(companyId) {
   return data || []
 }
 
+export async function createProject(companyId, userId, project) {
+  const { data, error } = await supabase
+    .from('projects')
+    .insert({
+      company_id: companyId,
+      created_by: userId,
+      name: project.name,
+      description: project.description || '',
+      status: project.status || 'planning',
+      progress: project.progress || 12,
+      milestones: project.milestones || [],
+      next_milestone: project.nextMilestone || null,
+    })
+    .select()
+    .single()
+  if (error) throw error
+
+  await logActivity(companyId, userId, 'deploy', `Created project: ${project.name}`)
+  await addNotification(companyId, userId, 'Project Started', `Project "${project.name}" is now active in your workspace.`)
+  return data
+}
+
 export async function updateProjectMilestones(projectId, milestones, progress) {
   const { data, error } = await supabase
     .from('projects')

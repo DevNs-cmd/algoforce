@@ -1,7 +1,7 @@
 /**
  * Workspace.jsx
- * Authenticated workspace shell with sidebar navigation.
- * Routes to all operational modules. Clean enterprise SaaS layout.
+ * Redesigned central workspace shell for AlgoForce.
+ * Features a docked Right Sidebar for the AI Assistant, a bigger/cleaner logo, and grouped portal links.
  */
 import { useEffect, useState, useCallback, useRef, lazy, Suspense } from 'react'
 import { Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom'
@@ -22,7 +22,6 @@ const DocumentAnalyzer       = lazy(() => import('./workspace/DocumentAnalyzer')
 const MeetingNotes           = lazy(() => import('./workspace/MeetingNotes'))
 const SOPGenerator           = lazy(() => import('./workspace/SOPGenerator'))
 const DocumentGenerator      = lazy(() => import('./workspace/DocumentGenerator'))
-const DeployMarketplace      = lazy(() => import('./workspace/DeployMarketplace'))
 const BusinessAssessment     = lazy(() => import('./workspace/BusinessAssessment'))
 const AutomationRecs         = lazy(() => import('./workspace/AutomationRecommendations'))
 const HealthScore            = lazy(() => import('./workspace/HealthScore'))
@@ -37,37 +36,38 @@ const Meetings               = lazy(() => import('./workspace/Meetings'))
 const ClientPortalInfo       = lazy(() => import('./workspace/ClientPortalInfo'))
 
 const NAV_ITEMS = [
-  // WORK
-  { path: '/workspace',                 label: 'Overview',                 icon: '🏠', group: 'WORK' },
-  { path: '/workspace/products',        label: 'Software Library',         icon: '🧩', group: 'WORK' },
-  { path: '/workspace/tasks',           label: 'Tasks',                    icon: '✅', group: 'WORK' },
-  { path: '/workspace/approvals',       label: 'Approvals',                icon: '📥', group: 'WORK' },
-  { path: '/workspace/meetings',        label: 'Meetings',                 icon: '📅', group: 'WORK' },
-  { path: '/workspace/projects',        label: 'Projects',                 icon: '📊', group: 'WORK' },
+  // PORTAL
+  { path: '/workspace',                 label: 'Overview',                 icon: '🏠', group: 'PORTAL' },
+  { path: '/workspace/products',        label: 'Software Library',         icon: '🧩', group: 'PORTAL' },
+  { path: '/workspace/downloads',       label: 'Downloads',                icon: '💾', group: 'PORTAL' },
+  { path: '/workspace/deployments',     label: 'Deployments',              icon: '🚀', group: 'PORTAL' },
+  { path: '/workspace/documentation',   label: 'Documentation',            icon: '📚', group: 'PORTAL' },
 
-  // CLIENTS
-  { path: '/workspace/crm',             label: 'CRM & Leads',              icon: '🤝', group: 'CLIENTS' },
-  { path: '/workspace/client-portal',   label: 'Client Portal',            icon: '👤', group: 'CLIENTS' },
-  { path: '/workspace/contracts',       label: 'Contracts',                icon: '📜', group: 'CLIENTS' },
+  // OPERATIONS
+  { path: '/workspace/tasks',           label: 'Tasks',                    icon: '✅', group: 'OPERATIONS' },
+  { path: '/workspace/approvals',       label: 'Approvals',                icon: '📥', group: 'OPERATIONS' },
+  { path: '/workspace/meetings',        label: 'Meetings',                 icon: '📅', group: 'OPERATIONS' },
+  { path: '/workspace/projects',        label: 'Projects',                 icon: '📊', group: 'OPERATIONS' },
+  { path: '/workspace/crm',             label: 'CRM & Leads',              icon: '🤝', group: 'OPERATIONS' },
 
-  // FILES & DOCS
-  { path: '/workspace/vault',           label: 'Company Files',            icon: '📁', group: 'FILES & DOCS' },
-  { path: '/workspace/documents',       label: 'Documents',                icon: '📄', group: 'FILES & DOCS' },
-  { path: '/workspace/proposals',       label: 'Proposals',                icon: '📃', group: 'FILES & DOCS' },
-  { path: '/workspace/sop',             label: 'SOPs',                     icon: '📋', group: 'FILES & DOCS' },
+  // RESOURCES
+  { path: '/workspace/vault',           label: 'Company Files',            icon: '📁', group: 'RESOURCES' },
+  { path: '/workspace/documents',       label: 'Documents',                icon: '📄', group: 'RESOURCES' },
+  { path: '/workspace/proposals',       label: 'Proposals',                icon: '📃', group: 'RESOURCES' },
+  { path: '/workspace/sop',             label: 'SOPs',                     icon: '📋', group: 'RESOURCES' },
 
-  // COMPANY
-  { path: '/workspace/chat',            label: 'Ask Anything',             icon: '💬', group: 'COMPANY' },
-  { path: '/workspace/executive-reports',label: 'Reports',                 icon: '📈', group: 'COMPANY' },
-  { path: '/workspace/billing',         label: 'Invoices',                 icon: '🧾', group: 'COMPANY' },
-  { path: '/workspace/support',         label: 'Support',                  icon: '🎫', group: 'COMPANY' },
-  { path: '/workspace/integrations',    label: 'Integrations',             icon: '🌐', group: 'COMPANY' },
-  { path: '/workspace/team',            label: 'Team',                     icon: '👥', group: 'COMPANY' },
-  { path: '/workspace/timeline',        label: 'Activity Log',             icon: '⏱️', group: 'COMPANY' },
-  { path: '/workspace/settings',        label: 'Settings',                 icon: '⚙️', group: 'COMPANY' },
+  // SYSTEM
+  { path: '/workspace/api-keys',        label: 'API Keys',                 icon: '🔑', group: 'SYSTEM' },
+  { path: '/workspace/licenses',        label: 'Licenses',                 icon: '📜', group: 'SYSTEM' },
+  { path: '/workspace/integrations',    label: 'Integrations',             icon: '🌐', group: 'SYSTEM' },
+  { path: '/workspace/organization',    label: 'Organization',             icon: '🏢', group: 'SYSTEM' },
+  { path: '/workspace/billing',         label: 'Billing',                  icon: '🧾', group: 'SYSTEM' },
+  { path: '/workspace/timeline',        label: 'Activity Log',             icon: '⏱️', group: 'SYSTEM' },
+  { path: '/workspace/support',         label: 'Support',                  icon: '🎫', group: 'SYSTEM' },
+  { path: '/workspace/settings',        label: 'Settings',                 icon: '⚙️', group: 'SYSTEM' },
 ]
 
-const GROUPS = ['WORK', 'CLIENTS', 'FILES & DOCS', 'COMPANY']
+const GROUPS = ['PORTAL', 'OPERATIONS', 'RESOURCES', 'SYSTEM']
 
 function ModuleLoader() {
   return (
@@ -85,7 +85,7 @@ export default function Workspace() {
   const { user, company, loading, isAuthenticated, userDisplayName, userRole, logout } = useAuth()
   const location = useLocation()
   const navigate = useNavigate()
-  const [showFloatingChat, setShowFloatingChat] = useState(false)
+  const [showRightSidebar, setShowRightSidebar] = useState(window.innerWidth >= 1024)
 
   useEffect(() => {
     if (!loading && !isAuthenticated) {
@@ -104,11 +104,10 @@ export default function Workspace() {
       const data = await getNotifications(user.id)
       setNotifications(data || [])
     } catch (e) {
-      // Silently ignore — notifications are non-critical
+      // Silently ignore
     }
   }, [user?.id])
 
-  // Load once when user id is first available
   useEffect(() => {
     if (user?.id && !notifLoadedRef.current) {
       notifLoadedRef.current = true
@@ -151,7 +150,7 @@ export default function Workspace() {
     if (role === 'owner' || role === 'admin') return true
 
     if (role === 'viewer') {
-      const allowed = ['/workspace', '/workspace/products', '/workspace/vault', '/workspace/tasks', '/workspace/support']
+      const allowed = ['/workspace', '/workspace/products', '/workspace/downloads', '/workspace/vault', '/workspace/tasks', '/workspace/support', '/workspace/documentation']
       return allowed.includes(item.path)
     }
 
@@ -159,6 +158,8 @@ export default function Workspace() {
       const allowed = [
         '/workspace',
         '/workspace/products',
+        '/workspace/downloads',
+        '/workspace/documentation',
         '/workspace/tasks',
         '/workspace/vault',
         '/workspace/documents',
@@ -174,6 +175,9 @@ export default function Workspace() {
       const allowed = [
         '/workspace',
         '/workspace/products',
+        '/workspace/downloads',
+        '/workspace/deployments',
+        '/workspace/documentation',
         '/workspace/tasks',
         '/workspace/vault',
         '/workspace/documents',
@@ -193,6 +197,9 @@ export default function Workspace() {
       const allowed = [
         '/workspace',
         '/workspace/products',
+        '/workspace/downloads',
+        '/workspace/deployments',
+        '/workspace/documentation',
         '/workspace/tasks',
         '/workspace/vault',
         '/workspace/documents',
@@ -214,16 +221,27 @@ export default function Workspace() {
       {/* Top Header */}
       <header className="flex-shrink-0 h-14 bg-white border-b border-[#06101d]/10 flex items-center px-4 gap-4 z-45 sticky top-0 shadow-xs">
         <Link to="/" className="flex items-center gap-2.5 flex-shrink-0">
-          <div className="flex h-8 w-8 items-center justify-center rounded-2xl bg-[#8f38ff] text-sm font-semibold text-white shadow-sm">A</div>
+          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#8f38ff] text-sm font-semibold text-white shadow-sm">A</div>
           <div className="leading-none">
-            <div className="text-sm font-semibold tracking-tight text-[#06101d]">AlgoForce</div>
-            <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">Workspace</div>
+            <div className="text-sm font-black tracking-tight text-[#06101d]">AlgoForce</div>
+            <div className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#8f38ff]">Workspace</div>
           </div>
         </Link>
         <div className="w-px h-5 bg-[#06101d]/15 flex-shrink-0" />
-        <span className="text-sm text-slate-500 font-medium truncate">{company?.name || 'Customer Portal'}</span>
+        <span className="text-sm text-slate-500 font-medium truncate">{company?.name || 'Customer Workspace'}</span>
 
         <div className="ml-auto flex items-center gap-4 relative">
+          {/* Toggle Right Sidebar Assistant Button */}
+          {!showRightSidebar && (
+            <button
+              onClick={() => setShowRightSidebar(true)}
+              className="px-3 py-1.5 bg-[#8f38ff]/10 hover:bg-[#8f38ff]/20 text-[#8f38ff] border border-[#8f38ff]/20 text-xs font-semibold rounded-lg transition-all"
+              title="Open AI Assistant"
+            >
+              💬 Ask AI Assistant
+            </button>
+          )}
+
           {/* Notifications Bell */}
           <div className="relative">
             <button
@@ -281,7 +299,7 @@ export default function Workspace() {
               if (items.length === 0) return null
               return (
                 <div key={group}>
-                  <p className="text-[9px] font-bold uppercase text-slate-400 px-2 mb-1 tracking-wider">{group}</p>
+                  <p className="text-[9px] font-extrabold uppercase text-slate-400 px-2 mb-1 tracking-widest">{group}</p>
                   <div className="space-y-0.5">
                     {items.map((item) => {
                       const isActive = location.pathname === item.path
@@ -320,7 +338,7 @@ export default function Workspace() {
 
         {/* Main Content */}
         <main className="flex-1 bg-[#f7f9fc] overflow-hidden flex flex-col">
-          {/* Workspace Routing (default route: CommandCenter) */}
+          {/* Workspace Routing */}
           <div className="flex-1 overflow-hidden flex flex-col">
             <Suspense fallback={<ModuleLoader />}>
               <Routes>
@@ -363,20 +381,18 @@ export default function Workspace() {
             </Suspense>
           </div>
         </main>
-      </div>
 
-      {/* Docked AI Assistant */}
-      <div className="fixed inset-y-0 right-0 z-50 flex items-end pointer-events-none">
-        <div className={`transition-all duration-300 ${showFloatingChat ? 'translate-x-0' : 'translate-x-full'}`}>
-          <div className="h-[calc(100vh-2rem)] w-[380px] max-w-[90vw] m-4 rounded-[28px] border border-[#06101d]/10 bg-white shadow-2xl overflow-hidden flex flex-col pointer-events-auto">
+        {/* Docked AI Assistant (Right Sidebar) */}
+        {showRightSidebar && (
+          <aside className="w-80 flex-shrink-0 bg-white border-l border-[#06101d]/10 flex flex-col overflow-hidden animate-in slide-in-from-right duration-250">
             <div className="px-4 py-3 bg-[#06101d] text-white flex justify-between items-center flex-shrink-0">
               <div>
-                <h4 className="font-semibold text-sm">AlgoForce Assistant</h4>
-                <p className="text-[10px] text-slate-300 mt-0.5">Documentation · products · support</p>
+                <h4 className="font-bold text-xs">AlgoForce Assistant</h4>
+                <p className="text-[9px] text-slate-300 mt-0.5">Documentation · products · support</p>
               </div>
               <button
-                onClick={() => setShowFloatingChat(false)}
-                className="text-sm hover:text-slate-300 p-1"
+                onClick={() => setShowRightSidebar(false)}
+                className="text-xs hover:text-slate-300 p-1"
               >
                 ✕
               </button>
@@ -384,14 +400,8 @@ export default function Workspace() {
             <div className="flex-1 overflow-hidden">
               <AIChat isFloating={true} />
             </div>
-          </div>
-        </div>
-        <button
-          onClick={() => setShowFloatingChat(!showFloatingChat)}
-          className="mb-6 mr-6 pointer-events-auto w-12 h-12 bg-[#8f38ff] hover:bg-[#7327d6] text-white rounded-full flex items-center justify-center shadow-xl border border-white/10 transition-all hover:scale-105"
-        >
-          <span className="text-xl">💬</span>
-        </button>
+          </aside>
+        )}
       </div>
     </div>
   )
