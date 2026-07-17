@@ -356,3 +356,27 @@ export function getFileIcon(fileName) {
   }
   return icons[ext] || '📎'
 }
+
+/**
+ * Register a user on the product waitlist.
+ */
+export async function joinWaitlist(userId, companyId, waitlistData) {
+  const { data, error } = await supabase
+    .from('waitlist')
+    .insert({
+      company_id: companyId,
+      user_id: userId,
+      product_id: waitlistData.productId,
+      name: waitlistData.name,
+      email: waitlistData.email,
+      company_name: waitlistData.companyName,
+      role: waitlistData.role,
+      use_case: waitlistData.useCase,
+    })
+    .select()
+    .single()
+
+  if (error) throw error
+  return data
+}
+

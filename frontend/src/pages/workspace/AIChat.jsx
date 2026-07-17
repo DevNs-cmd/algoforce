@@ -1,7 +1,7 @@
 /**
  * AIChat.jsx
- * Full-page context-aware AI assistant.
- * Knows company profile, uploaded documents, recent tasks, CRM deals, and pending approvals.
+ * Context-aware AI assistant with a clean ChatGPT-like visual style.
+ * Focuses on products, licenses, downloads, billing, and documentation. No emojis.
  */
 import { useState, useEffect, useRef } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
@@ -22,28 +22,6 @@ export default function AIChat({ isFloating = false }) {
   // Context loaded states
   const [context, setContext] = useState(null)
   const [loadingContext, setLoadingContext] = useState(true)
-
-  const getTodayPriorities = () => {
-    const fallback = [
-      'Connect Tally or your ERP',
-      'Upload GST returns and invoices',
-      'Invite finance and operations leads',
-      'Review the AI recommendations'
-    ]
-
-    if (!context) return fallback
-
-    const taskList = (context.tasks || []).filter(t => t.status !== 'done').slice(0, 3).map(t => t.title)
-    const hasAssessment = Boolean(context.assessment && Object.keys(context.assessment).length)
-
-    if (taskList.length) return taskList
-    if (hasAssessment) return [
-      'Review the AI recommendations',
-      'Connect your current ERP or CRM',
-      'Upload the latest financial documents'
-    ]
-    return fallback
-  }
 
   useEffect(() => {
     if (company?.id) {
@@ -90,7 +68,7 @@ export default function AIChat({ isFloating = false }) {
     if (!hasApiKey()) {
       setMessages(prev => [...prev,
         { role: 'user', content: input },
-        { role: 'assistant', content: '⚠️ AI is not yet configured for this platform. Please contact your administrator.' }
+        { role: 'assistant', content: 'AI configuration error: API key is not configured in the workspace.' }
       ])
       setInput('')
       return
@@ -104,25 +82,24 @@ export default function AIChat({ isFloating = false }) {
     // Build context summary prompt block
     const docSummary = (context?.documents || []).map(d => `- ${d.name} (${d.category})`).join('\n')
     const taskSummary = (context?.tasks || []).slice(0, 10).map(t => `- [${t.status}] ${t.title} (${t.priority}, due ${t.due || 'none'})`).join('\n')
-    const crmSummary = (context?.crm || []).map(c => `- ${c.name} (${c.status}, value ₹${c.value || 0})`).join('\n')
+    const crmSummary = (context?.crm || []).map(c => `- ${c.name} (${c.status}, value ${c.value || 0})`).join('\n')
     const genSummary = (context?.generated || []).map(g => `- ${g.title} (${g.type})`).join('\n')
     const assessmentSummary = JSON.stringify(context?.assessment || {})
 
-    const systemPrompt = `You are the primary AI operations assistant for a company using AlgoForce OS. You have context over their entire operational layer.
+    const systemPrompt = `You are the primary AI assistant for AlgoForce Workspace. You have access to the customer's operational context.
 Company Profile Name: ${context?.companyName || 'Unknown'}
 Uploaded Documents:
 ${docSummary || 'None'}
-Generated Business Docs (SOPs, Proposals, Reports):
+Generated Business Docs:
 ${genSummary || 'None'}
 Task Registry (recent):
 ${taskSummary || 'None'}
-CRM Clients & Deals:
+CRM Clients:
 ${crmSummary || 'None'}
 Business Assessment JSON: ${assessmentSummary}
 
-Answer client requests with this knowledge. If they ask to locate a document, tell them its name. If they ask about tasks, list them. Be professional, direct, and concise.`
+Your design is simple and clean. Provide concise, direct, professional answers. Avoid using emojis. Align explanations clearly.`
 
-    // Stream response token-by-token using the service layer (key stays private)
     let streamBuffer = ''
     setMessages(prev => [...prev, { role: 'assistant', content: '' }])
 
@@ -142,7 +119,7 @@ Answer client requests with this knowledge. If they ask to locate a document, te
           })
         }
       )
-      await logActivity(company.id, user.id, 'search', `AI Chat query: "${userMsg.content.slice(0, 50)}..."`)
+      await logActivity(company.id, user.id, 'search', `AI Assistant request: "${userMsg.content.slice(0, 50)}..."`)
     } catch (err) {
       setMessages(prev => {
         const updated = [...prev]
@@ -155,79 +132,76 @@ Answer client requests with this knowledge. If they ask to locate a document, te
   }
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="h-full flex flex-col bg-white border-l border-slate-100 font-sans antialiased text-slate-800">
+      {/* Header */}
       {!isFloating && (
-        <div className="flex-shrink-0 px-6 py-5 border-b border-[#06101d]/8 flex items-center justify-between">
+        <div className="flex-shrink-0 px-6 py-4 border-b border-slate-100 flex items-center justify-between">
           <div>
-            <h1 className="text-xl font-semibold text-[#06101d]">AlgoForce Assistant</h1>
-            <p className="text-sm text-slate-500 mt-0.5">Get help with products, documentation, APIs, releases and support from one workspace assistant.</p>
+            <h1 className="text-sm font-semibold text-slate-900">AlgoForce Assistant</h1>
+            <p className="text-[10px] text-slate-450 mt-0.5">Workspace helper agent</p>
           </div>
           <button
             onClick={loadWorkspaceContext}
-            className="text-xs font-semibold text-[#8f38ff] bg-[#8f38ff]/5 border border-[#8f38ff]/10 px-3 py-1.5 rounded-lg hover:bg-[#8f38ff]/10"
+            className="text-[10px] font-semibold text-slate-500 hover:text-slate-800 transition-colors"
           >
-            🔄 Refresh Context
+            Sync context
           </button>
         </div>
       )}
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-[#f7f9fc]">
+      <div className="flex-1 overflow-y-auto divide-y divide-slate-100">
         {messages.length === 0 && (
-          <div className="flex items-center justify-center h-full">
-            <div className="text-center max-w-md">
-              <span className="text-4xl block mb-4">💬</span>
-              <h3 className="font-bold text-[#06101d] mb-1">AlgoForce Assistant</h3>
-              <p className="text-sm text-slate-500 leading-relaxed">
-                Ask about your products, downloads, licenses, integrations, release notes, or support requirements without leaving the workspace.
+          <div className="p-6 flex flex-col justify-center h-full text-center max-w-sm mx-auto space-y-4">
+            <div className="space-y-1">
+              <h3 className="font-semibold text-slate-900 text-xs">How can I help you?</h3>
+              <p className="text-[11px] text-slate-450 leading-relaxed">
+                Ask questions regarding products, licenses, downloads, invoices, support tickets, or release notes.
               </p>
-              <div className="mt-5 rounded-2xl border border-[#06101d]/8 bg-[#f7f9fc] p-4 text-left">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#8f38ff]">Today’s priorities</p>
-                <ol className="mt-3 space-y-2 text-sm text-slate-600">
-                  {getTodayPriorities().slice(0, 4).map((item, index) => (
-                    <li key={item} className="flex gap-2"><span className="font-semibold text-[#06101d]">{index + 1}.</span><span>{item}</span></li>
-                  ))}
-                </ol>
-              </div>
-              <div className="mt-5 space-y-2">
-                {['How do I install Aura AI?', 'Show me the latest releases for LeadBolt', 'What integrations are available for my workspace?'].map(q => (
-                  <button
-                    key={q}
-                    onClick={() => { setInput(q) }}
-                    className="block w-full text-left px-4 py-2.5 rounded-xl border border-[#06101d]/8 bg-white text-xs font-medium text-slate-600 hover:border-[#8f38ff] transition-all"
-                  >
-                    {q}
-                  </button>
-                ))}
-              </div>
+            </div>
+            <div className="space-y-2 text-left pt-2">
+              {[
+                'How do I activate TallyGPT?',
+                'Show me the release notes for Aura AI',
+                'Download the latest Windows client',
+              ].map(q => (
+                <button
+                  key={q}
+                  onClick={() => { setInput(q) }}
+                  className="block w-full text-left px-3.5 py-2.5 rounded-xl border border-slate-100 bg-white text-[10px] font-medium text-slate-650 hover:bg-slate-50/50 hover:border-slate-350 transition-all duration-150"
+                >
+                  {q}
+                </button>
+              ))}
             </div>
           </div>
         )}
 
         {messages.map((m, i) => (
-          <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-            <div className={`max-w-[75%] px-4 py-3 rounded-2xl text-xs leading-relaxed ${
-              m.role === 'user'
-                ? 'bg-[#06101d] text-white shadow-xs'
-                : 'bg-white text-[#06101d] border border-[#06101d]/8 shadow-xs'
-            }`}>
-              {m.role === 'assistant' ? (
-                <div className="prose prose-slate prose-headings:font-bold prose-headings:text-[#06101d] prose-h2:text-sm prose-p:text-slate-650 prose-li:text-slate-650 max-w-none">
-                  <ReactMarkdown>{m.content}</ReactMarkdown>
-                </div>
-              ) : m.content}
+          <div key={i} className={`p-5 text-xs leading-relaxed ${m.role === 'user' ? 'bg-white' : 'bg-slate-50/50'}`}>
+            <div className="max-w-xl mx-auto space-y-1">
+              <p className="text-[9px] uppercase font-bold tracking-widest text-slate-400">
+                {m.role === 'user' ? 'User' : 'Assistant'}
+              </p>
+              <div className="mt-1 text-slate-700 font-normal">
+                {m.role === 'assistant' ? (
+                  <div className="prose prose-slate prose-headings:font-bold prose-headings:text-slate-900 prose-h2:text-xs prose-p:text-slate-700 prose-li:text-slate-750 max-w-none text-xs leading-relaxed">
+                    <ReactMarkdown>{m.content}</ReactMarkdown>
+                  </div>
+                ) : (
+                  m.content
+                )}
+              </div>
             </div>
           </div>
         ))}
 
         {thinking && (
-          <div className="flex justify-start">
-            <div className="bg-white border border-[#06101d]/8 rounded-2xl px-4 py-3 shadow-xs">
-              <div className="flex gap-1.5 items-center">
-                <div className="w-1.5 h-1.5 bg-[#8f38ff] rounded-full animate-bounce [animation-delay:0ms]" />
-                <div className="w-1.5 h-1.5 bg-[#8f38ff] rounded-full animate-bounce [animation-delay:150ms]" />
-                <div className="w-1.5 h-1.5 bg-[#8f38ff] rounded-full animate-bounce [animation-delay:300ms]" />
-              </div>
+          <div className="p-5 bg-slate-50/50 text-[10px] text-slate-400">
+            <div className="max-w-xl mx-auto flex gap-1 items-center">
+              <div className="w-1 h-1 bg-slate-400 rounded-full animate-bounce [animation-delay:0ms]" />
+              <div className="w-1 h-1 bg-slate-400 rounded-full animate-bounce [animation-delay:150ms]" />
+              <div className="w-1 h-1 bg-slate-400 rounded-full animate-bounce [animation-delay:300ms]" />
             </div>
           </div>
         )}
@@ -235,20 +209,20 @@ Answer client requests with this knowledge. If they ask to locate a document, te
       </div>
 
       {/* Input */}
-      <div className="flex-shrink-0 p-4 border-t border-[#06101d]/8 bg-white">
-        <form onSubmit={handleSend} className="flex gap-2">
+      <div className="flex-shrink-0 p-4 border-t border-slate-100 bg-white">
+        <form onSubmit={handleSend} className="flex gap-2 max-w-xl mx-auto">
           <input
             type="text"
             value={input}
             onChange={e => setInput(e.target.value)}
             disabled={thinking}
-            placeholder={loadingContext ? 'Syncing workspace context...' : 'Ask the assistant about your products, docs or support...'}
-            className="flex-1 px-4 py-3 rounded-xl border border-[#06101d]/12 bg-[#f7f9fc] text-xs focus:outline-none focus:ring-1 focus:ring-[#8f38ff]"
+            placeholder={loadingContext ? 'Syncing workspace data...' : 'Send message...'}
+            className="flex-1 px-4 py-3 rounded-xl border border-slate-100 bg-slate-50/50 text-xs focus:outline-none focus:ring-1 focus:ring-slate-350 transition-all font-normal placeholder-slate-400 text-slate-800"
           />
           <button
             type="submit"
             disabled={!input.trim() || thinking || loadingContext}
-            className="px-5 py-3 bg-[#06101d] text-white rounded-xl text-xs font-bold hover:bg-[#102640] transition-all disabled:opacity-40"
+            className="px-4 py-3 bg-slate-900 hover:bg-slate-850 text-white rounded-xl text-xs font-semibold transition-all disabled:opacity-40"
           >
             Send
           </button>

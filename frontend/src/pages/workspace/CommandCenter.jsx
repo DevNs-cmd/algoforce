@@ -1,512 +1,436 @@
 /**
  * CommandCenter.jsx
- * Redesigned central software workspace for AlgoForce customers.
- * Focuses on software access, installed applications, downloads, updates, and integrations.
+ * Apple-quality central hub for AlgoForce Workspace.
+ * Clean typography, generous spacing, 16px rounded cards, no emojis, and clear visual hierarchy.
  */
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
+import { joinWaitlist } from '../../services/workspaceService'
 import { logActivity } from '../../services/activityService'
-import { supabase } from '../../services/supabase'
 
 export default function CommandCenter() {
   const { user, company, userDisplayName } = useAuth()
 
-  // Dynamic application list states to allow interactive Install/Update/Launch
-  const [apps, setApps] = useState([
+  // App products library
+  const initialProducts = [
     {
       id: 'aura',
       name: 'Aura AI',
-      description: 'Knowledge assistant for operators and support teams.',
-      status: 'installed',
+      description: 'Knowledge Operating System for operations and support teams.',
+      status: 'Installed',
       version: '2.5',
-      updateAvailable: true,
       platform: 'Windows / macOS',
-      isCloud: false,
+      documentation: '/workspace/documentation',
+      roadmap: 'Voice agent streaming in v2.6, advanced semantic caching.',
+      faq: 'Supports direct local file indexation and local LLM execution.',
+      installGuide: 'Download package and run setup.exe or dmg installer.',
+      apiSnippet: 'POST /v1/chat { "message": "hello" }',
+    },
+    {
+      id: 'tally',
+      name: 'TallyGPT',
+      description: 'ERP Data Connector for real-time ledger and invoice synchronization.',
+      status: 'Available',
+      version: '1.2.0',
+      platform: 'Windows / Linux',
+      documentation: '/workspace/documentation',
+      roadmap: 'Tally Prime auto-sync service release in Q3 2026.',
+      faq: 'Binds with local Tally XML server via port 9000.',
+      installGuide: 'Configure Tally Prime XML server and run tally-connector agent.',
+      apiSnippet: 'GET /v1/tally/ledgers',
     },
     {
       id: 'leadbolt',
       name: 'LeadBolt',
-      description: 'Revenue automation and lead intelligence workspace.',
-      status: 'installed',
-      version: '4.1',
-      updateAvailable: false,
-      platform: 'Cloud',
-      isCloud: true,
+      description: 'Sales Intelligence Platform and revenue automation workspace.',
+      status: 'Coming Soon',
     },
     {
-      id: 'tallygpt',
-      name: 'TallyGPT',
-      description: 'ERP and Tally data connector with automated invoice ingestion.',
-      status: 'installed',
-      version: '1.2.0',
-      updateAvailable: false,
-      platform: 'Windows / Linux',
-      isCloud: false,
+      id: 'factory',
+      name: 'FactoryGPT',
+      description: 'Industrial AI Suite and computer vision manufacturing agent.',
+      status: 'Coming Soon',
+    },
+    {
+      id: 'hotel',
+      name: 'HotelGPT',
+      description: 'Hospitality AI Platform for automated booking and guest relations.',
+      status: 'Coming Soon',
     },
     {
       id: 'corpbrain',
       name: 'Corporate Brain',
-      description: 'Centralised knowledge engine, semantic database, and file index.',
-      status: 'cloud',
-      version: '3.0',
-      updateAvailable: false,
-      platform: 'Cloud',
-      isCloud: true,
+      description: 'Knowledge Graph Engine for automated taxonomy and file analysis.',
+      status: 'Coming Soon',
     },
     {
-      id: 'factorygpt',
-      name: 'FactoryGPT',
-      description: 'Smart manufacturing quality control and computer vision agent.',
-      status: 'not_installed',
-      version: '3.0',
-      updateAvailable: false,
-      platform: 'Linux / Edge',
-      isCloud: false,
+      id: 'hrcopilot',
+      name: 'HR Copilot',
+      description: 'AI attendance, recruitment screening, and leave manager.',
+      status: 'Coming Soon',
     },
-  ])
+    {
+      id: 'gst',
+      name: 'GST Autopilot',
+      description: 'Tax reconciliation, billing audit, and automatic filing engine.',
+      status: 'Coming Soon',
+    },
+    {
+      id: 'inventory',
+      name: 'Inventory Copilot',
+      description: 'Predictive stock replenishment and warehouse logistics manager.',
+      status: 'Coming Soon',
+    },
+  ]
 
-  // Dynamic integration states
-  const [integrations, setIntegrations] = useState([
-    { id: 'google', name: 'Google Workspace', status: 'disconnected', icon: '📧' },
-    { id: 'slack', name: 'Slack', status: 'connected', icon: '💬' },
-    { id: 'tally', name: 'Tally Prime', status: 'connected', icon: '📊' },
-    { id: 'sap', name: 'SAP ERP', status: 'disconnected', icon: '⚙️' },
-  ])
+  const [products] = useState(initialProducts)
 
-  // Interactive action overlays/states
-  const [progressState, setProgressState] = useState({}) // { appId: { progress, label } }
-  const [activeModalApp, setActiveModalApp] = useState(null)
-  const [toastMsg, setToastMsg] = useState('')
+  // Details Modal state
+  const [selectedProduct, setSelectedProduct] = useState(null)
 
-  // Show temporary toast message
-  const triggerToast = (msg) => {
-    setToastMsg(msg)
-    setTimeout(() => setToastMsg(''), 4000)
+  // Waitlist Modal state
+  const [waitlistProduct, setWaitlistProduct] = useState(null)
+  const [waitlistForm, setWaitlistForm] = useState({
+    name: userDisplayName || '',
+    email: user?.email || '',
+    companyName: company?.name || '',
+    role: '',
+    useCase: '',
+  })
+  const [submittingWaitlist, setSubmittingWaitlist] = useState(false)
+  const [waitlistSuccess, setWaitlistSuccess] = useState(false)
+
+  // Details view active tab
+  const [detailTab, setDetailTab] = useState('overview')
+
+  const handleOpenProduct = (app) => {
+    logActivity(company?.id, user?.id, 'search', `Opened workspace console: ${app.name}`)
+    alert(`Redirecting to live ${app.name} instance...`)
   }
 
-  // Handle Application Install Simulation
-  const handleInstall = (appId) => {
-    if (progressState[appId]) return
-
-    let currentProgress = 0
-    const interval = setInterval(() => {
-      currentProgress += 5
-      setProgressState((prev) => ({
-        ...prev,
-        [appId]: {
-          progress: currentProgress,
-          label: currentProgress < 40 ? 'Downloading package...' : currentProgress < 80 ? 'Extracting binaries...' : 'Registering license...',
-        },
-      }));
-
-      if (currentProgress >= 100) {
-        clearInterval(interval)
-        setProgressState((prev) => {
-          const next = { ...prev }
-          delete next[appId]
-          return next
-        });
-        setApps((prev) =>
-          prev.map((app) => (app.id === appId ? { ...app, status: 'installed' } : app))
-        );
-        triggerToast(`🎉 ${apps.find(a => a.id === appId).name} installed successfully!`)
-        logActivity(company?.id, user?.id, 'deploy', `Installed application: ${appId}`)
-      }
-    }, 150)
-  }
-
-  // Handle Application Update Simulation
-  const handleUpdate = (appId) => {
-    if (progressState[appId]) return
-
-    let currentProgress = 0
-    const interval = setInterval(() => {
-      currentProgress += 10
-      setProgressState((prev) => ({
-        ...prev,
-        [appId]: {
-          progress: currentProgress,
-          label: 'Applying security patches...',
-        },
-      }))
-
-      if (currentProgress >= 100) {
-        clearInterval(interval)
-        setProgressState((prev) => {
-          const next = { ...prev }
-          delete next[appId]
-          return next
-        })
-        setApps((prev) =>
-          prev.map((app) =>
-            app.id === appId ? { ...app, updateAvailable: false, version: '2.5.1' } : app
-          )
-        )
-        triggerToast(`⚡ Aura AI updated to version 2.5.1!`)
-        logActivity(company?.id, user?.id, 'deploy', `Updated application: ${appId}`)
-      }
-    }, 100)
-  }
-
-  // Handle Application Launch Simulation
-  const handleLaunch = (app) => {
-    setActiveModalApp(app)
-    logActivity(company?.id, user?.id, 'search', `Launched application workspace: ${app.name}`)
-  }
-
-  // Toggle Integration Status
-  const handleToggleIntegration = (id) => {
-    setIntegrations((prev) =>
-      prev.map((item) => {
-        if (item.id === id) {
-          const newStatus = item.status === 'connected' ? 'disconnected' : 'connected'
-          triggerToast(`${item.name} is now ${newStatus}!`)
-          logActivity(company?.id, user?.id, 'task', `${newStatus === 'connected' ? 'Connected' : 'Disconnected'} integration: ${item.name}`)
-          return { ...item, status: newStatus }
-        }
-        return item
+  const handleJoinWaitlist = async (e) => {
+    e.preventDefault()
+    if (!waitlistProduct) return
+    setSubmittingWaitlist(true)
+    try {
+      await joinWaitlist(user.id, company.id, {
+        productId: waitlistProduct.id,
+        name: waitlistForm.name,
+        email: waitlistForm.email,
+        companyName: waitlistForm.companyName,
+        role: waitlistForm.role,
+        useCase: waitlistForm.useCase,
       })
-    )
+      setWaitlistSuccess(true)
+      logActivity(company?.id, user?.id, 'task', `Joined waitlist for ${waitlistProduct.name}`)
+      setTimeout(() => {
+        setWaitlistProduct(null)
+        setWaitlistSuccess(false)
+        setWaitlistForm({
+          name: userDisplayName || '',
+          email: user?.email || '',
+          companyName: company?.name || '',
+          role: '',
+          useCase: '',
+        })
+      }, 2000)
+    } catch (err) {
+      alert(`Registration failed: ${err.message}`)
+    } finally {
+      setSubmittingWaitlist(false)
+    }
   }
 
   return (
-    <div className="flex-1 overflow-y-auto bg-slate-50/50">
-      {/* Toast Notification */}
-      {toastMsg && (
-        <div className="fixed bottom-6 left-6 bg-[#06101d] text-white border border-[#8f38ff]/30 text-xs font-semibold px-4 py-3 rounded-2xl shadow-2xl z-50 animate-in fade-in slide-in-from-bottom-2 duration-300 flex items-center gap-2">
-          <span className="w-1.5 h-1.5 bg-[#8f38ff] rounded-full animate-ping" />
-          {toastMsg}
-        </div>
-      )}
-
-      <div className="max-w-6xl mx-auto px-6 py-8 space-y-8">
+    <div className="flex-1 overflow-y-auto bg-white min-h-screen text-slate-900 font-sans antialiased selection:bg-slate-100 selection:text-slate-900">
+      <div className="max-w-4xl mx-auto px-8 py-14 space-y-12">
         {/* Welcome Briefing Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-[#06101d]/5 pb-6 gap-4">
-          <div>
-            <h1 className="text-2xl font-black text-[#06101d] tracking-tight">
-              Welcome back, {userDisplayName}.
+        <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-slate-100 pb-8 gap-4">
+          <div className="space-y-1">
+            <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-[#8f38ff]">Workspace overview</span>
+            <h1 className="text-2xl font-semibold tracking-tight text-slate-900 mt-1">
+              Good Morning, {userDisplayName}
             </h1>
-            <p className="text-xs text-slate-500 mt-1 max-w-lg leading-relaxed">
-              Manage, download and launch every AlgoForce product from one secure workspace.
+            <p className="text-sm text-slate-500 font-normal">
+              Manage every AlgoForce product from one workspace.
             </p>
           </div>
-          <div className="flex items-center gap-3">
-            <span className="text-[10px] uppercase font-bold tracking-widest px-3 py-1 bg-white border border-[#06101d]/10 rounded-full text-slate-650 shadow-2xs">
-              ⚡ Local Node Running
-            </span>
+
+          <div className="text-right text-xs text-slate-500 font-normal space-y-0.5">
+            <div>Subscription: <span className="font-semibold text-slate-900">Enterprise</span></div>
+            <div>Renewal date: <span className="font-semibold text-slate-900">Dec 31, 2026</span></div>
           </div>
         </div>
 
         {/* Continue Working Widget */}
-        <div className="relative overflow-hidden rounded-3xl border border-[#8f38ff]/10 bg-white p-6 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="absolute top-0 right-0 w-64 h-full bg-gradient-to-l from-[#8f38ff]/3 to-transparent pointer-events-none" />
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-[#8f38ff]/5 border border-[#8f38ff]/15 flex items-center justify-center text-xl shadow-3xs">
-              🔮
+        <div className="space-y-3">
+          <h2 className="text-[10px] uppercase font-extrabold tracking-widest text-slate-400">Continue Working</h2>
+          <div className="p-5 rounded-2xl border border-slate-100 bg-white hover:border-slate-200 transition-all duration-200 flex items-center justify-between gap-4 shadow-3xs">
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-xs font-bold text-slate-700">
+                AI
+              </div>
+              <div>
+                <h3 className="text-xs font-semibold text-slate-900">Aura AI</h3>
+                <p className="text-[10px] text-slate-450 mt-0.5">Last opened 2 hours ago · Voice workspace</p>
+              </div>
             </div>
-            <div>
-              <span className="text-[9px] uppercase font-extrabold tracking-widest text-[#8f38ff]">Continue Working</span>
-              <h3 className="text-sm font-bold text-[#06101d] mt-0.5">Aura AI Voice Sandbox</h3>
-              <p className="text-[10px] text-slate-400 mt-0.5">Last opened 2 hours ago · Local development workspace</p>
-            </div>
+            <button
+              onClick={() => handleOpenProduct(products[0])}
+              className="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium rounded-lg transition-all"
+            >
+              Resume
+            </button>
           </div>
-          <button
-            onClick={() => handleLaunch(apps[0])}
-            className="px-4 py-2 bg-[#06101d] hover:bg-[#142940] text-white text-xs font-bold rounded-xl transition-all shadow-xs flex-shrink-0"
-          >
-            Resume
-          </button>
         </div>
 
-        {/* Split Grid Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Left Pane - Apps Library & Downloads */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Installed Applications */}
-            <div className="space-y-4">
-              <h2 className="text-xs uppercase font-extrabold tracking-widest text-slate-400">Applications</h2>
-              
-              <div className="space-y-3.5">
-                {apps.map((app) => {
-                  const activeProgress = progressState[app.id]
-                  return (
-                    <div
-                      key={app.id}
-                      className="group relative rounded-3xl border border-[#06101d]/6 bg-white p-5 hover:border-[#8f38ff]/25 transition-all shadow-2xs"
-                    >
-                      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-                        <div className="flex items-start gap-4">
-                          <div className="w-11 h-11 rounded-2xl bg-[#06101d]/3 border border-[#06101d]/5 flex items-center justify-center text-lg flex-shrink-0">
-                            {app.id === 'aura' ? '🔮' : app.id === 'leadbolt' ? '⚡' : app.id === 'tallygpt' ? '📊' : app.id === 'corpbrain' ? '🧠' : '🏭'}
-                          </div>
-                          <div>
-                            <div className="flex items-center gap-2 flex-wrap">
-                              <h3 className="text-sm font-bold text-[#06101d]">{app.name}</h3>
-                              <span className="text-[9px] font-semibold text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded-md">
-                                v{app.version}
-                              </span>
-                              {app.status === 'installed' && (
-                                <span className="text-[9px] font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-md border border-emerald-200/40">
-                                  Installed
-                                </span>
-                              )}
-                              {app.status === 'cloud' && (
-                                <span className="text-[9px] font-semibold text-[#8f38ff] bg-[#8f38ff]/5 px-1.5 py-0.5 rounded-md border border-[#8f38ff]/10">
-                                  Cloud
-                                </span>
-                              )}
-                            </div>
-                            <p className="text-xs text-slate-500 mt-1.5 leading-relaxed pr-2">
-                              {app.description}
-                            </p>
-                          </div>
-                        </div>
-
-                        {/* Actions buttons */}
-                        <div className="flex flex-wrap gap-2 items-center flex-shrink-0 self-end sm:self-start">
-                          {activeProgress ? (
-                            <div className="w-28 text-right pr-2">
-                              <div className="h-1 w-full bg-slate-100 rounded-full overflow-hidden mb-1">
-                                <div className="h-full bg-[#8f38ff] rounded-full" style={{ width: `${activeProgress.progress}%` }} />
-                              </div>
-                              <span className="text-[9px] text-slate-400 font-medium block leading-none">{activeProgress.label}</span>
-                            </div>
-                          ) : (
-                            <>
-                              {app.status === 'not_installed' ? (
-                                <button
-                                  onClick={() => handleInstall(app.id)}
-                                  className="px-3.5 py-2 bg-[#8f38ff] hover:bg-[#7b29e0] text-white text-xs font-bold rounded-xl transition-all shadow-3xs"
-                                >
-                                  Install
-                                </button>
-                              ) : (
-                                <button
-                                  onClick={() => handleLaunch(app)}
-                                  className="px-3.5 py-2 bg-[#06101d] hover:bg-[#142940] text-white text-xs font-bold rounded-xl transition-all shadow-3xs"
-                                >
-                                  Launch
-                                </button>
-                              )}
-
-                              {app.updateAvailable && (
-                                <button
-                                  onClick={() => handleUpdate(app.id)}
-                                  className="px-3 py-2 bg-amber-50 hover:bg-amber-100 border border-amber-250 text-amber-700 text-xs font-bold rounded-xl transition-all"
-                                >
-                                  Update
-                                </button>
-                              )}
-                            </>
-                          )}
-                        </div>
-                      </div>
-
-                      {/* Card Footer Links */}
-                      <div className="mt-4 pt-4 border-t border-[#06101d]/4 flex flex-wrap gap-x-4 gap-y-2 text-[10px] text-slate-400 font-semibold uppercase tracking-wider">
-                        <a href="#/workspace/documentation" className="hover:text-[#8f38ff] transition-all">Documentation</a>
-                        <span>·</span>
-                        <a href="#/workspace/documentation" className="hover:text-[#8f38ff] transition-all">Release Notes</a>
-                        <span>·</span>
-                        <a href="#/workspace/support" className="hover:text-[#8f38ff] transition-all">Get Support</a>
-                        {app.status === 'installed' && (
-                          <>
-                            <span>·</span>
-                            <span className="text-slate-450">{app.platform}</span>
-                          </>
-                        )}
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-
-            {/* Download Center */}
-            <div className="space-y-4">
-              <h2 className="text-xs uppercase font-extrabold tracking-widest text-slate-400">Download Center</h2>
-              
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {[
-                  { os: 'Windows', size: '320 MB', action: 'Download' },
-                  { os: 'macOS', size: '210 MB', action: 'Download' },
-                  { os: 'Linux', size: '190 MB', action: 'Download' },
-                  { os: 'Android APK', size: '42 MB', action: 'Download' },
-                  { os: 'iOS App Store', size: 'Link', action: 'Open' },
-                  { os: 'CLI Console', size: 'npm i -g algoforce', action: 'Copy' },
-                ].map((item, i) => (
-                  <div key={i} className="p-4 bg-white rounded-2xl border border-[#06101d]/6 shadow-3xs flex flex-col justify-between group hover:border-[#8f38ff]/20 transition-all">
-                    <div>
-                      <h4 className="text-xs font-bold text-[#06101d]">{item.os}</h4>
-                      <p className="text-[9px] text-slate-400 mt-1">{item.size}</p>
-                    </div>
-                    <button
-                      onClick={() => triggerToast(`${item.os} installer file download started.`)}
-                      className="w-full mt-4 py-1.5 bg-[#f7f9fc] group-hover:bg-[#06101d] group-hover:text-white text-[10px] font-bold text-slate-600 rounded-lg text-center transition-all"
-                    >
-                      {item.action}
-                    </button>
+        {/* Products Grid */}
+        <div className="space-y-5">
+          <h2 className="text-[10px] uppercase font-extrabold tracking-widest text-slate-400">Your Products</h2>
+          
+          <div className="grid gap-6 sm:grid-cols-2">
+            {products.map((p) => (
+              <div
+                key={p.id}
+                className="p-6 rounded-2xl border border-slate-100 bg-white hover:border-slate-200 hover:shadow-xs transition-all duration-200 flex flex-col justify-between h-48"
+              >
+                <div className="space-y-2">
+                  <div className="flex justify-between items-start">
+                    <h3 className="text-xs font-semibold text-slate-900">{p.name}</h3>
+                    <span className={`text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-md ${
+                      p.status === 'Installed' ? 'bg-emerald-50 text-emerald-700' :
+                      p.status === 'Available' ? 'bg-indigo-50 text-indigo-700' :
+                      'bg-slate-50 text-slate-500'
+                    }`}>
+                      {p.status}
+                    </span>
                   </div>
-                ))}
-              </div>
-            </div>
-          </div>
+                  <p className="text-xs text-slate-500 font-normal leading-relaxed pr-2">
+                    {p.description}
+                  </p>
+                </div>
 
-          {/* Right Pane - Releases, Quick Settings, Integrations */}
-          <div className="space-y-8">
-            {/* Quick Workspace Settings */}
-            <div className="bg-white p-5 rounded-3xl border border-[#06101d]/6 shadow-2xs space-y-4">
-              <h3 className="text-xs uppercase font-extrabold tracking-widest text-slate-400">Workspace Controls</h3>
-              
-              <div className="grid grid-cols-2 gap-2">
-                {[
-                  { label: 'API Keys', path: '/workspace/api-keys', icon: '🔑' },
-                  { label: 'Integrations', path: '/workspace/integrations', icon: '🌐' },
-                  { label: 'Licenses', path: '/workspace/licenses', icon: '📜' },
-                  { label: 'Support Center', path: '/workspace/support', icon: '🎫' },
-                  { label: 'Invoices', path: '/workspace/billing', icon: '🧾' },
-                  { label: 'Organization', path: '/workspace/organization', icon: '👥' },
-                ].map((link, i) => (
-                  <Link
-                    key={i}
-                    to={link.path}
-                    className="p-3 bg-slate-50/50 hover:bg-[#8f38ff]/5 border border-[#06101d]/4 rounded-2xl flex flex-col items-center justify-center text-center hover:border-[#8f38ff]/20 transition-all gap-1.5"
-                  >
-                    <span className="text-lg">{link.icon}</span>
-                    <span className="text-[10px] font-bold text-slate-650">{link.label}</span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            {/* Releases Channel */}
-            <div className="bg-white p-5 rounded-3xl border border-[#06101d]/6 shadow-2xs space-y-4">
-              <h3 className="text-xs uppercase font-extrabold tracking-widest text-slate-400">Latest Releases</h3>
-              
-              <div className="space-y-4">
-                {[
-                  { date: 'July 16', app: 'Aura AI Voice Agent', desc: 'Added support for sub-100ms conversational audio latency.', isNew: true },
-                  { date: 'July 14', app: 'LeadBolt WhatsApp Sync', desc: 'Seamless ingestion of WhatsApp lead activities into dashboard.', isNew: true },
-                  { date: 'July 11', app: 'FactoryGPT edge package', desc: 'Optimised Docker engine version 3.0 for Jetson Nano hardware.', isNew: false },
-                ].map((item, i) => (
-                  <div key={i} className="flex gap-3 text-xs">
-                    <div className="text-right w-14 flex-shrink-0">
-                      <p className="font-bold text-[#06101d]">{item.date}</p>
-                    </div>
-                    <div className="w-px bg-slate-200 self-stretch relative">
-                      <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#8f38ff]" />
-                    </div>
-                    <div className="flex-1 pb-1">
-                      <div className="flex items-center gap-1.5">
-                        <h4 className="font-bold text-[#06101d] leading-none">{item.app}</h4>
-                        {item.isNew && (
-                          <span className="text-[8px] font-extrabold bg-[#8f38ff]/10 text-[#8f38ff] px-1 rounded-sm">NEW</span>
-                        )}
-                      </div>
-                      <p className="text-[10px] text-slate-450 mt-1 leading-relaxed">{item.desc}</p>
-                    </div>
+                <div className="pt-4 border-t border-slate-50 flex items-center justify-between text-[10px] text-slate-400 font-medium">
+                  <div>
+                    {p.version && `Version ${p.version}`} {p.platform && `· ${p.platform}`}
                   </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Platform Integrations */}
-            <div className="bg-white p-5 rounded-3xl border border-[#06101d]/6 shadow-2xs space-y-4">
-              <h3 className="text-xs uppercase font-extrabold tracking-widest text-slate-400">System Integrations</h3>
-              
-              <div className="divide-y divide-[#06101d]/4">
-                {integrations.map((item) => (
-                  <div key={item.id} className="py-3 first:pt-0 last:pb-0 flex items-center justify-between gap-3 text-xs">
-                    <div className="flex items-center gap-2.5">
-                      <span className="text-sm">{item.icon}</span>
-                      <span className="font-semibold text-[#06101d]">{item.name}</span>
-                    </div>
-                    <button
-                      onClick={() => handleToggleIntegration(item.id)}
-                      className={`px-3 py-1 text-[10px] font-bold rounded-lg transition-all border ${
-                        item.status === 'connected'
-                          ? 'bg-slate-100 text-slate-650 border-slate-250 hover:bg-red-50 hover:text-red-650 hover:border-red-200'
-                          : 'bg-[#8f38ff]/5 border-[#8f38ff]/15 text-[#8f38ff] hover:bg-[#8f38ff]/10'
-                      }`}
-                    >
-                      {item.status === 'connected' ? 'Connected' : 'Connect'}
-                    </button>
+                  <div className="flex gap-2.5">
+                    {p.status === 'Coming Soon' ? (
+                      <button
+                        onClick={() => setWaitlistProduct(p)}
+                        className="text-xs font-semibold text-indigo-600 hover:text-indigo-850 transition-colors"
+                      >
+                        Join Waitlist
+                      </button>
+                    ) : (
+                      <>
+                        <button
+                          onClick={() => setSelectedProduct(p)}
+                          className="text-xs font-semibold text-slate-500 hover:text-slate-900 transition-colors"
+                        >
+                          Details
+                        </button>
+                        <button
+                          onClick={() => handleOpenProduct(p)}
+                          className="text-xs font-semibold text-slate-900 bg-slate-50 hover:bg-slate-100 px-3 py-1 rounded-lg border border-slate-100 transition-all"
+                        >
+                          Open
+                        </button>
+                      </>
+                    )}
                   </div>
-                ))}
+                </div>
               </div>
-            </div>
-
-            {/* Resources list */}
-            <div className="bg-white p-5 rounded-3xl border border-[#06101d]/6 shadow-2xs space-y-4">
-              <h3 className="text-xs uppercase font-extrabold tracking-widest text-slate-400">Resources</h3>
-              
-              <div className="grid grid-cols-2 gap-2 text-[10px] font-semibold text-slate-500 uppercase tracking-wider">
-                <a href="#/workspace/documentation" className="p-3 bg-slate-50/50 rounded-xl hover:text-[#8f38ff] hover:bg-[#8f38ff]/5 border border-[#06101d]/4 transition-all">📚 Docs</a>
-                <a href="#/workspace/documentation" className="p-3 bg-slate-50/50 rounded-xl hover:text-[#8f38ff] hover:bg-[#8f38ff]/5 border border-[#06101d]/4 transition-all">🔑 Developer API</a>
-                <a href="#/workspace/documentation" className="p-3 bg-slate-50/50 rounded-xl hover:text-[#8f38ff] hover:bg-[#8f38ff]/5 border border-[#06101d]/4 transition-all">📹 Videos</a>
-                <a href="#/workspace/documentation" className="p-3 bg-slate-50/50 rounded-xl hover:text-[#8f38ff] hover:bg-[#8f38ff]/5 border border-[#06101d]/4 transition-all">📦 SDK packages</a>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Application Launch Modal */}
-      {activeModalApp && (
-        <div className="fixed inset-0 bg-[#06101d]/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-in fade-in duration-200">
-          <div className="bg-white rounded-3xl border border-[#06101d]/12 shadow-2xl max-w-lg w-full overflow-hidden p-6 animate-in zoom-in-95 duration-200 space-y-5">
-            <div className="flex justify-between items-start">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#06101d]/5 flex items-center justify-center text-lg">
-                  ⚡
-                </div>
-                <div>
-                  <h3 className="font-bold text-sm text-[#06101d]">{activeModalApp.name} Application</h3>
-                  <span className="text-[9px] font-semibold text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded-sm">Version {activeModalApp.version}</span>
-                </div>
+      {/* Product Details Slide-over / Modal */}
+      {selectedProduct && (
+        <div className="fixed inset-0 bg-slate-900/10 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-in fade-in duration-200">
+          <div className="bg-white border border-slate-100 rounded-2xl shadow-2xl max-w-xl w-full max-h-[85vh] overflow-hidden flex flex-col p-6 space-y-6">
+            <div className="flex justify-between items-start border-b border-slate-50 pb-4">
+              <div>
+                <h3 className="text-sm font-semibold text-slate-950">{selectedProduct.name} Details</h3>
+                <p className="text-[10px] text-slate-400 mt-1">Version {selectedProduct.version} · Platform: {selectedProduct.platform}</p>
               </div>
               <button
-                onClick={() => setActiveModalApp(null)}
-                className="text-slate-450 hover:text-slate-700 text-xs p-1"
+                onClick={() => { setSelectedProduct(null); setDetailTab('overview') }}
+                className="text-slate-400 hover:text-slate-800 text-xs p-1"
+              >
+                Close
+              </button>
+            </div>
+
+            {/* Modal Tabs */}
+            <div className="flex gap-4 border-b border-slate-50 pb-1 text-xs font-medium text-slate-400">
+              {['overview', 'installation', 'roadmap', 'api'].map(tab => (
+                <button
+                  key={tab}
+                  onClick={() => setDetailTab(tab)}
+                  className={`pb-2 capitalize transition-all ${
+                    detailTab === tab ? 'border-b-2 border-slate-900 text-slate-900 font-semibold' : 'hover:text-slate-700'
+                  }`}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
+
+            {/* Modal Content */}
+            <div className="flex-1 overflow-y-auto text-xs text-slate-650 leading-relaxed font-normal py-2">
+              {detailTab === 'overview' && (
+                <div className="space-y-4">
+                  <p>{selectedProduct.description}</p>
+                  <div>
+                    <h4 className="font-bold text-slate-900 uppercase tracking-wider text-[10px]">FAQ</h4>
+                    <p className="mt-1 text-slate-500">{selectedProduct.faq}</p>
+                  </div>
+                </div>
+              )}
+
+              {detailTab === 'installation' && (
+                <div className="space-y-3">
+                  <h4 className="font-bold text-slate-900 uppercase tracking-wider text-[10px]">Installation instructions</h4>
+                  <p>{selectedProduct.installGuide}</p>
+                  <p className="text-slate-400">Ensure the latest runtime client is installed in the system before activating.</p>
+                </div>
+              )}
+
+              {detailTab === 'roadmap' && (
+                <div className="space-y-3">
+                  <h4 className="font-bold text-slate-900 uppercase tracking-wider text-[10px]">Product Roadmap</h4>
+                  <p>{selectedProduct.roadmap}</p>
+                </div>
+              )}
+
+              {detailTab === 'api' && (
+                <div className="space-y-3">
+                  <h4 className="font-bold text-slate-900 uppercase tracking-wider text-[10px]">API Sample</h4>
+                  <pre className="p-3.5 bg-slate-950 text-slate-300 font-mono text-[10px] rounded-lg overflow-x-auto">
+                    {selectedProduct.apiSnippet}
+                  </pre>
+                </div>
+              )}
+            </div>
+
+            <div className="flex gap-3 justify-end pt-4 border-t border-slate-50">
+              <button
+                onClick={() => { setSelectedProduct(null); setDetailTab('overview') }}
+                className="px-4 py-2 border border-slate-150 text-slate-550 text-xs font-semibold rounded-lg hover:bg-slate-50 transition-all"
+              >
+                Close details
+              </button>
+              <button
+                onClick={() => {
+                  setSelectedProduct(null)
+                  handleOpenProduct(selectedProduct)
+                }}
+                className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-lg transition-all"
+              >
+                Open client workspace
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Waitlist Join Modal */}
+      {waitlistProduct && (
+        <div className="fixed inset-0 bg-slate-900/10 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-in fade-in duration-200">
+          <div className="bg-white border border-slate-100 rounded-2xl shadow-2xl max-w-sm w-full p-6 animate-in zoom-in-95 duration-200 space-y-5">
+            <div className="flex justify-between items-start border-b border-slate-50 pb-3">
+              <div>
+                <h3 className="font-bold text-sm text-slate-900">Join {waitlistProduct.name} Waitlist</h3>
+                <p className="text-[10px] text-slate-400 mt-1">Get early access to our private beta build.</p>
+              </div>
+              <button
+                onClick={() => setWaitlistProduct(null)}
+                className="text-slate-400 hover:text-slate-800 text-xs p-1"
               >
                 ✕
               </button>
             </div>
 
-            <div className="space-y-3.5 bg-slate-50 p-4 rounded-2xl border border-slate-100 text-xs text-slate-600 leading-relaxed">
-              <p>
-                Connecting to cloud orchestrator node... <span className="text-emerald-600 font-bold">SUCCESS</span>
-              </p>
-              <p>
-                Binding sandbox port and syncing organization preferences... <span className="text-emerald-600 font-bold">READY</span>
-              </p>
-              <p className="text-[10px] text-slate-400 uppercase tracking-widest font-extrabold mt-3">Active Workspace Details</p>
-              <div className="grid grid-cols-2 gap-y-2 gap-x-4 mt-2.5">
-                <div><span className="text-slate-400 font-medium">Domain:</span> <span className="font-bold text-[#06101d]">{company?.name?.toLowerCase().replace(/[^a-z0-9]/g, '') || 'company'}.algoforce.ai</span></div>
-                <div><span className="text-slate-400 font-medium">Environment:</span> <span className="font-bold text-[#06101d]">Sandbox</span></div>
-                <div><span className="text-slate-400 font-medium">Deployment:</span> <span className="font-bold text-[#06101d]">Local Node</span></div>
-                <div><span className="text-slate-400 font-medium">Uptime:</span> <span className="font-bold text-emerald-600">99.9%</span></div>
+            {waitlistSuccess ? (
+              <div className="py-8 text-center text-xs font-semibold text-emerald-600 space-y-2 animate-in fade-in duration-300">
+                <p className="text-xl">✓</p>
+                <p>Registration completed successfully!</p>
               </div>
-            </div>
+            ) : (
+              <form onSubmit={handleJoinWaitlist} className="space-y-3.5 text-xs text-slate-700">
+                <div>
+                  <label className="block text-slate-400 font-medium mb-1">Your Name</label>
+                  <input
+                    type="text"
+                    required
+                    value={waitlistForm.name}
+                    onChange={e => setWaitlistForm(prev => ({ ...prev, name: e.target.value }))}
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-100 rounded-lg text-xs focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-slate-400 font-medium mb-1">Work Email</label>
+                  <input
+                    type="email"
+                    required
+                    value={waitlistForm.email}
+                    onChange={e => setWaitlistForm(prev => ({ ...prev, email: e.target.value }))}
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-100 rounded-lg text-xs focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-slate-400 font-medium mb-1">Company</label>
+                  <input
+                    type="text"
+                    required
+                    value={waitlistForm.companyName}
+                    onChange={e => setWaitlistForm(prev => ({ ...prev, companyName: e.target.value }))}
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-100 rounded-lg text-xs focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-slate-400 font-medium mb-1">Role / Job Title</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Finance Lead, Operations Manager"
+                    required
+                    value={waitlistForm.role}
+                    onChange={e => setWaitlistForm(prev => ({ ...prev, role: e.target.value }))}
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-100 rounded-lg text-xs focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-slate-400 font-medium mb-1">Primary Use Case</label>
+                  <textarea
+                    rows={2.5}
+                    placeholder="Briefly describe what you would like to automate..."
+                    required
+                    value={waitlistForm.useCase}
+                    onChange={e => setWaitlistForm(prev => ({ ...prev, useCase: e.target.value }))}
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-100 rounded-lg text-xs focus:outline-none resize-none"
+                  />
+                </div>
 
-            <div className="flex gap-3 justify-end pt-2">
-              <button
-                onClick={() => setActiveModalApp(null)}
-                className="px-4 py-2 border border-slate-200 text-slate-600 text-xs font-semibold rounded-xl hover:bg-slate-50 transition-all"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={() => {
-                  setActiveModalApp(null)
-                  triggerToast(`🚀 Launched ${activeModalApp.name} web sandbox environment!`)
-                }}
-                className="px-4 py-2 bg-[#8f38ff] hover:bg-[#7b29e0] text-white text-xs font-bold rounded-xl transition-all shadow-3xs"
-              >
-                Open Cloud Console
-              </button>
-            </div>
+                <div className="flex gap-2 justify-end pt-3">
+                  <button
+                    type="button"
+                    onClick={() => setWaitlistProduct(null)}
+                    className="px-3.5 py-2 border border-slate-200 text-slate-500 font-semibold rounded-lg hover:bg-slate-50 transition-all"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={submittingWaitlist}
+                    className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition-all"
+                  >
+                    {submittingWaitlist ? 'Registering...' : 'Request Invitation'}
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         </div>
       )}
