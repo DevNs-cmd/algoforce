@@ -13,7 +13,8 @@ export default defineConfig({
     include: ['@monaco-editor/react'],
   },
   server: {
-    port: 3000,
+    port: 3001,
+    strictPort: false,
     proxy: {
       '/api': {
         target: 'http://localhost:8080',

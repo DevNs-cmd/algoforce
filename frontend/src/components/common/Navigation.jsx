@@ -55,14 +55,14 @@ const Navigation = () => {
             flex items-center justify-between
             px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 rounded-[24px]
             border transition-all duration-500 ease-out
-            ${scrolled 
-              ? `w-full max-w-5xl ${isLightPage ? 'bg-black/80 border-white/10' : 'bg-black/60 border-white/8'} backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.3)]` 
+            ${scrolled
+              ? `w-full max-w-5xl ${isLightPage ? 'bg-black/80 border-white/10' : 'bg-black/60 border-white/8'} backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.3)]`
               : `w-full max-w-7xl ${isLightPage ? 'bg-black/75 border-white/8' : 'bg-black/30 border-white/6'} backdrop-blur-lg shadow-sm`
             }
           `}
         >
           <Link to="/" className="flex min-w-0 items-center gap-3 group">
-            <motion.div 
+            <motion.div
               whileHover={{ scale: 1.02 }}
               className="bg-white px-3 py-1 rounded-xl flex items-center justify-center border border-white/10 shadow-[0_4px_12px_rgba(255,255,255,0.05)]"
             >
@@ -104,14 +104,11 @@ const Navigation = () => {
             <div className="hidden md:flex items-center gap-4">
               {user ? (
                 <div className="flex items-center gap-3">
-                  <Link to="/workspace/overview" className="w-10 h-10 rounded-full bg-white/8 border border-white/12 flex items-center justify-center text-[11px] text-white font-bold hover:bg-white/12 transition-all">
-                    {user.name?.[0].toUpperCase()}
-                  </Link>
                 </div>
               ) : (
                 <div className="flex items-center gap-4">
                   <Link
-                    to="/login?mode=signup"
+                    to="/contact"
                     className="px-5 py-2 bg-white text-[#06101d] hover:bg-[#f6f1ff] rounded-full text-[13px] font-bold transition-all shadow-md"
                   >
                     Get Started
@@ -146,7 +143,7 @@ const Navigation = () => {
               onClick={() => setMobileMenuOpen(false)}
               className="absolute inset-0 bg-black/60 backdrop-blur-sm"
             />
-            
+
             {/* Menu Card */}
             <motion.div
               initial={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -200,7 +197,7 @@ const Navigation = () => {
                   {!user ? (
                     <div className="flex flex-col gap-3">
                       <Link
-                        to="/login?mode=signup"
+                        to="/contact"
                         onClick={() => setMobileMenuOpen(false)}
                         className="w-full py-3 bg-white text-black text-center rounded-full font-bold text-sm active:scale-95 transition-all shadow-xl"
                       >
