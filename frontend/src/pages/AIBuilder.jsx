@@ -20,20 +20,21 @@ import {
     FaWhatsapp, FaTelegram, FaDiscord, FaSlack, FaSignal, FaGithub, FaSpotify, FaTwitter, FaBars
 } from 'react-icons/fa'
 
+// new thing
 // ─── 3D Visuals ─────────────────────────────────────────────────────────────
 
 const CameraRig = ({ scrollProgress }) => {
     useFrame((state) => {
         const t = state.clock.getElapsedTime()
         const s = scrollProgress.current
-        
+
         // Dynamic camera tracking
         // Entry zoom-in (0.0 -> 0.2)
         // Focus drift (0.2 -> 0.8)
         // Exit recede (0.8 -> 1.0)
         const targetZ = s < 0.2 ? 8 - (s * 15) : 5 + Math.sin(t * 0.2) * 0.2
         const targetY = s > 0.8 ? (s - 0.8) * 10 : Math.cos(t * 0.1) * 0.1
-        
+
         state.camera.position.z = THREE.MathUtils.lerp(state.camera.position.z, targetZ, 0.05)
         state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, targetY, 0.05)
         state.camera.position.x = Math.sin(t * 0.1) * 0.5
@@ -64,11 +65,11 @@ const PixelLabsModel = ({ scrollProgress }) => {
         const t = state.clock.getElapsedTime()
         const { x, y } = state.mouse
         const s = scrollProgress.current
-        
+
         if (meshRef.current) {
             meshRef.current.rotation.y = t * 0.15 + (s * Math.PI * 4) + (x * 0.3)
             meshRef.current.rotation.x = Math.sin(t * 0.4) * 0.1 + (s * Math.PI * 0.5) - (y * 0.3)
-            
+
             // Interaction depth and breathing
             const baseScale = s < 0.2 ? s * 10 : 2
             meshRef.current.scale.setScalar(baseScale * (1.0 + Math.sin(t * 2) * 0.02))
@@ -83,7 +84,7 @@ const PixelLabsModel = ({ scrollProgress }) => {
 const AbstractSphere = ({ scrollProgress }) => (
     <group>
         <CameraRig scrollProgress={scrollProgress} />
-        
+
         <Float speed={1.5} rotationIntensity={0.5} floatIntensity={0.5}>
             <Suspense fallback={null}>
                 <PixelLabsModel scrollProgress={scrollProgress} />
@@ -108,18 +109,18 @@ const AbstractSphere = ({ scrollProgress }) => (
                 />
             </Sphere>
         </Float>
-        
+
         <Stars radius={200} depth={60} count={9000} factor={7} saturation={0} fade speed={0.4} />
-        
+
         <ambientLight intensity={0.2} />
         <spotLight position={[30, 30, 30]} angle={0.15} penumbra={1} intensity={2.5} color="#ffffff" castShadow />
         <pointLight position={[-15, -15, -15]} intensity={1.5} color="#4f46e5" />
         <pointLight position={[15, -15, 15]} intensity={1.5} color="#9333ea" />
         <pointLight position={[0, 10, -15]} intensity={5} color="#ffffff" />
-        
+
         <Environment preset="city" />
         <ContactShadows position={[0, -4.5, 0]} opacity={0.5} scale={20} blur={3} far={5} />
-        
+
         <EffectComposer disableNormalPass>
             <Bloom luminanceThreshold={1} luminanceSmoothing={0.9} height={300} intensity={2} />
             <Noise opacity={0.04} />
@@ -410,7 +411,7 @@ const AIBuilder = () => {
                     </div>
                 </nav>
 
-                <div 
+                <div
                     ref={scrollContainerRef}
                     onScroll={handleScroll}
                     className="flex-1 overflow-y-auto custom-scrollbar relative"
