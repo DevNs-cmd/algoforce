@@ -1,26 +1,24 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom'
-import { useEffect, useLayoutEffect, lazy, Suspense } from 'react'
+import { useEffect, useLayoutEffect, lazy, Suspense, useState } from 'react'
 import { HelmetProvider } from 'react-helmet-async'
 import { AuthProvider } from './contexts/AuthContext'
 import SeoHead from './components/common/SeoHead'
 
 import Navigation from './components/common/Navigation'
 import Footer from './components/common/Footer'
-import Chatbot from './components/chatbot/Chatbot'
-import ConsultancyButton from './components/common/ConsultancyButton'
 import PageVideoBackdrop from './components/common/PageVideoBackdrop'
 import SplashScreen from './components/common/SplashScreen'
-import WebinarPopup from './components/common/WebinarPopup'
 import Breadcrumbs from './components/common/Breadcrumbs'
 
 // ── Eagerly-loaded (above-the-fold, small pages) ──────────────────────────────
 import Home from './pages/Home'
-import Contact from './pages/Contact'
-import About from './pages/About'
-import Products from './pages/Products'
 
 // ── Lazily-loaded (large bundles or infrequent pages) ──────────────────────────
 const Pricing = lazy(() => import('./pages/Pricing'))
+const Contact = lazy(() => import('./pages/Contact'))
+const About = lazy(() => import('./pages/About'))
+const Products = lazy(() => import('./pages/Products'))
+const MarketingWidgets = lazy(() => import('./components/common/MarketingWidgets'))
 const Labs = lazy(() => import('./pages/Labs'))
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
 const TermsAndConditions = lazy(() => import('./pages/TermsAndConditions'))
@@ -59,6 +57,27 @@ const PageLoader = () => (
     <div className="w-6 h-6 border-2 border-white/20 border-t-white rounded-full animate-spin" />
   </div>
 )
+
+const DeferredMarketingWidgets = () => {
+  const [shouldRender, setShouldRender] = useState(false)
+
+  useEffect(() => {
+    // Avoid competing with the first paint and hero video on lower-powered
+    // devices. The widgets still load shortly after the page is interactive.
+    const isMobile = window.matchMedia('(max-width: 767px)').matches
+    const timer = window.setTimeout(() => setShouldRender(true), isMobile ? 2400 : 900)
+
+    return () => window.clearTimeout(timer)
+  }, [])
+
+  if (!shouldRender) return null
+
+  return (
+    <Suspense fallback={null}>
+      <MarketingWidgets />
+    </Suspense>
+  )
+}
 
 
 // Conditionally show footer and chatbot (not on Workspace, Admin, or Labs Portal pages)
@@ -177,9 +196,7 @@ const AppShell = () => {
 
         {!hideMarketingShells && <Footer />}
       </div>
-      {!hideMarketingShells && <Chatbot />}
-      {!hideMarketingShells && <ConsultancyButton />}
-      {!hideMarketingShells && <WebinarPopup />}
+      {!hideMarketingShells && <DeferredMarketingWidgets />}
     </div>
   )
 }

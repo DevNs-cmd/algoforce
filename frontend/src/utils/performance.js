@@ -5,16 +5,31 @@
  * @returns {Function} - Throttled function
  */
 export function rafThrottle(fn) {
-  let ticking = false;
-  return function (...args) {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        fn.apply(this, args);
-        ticking = false;
-      });
-      ticking = true;
-    }
+  let frameId = null;
+  let lastArgs;
+  let lastThis;
+
+  function throttled(...args) {
+    lastArgs = args;
+    lastThis = this;
+    if (frameId !== null) return;
+
+    frameId = requestAnimationFrame(() => {
+      frameId = null;
+      fn.apply(lastThis, lastArgs);
+      lastArgs = undefined;
+      lastThis = undefined;
+    });
+  }
+
+  throttled.cancel = () => {
+    if (frameId !== null) cancelAnimationFrame(frameId);
+    frameId = null;
+    lastArgs = undefined;
+    lastThis = undefined;
   };
+
+  return throttled;
 }
 
 /**
@@ -24,27 +39,38 @@ export function rafThrottle(fn) {
  * @returns {Function} - Throttled function
  */
 export function throttle(func, wait = 100) {
-  let timeout = null;
+  let timeoutId = null;
   let previous = 0;
+  let trailingArgs;
+  let trailingThis;
+
+  const invoke = (time) => {
+    previous = time;
+    timeoutId = null;
+    func.apply(trailingThis, trailingArgs);
+    trailingArgs = undefined;
+    trailingThis = undefined;
+  };
 
   const throttled = function (...args) {
     const now = Date.now();
     const remaining = wait - (now - previous);
-    
+    trailingArgs = args;
+    trailingThis = this;
+
     if (remaining <= 0 || remaining > wait) {
-      if (timeout) {
-        clearTimeout(timeout);
-        timeout = null;
-      }
-      previous = now;
-      func.apply(this, args);
-    } else if (!timeout) {
-      timeout = setTimeout(() => {
-        previous = Date.now();
-        timeout = null;
-        func.apply(this, args);
-      }, remaining);
+      if (timeoutId) clearTimeout(timeoutId);
+      invoke(now);
+    } else if (!timeoutId) {
+      timeoutId = setTimeout(() => invoke(Date.now()), remaining);
     }
+  };
+
+  throttled.cancel = () => {
+    if (timeoutId) clearTimeout(timeoutId);
+    timeoutId = null;
+    trailingArgs = undefined;
+    trailingThis = undefined;
   };
 
   return throttled;

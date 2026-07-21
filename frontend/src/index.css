@@ -437,6 +437,10 @@ h1, h2, h3, h4, h5, h6 {
     overflow-x: hidden;
   }
 
+  .animate-moving-gradient {
+    background-attachment: scroll;
+  }
+
   [class*="backdrop-blur"] {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;

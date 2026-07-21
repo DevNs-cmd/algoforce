@@ -3,6 +3,8 @@ import React, { createContext, useContext, useReducer, useEffect } from 'react';
 const genId = () => (typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2));
 
 const NexusContext = createContext();
+const NEXUS_STORAGE_KEY = 'nexus_state';
+const PERSIST_DELAY = 900;
 
 const initialState = {
   project: {
@@ -100,13 +102,22 @@ function nexusReducer(state, action) {
     case 'SET_AI_STATE':
       return { ...state, ai: { ...state.ai, ...action.payload } };
     case 'ADD_MESSAGE':
-      return { ...state, ai: { ...state.ai, messages: [...state.ai.messages, action.payload] } };
+      return { ...state, ai: { ...state.ai, messages: [...state.ai.messages, action.payload].slice(-100) } };
     case 'SET_UI_STATE':
       return { ...state, ui: { ...state.ui, ...action.payload } };
     case 'SET_EDITOR_STATE':
       return { ...state, editor: { ...state.editor, ...action.payload } };
-    case 'LOAD_STATE':
-      return { ...initialState, ...action.payload };
+    case 'LOAD_STATE': {
+      const loaded = action.payload || {};
+      return {
+        ...initialState,
+        ...loaded,
+        project: { ...initialState.project, ...loaded.project },
+        editor: { ...initialState.editor, ...loaded.editor },
+        ai: { ...initialState.ai, ...loaded.ai, messages: [] },
+        ui: { ...initialState.ui, ...loaded.ui },
+      };
+    }
     default:
       return state;
   }
@@ -117,26 +128,54 @@ export const NexusProvider = ({ children }) => {
 
   // Load from localStorage on mount
   useEffect(() => {
-    const saved = localStorage.getItem('nexus_state');
-    if (saved) {
-      try {
+    try {
+      const saved = localStorage.getItem(NEXUS_STORAGE_KEY);
+      if (saved) {
         const parsed = JSON.parse(saved);
         // Clean up messages for a fresh start
         if (parsed.ai) parsed.ai.messages = [];
         dispatch({ type: 'LOAD_STATE', payload: parsed });
-      } catch (e) {
-        console.error('Failed to parse saved state', e);
       }
+    } catch (e) {
+      console.error('Failed to load saved Nexus state', e);
     }
   }, []);
 
-  // Save to localStorage on change
+  // Save only durable editor state. AI streaming updates can occur dozens of
+  // times per second, so persisting them would serialize the full project on
+  // every token and make typing noticeably janky on mobile devices.
   useEffect(() => {
-    const timer = setTimeout(() => {
-      localStorage.setItem('nexus_state', JSON.stringify(state));
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [state]);
+    const persist = () => {
+      try {
+        localStorage.setItem(NEXUS_STORAGE_KEY, JSON.stringify({
+          project: state.project,
+          editor: state.editor,
+          ui: state.ui,
+          ai: {
+            model: state.ai.model,
+            agentMode: state.ai.agentMode,
+            sessionId: state.ai.sessionId,
+          },
+        }));
+      } catch (error) {
+        console.warn('Failed to save Nexus state', error);
+      }
+    };
+
+    let idleId;
+    const timer = window.setTimeout(() => {
+      if ('requestIdleCallback' in window) {
+        idleId = window.requestIdleCallback(persist, { timeout: 1200 });
+      } else {
+        persist();
+      }
+    }, PERSIST_DELAY);
+
+    return () => {
+      window.clearTimeout(timer);
+      if (idleId) window.cancelIdleCallback?.(idleId);
+    };
+  }, [state.project, state.editor, state.ui, state.ai.model, state.ai.agentMode, state.ai.sessionId]);
 
   return (
     <NexusContext.Provider value={{ state, dispatch }}>

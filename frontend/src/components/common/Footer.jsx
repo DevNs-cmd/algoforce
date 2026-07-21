@@ -93,12 +93,12 @@ const Footer = () => {
               {[
                 { name: 'About', path: '/about' },
                 { name: 'Labs', path: '/labs' },
-                { name: 'Orion', path: '/orion' },
-                { name: 'Engineering Program', path: '/orion/join' },
-                { name: 'Research', path: '/labs' },
-                { name: 'Research Papers', path: '/labs' },
+                { name: 'Orion Space Systems', path: '/orion' },
+                { name: 'Join Orion', path: '/orion/join' },
+                { name: 'Engineering Operations', path: '/labs' },
+                { name: 'Technical Publications', path: '/labs' },
                 { name: 'Careers', path: '/labs' },
-                { name: 'Universities', path: '/labs' },
+                { name: 'Talent Engine', path: '/labs' },
                 { name: 'Crucible', path: '/crucible' }
               ].map(link => (
                 <li key={link.name}>

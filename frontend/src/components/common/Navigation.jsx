@@ -21,6 +21,7 @@ const Navigation = () => {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      handleScroll.cancel?.();
     };
   }, []);
 
@@ -121,6 +122,7 @@ const Navigation = () => {
             {/* Mobile Toggle */}
             <button
               onClick={() => setMobileMenuOpen(true)}
+              aria-label="Open navigation menu"
               className="lg:hidden w-11 h-11 flex items-center justify-center rounded-full bg-white/8 border border-white/12 text-white active:scale-95 transition-all"
             >
               <div className="flex flex-col gap-1.5">
@@ -154,6 +156,7 @@ const Navigation = () => {
             >
               <button
                 onClick={() => setMobileMenuOpen(false)}
+                aria-label="Close navigation menu"
                 className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white text-xs active:scale-90 transition-all"
               >
                 X

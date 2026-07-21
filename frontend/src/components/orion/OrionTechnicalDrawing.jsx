@@ -85,14 +85,9 @@ const OrionTechnicalDrawing = ({ className = '', variant = 'platform', label = '
             </>
           )}
         </g>
-        <g fill={palette.ink} fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="9" letterSpacing="1.5" opacity="0.72">
+        <g fill={palette.ink} fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="9" letterSpacing="1.5" opacity="0.6">
           <text x="52" y="50">{label}</text>
-          <text x="52" y="106">SYSTEM REFERENCE / 01</text>
-          <text x="407" y="342">CONCEPT STUDY / 2026</text>
-          <text x="52" y="370">ALG OFORCE R&amp;D • ORION</text>
-        </g>
-        <g fill={palette.purple} fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="8" letterSpacing="1.3">
-          <text x="52" y="119">AUTONOMY • MODULARITY • VALIDATION</text>
+          <text x="440" y="370">ORION SYSTEMS</text>
         </g>
       </svg>
     </div>
