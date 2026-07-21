@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
-import orionLogo from '../../../../Orion LOGO.png'
-import orionVideo from '../../../../Orion Video.mp4'
+import orionLogo from '/orion_logo.png'
+const orionVideo = '/orion_video.mp4'
 import useIsMobile from '../../hooks/useIsMobile'
 
 const OrionDiscovery = () => {
