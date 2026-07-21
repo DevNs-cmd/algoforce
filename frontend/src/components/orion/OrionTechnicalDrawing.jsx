@@ -1,4 +1,10 @@
+import { useId } from 'react'
+
 const OrionTechnicalDrawing = ({ className = '', variant = 'platform', label = 'ORION SYSTEM STUDY' }) => {
+  // Prevent SVG definition IDs from colliding when several drawings share a page.
+  const drawingId = useId().replace(/:/g, '')
+  const gridId = `orion-grid-${drawingId}`
+  const metalId = `orion-metal-${drawingId}`
   const palette = {
     ink: '#10223b',
     line: '#8ea2b8',
@@ -13,17 +19,17 @@ const OrionTechnicalDrawing = ({ className = '', variant = 'platform', label = '
     <div className={`relative overflow-hidden rounded-[26px] border border-[#10223b]/10 bg-[#f6f8fb] ${className}`}>
       <svg viewBox="0 0 600 400" role="img" aria-label={`${label} technical illustration`} className="h-full w-full">
         <defs>
-          <pattern id="orion-grid" width="24" height="24" patternUnits="userSpaceOnUse">
+          <pattern id={gridId} width="24" height="24" patternUnits="userSpaceOnUse">
             <path d="M 24 0 L 0 0 0 24" fill="none" stroke={palette.soft} strokeWidth="0.75" />
           </pattern>
-          <linearGradient id="orion-metal" x1="0" y1="0" x2="1" y2="1">
+          <linearGradient id={metalId} x1="0" y1="0" x2="1" y2="1">
             <stop offset="0" stopColor="#ffffff" />
             <stop offset="0.45" stopColor="#d7e0e8" />
             <stop offset="1" stopColor="#f8fafc" />
           </linearGradient>
         </defs>
 
-        <rect width="600" height="400" fill="url(#orion-grid)" />
+        <rect width="600" height="400" fill={`url(#${gridId})`} />
         {grid.map((x) => <line key={`v-${x}`} x1={x} y1="0" x2={x} y2="400" stroke={palette.soft} strokeWidth="0.35" opacity="0.7" />)}
         {[56, 120, 280, 344].map((y) => <line key={`h-${y}`} x1="0" y1={y} x2="600" y2={y} stroke={palette.soft} strokeWidth="0.35" opacity="0.7" />)}
         <g fill="none" strokeLinecap="round" strokeLinejoin="round">
@@ -35,7 +41,7 @@ const OrionTechnicalDrawing = ({ className = '', variant = 'platform', label = '
           {variant === 'satellite' ? (
             <>
               <g transform="translate(300 202)">
-                <path d="M-68-45 L0-80 L68-45 L68 45 L0 80 L-68 45Z" fill="url(#orion-metal)" stroke={palette.ink} strokeWidth="2" />
+                <path d="M-68-45 L0-80 L68-45 L68 45 L0 80 L-68 45Z" fill={`url(#${metalId})`} stroke={palette.ink} strokeWidth="2" />
                 <path d="M-68-45 L0-8 L68-45M-68 45 L0 8 L68 45M0-80V80" stroke={palette.ink} strokeWidth="1.25" opacity="0.8" />
                 <circle r="31" stroke={palette.purple} strokeWidth="2" />
                 <circle r="9" fill={palette.gold} stroke="none" />
@@ -48,7 +54,7 @@ const OrionTechnicalDrawing = ({ className = '', variant = 'platform', label = '
           ) : variant === 'robotics' ? (
             <>
               <g transform="translate(300 205)">
-                <rect x="-105" y="58" width="210" height="30" rx="5" fill="url(#orion-metal)" stroke={palette.ink} strokeWidth="2" />
+                <rect x="-105" y="58" width="210" height="30" rx="5" fill={`url(#${metalId})`} stroke={palette.ink} strokeWidth="2" />
                 <path d="M-68 58V10H-18V-31H34V-92H88" stroke={palette.ink} strokeWidth="15" />
                 <path d="M-68 58V10H-18V-31H34V-92H88" stroke="#edf2f7" strokeWidth="9" />
                 {[[-68, 10], [-18, -31], [34, -92]].map(([cx, cy], i) => <circle key={i} cx={cx} cy={cy} r="17" fill="#fff" stroke={palette.purple} strokeWidth="2" />)}
@@ -63,7 +69,7 @@ const OrionTechnicalDrawing = ({ className = '', variant = 'platform', label = '
               <g transform="translate(306 206)">
                 <ellipse cx="0" cy="78" rx="128" ry="22" fill="none" stroke={palette.line} strokeWidth="1.5" strokeDasharray="5 6" />
                 <path d="M-126 78H126M0-92V103" stroke={palette.soft} strokeWidth="1" />
-                <path d="M-92-35 L0-82 L92-35 L92 42 L0 90 L-92 42Z" fill="url(#orion-metal)" stroke={palette.ink} strokeWidth="2" />
+                <path d="M-92-35 L0-82 L92-35 L92 42 L0 90 L-92 42Z" fill={`url(#${metalId})`} stroke={palette.ink} strokeWidth="2" />
                 <path d="M-92-35L0 10L92-35M-92 42L0-3L92 42M0-82V90" stroke={palette.ink} strokeWidth="1" opacity="0.8" />
                 <path d="M-166-5H-92M92-5H166" stroke={palette.ink} strokeWidth="2" />
                 <rect x="-238" y="-38" width="72" height="66" fill="#e8eff6" stroke={palette.ink} strokeWidth="1.5" />

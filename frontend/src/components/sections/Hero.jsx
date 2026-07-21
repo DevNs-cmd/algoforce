@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { useInView } from 'react-intersection-observer'
+import { Orbit } from 'lucide-react'
 import TrustBadges from '../common/TrustBadges'
 import OptimizedVideo from '../common/OptimizedVideo'
 import useIsMobile from '../../hooks/useIsMobile'
@@ -117,7 +118,7 @@ const Hero = () => {
               className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full premium-dark-surface backdrop-blur-xl"
             >
               <div className="w-1.5 h-1.5 rounded-full bg-[#8f38ff]" />
-              <span className="text-[10px] font-semibold uppercase text-slate-300">AI Software Company · MSME Registered</span>
+              <span className="text-[10px] font-semibold uppercase text-slate-300">Enterprise AI Software Company</span>
             </motion.div>
           </div>
 
@@ -184,6 +185,15 @@ const Hero = () => {
                 Explore Products {'->'}
               </motion.button>
             </a>
+            <Link to="/orion" className="w-full sm:w-auto">
+              <motion.button
+                whileHover={{ scale: 1.02, backgroundColor: 'rgba(255,255,255,0.08)' }}
+                whileTap={{ scale: 0.95 }}
+                className="w-full px-8 py-4 sm:px-9 sm:py-4 border border-[#d7b274]/50 rounded-full font-bold text-sm sm:text-[14px] text-[#f7e5bc] hover:border-[#d7b274] backdrop-blur-xl transition-all flex items-center justify-center gap-2"
+              >
+                <Orbit size={17} aria-hidden="true" /> Explore Orion
+              </motion.button>
+            </Link>
           </motion.div>
 
           {/* Trust Badges */}

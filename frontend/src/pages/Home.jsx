@@ -18,8 +18,8 @@ const Home = () => {
       <Hero />
       <EnterpriseTrust />
       <WhatIsAlgoForce setActiveCategory={setActiveCategory} />
-      <ProductModules activeCategory={activeCategory} setActiveCategory={setActiveCategory} featuredOnly />
       <OrionDiscovery />
+      <ProductModules activeCategory={activeCategory} setActiveCategory={setActiveCategory} featuredOnly />
       <ImplementationProcess />
       <WhyChooseUs />
       <WhyAlgoForce />
