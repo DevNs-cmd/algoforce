@@ -38,8 +38,8 @@ const CATEGORIES = [
 const PRODUCTS = [
   {
     id: 'tallygpt',
-    title: 'TallyGPT',
-    tagline: 'Accounting software powered by AI.',
+    title: 'AlgoForce Finance AI',
+    tagline: 'Powered by Tally integration.',
     problem: 'Matching bank statements, updating bills, and reconciling ledgers manually takes hours and leads to mistakes.',
     howItWorks: 'Connects directly to your Tally system to automate bank reconciliation and voucher entries in plain English.',
     integrations: 'Tally Prime, Tally ERP 9, Local database sync.',
@@ -165,6 +165,18 @@ const PRODUCTS = [
 ]
 
 const CONTACT_NUMBER = "918448947436"
+
+const PRODUCT_PATHS = {
+    'AlgoForce Finance AI': 'finance-ai',
+    'LeadBolt': 'leadbolt',
+    'HotelGPT': 'hotelgpt',
+    'FactoryGPT': 'factorygpt',
+    'Corporate Brain': 'corporate-brain',
+    'Operational Intelligence': 'operational-intelligence',
+    'Inventory Copilot': 'inventory-copilot',
+    'GST Autopilot': 'gst-autopilot',
+    'HR Copilot': 'hr-copilot'
+}
 
 const Products = () => {
     const [selectedTab, setSelectedTab] = useState("all")
@@ -337,18 +349,18 @@ const Products = () => {
                                         <p className="text-xs font-bold text-slate-900 mt-1">{item.outcome}</p>
                                     </div>
                                     <div className="flex justify-between items-center border-t border-slate-100 pt-4">
-                                        <button
-                                            onClick={() => setSelectedProduct(item)}
+                                        <Link
+                                            to={`/products/${PRODUCT_PATHS[item.title]}`}
                                             className="text-xs font-bold text-purple-600 hover:text-purple-800 transition-colors focus:outline-none"
                                         >
-                                            View Specs
-                                        </button>
-                                        <button
-                                            onClick={() => openWhatsApp(item.title)}
+                                            Product Details
+                                        </Link>
+                                        <Link
+                                            to={`/contact?interest=${encodeURIComponent(item.title)}`}
                                             className="inline-flex items-center gap-2 rounded-xl bg-[#06101d] px-5 py-2.5 text-xs font-bold text-white transition-all hover:bg-[#102640] shrink-0"
                                         >
-                                            Deploy Product <FaArrowRight size={8} />
-                                        </button>
+                                            Book a Demo <FaArrowRight size={8} />
+                                        </Link>
                                     </div>
                                 </div>
                             </motion.article>
@@ -361,17 +373,17 @@ const Products = () => {
             <section className="mx-auto max-w-7xl px-5 pb-16 sm:px-6 md:pb-24">
                 <div className="mx-auto max-w-4xl rounded-[30px] border border-[#06101d]/10 bg-white p-8 text-center md:p-12 shadow-[0_24px_70px_rgba(6,47,79,0.08)]">
                     <h2 className="mb-5 text-3xl font-bold tracking-tight md:text-4xl text-[#06101d]">
-                        Request a Business Assessment
+                        See the right product in a demo.
                     </h2>
                     <p className="mx-auto mb-8 max-w-2xl leading-relaxed text-slate-600 text-sm md:text-base font-normal">
-                        Select the right AI products and schedule an implementation.
+                        See the relevant product, discuss the operational workflow and decide whether a deeper discovery is worthwhile.
                     </p>
                     <div className="flex flex-col justify-center gap-4 sm:flex-row">
                         <Link
                             to="/contact"
                             className="rounded-xl bg-[#06101d] text-white hover:bg-[#102640] px-8 py-4 text-xs font-bold uppercase tracking-widest transition-transform inline-flex items-center justify-center gap-2 hover:scale-[1.02]"
                         >
-                            Book Assessment
+                            Book a Demo
                         </Link>
                         <Link
                             to="/pricing"

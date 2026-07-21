@@ -11,7 +11,7 @@ const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { user, logout } = useAuth();
-  const isLightPage = location.pathname === '/labs' || location.pathname === '/services' || location.pathname === '/products' || location.pathname === '/solutions';
+  const isLightPage = location.pathname === '/labs' || location.pathname === '/services' || location.pathname === '/products' || location.pathname === '/solutions' || location.pathname.startsWith('/orion');
 
   useEffect(() => {
     const handleScroll = rafThrottle(() => {
@@ -39,7 +39,8 @@ const Navigation = () => {
     { name: "Home", path: "/" },
     { name: "Products", path: "/products" },
     { name: "Labs", path: "/labs" },
-    { name: "Crucible", path: "https://crucible-website-omega.vercel.app/", isExternal: true },
+    { name: "ORION", path: "/orion", badge: "R&D" },
+    { name: "Crucible", path: "/crucible" },
     { name: "Pricing", path: "/pricing" },
     { name: "Contact", path: "/contact" },
   ];
@@ -74,7 +75,7 @@ const Navigation = () => {
           </Link>
 
           {/* Desktop Links */}
-          <div className="hidden md:flex items-center gap-4 lg:gap-6">
+          <div className="hidden lg:flex items-center gap-3 xl:gap-5">
             {navLinks.map((link) => (
               link.isExternal ? (
                 <a
@@ -84,7 +85,7 @@ const Navigation = () => {
                   rel="noopener noreferrer"
                   className="text-[13px] font-semibold transition-all duration-300 hover:text-white text-slate-300"
                 >
-                  {link.name}
+                  <span className="inline-flex items-center gap-1.5">{link.name}{link.badge && <span className="rounded border border-[#a869ff]/60 px-1.5 py-0.5 text-[8px] font-bold leading-none tracking-wide text-[#d8b7ff]">{link.badge}</span>}</span>
                 </a>
               ) : (
                 <Link
@@ -101,7 +102,7 @@ const Navigation = () => {
 
           {/* Right Side */}
           <div className="flex items-center gap-4">
-            <div className="hidden md:flex items-center gap-4">
+            <div className="hidden lg:flex items-center gap-4">
               {user ? (
                 <div className="flex items-center gap-3">
                 </div>
@@ -111,7 +112,7 @@ const Navigation = () => {
                     to="/contact"
                     className="px-5 py-2 bg-white text-[#06101d] hover:bg-[#f6f1ff] rounded-full text-[13px] font-bold transition-all shadow-md"
                   >
-                    Get Started
+                    Book a Demo
                   </Link>
                 </div>
               )}
@@ -120,7 +121,7 @@ const Navigation = () => {
             {/* Mobile Toggle */}
             <button
               onClick={() => setMobileMenuOpen(true)}
-              className="md:hidden w-11 h-11 flex items-center justify-center rounded-full bg-white/8 border border-white/12 text-white active:scale-95 transition-all"
+              className="lg:hidden w-11 h-11 flex items-center justify-center rounded-full bg-white/8 border border-white/12 text-white active:scale-95 transition-all"
             >
               <div className="flex flex-col gap-1.5">
                 <div className="w-5 h-0.5 bg-white rounded-full" />
@@ -134,7 +135,7 @@ const Navigation = () => {
       {/* Mobile Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <div className="fixed inset-0 z-[100] md:hidden flex items-center justify-center p-6">
+          <div className="fixed inset-0 z-[100] lg:hidden flex items-center justify-center p-6">
             {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
@@ -174,7 +175,7 @@ const Navigation = () => {
                         onClick={() => setMobileMenuOpen(false)}
                         className="text-xl font-semibold text-gray-400 hover:text-white transition-all duration-300"
                       >
-                        {link.name}
+                        <span className="inline-flex items-center gap-2">{link.name}{link.badge && <span className="rounded border border-[#a869ff]/60 px-1.5 py-0.5 text-[8px] font-bold leading-none tracking-wide text-[#d8b7ff]">{link.badge}</span>}</span>
                       </a>
                     ) : (
                       <Link
@@ -201,7 +202,7 @@ const Navigation = () => {
                         onClick={() => setMobileMenuOpen(false)}
                         className="w-full py-3 bg-white text-black text-center rounded-full font-bold text-sm active:scale-95 transition-all shadow-xl"
                       >
-                        Get Started
+                        Book a Demo
                       </Link>
                     </div>
                   ) : (

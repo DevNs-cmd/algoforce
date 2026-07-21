@@ -85,7 +85,7 @@ const About = () => {
               We build and deploy business software powered by AI. Rather than billing by the hour or writing custom code from scratch, we offer ready-to-use software products configured for Tally, SAP, CRM, and other existing systems.
             </p>
             <p className="text-gray-400 text-sm leading-relaxed font-normal">
-              Every client engagement begins with a Business Assessment to understand your operations. Once matched, we deploy the software and support it on a monthly subscription.
+              Every client journey begins with a product demo. When there is a fit, we run discovery and a business assessment before deploying and supporting the software on a monthly subscription.
             </p>
           </div>
         </section>

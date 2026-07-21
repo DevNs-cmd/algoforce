@@ -5,7 +5,7 @@ const ogImage = `${siteUrl}/logo.png`;
 const coreKeywords = [
   "AI Software Company",
   "AI Software Products",
-  "TallyGPT Accounting Software",
+  "AlgoForce Finance AI",
   "LeadBolt Lead Management Software",
   "GST Autopilot Automation",
   "Business Process Automation",
@@ -48,7 +48,7 @@ const pageKeywords = {
     "AI for Hospitality"
   ],
   contact: [
-    "Book Business Assessment",
+    "Book Product Demo",
     "AI Software Subscription",
     "Business AI Assessment Delhi",
     "AI Software Company Delhi"
@@ -156,7 +156,7 @@ const buildSchema = (path, meta) => {
       "jobTitle": "Founder & CEO",
       "url": `${siteUrl}/founder`
     },
-    "description": "AlgoForce is an Enterprise AI Products Company. We build specialized, out-of-the-box AI copilots (TallyGPT, LeadBolt, GST Autopilot) for business functions on a monthly subscription model.",
+    "description": "AlgoForce is an Enterprise AI Software Company. We deploy ready-to-use products such as AlgoForce Finance AI, LeadBolt and GST Autopilot to automate business operations.",
     "email": "af@algoforceaii.com",
     "telephone": "+918448947436",
     "address": {
@@ -181,7 +181,7 @@ const buildSchema = (path, meta) => {
 
   // 4. Service Schema mapping the services
   const servicesCatalog = [
-    { name: "TallyGPT Finance Copilot", desc: "Specialized AI copilot automating ledger reconciliation, manual voucher entry, and tax readiness." },
+    { name: "AlgoForce Finance AI", desc: "Powered by Tally integration to automate accounting workflows, reconciliation effort and exception review." },
     { name: "LeadBolt Sales Copilot", desc: "Specialized AI copilot for 24/7 lead qualification, booking meetings, and automated CRM sync." },
     { name: "GST Autopilot Compliance", desc: "Specialized AI copilot matching purchase registers with GSTR-2B to prevent tax leakage." },
     { name: "HR & Onboarding Copilot", desc: "Specialized AI copilot acting as a private corporate knowledge operating layer for company memory." },
@@ -200,7 +200,7 @@ const buildSchema = (path, meta) => {
   const faqsList = [
     {
       q: "What does AlgoForce do?",
-      a: "AlgoForce is an Enterprise AI Products Company. We build specialized, out-of-the-box AI copilots (such as TallyGPT, LeadBolt, and GST Autopilot) for specific business functions, helping organizations automate operations under a subscription model."
+      a: "AlgoForce is an Enterprise AI Software Company. We deploy ready-to-use products such as AlgoForce Finance AI, LeadBolt and GST Autopilot to automate specific business operations under a subscription model."
     },
     {
       q: "What is an Enterprise AI Products Company?",
@@ -211,8 +211,8 @@ const buildSchema = (path, meta) => {
       a: "AlgoForce is headquartered in Kalkaji, South East Delhi, New Delhi - 110019, India. We serve clients across all of India and globally."
     },
     {
-      q: "Do you offer Business Assessments?",
-      a: "Yes, AlgoForce provides a one-time Business Assessment (₹49,999) to audit operations, map database schemas, identify process leaks, and select the right AI Copilot."
+      q: "What happens after a product demo?",
+      a: "When there is a product fit, AlgoForce runs a focused discovery and business assessment to confirm workflows, integrations, deployment scope and support requirements."
     },
     {
       q: "How can business process automation reduce manual work?",
@@ -223,8 +223,8 @@ const buildSchema = (path, meta) => {
       a: "AI copilots are pre-built, specialized software assistants configured to automate operational workflows like finance entries, CRM logs, and customer support."
     },
     {
-      q: "How does TallyGPT help finance teams?",
-      a: "TallyGPT connects to Tally ERP to auto-reconcile transactions, answer financial queries, parse invoices, and eliminate manual entry errors."
+      q: "How does AlgoForce Finance AI help finance teams?",
+      a: "AlgoForce Finance AI is powered by Tally integration and helps teams automate accounting workflows, reconcile transactions and surface exceptions without replacing Tally."
     },
     {
       q: "What industries does AlgoForce serve?",
@@ -232,7 +232,7 @@ const buildSchema = (path, meta) => {
     },
     {
       q: "What is the Business Assessment?",
-      a: "Our Business Assessment is a 1-2 week operational audit where our team maps workflows, analyzes ERP/CRM data readiness, and selects the ideal specialized AI Copilot for your business."
+      a: "The Business Assessment follows product fit. It confirms the operational workflow, systems, data readiness and deployment requirements before we prepare a proposal."
     },
     {
       q: "How do you integrate AI with CRM systems like Salesforce or Zoho?",
@@ -240,7 +240,7 @@ const buildSchema = (path, meta) => {
     },
     {
       q: "Can you connect AI copilots with legacy ERP systems?",
-      a: "Yes. TallyGPT and our other copilots integrate with ERP systems like Tally, SAP, and custom databases via secure middleware pipelines."
+      a: "Yes. AlgoForce Finance AI and other products can integrate with systems such as Tally, SAP and internal databases through a deployment plan tailored to your environment."
     },
     {
       q: "What is the implementation timeline for an AI Copilot?",
@@ -276,7 +276,7 @@ const buildSchema = (path, meta) => {
     },
     {
       q: "How do we get started?",
-      a: "You can get started by requesting a Business Assessment on our contact page or by browsing our specialized AI copilots."
+      a: "You can get started by booking a product demo on our contact page or by browsing our enterprise AI software products."
     }
   ];
 
@@ -341,8 +341,8 @@ const buildSchema = (path, meta) => {
 
 const seoConfig = {
   "/": {
-    title: "Enterprise AI Products Company India | AI Copilots for Business | AlgoForce",
-    description: "AlgoForce is an Enterprise AI Products Company. We build specialized AI copilots — TallyGPT, LeadBolt, GST Autopilot — for business functions on a monthly subscription model.",
+    title: "Enterprise AI Software Company India | AI Software for Business | AlgoForce",
+    description: "AlgoForce is an Enterprise AI Software Company. We deploy products such as AlgoForce Finance AI, LeadBolt and GST Autopilot to automate business operations.",
     keywords: combineKeywords(pageKeywords.home, coreKeywords),
     image: ogImage,
     robots: "index, follow",
@@ -350,8 +350,8 @@ const seoConfig = {
     schemaType: "WebPage",
   },
   "/services": {
-    title: "Specialized AI Copilots for Business | TallyGPT, LeadBolt, GST Autopilot | AlgoForce",
-    description: "Browse AlgoForce's specialized AI copilots for Finance, Sales, GST Compliance, HR, Hotels, and Manufacturing. Monthly subscription. Business Assessment included.",
+    title: "Enterprise AI Software Products | AlgoForce Finance AI, LeadBolt, GST Autopilot | AlgoForce",
+    description: "Browse AlgoForce software products for finance, sales, GST compliance, HR, hotels and manufacturing. Deploy around the systems your teams already use.",
     keywords: combineKeywords(pageKeywords.services, coreKeywords),
     image: ogImage,
     robots: "index, follow",
@@ -369,7 +369,7 @@ const seoConfig = {
   },
   "/contact": {
     title: "Request a Business AI Assessment | AlgoForce Copilots",
-    description: "Contact AlgoForce to request a Business Assessment and discover which AI Copilot fits your operations. Assessment → Implementation → Monthly Subscription.",
+    description: "Contact AlgoForce to book a product demo and discover which enterprise AI software product fits your operations. Demo → Discovery → Deployment → Support.",
     keywords: combineKeywords(pageKeywords.contact, coreKeywords),
     image: ogImage,
     robots: "index, follow",
@@ -378,7 +378,7 @@ const seoConfig = {
   },
   "/pricing": {
     title: "AI Copilot Pricing & Subscription Plans | AlgoForce",
-    description: "Transparent pricing for AlgoForce AI Copilots — Business Assessment (₹49,999), Product Implementation (₹2,49,999), Monthly Subscription from ₹49,999/month.",
+    description: "Enterprise AI software pricing is scoped after product demo and discovery, based on deployment, integration, security and support requirements.",
     keywords: combineKeywords(pageKeywords.pricing, coreKeywords),
     image: ogImage,
     robots: "index, follow",
@@ -458,8 +458,8 @@ const seoConfig = {
     schemaType: "WebPage",
   },
   default: {
-    title: "AlgoForce | Enterprise AI Products Company India",
-    description: "AlgoForce builds specialized AI copilots (TallyGPT, LeadBolt, GST Autopilot, HR Copilot) for business functions on a monthly subscription. Business Assessment → Implementation → Subscription.",
+    title: "AlgoForce | Enterprise AI Software Company India",
+    description: "AlgoForce deploys enterprise AI software products including AlgoForce Finance AI, LeadBolt, GST Autopilot and HR Copilot. Demo → Discovery → Deployment → Support.",
     keywords: defaultKeywords,
     image: ogImage,
     robots: "index, follow",

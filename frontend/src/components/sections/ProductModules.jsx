@@ -31,11 +31,12 @@ const CATEGORIES = [
 const PRODUCTS = [
   {
     id: 'tallygpt',
-    name: 'TallyGPT',
-    tagline: 'Accounting software powered by AI.',
-    description: 'Connects directly to Tally ERP to automate bank reconciliations and ledger updates.',
-    outcome: 'Reconcile books 10x faster and identify accounting mistakes automatically.',
+    name: 'AlgoForce Finance AI',
+    tagline: 'Powered by Tally integration.',
+    description: 'Automate accounting work without replacing Tally.',
+    outcome: 'Reduce reconciliation work and surface accounting exceptions before they become delays.',
     category: 'finance',
+    featured: true,
     icon: <FaBrain />,
     color: '#8f38ff',
     integrations: ['Tally Prime ERP', 'Tally ERP 9', 'Local SQL Gateway'],
@@ -49,6 +50,7 @@ const PRODUCTS = [
     description: 'Engages, qualifies, and follows up with sales leads automatically.',
     outcome: '24/7 instant replies and a 24% increase in sales meetings booked.',
     category: 'sales',
+    featured: true,
     icon: <FaChartLine />,
     color: '#7aa7c7',
     integrations: ['WhatsApp Cloud API', 'Zoho CRM', 'Salesforce CRM', 'HubSpot'],
@@ -75,6 +77,7 @@ const PRODUCTS = [
     description: 'Scans live camera feeds to automate quality inspection and detect product defects.',
     outcome: '42% reduction in quality defects and automatic error logs.',
     category: 'manufacturing',
+    featured: true,
     icon: <FaIndustry />,
     color: '#7aa7c7',
     integrations: ['Live Camera Feeds', 'Industrial PLCs', 'ERP Log System'],
@@ -148,7 +151,7 @@ const PRODUCTS = [
   }
 ]
 
-const ProductModules = ({ activeCategory, setActiveCategory }) => {
+const ProductModules = ({ activeCategory, setActiveCategory, featuredOnly = false }) => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.05
@@ -162,7 +165,7 @@ const ProductModules = ({ activeCategory, setActiveCategory }) => {
   const [selectedProduct, setSelectedProduct] = useState(null)
 
   const filteredProducts = currentCategory === 'all'
-    ? PRODUCTS
+    ? (featuredOnly ? PRODUCTS.filter(p => p.featured) : PRODUCTS)
     : PRODUCTS.filter(p => p.category === currentCategory)
 
   return (
@@ -176,12 +179,12 @@ const ProductModules = ({ activeCategory, setActiveCategory }) => {
           animate={inView ? { opacity: 1 } : {}}
           className="text-center mb-12"
         >
-          <h2 className="text-[12px] font-bold uppercase tracking-[0.5em] text-purple-500 mb-4">AI Products</h2>
+          <h2 className="text-[12px] font-bold uppercase tracking-[0.5em] text-purple-500 mb-4">Flagship products</h2>
           <h3 className="text-3xl md:text-5xl font-bold mb-4 leading-tight tracking-tight">
-            Specialized <span className="premium-serif italic font-normal text-purple-400">AI Copilots.</span>
+            Start with software built for <span className="premium-serif italic font-normal text-purple-400">your operation.</span>
           </h3>
           <p className="max-w-xl mx-auto text-gray-400 font-normal text-sm md:text-base mt-2">
-            Subscribe to specialized AI products that integrate with existing business systems and automate operations.
+            Each product targets a high-value operational job, then connects to the systems your business already runs.
           </p>
         </motion.div>
 
@@ -235,12 +238,12 @@ const ProductModules = ({ activeCategory, setActiveCategory }) => {
                     <p className="text-slate-200 font-semibold text-xs leading-relaxed">{p.outcome}</p>
                   </div>
                   
-                  <button 
-                    onClick={() => setSelectedProduct(p)}
+                  <Link 
+                    to={`/products/${p.id === 'tallygpt' ? 'finance-ai' : p.id}`}
                     className="text-[11px] font-bold uppercase tracking-widest text-purple-400 group-hover:text-white flex items-center gap-2 transition-colors focus:outline-none"
                   >
-                    Learn More <FaArrowRight size={8} />
-                  </button>
+                    Product Details <FaArrowRight size={8} />
+                  </Link>
                 </div>
               </motion.div>
             ))}
@@ -249,9 +252,9 @@ const ProductModules = ({ activeCategory, setActiveCategory }) => {
 
         {/* Global CTA */}
         <div className="text-center mt-12">
-          <Link to="/services">
+          <Link to="/products">
             <button className="px-8 py-3.5 border border-purple-500/20 hover:border-purple-500/40 text-purple-400 hover:text-white bg-purple-500/5 hover:bg-purple-500/10 rounded-full font-bold text-xs uppercase tracking-widest transition-all">
-              View Detailed Product Specs
+              Explore all products
             </button>
           </Link>
         </div>
@@ -340,7 +343,7 @@ const ProductModules = ({ activeCategory, setActiveCategory }) => {
                     onClick={() => setSelectedProduct(null)}
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-white text-black hover:bg-gray-100 px-6 py-3 text-xs font-bold uppercase tracking-wider transition-all"
                   >
-                    Request Implementation <FaArrowRight size={8} />
+                    Book a Demo <FaArrowRight size={8} />
                   </button>
                 </Link>
               </div>

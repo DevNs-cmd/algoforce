@@ -5,84 +5,52 @@ import { FaChevronDown } from 'react-icons/fa'
 
 const FAQs = [
   {
-    q: "What does AlgoForce do?",
-    a: "AlgoForce builds AI software products for business operations. We deploy pre-built AI copilots — like TallyGPT, GST Autopilot, LeadBolt, and HR Copilot — that automate core business functions and run on a monthly subscription model."
+    q: 'What does AlgoForce do?',
+    a: 'AlgoForce is an Enterprise AI Software Company. We deploy ready-to-use products that automate finance, sales, HR, manufacturing, hospitality, knowledge and operational workflows.'
   },
   {
-    q: "What kind of company is AlgoForce?",
-    a: "AlgoForce is an AI software company. We build specialized, repeatable AI products designed to run business operations under a subscription model — not custom consulting or agency work."
+    q: 'What kind of company is AlgoForce?',
+    a: 'We are a product company, not an AI agency or custom software house. You subscribe to a proven software product; we deploy, integrate, maintain and support it.'
   },
   {
-    q: "Where is AlgoForce headquartered?",
-    a: "AlgoForce is headquartered in Kalkaji, South East Delhi, New Delhi - 110019, India. We deploy AI products to businesses across India."
+    q: 'How do we know which product is right for us?',
+    a: 'Start with a product demo. We will show the relevant use case, discuss the systems and workflow involved, and recommend a deeper discovery only if there is a clear fit.'
   },
   {
-    q: "Do you offer custom software development or consulting?",
-    a: "No. AlgoForce is not an AI consulting agency or software house. Instead, we follow a productized implementation and subscription model: we conduct a Business Assessment to select the right pre-built AI Copilot, implement it for your business, and provide it as an ongoing subscription."
+    q: 'Do you offer custom software development or consulting?',
+    a: 'No. We do not begin with a blank build. AlgoForce deploys productized software around your operational requirements and existing technology environment.'
   },
   {
-    q: "How do specialized AI copilots improve operations?",
-    a: "By deploying specialized copilots for finance, sales, HR, or inventory, businesses can automate administrative tasks, preserve internal memory, sync data in real time, and scale operations without increasing headcount."
+    q: 'Does AlgoForce replace our current software?',
+    a: 'No. The goal is to automate work around the systems you already use. Depending on the product, we can integrate with platforms such as Tally, SAP, Zoho, Salesforce, WhatsApp and your internal data sources.'
   },
   {
-    q: "What are business AI copilots?",
-    a: "AI copilots are specialized products built to solve one operational business problem (e.g. TallyGPT for accounting, GST Autopilot for tax matching). They integrate with your databases to automate workflows and drive decision-making."
+    q: 'What is AlgoForce Finance AI?',
+    a: 'AlgoForce Finance AI automates accounting work without replacing Tally. It is powered by Tally integration and is designed to reduce reconciliation effort while helping teams surface exceptions sooner.'
   },
   {
-    q: "Why should businesses subscribe to an AI operating layer?",
-    a: "Subscribing to our AI operating layer gives your business access to continuously updated, secure, and production-ready AI products with native CRM/ERP integrations, backed by dedicated Customer Success and ongoing renewals."
+    q: 'What happens after a demo?',
+    a: 'When a product fit is confirmed, we run a focused discovery call and business assessment, then share a proposal covering scope, integrations, deployment timeline and support.'
   },
   {
-    q: "What industries does AlgoForce serve?",
-    a: "We build AI products for Manufacturing (FactoryGPT), Hospitality (HotelGPT), Finance (TallyGPT & GST Autopilot), Sales (LeadBolt), HR, and Inventory operations."
+    q: 'What industries does AlgoForce serve?',
+    a: 'Our product catalog is relevant to manufacturing, healthcare, hotels, CA firms, retail, education, construction, logistics and professional services. We begin with the operational workflow rather than a generic industry pitch.'
   },
   {
-    q: "What is the Business Assessment?",
-    a: "Our Business Assessment is the first step in our model. We analyze your workflows, identify operational leaks, and recommend the best pre-built AI Copilots to automate your business functions."
+    q: 'How long does deployment take?',
+    a: 'The timeline depends on the product, integrations, data readiness and deployment environment. Your proposal will define the rollout plan, validation approach and team training requirements.'
   },
   {
-    q: "How do your products integrate with CRM systems?",
-    a: "Our products feature built-in connection layers for Salesforce, Zoho, and other CRMs. For example, LeadBolt qualifies leads and updates CRM tables in real time without manual copy-pasting."
+    q: 'How is business data handled?',
+    a: 'Deployment is designed around the operating environment and data requirements of your business. Secure private-cloud and on-premises options can be considered as part of discovery.'
   },
   {
-    q: "Do your products connect with Tally or legacy ERPs?",
-    a: "Yes. Products like TallyGPT and GST Autopilot connect directly with Tally Prime and legacy ERP systems like SAP to reconcile ledgers, match tax credits, and provide real-time dashboards."
+    q: 'How does pricing work?',
+    a: 'Pricing is based on the software product, deployment scope, integrations, security requirements and ongoing support. We provide a proposal after the demo and discovery conversation.'
   },
   {
-    q: "What is the timeline for AI Copilot implementation?",
-    a: "Configuration and implementation typically take 4 to 6 weeks. This includes mapping your business rules, connecting the product to your databases, conducting validation runs, and training your team."
-  },
-  {
-    q: "How does LeadBolt handle customer acquisition?",
-    a: "LeadBolt uses official WhatsApp and web channels to engage incoming leads 24/7, qualify prospect needs, record details directly into your CRM database, and schedule sales meetings autonomously."
-  },
-  {
-    q: "What is the HR Copilot?",
-    a: "HR Copilot is a specialized enterprise product that serves as an internal knowledge operating layer, allowing team members to securely extract onboarding info, policies, and files instantly."
-  },
-  {
-    q: "Is business data secure with AlgoForce products?",
-    a: "Yes. Security and data privacy are core product features. We support secure, self-hosted deployments on your private cloud (AWS, Azure) so your proprietary corporate memory is 100% private."
-  },
-  {
-    q: "How does AlgoForce deliver business outcomes?",
-    a: "We focus on operational business outcomes: eliminating manual bookkeeping delays, preventing compliance tax credit leakage, reducing lead response times, and automating routine operations."
-  },
-  {
-    q: "Why subscribe instead of hiring an agency?",
-    a: "Agencies and software houses build custom code from scratch, which is slow and expensive. Subscribing to AlgoForce provides pre-built, tested enterprise AI products that integrate instantly, receive continuous updates, and include dedicated Customer Success."
-  },
-  {
-    q: "What is the role of AlgoForce Labs?",
-    a: "AlgoForce Labs is our talent engine. Top developers and product engineers learn by building real enterprise AI products, providing us with a pipeline of deployment-ready talent to support your implementation."
-  },
-  {
-    q: "What is Crucible?",
-    a: "Crucible is our Startup Execution Platform. It acts as a Startup Operating System that helps founders validate ideas, build MVPs, launch, find technical teams, and scale real products."
-  },
-  {
-    q: "How do we request a Business Assessment?",
-    a: "You can request a Business Assessment through our contact page. Our product team will coordinate with you to evaluate your workflows and identify the right AI Copilot for your business."
+    q: 'How do we book a demo?',
+    a: 'Use the Book a Demo button or contact page to speak with a product specialist. We will route the conversation to the product and business function most relevant to you.'
   }
 ]
 
@@ -112,17 +80,16 @@ const EnterpriseFaq = () => {
             Frequently Asked <span className="premium-serif italic font-normal text-purple-600">Questions</span>
           </h3>
           <p className="max-w-xl mx-auto text-gray-500 font-normal text-sm md:text-base mt-4">
-            Find answers to common questions about our custom AI systems, integration pipelines, local presence, and pricing.
+            Everything you need to know about choosing, deploying and supporting AlgoForce software.
           </p>
         </motion.div>
 
-        {/* Accordion Container */}
         <div className="space-y-4">
           {FAQs.map((faq, idx) => {
             const isOpen = activeIndex === idx
             return (
               <motion.div
-                key={idx}
+                key={faq.q}
                 initial={{ opacity: 0, y: 15 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: idx * 0.03 }}

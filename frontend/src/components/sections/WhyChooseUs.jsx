@@ -66,65 +66,8 @@ const WhyChooseUs = () => {
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
-        {/* Integrations Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          className="text-center mb-12"
-        >
-          <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-purple-400">Ecosystem Fit</span>
-          <h3 className="text-3xl md:text-5xl font-bold leading-tight mt-2">
-            Seamless Database & <span className="premium-serif italic font-normal text-[#cdb4ff]">Software Integrations</span>
-          </h3>
-          <p className="max-w-xl mx-auto text-slate-400 font-normal text-sm mt-3">
-            Click on any platform logo below to view integration details.
-          </p>
-        </motion.div>
-
-        {/* Logos Grid */}
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 mb-10 max-w-5xl mx-auto">
-          {INTEGRATIONS.map((item, idx) => (
-            <motion.button
-              key={item.name}
-              whileHover={{ scale: 1.05, border: '1px solid rgba(143,56,255,0.4)' }}
-              onClick={() => setActiveInt(activeInt === item.name ? null : item.name)}
-              className={`p-4 rounded-xl border flex flex-col items-center justify-center font-bold text-xs uppercase tracking-wider transition-all h-20 ${
-                activeInt === item.name 
-                  ? 'bg-purple-600/20 border-purple-500 text-purple-300' 
-                  : 'bg-white/[0.01] border-white/5 text-slate-400 hover:text-white'
-              }`}
-            >
-              <span>{item.name}</span>
-            </motion.button>
-          ))}
-        </div>
-
-        {/* Compatibility Checker Panel */}
-        <div className="max-w-xl mx-auto mb-20 h-24">
-          <AnimatePresence mode="wait">
-            {activeInt ? (
-              <motion.div
-                key={activeInt}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                className="p-5 rounded-2xl bg-white/[0.02] border border-white/10 text-center flex flex-col justify-center"
-              >
-                <div className="text-xs font-bold text-purple-400 uppercase tracking-widest mb-1">{activeInt} Integration</div>
-                <p className="text-xs text-slate-300 leading-normal">{INTEGRATIONS.find(i => i.name === activeInt)?.desc}</p>
-              </motion.div>
-            ) : (
-              <div className="p-5 rounded-2xl bg-white/[0.01] border border-white/5 border-dashed text-center flex flex-col justify-center text-xs text-slate-500 font-semibold italic">
-                Select an integration logo above to view compatibility.
-              </div>
-            )}
-          </AnimatePresence>
-        </div>
-
-        <hr className="border-white/5 my-14 max-w-5xl mx-auto" />
-
         {/* Industries Grid */}
-        <div className="mt-12">
+        <div id="industries">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -132,8 +75,11 @@ const WhyChooseUs = () => {
           >
             <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-purple-400">Vertical Relevance</span>
             <h3 className="text-3xl md:text-4xl font-bold leading-tight mt-2">
-              Industries <span className="premium-serif italic font-normal text-[#cdb4ff]">We Serve</span>
+              Software that understands <span className="premium-serif italic font-normal text-[#cdb4ff]">your industry.</span>
             </h3>
+            <p className="max-w-xl mx-auto text-slate-400 font-normal text-sm mt-3">
+              Start with the realities of your operation, then choose the product that fits the workflow.
+            </p>
           </motion.div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 max-w-5xl mx-auto">
@@ -149,6 +95,62 @@ const WhyChooseUs = () => {
                 <span className="text-xs font-semibold text-slate-300">{ind.name}</span>
               </motion.div>
             ))}
+          </div>
+        </div>
+
+        <hr className="border-white/5 my-14 max-w-5xl mx-auto" />
+
+        <div id="integrations">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            className="text-center mb-12"
+          >
+            <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-purple-400">Integrations</span>
+            <h3 className="text-3xl md:text-5xl font-bold leading-tight mt-2">
+              Automate work without <span className="premium-serif italic font-normal text-[#cdb4ff]">replacing your stack.</span>
+            </h3>
+            <p className="max-w-xl mx-auto text-slate-400 font-normal text-sm mt-3">
+              AlgoForce products are deployed around the systems your teams already use.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 mb-10 max-w-5xl mx-auto">
+            {INTEGRATIONS.map((item) => (
+              <motion.button
+                key={item.name}
+                whileHover={{ scale: 1.05, border: '1px solid rgba(143,56,255,0.4)' }}
+                onClick={() => setActiveInt(activeInt === item.name ? null : item.name)}
+                className={`p-4 rounded-xl border flex flex-col items-center justify-center font-bold text-xs uppercase tracking-wider transition-all h-20 ${
+                  activeInt === item.name 
+                    ? 'bg-purple-600/20 border-purple-500 text-purple-300' 
+                    : 'bg-white/[0.01] border-white/5 text-slate-400 hover:text-white'
+                }`}
+              >
+                <span>{item.name}</span>
+              </motion.button>
+            ))}
+          </div>
+
+          <div className="max-w-xl mx-auto h-24">
+            <AnimatePresence mode="wait">
+              {activeInt ? (
+                <motion.div
+                  key={activeInt}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="p-5 rounded-2xl bg-white/[0.02] border border-white/10 text-center flex flex-col justify-center"
+                >
+                  <div className="text-xs font-bold text-purple-400 uppercase tracking-widest mb-1">{activeInt} Integration</div>
+                  <p className="text-xs text-slate-300 leading-normal">{INTEGRATIONS.find(i => i.name === activeInt)?.desc}</p>
+                </motion.div>
+              ) : (
+                <div className="p-5 rounded-2xl bg-white/[0.01] border border-white/5 border-dashed text-center flex flex-col justify-center text-xs text-slate-500 font-semibold italic">
+                  Select a platform to view how it fits into the deployment.
+                </div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
 

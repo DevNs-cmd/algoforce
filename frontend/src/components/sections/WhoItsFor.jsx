@@ -19,7 +19,7 @@ const WhoItsFor = () => {
     {
       icon: <FaBuilding />,
       title: 'SMEs & Mid-Market',
-      desc: 'Subscribing to ready-to-use AI software products (TallyGPT, LeadBolt, GST Autopilot) to automate core business functions and eliminate manual spreadsheets.',
+      desc: 'Subscribing to ready-to-use AI software products (AlgoForce Finance AI, LeadBolt, GST Autopilot) to automate core business functions and eliminate manual spreadsheets.',
       color: 'bg-blue-600/10 text-blue-400'
     },
     {

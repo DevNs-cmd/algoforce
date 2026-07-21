@@ -78,7 +78,7 @@ const Contact = () => {
   }
 
   const inquiryTypes = [
-    { value: 'assessment', label: 'Business Assessment' },
+    { value: 'demo', label: 'Product Demo' },
     { value: 'implementation', label: 'Product Deployment' },
     { value: 'subscription', label: 'Monthly Support' }
   ]
@@ -94,10 +94,10 @@ const Contact = () => {
   return (
     <>
       <Helmet>
-        <title>Book a Business Assessment | AlgoForce</title>
+        <title>Book a Product Demo | AlgoForce</title>
         <meta
           name="description"
-          content="Book a Business Assessment with the AlgoForce product team. We map your software environment, understand your processes, and recommend software products."
+          content="Book a product demo with the AlgoForce team. See the relevant software, discuss your operational workflow, and decide whether a deeper discovery is a fit."
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.algoforceaii.com/contact" />
@@ -117,7 +117,7 @@ const Contact = () => {
               transition={{ duration: 0.8 }}
             >
               <h1 className="mb-6 text-4xl md:text-6xl font-extrabold tracking-tight leading-tight">
-                Book a Business Assessment
+                Book a Product Demo
               </h1>
               <p className="max-w-3xl mx-auto text-lg md:text-xl text-slate-300 leading-relaxed font-normal">
                 Talk to our product specialists. We will understand your business, recommend suitable software, discuss implementation, and answer your questions.
@@ -197,7 +197,7 @@ const Contact = () => {
                     </motion.div>
                   ) : (
                     <form onSubmit={handleSubmit} className="p-6 md:p-8 premium-light-surface rounded-[24px] border border-slate-200/50">
-                      <h3 className="mb-6 text-2xl font-bold text-[#06101d] tracking-tight">Book Business Assessment</h3>
+                      <h3 className="mb-6 text-2xl font-bold text-[#06101d] tracking-tight">Book a Product Demo</h3>
  
                       <div className="grid md:grid-cols-2 gap-6">
                         <div className="mb-4">
@@ -260,7 +260,7 @@ const Contact = () => {
                         whileTap={{ scale: 0.99 }}
                         className={`w-full py-4 rounded-xl font-bold text-base text-white transition-all ${status.loading || !formData.phone ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#06101d] hover:bg-[#102640] shadow-lg focus:outline-none'}`}
                       >
-                        {status.loading ? 'Submitting...' : 'Book Business Assessment'}
+                        {status.loading ? 'Submitting...' : 'Book a Demo'}
                       </motion.button>
                       <p className="mt-4 text-[10px] text-center text-gray-400 font-bold uppercase tracking-wider">Fast-track routing. No email verification required.</p>
                     </form>

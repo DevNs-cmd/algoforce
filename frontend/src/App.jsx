@@ -49,6 +49,9 @@ const Workspace = lazy(() => import('./pages/Workspace'))
 const LabsPortal = lazy(() => import('./pages/LabsPortal'))
 const AdminPortal = lazy(() => import('./pages/AdminPortal'))
 const ClientPortal = lazy(() => import('./pages/ClientPortal'))
+const ProductDetail = lazy(() => import('./pages/ProductDetail'))
+const Orion = lazy(() => import('./pages/Orion'))
+const OrionJoin = lazy(() => import('./pages/OrionJoin'))
 
 // Minimal full-screen spinner for lazy page transitions
 const PageLoader = () => (
@@ -71,7 +74,7 @@ const AppShell = () => {
 
   const hideMarketingShells = isBuilderPage || isNexusPage || isWorkspace || isLabsPortal || isAdminPortal || isLoginPage || isClientPortal
 
-  const routesWithOwnSurface = ['/pricing', '/labs', '/founder', '/team', '/contact']
+  const routesWithOwnSurface = ['/pricing', '/labs', '/founder', '/team', '/contact', '/orion', '/orion/join']
   const hasPageVideoBackdrop =
     !hideMarketingShells &&
     location.pathname !== '/' &&
@@ -124,10 +127,13 @@ const AppShell = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/products" element={<Products />} />
+            <Route path="/products/:productSlug" element={<ProductDetail />} />
             <Route path="/solutions" element={<Products />} />
             <Route path="/services" element={<Products />} />
             <Route path="/ai-consulting" element={<Products />} />
             <Route path="/crucible" element={<Crucible />} />
+            <Route path="/orion" element={<Orion />} />
+            <Route path="/orion/join" element={<OrionJoin />} />
             <Route path="/velqora" element={<Velqora />} />
             <Route path="/about" element={<About />} />
             <Route path="/pricing" element={<Pricing />} />

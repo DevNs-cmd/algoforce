@@ -86,7 +86,7 @@ const WhatIsAlgoForce = () => {
             Ready to Automate Your Operations?
           </h2>
           <p className="mx-auto mb-8 max-w-2xl leading-7 text-gray-400">
-            Book a Business Assessment to find the right software products for your company operations.
+            Book a product demo to see the right software products for your company operations.
           </p>
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <Link

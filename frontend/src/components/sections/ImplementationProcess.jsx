@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { FaSearch, FaList, FaCogs, FaRegCalendarAlt } from 'react-icons/fa'
+import { FaSearch, FaList, FaCogs, FaRegCalendarAlt, FaLink, FaHeadset } from 'react-icons/fa'
 
 const ImplementationProcess = () => {
   const [ref, inView] = useInView({
@@ -10,24 +10,34 @@ const ImplementationProcess = () => {
 
   const steps = [
     {
+      icon: <FaRegCalendarAlt />,
+      title: "Book a demo",
+      desc: "Start with the product and outcome you want to improve."
+    },
+    {
       icon: <FaSearch />,
-      title: "Business Assessment",
-      desc: "We study your workflows and audit your data systems."
+      title: "Discovery call",
+      desc: "We confirm the workflow, current systems and people involved."
     },
     {
       icon: <FaList />,
-      title: "Choose Software",
-      desc: "We recommend the exact software products for your business."
+      title: "Solution recommendation",
+      desc: "You receive the right product, scope and deployment plan."
     },
     {
       icon: <FaCogs />,
       title: "Deployment",
-      desc: "We configure, integrate, and deploy the software."
+      desc: "We configure the product for your operational rules."
     },
     {
-      icon: <FaRegCalendarAlt />,
-      title: "Monthly Support",
-      desc: "We manage hosting, updates, security, and ongoing support."
+      icon: <FaLink />,
+      title: "Integration and training",
+      desc: "We connect your stack, validate the workflow and train the team."
+    },
+    {
+      icon: <FaHeadset />,
+      title: "Monthly support",
+      desc: "We maintain, improve and support the software after go-live."
     }
   ]
 
@@ -42,7 +52,7 @@ const ImplementationProcess = () => {
         >
           <h2 className="text-[12px] font-bold uppercase tracking-[0.4em] text-purple-600 mb-4">How it works</h2>
           <h3 className="text-3xl md:text-5xl font-bold leading-tight">
-            How <span className="premium-serif italic font-normal text-purple-600">AlgoForce works.</span>
+            From product demo to <span className="premium-serif italic font-normal text-purple-600">software in use.</span>
           </h3>
         </motion.div>
 

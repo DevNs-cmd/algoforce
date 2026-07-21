@@ -36,7 +36,7 @@ const engines = [
   {
     icon: FaBriefcase,
     title: "AlgoForce AI Software",
-    text: "Ready-to-use software products (TallyGPT, LeadBolt, GST Autopilot) automating accounting, sales, and compliance.",
+    text: "Ready-to-use software products (AlgoForce Finance AI, LeadBolt, GST Autopilot) automating accounting, sales, and compliance.",
   },
   {
     icon: FaBrain,
@@ -134,7 +134,7 @@ const Founder = () => {
                   to="/contact"
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-[#06101d]/10 bg-white px-6 py-3.5 text-sm font-bold text-[#06101d] transition-all hover:border-[#8f38ff]/40 hover:text-[#8f38ff]"
                 >
-                  Book Business Assessment <FaArrowRight size={11} />
+                  Book a Demo <FaArrowRight size={11} />
                 </Link>
               </div>
  

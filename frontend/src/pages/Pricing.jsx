@@ -38,7 +38,7 @@ const Pricing = () => {
   ]
 
   const includedItems = [
-    'Business Assessment',
+    'Product demo and discovery',
     'Deployment Planning',
     'Implementation',
     'Training',
@@ -52,7 +52,7 @@ const Pricing = () => {
   const faqs = [
     {
       q: "How much does implementation cost?",
-      a: "Every deployment is different. Implementation depends on business size, integrations, deployment scope and security requirements. A detailed proposal is prepared after the Business Assessment."
+      a: "Every deployment is different. Implementation depends on business size, integrations, deployment scope and security requirements. A detailed proposal is prepared after a product demo and discovery conversation."
     },
     {
       q: "How much is the monthly subscription?",
@@ -60,7 +60,7 @@ const Pricing = () => {
     },
     {
       q: "Can I get an estimate?",
-      a: "Yes. Book a Business Assessment and our team will prepare a deployment proposal with a detailed scope and investment breakdown."
+      a: "Yes. Book a product demo and, if there is a fit, our team will prepare a deployment proposal with a detailed scope and investment breakdown."
     },
     {
       q: "Can small businesses work with AlgoForce?",
@@ -72,7 +72,7 @@ const Pricing = () => {
     <main className="min-h-screen bg-[#f8f9fc] text-[#06101d] font-sans pb-20">
       <Helmet>
         <title>Pricing | AlgoForce</title>
-        <meta name="description" content="AlgoForce pricing is determined after a Business Assessment. Every deployment is scoped to your business size, integrations, and security requirements." />
+        <meta name="description" content="AlgoForce pricing is determined after a product demo and discovery conversation. Every deployment is scoped to your business size, integrations, and security requirements." />
         <link rel="canonical" href="https://www.algoforceaii.com/pricing" />
       </Helmet>
 
@@ -94,7 +94,7 @@ const Pricing = () => {
             </span>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-tight text-gray-900 mb-6">
-              Assessment → Implementation →{' '}
+              Demo → Discovery → Deployment →{' '}
               <span className="premium-serif italic font-normal text-purple-600">Subscription.</span>
             </h1>
 
@@ -102,14 +102,14 @@ const Pricing = () => {
               Every company is different.
             </p>
             <p className="max-w-2xl mx-auto text-sm leading-relaxed text-gray-400 mb-10 font-normal">
-              Pricing depends on company size, users, existing software, required integrations, deployment environment, and support requirements. Final pricing is shared after the Business Assessment.
+              Pricing depends on company size, users, existing software, required integrations, deployment environment and support requirements. Final pricing is shared after we confirm the product fit and deployment scope.
             </p>
 
             <Link
               to="/contact"
               className="inline-flex items-center justify-center gap-2 rounded-full bg-gray-900 px-8 py-4 text-sm font-bold text-white transition-all hover:bg-gray-800 shadow-md"
             >
-              Book Business Assessment <FaArrowRight size={11} />
+              Book a Demo <FaArrowRight size={11} />
             </Link>
           </motion.div>
         </div>
@@ -130,8 +130,8 @@ const Pricing = () => {
                 <FaSearch />
               </div>
               <span className="text-[9px] font-black uppercase text-gray-400 tracking-widest">Step 01</span>
-              <h3 className="text-lg font-bold text-gray-900 mt-1 mb-2">Business Assessment</h3>
-              <p className="text-xs text-purple-600 font-bold mb-4">Every project begins with understanding your business.</p>
+              <h3 className="text-lg font-bold text-gray-900 mt-1 mb-2">Product Demo & Discovery</h3>
+              <p className="text-xs text-purple-600 font-bold mb-4">Start with the relevant product and operational outcome.</p>
               <ul className="space-y-2.5 text-xs text-gray-500 font-normal">
                 <li>Study operational workflows</li>
                 <li>Audit existing databases</li>
@@ -223,21 +223,21 @@ const Pricing = () => {
       <section className="py-16 md:py-24 bg-[#fcfdff] border-b border-gray-100">
         <div className="max-w-3xl mx-auto px-6 text-center">
           <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-purple-600">Start here</span>
-          <h2 className="text-2xl md:text-3xl font-black text-gray-900 mt-2 mb-6">Business Assessment</h2>
+          <h2 className="text-2xl md:text-3xl font-black text-gray-900 mt-2 mb-6">Book a Product Demo</h2>
           <p className="text-sm text-gray-500 font-normal leading-relaxed mb-3 max-w-xl mx-auto">
-            Every engagement begins with a Business Assessment.
+            Every buying journey begins with the product and business result you want to improve.
           </p>
           <p className="text-sm text-gray-500 font-normal leading-relaxed mb-3 max-w-xl mx-auto">
-            The assessment identifies operational bottlenecks, reviews your existing systems, recommends the right AI products, and produces a deployment roadmap.
+            If there is a fit, discovery and a business assessment identify deployment requirements, confirm system compatibility and produce a proposal.
           </p>
           <p className="text-xs text-gray-400 font-normal leading-relaxed mb-10 max-w-xl mx-auto">
-            For qualified businesses, the assessment fee may be credited toward implementation.
+            Your proposal will clearly set out the product scope, implementation plan and ongoing support model.
           </p>
           <Link
             to="/contact"
             className="inline-flex items-center justify-center gap-2 rounded-full bg-gray-900 px-8 py-4 text-sm font-bold text-white transition-all hover:bg-gray-800 shadow-md"
           >
-            Book Business Assessment <FaArrowRight size={11} />
+            Book a Demo <FaArrowRight size={11} />
           </Link>
         </div>
       </section>

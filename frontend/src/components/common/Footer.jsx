@@ -29,7 +29,7 @@ const Footer = () => {
             </div>
 
             <p className="mb-8 text-gray-500 max-w-sm font-medium leading-[1.8]">
-              AlgoForce builds AI software products for business operations. We deploy, integrate, and manage AI products for finance, sales, HR, and manufacturing.
+              AlgoForce is an Enterprise AI Software Company. We deploy, integrate and support software that automates business operations.
             </p>
 
             <div className="mb-8 flex flex-col gap-3 max-w-sm text-gray-500 text-sm font-medium leading-relaxed">
@@ -71,11 +71,11 @@ const Footer = () => {
             <ul className="space-y-4">
               {[
                 { name: 'Finance', path: '/services' },
-                { name: 'Sales', path: '/services' },
-                { name: 'HR', path: '/services' },
-                { name: 'Manufacturing', path: '/services' },
-                { name: 'Hospitality', path: '/services' },
-                { name: 'Knowledge', path: '/services' }
+                { name: 'Sales', path: '/products' },
+                { name: 'HR', path: '/products' },
+                { name: 'Manufacturing', path: '/products' },
+                { name: 'Hospitality', path: '/products' },
+                { name: 'Knowledge', path: '/products' }
               ].map(link => (
                 <li key={link.name}>
                   <Link to={link.path} className="text-gray-500 hover:text-white transition-colors text-sm font-bold italic">
@@ -93,9 +93,13 @@ const Footer = () => {
               {[
                 { name: 'About', path: '/about' },
                 { name: 'Labs', path: '/labs' },
+                { name: 'Orion', path: '/orion' },
+                { name: 'Engineering Program', path: '/orion/join' },
+                { name: 'Research', path: '/labs' },
+                { name: 'Research Papers', path: '/labs' },
                 { name: 'Careers', path: '/labs' },
-                { name: 'Blog', path: '/blog' },
-                { name: 'Resources', path: '/blog' }
+                { name: 'Universities', path: '/labs' },
+                { name: 'Crucible', path: '/crucible' }
               ].map(link => (
                 <li key={link.name}>
                   <Link to={link.path} className="text-gray-500 hover:text-white transition-colors text-sm font-bold italic">
@@ -106,12 +110,13 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Assessment Column */}
+          {/* Deployment Column */}
           <div>
-            <h4 className="mb-8 text-[10px] font-black uppercase tracking-[0.3em] text-purple-600 italic">Assessment</h4>
+            <h4 className="mb-8 text-[10px] font-black uppercase tracking-[0.3em] text-purple-600 italic">Start a Deployment</h4>
             <ul className="space-y-4">
               {[
-                { name: 'Implementation', path: '/pricing' },
+                { name: 'Book a Demo', path: '/contact' },
+                { name: 'How It Works', path: '/#how-it-works' },
                 { name: 'Pricing', path: '/pricing' },
                 { name: 'Support', path: '/contact' },
                 { name: 'Contact', path: '/contact' }
