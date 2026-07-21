@@ -394,7 +394,6 @@ const seoConfig = {
     canonical: `${siteUrl}/labs`,
     schemaType: "EducationalOrganization",
   },
-  "/training": {
   "/orion": {
     title: "Orion | Advanced Aerospace Research Division | AlgoForce",
     description: "Orion is AlgoForce's advanced aerospace research division exploring autonomous orbital systems, intelligent satellite technologies, robotics, simulation and modular space infrastructure.",
