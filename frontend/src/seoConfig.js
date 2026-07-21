@@ -395,6 +395,25 @@ const seoConfig = {
     schemaType: "EducationalOrganization",
   },
   "/training": {
+  "/orion": {
+    title: "Orion | Advanced Aerospace Research Division | AlgoForce",
+    description: "Orion is AlgoForce's advanced aerospace research division exploring autonomous orbital systems, intelligent satellite technologies, robotics, simulation and modular space infrastructure.",
+    keywords: "Orion aerospace research, orbital systems research, satellite systems, autonomous robotics, space technology research, AlgoForce Orion",
+    image: ogImage,
+    robots: "index, follow",
+    canonical: `${siteUrl}/orion`,
+    schemaType: "ResearchOrganization",
+  },
+  "/orion/join": {
+    title: "Join Orion Engineering Program | AlgoForce",
+    description: "Join the Orion Engineering Program, AlgoForce's long-term aerospace research community for engineers, researchers and multidisciplinary builders.",
+    keywords: "Orion Engineering Program, aerospace engineering community, satellite systems research, robotics research, AlgoForce careers",
+    image: ogImage,
+    robots: "index, follow",
+    canonical: `${siteUrl}/orion/join`,
+    schemaType: "WebPage",
+  },
+  "/training": {
     title: "AlgoForce Labs — Talent Engine Building Real AI Copilots | New Delhi",
     description: "AlgoForce Labs is the talent engine behind AlgoForce's AI copilots — training IIT/NIT engineers and developers by building real enterprise products.",
     keywords: combineKeywords(pageKeywords.labs, coreKeywords),

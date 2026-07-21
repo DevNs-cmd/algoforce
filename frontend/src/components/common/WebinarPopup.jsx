@@ -88,7 +88,7 @@ const WebinarPopup = () => {
               <div className="inline-flex items-center gap-2 rounded-full border border-[#8f38ff]/25 bg-[#8f38ff]/5 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-[#6e24ca]">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#b98448]" /> Orion Engineering Program
               </div>
-              <h2 id="orion-popup-title" className="mt-5 text-2xl font-semibold leading-tight tracking-tight sm:text-3xl">Build the future beyond Earth.</h2>
+              <h2 id="orion-popup-title" className="mt-5 text-2xl font-semibold leading-tight tracking-tight text-[#06101d] sm:text-3xl">Build the future beyond Earth.</h2>
               <p className="mt-4 text-sm leading-relaxed text-slate-600">
                 AlgoForce is forming Orion—an advanced aerospace engineering initiative focused on autonomous spacecraft, orbital infrastructure, robotics, AI systems and next-generation space technologies.
               </p>
