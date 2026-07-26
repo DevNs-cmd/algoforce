@@ -13,7 +13,9 @@ import {
   FaWindows,
   FaApple,
   FaLinux,
-  FaShieldAlt
+  FaShieldAlt,
+  FaRocket,
+  FaBolt
 } from 'react-icons/fa'
 import SeoHead from '../components/common/SeoHead'
 import { getProductBySlug } from '../data/productDetails'
@@ -36,78 +38,142 @@ const ProductDetail = () => {
       <SeoHead path={`/products/${productSlug}`} />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden border-b border-[#06101d]/8 bg-white pt-32 pb-14 md:pt-36 md:pb-20">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-[-12rem] right-[-8rem] h-[28rem] w-[28rem] rounded-full bg-[#8f38ff]/10 blur-[90px]" />
-          <div className="absolute bottom-[-12rem] left-[-10rem] h-[30rem] w-[30rem] rounded-full bg-[#062f4f]/10 blur-[100px]" />
+      <section className="relative overflow-hidden border-b border-[#06101d]/8 bg-gradient-to-b from-[#fbfbfe] via-white to-[#f4f6fc] pt-32 pb-16 md:pt-36 md:pb-24">
+        {/* Dynamic ambient glow elements */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute top-[-10rem] right-[-6rem] h-[32rem] w-[32rem] rounded-full bg-[#8f38ff]/12 blur-[100px]" />
+          <div className="absolute bottom-[-10rem] left-[-8rem] h-[34rem] w-[34rem] rounded-full bg-[#00adef]/10 blur-[110px]" />
+          <div className="absolute top-1/2 left-1/3 h-[20rem] w-[20rem] rounded-full bg-purple-500/5 blur-[90px]" />
         </div>
 
         <div className="relative mx-auto max-w-7xl px-5 sm:px-6">
           <Link to="/products" className="mb-8 inline-flex items-center gap-2 text-xs font-bold text-slate-500 transition-colors hover:text-[#8f38ff]">
             <FaArrowLeft size={10} /> All products
           </Link>
-          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+          
+          <div className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+            {/* Left Column: Heading, Badges, Tagline & Highlights */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#06101d]/10 bg-[#f7f9fc] px-4 py-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#8f38ff]" />
-                <span className="text-[10px] font-semibold uppercase text-slate-500">{product.function} software</span>
+              <div className="mb-6 flex flex-wrap items-center gap-2.5">
+                <div className="inline-flex items-center gap-2 rounded-full border border-[#8f38ff]/20 bg-[#8f38ff]/8 px-4 py-1.5 backdrop-blur-md">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#8f38ff] opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#8f38ff]" />
+                  </span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#8f38ff]">
+                    {product.function} SOFTWARE
+                  </span>
+                </div>
+
+                {isFinanceAI && (
+                  <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-700">
+                    <FaBolt className="text-emerald-500" size={10} />
+                    <span>TallyGPT v1.0 Desktop Ready</span>
+                  </div>
+                )}
               </div>
-              <h1 className="mb-5 max-w-4xl text-[2.45rem] font-semibold leading-[1.03] tracking-tight sm:text-5xl md:text-6xl lg:text-[4.1rem]">
+
+              <h1 className="mb-5 max-w-4xl text-[2.5rem] font-semibold leading-[1.02] tracking-tight sm:text-5xl md:text-6xl lg:text-[4.25rem]">
                 {product.name}
               </h1>
-              <p className="max-w-2xl text-lg leading-relaxed text-slate-600 md:text-xl">
+
+              <p className="max-w-2xl text-lg leading-relaxed text-slate-600 md:text-xl font-normal">
                 {product.tagline}
               </p>
 
+              {/* OS Compatibility Chips */}
               {isFinanceAI && (
-                <div className="mt-6 flex flex-wrap items-center gap-3">
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-500/20 bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
-                    <FaWindows className="text-[#00adef]" /> Windows 10/11
+                <div className="mt-7 flex flex-wrap items-center gap-3">
+                  <span className="inline-flex items-center gap-2 rounded-xl border border-blue-500/20 bg-gradient-to-r from-blue-50 to-cyan-50 px-3.5 py-2 text-xs font-bold text-blue-700 shadow-sm transition-transform hover:scale-[1.02]">
+                    <FaWindows className="text-[#00adef]" size={14} />
+                    <span>Windows 10 / 11 (64-bit)</span>
                   </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-300 bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
-                    <FaApple className="text-slate-800" /> macOS
+                  <span className="inline-flex items-center gap-2 rounded-xl border border-slate-300/70 bg-slate-100/80 px-3.5 py-2 text-xs font-bold text-slate-800 shadow-sm transition-transform hover:scale-[1.02]">
+                    <FaApple className="text-slate-900" size={14} />
+                    <span>macOS Monterey+</span>
                   </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-orange-200 bg-orange-50 px-3 py-1 text-xs font-semibold text-orange-800">
-                    <FaLinux className="text-orange-600" /> Linux
+                  <span className="inline-flex items-center gap-2 rounded-xl border border-orange-200 bg-orange-50/80 px-3.5 py-2 text-xs font-bold text-orange-900 shadow-sm transition-transform hover:scale-[1.02]">
+                    <FaLinux className="text-orange-600" size={14} />
+                    <span>Linux AppImage</span>
                   </span>
                 </div>
               )}
+
+              {/* Quick Feature Highlights */}
+              <div className="mt-9 grid grid-cols-3 gap-3 border-t border-slate-200/80 pt-6 max-w-xl">
+                <div className="rounded-2xl border border-slate-200/60 bg-white/70 p-3.5 text-center shadow-sm">
+                  <div className="text-lg md:text-xl font-bold text-[#06101d]">10x</div>
+                  <div className="text-[10px] font-bold uppercase text-slate-500 tracking-wider mt-0.5">Faster Sync</div>
+                </div>
+                <div className="rounded-2xl border border-slate-200/60 bg-white/70 p-3.5 text-center shadow-sm">
+                  <div className="text-lg md:text-xl font-bold text-[#8f38ff]">100%</div>
+                  <div className="text-[10px] font-bold uppercase text-slate-500 tracking-wider mt-0.5">Local Privacy</div>
+                </div>
+                <div className="rounded-2xl border border-slate-200/60 bg-white/70 p-3.5 text-center shadow-sm">
+                  <div className="text-lg md:text-xl font-bold text-[#06101d]">Zero</div>
+                  <div className="text-[10px] font-bold uppercase text-slate-500 tracking-wider mt-0.5">Tally Changes</div>
+                </div>
+              </div>
             </motion.div>
 
+            {/* Right Column: Premium Action Card & Download Hub */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.08, duration: 0.7 }}
-              className="rounded-[30px] border border-[#06101d]/10 bg-[#f7f9fc] p-7 shadow-[0_24px_70px_rgba(6,47,79,0.08)] md:p-8"
+              className="relative rounded-[32px] border border-[#8f38ff]/20 bg-white/90 p-7 shadow-[0_28px_80px_rgba(143,56,255,0.14)] backdrop-blur-xl md:p-8"
             >
-              <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.22em] text-[#8f38ff]">Built for</p>
+              <div className="absolute top-0 right-8 -translate-y-1/2 rounded-full bg-gradient-to-r from-[#8f38ff] to-[#6116cd] px-3.5 py-1 text-[9px] font-bold uppercase tracking-widest text-white shadow-md">
+                Official Agent Download
+              </div>
+
+              <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.22em] text-[#8f38ff]">Built for</p>
               <p className="text-base font-semibold leading-relaxed text-[#06101d]">{product.whoItsFor}</p>
 
-              <div className="mt-7 flex flex-col gap-3">
-                <Link to={demoPath} className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#06101d] px-6 py-4 text-xs font-bold uppercase tracking-widest text-white transition-colors hover:bg-[#102640]">
+              {/* Action Buttons Stack */}
+              <div className="mt-8 space-y-3.5">
+                {isFinanceAI && (
+                  <a
+                    href="/tallygpt-desktop.exe"
+                    download="tallygpt-desktop.exe"
+                    className="group relative flex w-full flex-col items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-r from-[#8f38ff] via-[#7e25f6] to-[#6116cd] p-4 text-center text-white shadow-xl shadow-purple-500/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-purple-500/40 active:scale-[0.98]"
+                  >
+                    <div className="flex items-center gap-2 text-sm font-bold tracking-wider uppercase">
+                      <FaDownload size={15} className="group-hover:translate-y-0.5 transition-transform" />
+                      <span>Install TallyGPT for Windows</span>
+                    </div>
+                    <span className="mt-1 text-[11px] font-medium text-purple-200/90">
+                      v1.0.4 • 7.6 MB • Windows 10 & 11 (64-bit)
+                    </span>
+                  </a>
+                )}
+
+                <Link
+                  to={demoPath}
+                  className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[#06101d] px-6 py-4 text-xs font-bold uppercase tracking-widest text-white transition-all hover:bg-[#102640] shadow-md"
+                >
                   Book a demo <FaArrowRight size={9} />
                 </Link>
 
                 {isFinanceAI && (
-                  <>
-                    <a
-                      href="/tallygpt-desktop.exe"
-                      download="tallygpt-desktop.exe"
-                      className="group inline-flex w-full items-center justify-center gap-2.5 rounded-xl bg-gradient-to-r from-[#8f38ff] to-[#701ce3] px-6 py-4 text-xs font-bold uppercase tracking-widest text-white shadow-lg shadow-purple-500/25 transition-all hover:scale-[1.01] hover:shadow-purple-500/40"
-                    >
-                      <FaDownload size={13} className="group-hover:translate-y-0.5 transition-transform" />
-                      <span>Install TallyGPT for Windows</span>
-                    </a>
-
-                    <button
-                      onClick={() => setIsModalOpen(true)}
-                      className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-[#06101d]/15 bg-white px-6 py-3 text-xs font-bold uppercase tracking-widest text-[#06101d] transition-colors hover:bg-slate-50"
-                    >
-                      <FaDesktop size={12} className="text-[#8f38ff]" /> Install for Mac & Linux
-                    </button>
-                  </>
+                  <button
+                    onClick={() => setIsModalOpen(true)}
+                    className="flex w-full items-center justify-center gap-2 rounded-2xl border border-[#06101d]/15 bg-white px-6 py-3.5 text-xs font-bold uppercase tracking-widest text-[#06101d] transition-all hover:bg-slate-50 hover:border-[#8f38ff]/40 shadow-sm"
+                  >
+                    <FaDesktop size={12} className="text-[#8f38ff]" /> Install for Mac & Linux
+                  </button>
                 )}
               </div>
+
+              {/* Trust Footer */}
+              {isFinanceAI && (
+                <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+                  <span className="flex items-center gap-1.5 text-emerald-600 font-semibold">
+                    <FaShieldAlt size={12} /> 100% On-Premises Privacy
+                  </span>
+                  <span className="font-medium text-slate-400">Tally Prime & ERP 9</span>
+                </div>
+              )}
             </motion.div>
           </div>
         </div>
