@@ -275,6 +275,40 @@ const buildSchema = (path, meta) => {
       a: "Crucible is our Startup Execution Platform, providing founders with a Startup Operating System to validate concepts, build MVPs, and scale products."
     },
     {
+    },
+    {
+      q: "What is the implementation timeline for an AI Copilot?",
+      a: "Product implementation takes 2 to 6 weeks, which covers database connection, business rule configuration, security setups, and validation testing."
+    },
+    {
+      q: "How does WhatsApp booking automation work?",
+      a: "HotelGPT and LeadBolt connect to the official WhatsApp Cloud API, allowing clients to make reservations, log details, and book slots 24/7."
+    },
+    {
+      q: "What are internal HR copilots?",
+      a: "HR copilots act as private knowledge layers, allowing employees to query internal documentation, manuals, policies, and training materials securely."
+    },
+    {
+      q: "Is business data secure with AlgoForce copilots?",
+      a: "Yes. Security is our core priority. We use end-to-end encryption, secure database channels, and can deploy copilots on private VPC cloud servers."
+    },
+    {
+      q: "How do you measure copilot performance?",
+      a: "We monitor performance metrics: reduction in entry errors, turnaround time for support tickets, lead conversion latency, and operational cost savings."
+    },
+    {
+      q: "What is the difference between AlgoForce and a traditional software vendor?",
+      a: "Traditional vendors charge high custom development retainers. AlgoForce builds specialized, pre-built AI copilots, charging a simple setup fee and a monthly subscription."
+    },
+    {
+      q: "What is the role of AlgoForce Labs?",
+      a: "AlgoForce Labs is our Talent Engine, training top developers and engineers by building real enterprise AI products."
+    },
+    {
+      q: "What is Crucible?",
+      a: "Crucible is our Startup Execution Platform, providing founders with a Startup Operating System to validate concepts, build MVPs, and scale products."
+    },
+    {
       q: "How do we get started?",
       a: "You can get started by booking a product demo on our contact page or by browsing our enterprise AI software products."
     }
@@ -334,7 +368,24 @@ const buildSchema = (path, meta) => {
         "url": url,
         "name": meta.title,
         "description": meta.description
-      }
+      },
+      ...(meta.schemaType === "SoftwareApplication" || path.includes("finance-ai") ? [
+        {
+          "@context": "https://schema.org",
+          "@type": "SoftwareApplication",
+          "name": "TallyGPT Desktop Agent - AlgoForce Finance AI",
+          "operatingSystem": "Windows 10, Windows 11, macOS 12+, Linux",
+          "applicationCategory": "FinanceApplication",
+          "downloadUrl": `${siteUrl}/tallygpt-desktop.exe`,
+          "softwareVersion": "1.0.4",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "INR"
+          },
+          "description": "Native desktop connector agent for AlgoForce Finance AI. Connects local Tally Prime & ERP 9 with natural language accounting workflows."
+        }
+      ] : [])
     ]
   };
 };
@@ -349,16 +400,27 @@ const seoConfig = {
     canonical: `${siteUrl}/`,
     schemaType: "WebPage",
   },
+  "/products/finance-ai": {
+    title: "Install TallyGPT Desktop | AlgoForce Finance AI for Windows 10/11, macOS & Linux",
+    description: "Install TallyGPT Desktop Agent to connect Tally Prime & Tally ERP 9 with AlgoForce Finance AI. Direct download for Windows 10/11, macOS and Linux. Automate ledger entries, bank reconciliation & instant financial reporting.",
+    keywords: "Install TallyGPT, TallyGPT Desktop Download, TallyGPT Windows 10, TallyGPT Windows 11, AlgoForce Finance AI, Tally Prime AI Agent, Tally ERP 9 Automation, Accounting AI Software, Install TallyGPT Desktop Agent",
+    image: ogImage,
+    robots: "index, follow",
+    canonical: `${siteUrl}/products/finance-ai`,
+    schemaType: "SoftwareApplication",
+  },
+  "/products/tallygpt": {
+    title: "Install TallyGPT Desktop | AlgoForce Finance AI for Windows 10/11, macOS & Linux",
+    description: "Install TallyGPT Desktop Agent to connect Tally Prime & Tally ERP 9 with AlgoForce Finance AI. Direct download for Windows 10/11, macOS and Linux. Automate ledger entries, bank reconciliation & instant financial reporting.",
+    keywords: "Install TallyGPT, TallyGPT Desktop Download, TallyGPT Windows 10, TallyGPT Windows 11, AlgoForce Finance AI, Tally Prime AI Agent, Tally ERP 9 Automation, Accounting AI Software, Install TallyGPT Desktop Agent",
+    image: ogImage,
+    robots: "index, follow",
+    canonical: `${siteUrl}/products/finance-ai`,
+    schemaType: "SoftwareApplication",
+  },
   "/services": {
     title: "Enterprise AI Software Products | AlgoForce Finance AI, LeadBolt, GST Autopilot | AlgoForce",
     description: "Browse AlgoForce software products for finance, sales, GST compliance, HR, hotels and manufacturing. Deploy around the systems your teams already use.",
-    keywords: combineKeywords(pageKeywords.services, coreKeywords),
-    image: ogImage,
-    robots: "index, follow",
-    canonical: `${siteUrl}/services`,
-    schemaType: "Service",
-  },
-  "/ai-consulting": {
     title: "AI Copilot Products for Enterprise | Business Automation | AlgoForce",
     description: "AlgoForce builds pre-configured AI copilots for business operations. Subscription-based AI products for finance, sales, compliance, and more.",
     keywords: combineKeywords(pageKeywords.services, coreKeywords),

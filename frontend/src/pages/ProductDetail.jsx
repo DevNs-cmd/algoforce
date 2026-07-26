@@ -1,23 +1,41 @@
+import { useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { FaArrowLeft, FaArrowRight, FaCheckCircle, FaClock, FaLink, FaUserTie } from 'react-icons/fa'
+import {
+  FaArrowLeft,
+  FaArrowRight,
+  FaCheckCircle,
+  FaClock,
+  FaLink,
+  FaUserTie,
+  FaDownload,
+  FaDesktop,
+  FaWindows,
+  FaApple,
+  FaLinux,
+  FaShieldAlt
+} from 'react-icons/fa'
 import SeoHead from '../components/common/SeoHead'
 import { getProductBySlug } from '../data/productDetails'
+import TallyGPTInstallSection from '../components/sections/TallyGPTInstallSection'
 
 const ProductDetail = () => {
   const { productSlug } = useParams()
   const product = getProductBySlug(productSlug)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   if (!product) {
     return <Navigate to="/products" replace />
   }
 
+  const isFinanceAI = product.slug === 'finance-ai'
   const demoPath = `/contact?interest=${encodeURIComponent(product.name)}`
 
   return (
     <main className="min-h-screen bg-[#f7f9fc] text-[#06101d]">
-      <SeoHead path="/products" />
+      <SeoHead path={`/products/${productSlug}`} />
 
+      {/* Hero Section */}
       <section className="relative overflow-hidden border-b border-[#06101d]/8 bg-white pt-32 pb-14 md:pt-36 md:pb-20">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-[-12rem] right-[-8rem] h-[28rem] w-[28rem] rounded-full bg-[#8f38ff]/10 blur-[90px]" />
@@ -40,6 +58,20 @@ const ProductDetail = () => {
               <p className="max-w-2xl text-lg leading-relaxed text-slate-600 md:text-xl">
                 {product.tagline}
               </p>
+
+              {isFinanceAI && (
+                <div className="mt-6 flex flex-wrap items-center gap-3">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-500/20 bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
+                    <FaWindows className="text-[#00adef]" /> Windows 10/11
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-300 bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
+                    <FaApple className="text-slate-800" /> macOS
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-orange-200 bg-orange-50 px-3 py-1 text-xs font-semibold text-orange-800">
+                    <FaLinux className="text-orange-600" /> Linux
+                  </span>
+                </div>
+              )}
             </motion.div>
 
             <motion.div
@@ -50,14 +82,43 @@ const ProductDetail = () => {
             >
               <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.22em] text-[#8f38ff]">Built for</p>
               <p className="text-base font-semibold leading-relaxed text-[#06101d]">{product.whoItsFor}</p>
-              <Link to={demoPath} className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#06101d] px-6 py-4 text-xs font-bold uppercase tracking-widest text-white transition-colors hover:bg-[#102640]">
-                Book a demo <FaArrowRight size={9} />
-              </Link>
+
+              <div className="mt-7 flex flex-col gap-3">
+                <Link to={demoPath} className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#06101d] px-6 py-4 text-xs font-bold uppercase tracking-widest text-white transition-colors hover:bg-[#102640]">
+                  Book a demo <FaArrowRight size={9} />
+                </Link>
+
+                {isFinanceAI && (
+                  <>
+                    <a
+                      href="/tallygpt-desktop.exe"
+                      download="tallygpt-desktop.exe"
+                      className="group inline-flex w-full items-center justify-center gap-2.5 rounded-xl bg-gradient-to-r from-[#8f38ff] to-[#701ce3] px-6 py-4 text-xs font-bold uppercase tracking-widest text-white shadow-lg shadow-purple-500/25 transition-all hover:scale-[1.01] hover:shadow-purple-500/40"
+                    >
+                      <FaDownload size={13} className="group-hover:translate-y-0.5 transition-transform" />
+                      <span>Install TallyGPT for Windows</span>
+                    </a>
+
+                    <button
+                      onClick={() => setIsModalOpen(true)}
+                      className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-[#06101d]/15 bg-white px-6 py-3 text-xs font-bold uppercase tracking-widest text-[#06101d] transition-colors hover:bg-slate-50"
+                    >
+                      <FaDesktop size={12} className="text-[#8f38ff]" /> Install for Mac & Linux
+                    </button>
+                  </>
+                )}
+              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
+      {/* Dedicated TallyGPT Installation & Desktop Agent Section for Finance AI */}
+      {isFinanceAI && (
+        <TallyGPTInstallSection isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      )}
+
+      {/* Problem & Audience */}
       <section className="mx-auto grid max-w-7xl gap-6 px-5 py-14 sm:px-6 md:grid-cols-2 md:py-20">
         <article className="rounded-[28px] border border-[#06101d]/10 bg-white p-7 shadow-[0_20px_55px_rgba(6,47,79,0.05)] md:p-8">
           <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.22em] text-[#8f38ff]">The problem</p>
@@ -71,6 +132,7 @@ const ProductDetail = () => {
         </article>
       </section>
 
+      {/* Outcomes & Features */}
       <section className="border-y border-[#06101d]/8 bg-white">
         <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 sm:px-6 md:grid-cols-2 md:py-20">
           <div>
@@ -100,6 +162,7 @@ const ProductDetail = () => {
         </div>
       </section>
 
+      {/* Integrations, Timeline & Pricing */}
       <section className="mx-auto max-w-7xl px-5 py-14 sm:px-6 md:py-20">
         <div className="grid gap-6 lg:grid-cols-3">
           <article className="rounded-[28px] border border-[#06101d]/10 bg-white p-7 shadow-[0_20px_55px_rgba(6,47,79,0.05)]">
@@ -125,6 +188,7 @@ const ProductDetail = () => {
         </div>
       </section>
 
+      {/* Product Screens */}
       <section className="border-y border-[#06101d]/8 bg-white">
         <div className="mx-auto max-w-7xl px-5 py-14 sm:px-6 md:py-20">
           <div className="mb-10 max-w-2xl">
@@ -144,6 +208,7 @@ const ProductDetail = () => {
         </div>
       </section>
 
+      {/* FAQ */}
       <section className="mx-auto max-w-5xl px-5 py-14 sm:px-6 md:py-20">
         <div className="mb-8 text-center">
           <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.22em] text-[#8f38ff]">FAQ</p>
@@ -159,15 +224,29 @@ const ProductDetail = () => {
         </div>
       </section>
 
+      {/* Bottom CTA */}
       <section className="bg-[#06101d] px-5 py-14 text-white sm:px-6 md:py-20">
         <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-8 text-center md:flex-row md:text-left">
           <div className="max-w-2xl">
             <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.22em] text-purple-300">Next step</p>
             <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">See {product.name} in the context of your operation.</h2>
           </div>
-          <Link to={demoPath} className="inline-flex shrink-0 items-center justify-center gap-3 rounded-xl bg-white px-7 py-4 text-xs font-bold uppercase tracking-widest text-[#06101d] transition-colors hover:bg-slate-100">
-            Book a demo <FaArrowRight size={9} />
-          </Link>
+
+          <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
+            <Link to={demoPath} className="inline-flex shrink-0 items-center justify-center gap-3 rounded-xl bg-white px-7 py-4 text-xs font-bold uppercase tracking-widest text-[#06101d] transition-colors hover:bg-slate-100">
+              Book a demo <FaArrowRight size={9} />
+            </Link>
+
+            {isFinanceAI && (
+              <a
+                href="/tallygpt-desktop.exe"
+                download="tallygpt-desktop.exe"
+                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-purple-600 px-6 py-4 text-xs font-bold uppercase tracking-widest text-white transition-colors hover:bg-purple-500"
+              >
+                <FaDownload size={12} /> Install TallyGPT for Windows
+              </a>
+            )}
+          </div>
         </div>
       </section>
     </main>
