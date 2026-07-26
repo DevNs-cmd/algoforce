@@ -105,12 +105,12 @@ const Contact = () => {
 
       <div className="min-h-screen pt-24 bg-[#f6f8fb] text-[#06101d]">
         {/* Hero Section */}
-        <section className="relative overflow-hidden py-18 md:py-24 text-white bg-[#03070d] border-b border-white/5">
+        <section className="relative overflow-hidden py-16 md:py-24 text-white bg-[#03070d] border-b border-white/5">
           <PageVideoBackdrop src="/video1.mp4" className="z-0" videoClassName="opacity-[0.22]" />
           <div className="absolute inset-0 subtle-ai-grid opacity-45" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(143,56,255,0.18),transparent_34rem)]" />
           
-          <div className="relative z-10 px-6 mx-auto text-center max-w-7xl">
+          <div className="relative z-10 px-4 sm:px-6 mx-auto text-center max-w-7xl">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}

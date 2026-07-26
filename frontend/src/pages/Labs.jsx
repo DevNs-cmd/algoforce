@@ -183,17 +183,17 @@ const Labs = () => {
 
     {/* Labs Directory and Cards */}
     <section className="mx-auto max-w-7xl px-5 py-14 sm:px-6 md:py-20">
-        <div className="grid gap-8 lg:grid-cols-[320px_minmax(0,1fr)] lg:items-start">
+        <div className="grid gap-8 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
             
-            {/* Sidebar Navigator */}
+            {/* Sidebar Navigator — horizontal scroll on mobile, vertical on lg */}
             <aside className="rounded-[30px] border border-[#06101d]/10 bg-white p-4 shadow-[0_24px_70px_rgba(6,47,79,0.08)] md:p-5">
                 <p className="mb-3 px-2 text-[11px] font-semibold uppercase text-[#8f38ff]">Directory</p>
-                <div className="grid gap-2">
+                <div className="flex gap-2 overflow-x-auto pb-1 lg:grid lg:gap-2 lg:overflow-x-visible lg:pb-0 scrollbar-hide">
                     {TABS.map((tab) => (
                         <button
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
-                            className={`rounded-[18px] px-4 py-4 text-left text-sm font-bold transition-all ${
+                            className={`rounded-[18px] px-4 py-3 lg:py-4 text-left text-sm font-bold transition-all whitespace-nowrap flex-shrink-0 lg:flex-shrink lg:w-full ${
                                 activeTab === tab.id 
                                     ? 'bg-[#06101d] text-white shadow-[0_14px_32px_rgba(6,16,29,0.18)]' 
                                     : 'bg-[#f7f9fc] text-slate-500 hover:text-[#06101d]'

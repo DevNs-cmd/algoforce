@@ -124,22 +124,41 @@ const WhyAlgoForce = () => {
                 className="overflow-hidden"
               >
                 <div className="rounded-[28px] bg-gray-50 border border-gray-100 overflow-hidden shadow-sm max-w-5xl mx-auto mb-10">
-                  <div className="grid grid-cols-3 bg-black text-white p-6 font-bold uppercase text-[10px] sm:text-[11px] tracking-widest text-center">
+                  {/* Desktop table header */}
+                  <div className="hidden md:grid grid-cols-3 bg-black text-white p-6 font-bold uppercase text-[10px] sm:text-[11px] tracking-widest text-center">
                     <div className="text-left">Factor</div>
                     <div>Traditional project model</div>
                     <div className="text-purple-400 font-bold">AlgoForce product model</div>
                   </div>
+                  {/* Mobile table header */}
+                  <div className="md:hidden bg-black text-white p-4 font-bold uppercase text-[10px] tracking-widest flex justify-between">
+                    <span>Traditional</span>
+                    <span className="text-purple-400">AlgoForce</span>
+                  </div>
                   {[
-                    { factor: 'Time to value', trad: 'Start with a blank build', af: 'Deploy a proven product around your workflow' },
-                    { factor: 'Cost control', trad: 'Variable project scope and change requests', af: 'A defined deployment and ongoing support model' },
-                    { factor: 'Team capacity', trad: 'Manual work remains with the team', af: 'Automate repeatable operational work' },
-                    { factor: 'Improvement', trad: 'Maintenance becomes a separate project', af: 'Product updates and support continue after launch' }
+                    { factor: 'Time to value', trad: 'Blank build', af: 'Deploy proven product' },
+                    { factor: 'Cost control', trad: 'Variable scope', af: 'Defined model' },
+                    { factor: 'Team capacity', trad: 'Manual work remains', af: 'Automate operations' },
+                    { factor: 'Improvement', trad: 'Separate project', af: 'Continuous updates' }
                   ].map((row, i) => (
-                    <div key={i} className={`grid grid-cols-3 gap-3 p-4 sm:p-5 border-t border-gray-100 text-xs font-bold items-center text-center ${i % 2 === 0 ? 'bg-white' : ''}`}>
-                      <div className="text-left text-gray-400 uppercase tracking-widest text-[9px]">{row.factor}</div>
-                      <div className="text-red-500 opacity-60 line-through decoration-black decoration-2">{row.trad}</div>
-                      <div className="text-purple-600 font-bold flex items-center justify-center gap-1.5">
-                        <FaCheckCircle className="text-[10px] flex-shrink-0" /> {row.af}
+                    <div key={i} className={`border-t border-gray-100 ${i % 2 === 0 ? 'bg-white' : ''}`}>
+                      {/* Desktop row */}
+                      <div className="hidden md:grid grid-cols-3 gap-3 p-4 sm:p-5 text-xs font-bold items-center text-center">
+                        <div className="text-left text-gray-400 uppercase tracking-widest text-[9px]">{row.factor}</div>
+                        <div className="text-red-500 opacity-60 line-through decoration-black decoration-2">{row.trad}</div>
+                        <div className="text-purple-600 font-bold flex items-center justify-center gap-1.5">
+                          <FaCheckCircle className="text-[10px] flex-shrink-0" /> {row.af}
+                        </div>
+                      </div>
+                      {/* Mobile row */}
+                      <div className="md:hidden p-4">
+                        <p className="text-[9px] font-bold uppercase tracking-widest text-gray-400 mb-1">{row.factor}</p>
+                        <div className="flex items-start gap-3">
+                          <span className="text-red-400 line-through text-xs flex-1">{row.trad}</span>
+                          <span className="text-purple-600 font-bold text-xs flex items-center gap-1 flex-1">
+                            <FaCheckCircle className="text-[10px] flex-shrink-0" /> {row.af}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   ))}

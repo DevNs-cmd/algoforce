@@ -126,7 +126,7 @@ export default function TallyGPTInstallSection({ isModalOpen, setIsModalOpen }) 
         </div>
 
         {/* OS Platform Selector Tabs */}
-        <div className="mb-10 flex flex-wrap items-center justify-center gap-3">
+        <div className="mb-10 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center justify-center gap-3">
           {OS_PLATFORMS.map((platform) => {
             const Icon = platform.icon
             const isActive = activeTab === platform.id
@@ -134,7 +134,7 @@ export default function TallyGPTInstallSection({ isModalOpen, setIsModalOpen }) 
               <button
                 key={platform.id}
                 onClick={() => setActiveTab(platform.id)}
-                className={`relative flex items-center gap-3 rounded-2xl px-6 py-4 font-semibold transition-all duration-300 ${isActive
+                className={`relative flex items-center gap-3 rounded-2xl px-5 sm:px-6 py-3.5 sm:py-4 font-semibold transition-all duration-300 ${isActive
                     ? 'border border-purple-500/50 bg-[#121c2d] text-white shadow-[0_10px_30px_rgba(143,56,255,0.25)]'
                     : 'border border-white/10 bg-white/5 text-slate-400 hover:border-white/20 hover:bg-white/10 hover:text-white'
                   }`}

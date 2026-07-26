@@ -16,10 +16,10 @@ const Footer = () => {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent" />
 
       <div className="px-6 py-12 md:py-20 mx-auto max-w-7xl relative z-10">
-        <div className="grid grid-cols-1 gap-16 md:grid-cols-5">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 xl:gap-16">
 
           {/* Brand */}
-          <div className="md:col-span-2">
+          <div className="sm:col-span-2 md:col-span-3 xl:col-span-2">
             <div className="flex items-center mb-8">
               <Link to="/" className="inline-block">
                 <div className="bg-white px-4 py-2 rounded-2xl flex items-center justify-center border border-white/10 shadow-[0_8px_24px_rgba(255,255,255,0.04)]">

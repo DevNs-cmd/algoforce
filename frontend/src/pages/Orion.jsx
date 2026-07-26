@@ -248,13 +248,13 @@ const Orion = () => {
             <h2 className="max-w-3xl text-4xl font-semibold leading-[1.04] tracking-[-0.04em] md:text-5xl">Spacecraft are launched, operated in isolation, and abandoned.</h2>
           </FadeIn>
         </div>
-        <div className="mt-16 grid border-l border-t border-[#10223b]/10 md:grid-cols-3">
+        <div className="mt-16 grid gap-px bg-[#10223b]/10 border border-[#10223b]/10 rounded-2xl overflow-hidden md:grid-cols-3">
           {[
             { title: 'Single-Use Spacecraft', desc: 'Launched, operated, and decommissioned once fuel or key components degrade.' },
             { title: 'No In-Orbit Servicing', desc: 'Absence of standardized docking interfaces for maintenance or refueling.' },
             { title: 'Fragmented Operations', desc: 'Isolated ground operations lacking distributed autonomy and digital twins.' },
           ].map((p, i) => (
-            <FadeIn key={p.title} delay={i * 0.08} className="border-b border-r border-[#10223b]/10 px-6 py-8 sm:px-8 md:py-10">
+            <FadeIn key={p.title} delay={i * 0.08} className="bg-[#f7f9fc] px-6 py-8 sm:px-8 md:py-10">
               <span className="text-[10px] font-bold tracking-[0.16em] text-[#b98448]">0{i + 1}</span>
               <h3 className="mt-4 text-xl font-semibold tracking-tight">{p.title}</h3>
               <p className="mt-3 text-xs leading-relaxed text-slate-600">{p.desc}</p>
