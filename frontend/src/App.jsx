@@ -62,8 +62,6 @@ const DeferredMarketingWidgets = () => {
   const [shouldRender, setShouldRender] = useState(false)
 
   useEffect(() => {
-    // Avoid competing with the first paint and hero video on lower-powered
-    // devices. The widgets still load shortly after the page is interactive.
     const isMobile = window.matchMedia('(max-width: 767px)').matches
     const timer = window.setTimeout(() => setShouldRender(true), isMobile ? 2400 : 900)
 
@@ -78,7 +76,6 @@ const DeferredMarketingWidgets = () => {
     </Suspense>
   )
 }
-
 
 // Conditionally show footer and chatbot (not on Workspace, Admin, or Labs Portal pages)
 const AppShell = () => {
@@ -139,7 +136,7 @@ const AppShell = () => {
       <SeoHead path={location.pathname} />
       <SplashScreen />
       {!hideMarketingShells && <Navigation />}
-      <div className="relative z-10">
+      <main id="main-content" className="relative z-10">
         {!hideMarketingShells && location.pathname !== '/' && <Breadcrumbs />}
 
         <Suspense fallback={<PageLoader />}>
@@ -195,7 +192,7 @@ const AppShell = () => {
         </Suspense>
 
         {!hideMarketingShells && <Footer />}
-      </div>
+      </main>
       {!hideMarketingShells && <DeferredMarketingWidgets />}
     </div>
   )

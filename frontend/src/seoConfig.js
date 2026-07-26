@@ -1,86 +1,144 @@
 const siteUrl = "https://www.algoforceaii.com";
-const siteName = "AlgoForce";
-const ogImage = `${siteUrl}/logo.png`;
- 
+const siteName = "AlgoForce AI";
+const defaultOgImage = `${siteUrl}/logo.png`;
+
+// High-intent enterprise keywords for AEO, GEO, and Search Engines
 const coreKeywords = [
-  "AI Software Company",
-  "AI Software Products",
-  "AlgoForce Finance AI",
-  "LeadBolt Lead Management Software",
-  "GST Autopilot Automation",
+  "Enterprise AI Software Company",
+  "AI Software Company India",
+  "AI Consulting Company",
   "Business Process Automation",
-  "AI Automation Company",
-  "Workflow Automation",
-  "AI Software for Business",
-  "Business Automation Company",
-  "AI Integration Company",
+  "Enterprise Automation Solutions",
   "AI for Manufacturing",
-  "AI for Healthcare",
-  "AI for Hospitality",
-  "AI for SMEs",
+  "AI for Finance",
+  "Tally AI Integration",
+  "AI Lead Management",
   "AI Workflow Automation",
-  "Delhi AI Company",
-  "AI Company in New Delhi",
-  "Business Automation Delhi",
-  "AlgoForce",
+  "AI ERP Integration",
+  "Private AI Deployment",
+  "On-Premise AI Solutions",
+  "AI for SMEs",
+  "Enterprise AI Platform",
+  "LeadBolt Sales Copilot",
+  "AlgoForce Finance AI",
+  "FactoryGPT Quality Inspection",
+  "ORION Space Systems",
+  "Space AI Infrastructure",
+  "AI Software Company New Delhi",
+  "AlgoForce AI",
   "AlgoForce Labs",
-  "Crucible",
+  "Crucible Startup OS",
   "Velqora"
 ];
- 
-const pageKeywords = {
-  home: [
-    "AI Software Company",
-    "AI Software Products",
-    "Business Process Automation",
-    "AI Automation Company",
-    "Workflow Automation India",
-    "AI Company in New Delhi"
-  ],
-  services: [
-    "AI Software Products",
-    "Business Automation Company",
-    "AI Integration Company",
-    "AI Workflow Automation",
-    "Automation Services India",
-    "AI for Manufacturing",
-    "AI for Healthcare",
-    "AI for Hospitality"
-  ],
-  contact: [
-    "Book Product Demo",
-    "AI Software Subscription",
-    "Business AI Assessment Delhi",
-    "AI Software Company Delhi"
-  ],
-  pricing: [
-    "AI software subscription",
-    "business assessment",
-    "software setup",
-    "AI subscription"
-  ],
-  labs: [
-    "Labs Talent Training",
-    "AI training New Delhi",
-    "software development India"
-  ],
-  crucible: [
-    "startup platform India",
-    "startup platform",
-    "MVP builder India",
-    "startup platform Delhi"
-  ]
-};
 
 const combineKeywords = (...groups) =>
   [...new Set(groups.flat().filter(Boolean))].join(", ");
 
 const defaultKeywords = combineKeywords(coreKeywords);
 
-const buildSchema = (path, meta) => {
-  const url = `${siteUrl}${path === "/" ? "" : path}`;
+/**
+ * Builds an enterprise multi-entity JSON-LD @graph tailored to each route and entity
+ */
+export const buildSchema = (path, meta = {}) => {
+  const pageUrl = `${siteUrl}${path === "/" ? "" : path}`;
 
-  // 1. Breadcrumb Schema
+  // 1. Core Organization & LocalBusiness
+  const organizationSchema = {
+    "@type": ["Organization", "Corporation", "ProfessionalService", "LocalBusiness"],
+    "@id": `${siteUrl}/#organization`,
+    "name": "AlgoForce AI",
+    "legalName": "AlgoForce AI Private Limited",
+    "alternateName": ["AlgoForce", "AlgoForce Enterprise AI", "AlgoForce AI Systems"],
+    "url": siteUrl,
+    "logo": {
+      "@type": "ImageObject",
+      "@id": `${siteUrl}/#logo`,
+      "url": `${siteUrl}/logo.png`,
+      "contentUrl": `${siteUrl}/logo.png`,
+      "caption": "AlgoForce AI Logo",
+      "width": "512",
+      "height": "512"
+    },
+    "image": `${siteUrl}/logo.png`,
+    "foundingDate": "2026",
+    "description": "AlgoForce is an Enterprise AI Software Company that deploys, integrates, and supports AI software automating business operations across finance, sales, manufacturing, HR, hospitality, and operations.",
+    "email": "af@algoforceaii.com",
+    "telephone": "+91-8448947436",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Kalkaji",
+      "addressLocality": "South East Delhi",
+      "addressRegion": "New Delhi",
+      "postalCode": "110019",
+      "addressCountry": "IN"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "28.5383",
+      "longitude": "77.2520"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        "opens": "09:00",
+        "closes": "20:00"
+      }
+    ],
+    "areaServed": [
+      { "@type": "Country", "name": "India" },
+      { "@type": "AdministrativeArea", "name": "Delhi NCR" },
+      { "@type": "Place", "name": "Global" }
+    ],
+    "vatID": "MSME UDYAM-DL-08-0122150",
+    "taxID": "UDYAM-DL-08-0122150",
+    "knowsAbout": [
+      "Enterprise Artificial Intelligence",
+      "Business Process Automation",
+      "Tally ERP AI Integration",
+      "Lead Management Automation",
+      "Computer Vision Quality Inspection",
+      "Private Cloud & On-Premise AI Deployment",
+      "Autonomous Space Systems Infrastructure"
+    ],
+    "founder": {
+      "@type": "Person",
+      "@id": `${siteUrl}/#founder`,
+      "name": "Dev N Suman",
+      "jobTitle": "Founder & Chief Executive Officer",
+      "worksFor": { "@id": `${siteUrl}/#organization` },
+      "sameAs": [
+        "https://linkedin.com/in/dev-n-suman-3616a6377",
+        "https://github.com/DevNs-cmd"
+      ]
+    },
+    "sameAs": [
+      "https://www.linkedin.com/company/algoforceofficial/",
+      "https://www.instagram.com/algo.force",
+      "https://www.facebook.com/share/1BDAyoFCG1/",
+      "https://x.com/algoforceAF",
+      "https://wa.me/918448947436",
+      "https://g.page/r/CSblxr3Io_B5EBM/review"
+    ]
+  };
+
+  // 2. WebSite & SearchAction
+  const websiteSchema = {
+    "@type": "WebSite",
+    "@id": `${siteUrl}/#website`,
+    "url": siteUrl,
+    "name": "AlgoForce AI",
+    "description": "Enterprise AI Software Company deploying ready-to-use products that automate business operations.",
+    "publisher": { "@id": `${siteUrl}/#organization` },
+    "inLanguage": "en-US",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": `${siteUrl}/products?q={search_term_string}`,
+      "query-input": "required name=search_term_string"
+    }
+  };
+
+  // 3. BreadcrumbList
   const pathSegments = path.split("/").filter(Boolean);
   const breadcrumbElements = [
     {
@@ -102,449 +160,287 @@ const buildSchema = (path, meta) => {
   });
 
   const breadcrumbSchema = {
-    "@context": "https://schema.org",
     "@type": "BreadcrumbList",
+    "@id": `${pageUrl}#breadcrumb`,
     "itemListElement": breadcrumbElements
   };
 
-  // 2. LocalBusiness Schema
-  const localBusinessSchema = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "@id": `${siteUrl}/#localbusiness`,
-    "name": "AlgoForce",
-    "image": ogImage,
-    "url": siteUrl,
-    "telephone": "+918448947436",
-    "priceRange": "$$",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Kalkaji",
-      "addressLocality": "South East Delhi",
-      "addressRegion": "New Delhi",
-      "postalCode": "110019",
-      "addressCountry": "IN"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": "28.5398",
-      "longitude": "77.2541"
-    },
-    "openingHoursSpecification": {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-        "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"
-      ],
-      "opens": "09:00",
-      "closes": "18:00"
+  // 4. WebPage & Speakable Schema
+  const webPageSchema = {
+    "@type": ["WebPage", meta.schemaType || "ItemPage"],
+    "@id": pageUrl,
+    "url": pageUrl,
+    "name": meta.title || "AlgoForce AI — Enterprise AI Software Company",
+    "isPartOf": { "@id": `${siteUrl}/#website` },
+    "about": { "@id": `${siteUrl}/#organization` },
+    "description": meta.description || "AlgoForce AI deploys enterprise AI software automating business operations across finance, sales, manufacturing, HR, and operations.",
+    "inLanguage": "en-US",
+    "speakable": {
+      "@type": "SpeakableSpecification",
+      "cssSelector": ["h1", "h2", ".speakable-summary", "p"]
     }
   };
 
-  // 3. Organization Schema
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "@id": `${siteUrl}/#organization`,
-    "name": "AlgoForce",
-    "alternateName": ["AlgoForce", "AlgoForce Copilots"],
-    "url": siteUrl,
-    "logo": ogImage,
-    "foundingDate": "2026",
-    "founder": {
-      "@type": "Person",
-      "name": "Dev N Suman",
-      "jobTitle": "Founder & CEO",
-      "url": `${siteUrl}/founder`
-    },
-    "description": "AlgoForce is an Enterprise AI Software Company. We deploy ready-to-use products such as AlgoForce Finance AI, LeadBolt and GST Autopilot to automate business operations.",
-    "email": "af@algoforceaii.com",
-    "telephone": "+918448947436",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Kalkaji",
-      "addressLocality": "South East Delhi",
-      "addressRegion": "New Delhi",
-      "postalCode": "110019",
-      "addressCountry": "IN"
-    },
-    "areaServed": {
-      "@type": "Country",
-      "name": "India"
-    },
-    "sameAs": [
-      "https://www.linkedin.com/company/algoforceofficial/",
-      "https://x.com/algoforceAF",
-      "https://www.instagram.com/algo.force?igsh=MzRndng5bXJ6eHU4",
-      "https://www.facebook.com/share/1BDAyoFCG1/"
-    ]
-  };
+  const graph = [organizationSchema, websiteSchema, breadcrumbSchema, webPageSchema];
 
-  // 4. Service Schema mapping the services
-  const servicesCatalog = [
-    { name: "AlgoForce Finance AI", desc: "Powered by Tally integration to automate accounting workflows, reconciliation effort and exception review." },
-    { name: "LeadBolt Sales Copilot", desc: "Specialized AI copilot for 24/7 lead qualification, booking meetings, and automated CRM sync." },
-    { name: "GST Autopilot Compliance", desc: "Specialized AI copilot matching purchase registers with GSTR-2B to prevent tax leakage." },
-    { name: "HR & Onboarding Copilot", desc: "Specialized AI copilot acting as a private corporate knowledge operating layer for company memory." },
-    { name: "HotelGPT Booking Copilot", desc: "Specialized AI copilot handling 24/7 guest bookings and queries across WhatsApp and messaging." },
-    { name: "FactoryGPT & Quality Vision AI", desc: "Specialized AI copilot automating manufacturing quality control via real-time camera inspection." },
-    { name: "Business AI Assessment", desc: "One-time operations audit mapping workflows and identifying automation opportunities." }
-  ].map((srv) => ({
-    "@type": "Service",
-    "name": srv.name,
-    "description": srv.desc,
-    "provider": { "@type": "LocalBusiness", "name": "AlgoForce", "url": siteUrl },
-    "areaServed": "IN"
-  }));
+  // 5. Product & SoftwareApplication Schemas for Product / Home pages
+  if (path === "/" || path === "/products" || path.startsWith("/products/")) {
+    const productsSchema = [
+      {
+        "@type": ["SoftwareApplication", "Product"],
+        "@id": `${siteUrl}/#tallygpt`,
+        "name": "AlgoForce Finance AI",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Windows, Linux, Cloud",
+        "description": "Automates accounting work, ledger reconciliation, and invoice processing without replacing Tally ERP.",
+        "brand": { "@id": `${siteUrl}/#organization` },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "seller": { "@id": `${siteUrl}/#organization` }
+        }
+      },
+      {
+        "@type": ["SoftwareApplication", "Product"],
+        "@id": `${siteUrl}/#leadbolt`,
+        "name": "LeadBolt Sales Copilot",
+        "applicationCategory": "SalesApplication",
+        "operatingSystem": "Web, Cloud, WhatsApp",
+        "description": "Autonomous lead management software that greets, qualifies, and schedules sales calls via WhatsApp and CRM.",
+        "brand": { "@id": `${siteUrl}/#organization` },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "seller": { "@id": `${siteUrl}/#organization` }
+        }
+      },
+      {
+        "@type": ["SoftwareApplication", "Product"],
+        "@id": `${siteUrl}/#factorygpt`,
+        "name": "FactoryGPT Quality Inspection",
+        "applicationCategory": "IndustrialApplication",
+        "operatingSystem": "Edge Linux, On-Premises PLC",
+        "description": "Computer vision quality inspection software that scans camera feeds to detect defects on assembly lines.",
+        "brand": { "@id": `${siteUrl}/#organization` },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "seller": { "@id": `${siteUrl}/#organization` }
+        }
+      }
+    ];
+    graph.push(...productsSchema);
+  }
 
-  // 5. 20 SEO FAQs Schema
-  const faqsList = [
+  // 6. VideoObject Schema for Brand Film
+  if (path === "/") {
+    graph.push({
+      "@type": "VideoObject",
+      "@id": `${siteUrl}/#brand-film-video`,
+      "name": "See AlgoForce in Action — Enterprise AI Software",
+      "description": "Watch how AlgoForce deploys Enterprise AI software that automates business operations across finance, sales, manufacturing, HR and operations.",
+      "thumbnailUrl": [`${siteUrl}/poster-ai.png`],
+      "uploadDate": "2026-07-26T00:00:00+05:30",
+      "contentUrl": `${siteUrl}/algoforce-brand-film.mp4`,
+      "embedUrl": `${siteUrl}/algoforce-brand-film.mp4`,
+      "publisher": { "@id": `${siteUrl}/#organization` }
+    });
+  }
+
+  // 7. ORION Space Systems Division Schema
+  if (path === "/orion" || path === "/orion/join") {
+    graph.push({
+      "@type": ["ResearchOrganization", "GovernmentService"],
+      "@id": `${siteUrl}/orion/#division`,
+      "name": "ORION Space Systems Division — AlgoForce",
+      "alternateName": "ORION Orbital Robotics & Space AI",
+      "url": `${siteUrl}/orion`,
+      "description": "ORION is the Advanced Space Systems division of AlgoForce, engineering orbital robotics, satellite ground operations, space AI infrastructure, and autonomous flight computers.",
+      "parentOrganization": { "@id": `${siteUrl}/#organization` },
+      "knowsAbout": [
+        "Orbital Robotics",
+        "Autonomous Spacecraft Flight Systems",
+        "Space AI Infrastructure",
+        "Satellite Ground Operations",
+        "Orbital Manufacturing & Digital Twins"
+      ]
+    });
+  }
+
+  // 8. FAQPage Schema
+  const defaultFaqs = [
     {
-      q: "What does AlgoForce do?",
-      a: "AlgoForce is an Enterprise AI Software Company. We deploy ready-to-use products such as AlgoForce Finance AI, LeadBolt and GST Autopilot to automate specific business operations under a subscription model."
+      question: "What does AlgoForce AI do?",
+      answer: "AlgoForce is an Enterprise AI Software Company. We deploy, integrate, and support ready-to-use AI software products that automate business operations across finance, sales, manufacturing, HR, hospitality, and operations."
     },
     {
-      q: "What is an Enterprise AI Products Company?",
-      a: "An Enterprise AI Products Company builds specialized, pre-configured AI software and copilots designed for specific corporate functions, deployed on a subscription model."
+      question: "How does AlgoForce deploy software?",
+      answer: "AlgoForce products are deployed around the ERPs, CRMs, databases, and communication tools your team already uses. Deployment options include secure private cloud or on-premises servers."
     },
     {
-      q: "Where is AlgoForce headquartered?",
-      a: "AlgoForce is headquartered in Kalkaji, South East Delhi, New Delhi - 110019, India. We serve clients across all of India and globally."
-    },
-    {
-      q: "What happens after a product demo?",
-      a: "When there is a product fit, AlgoForce runs a focused discovery and business assessment to confirm workflows, integrations, deployment scope and support requirements."
-    },
-    {
-      q: "How can business process automation reduce manual work?",
-      a: "By deploying specialized AI copilots to automate data reconciliation, client booking, compliance reporting, and sales pipelines, companies can save hundreds of administrative hours."
-    },
-    {
-      q: "What are AI copilots for business?",
-      a: "AI copilots are pre-built, specialized software assistants configured to automate operational workflows like finance entries, CRM logs, and customer support."
-    },
-    {
-      q: "How does AlgoForce Finance AI help finance teams?",
-      a: "AlgoForce Finance AI is powered by Tally integration and helps teams automate accounting workflows, reconcile transactions and surface exceptions without replacing Tally."
-    },
-    {
-      q: "What industries does AlgoForce serve?",
-      a: "We serve Manufacturing, Healthcare, Hotels, Retail, Education, and SMEs, configuring copilots to match each sector's specific workflow requirements."
-    },
-    {
-      q: "What is the Business Assessment?",
-      a: "The Business Assessment follows product fit. It confirms the operational workflow, systems, data readiness and deployment requirements before we prepare a proposal."
-    },
-    {
-      q: "How do you integrate AI with CRM systems like Salesforce or Zoho?",
-      a: "Our LeadBolt sales copilot connects to CRM software via secure API webhooks to automate lead scoring, CRM updates, and scheduling callbacks."
-    },
-    {
-      q: "Can you connect AI copilots with legacy ERP systems?",
-      a: "Yes. AlgoForce Finance AI and other products can integrate with systems such as Tally, SAP and internal databases through a deployment plan tailored to your environment."
-    },
-    {
-      q: "What is the implementation timeline for an AI Copilot?",
-      a: "Product implementation takes 2 to 6 weeks, which covers database connection, business rule configuration, security setups, and validation testing."
-    },
-    {
-      q: "How does WhatsApp booking automation work?",
-      a: "HotelGPT and LeadBolt connect to the official WhatsApp Cloud API, allowing clients to make reservations, log details, and book slots 24/7."
-    },
-    {
-      q: "What are internal HR copilots?",
-      a: "HR copilots act as private knowledge layers, allowing employees to query internal documentation, manuals, policies, and training materials securely."
-    },
-    {
-      q: "Is business data secure with AlgoForce copilots?",
-      a: "Yes. Security is our core priority. We use end-to-end encryption, secure database channels, and can deploy copilots on private VPC cloud servers."
-    },
-    {
-      q: "How do you measure copilot performance?",
-      a: "We monitor performance metrics: reduction in entry errors, turnaround time for support tickets, lead conversion latency, and operational cost savings."
-    },
-    {
-      q: "What is the difference between AlgoForce and a traditional software vendor?",
-      a: "Traditional vendors charge high custom development retainers. AlgoForce builds specialized, pre-built AI copilots, charging a simple setup fee and a monthly subscription."
-    },
-    {
-      q: "What is the role of AlgoForce Labs?",
-      a: "AlgoForce Labs is our Talent Engine, training top developers and engineers by building real enterprise AI products."
-    },
-    {
-      q: "What is Crucible?",
-      a: "Crucible is our Startup Execution Platform, providing founders with a Startup Operating System to validate concepts, build MVPs, and scale products."
-    },
-    {
-    },
-    {
-      q: "What is the implementation timeline for an AI Copilot?",
-      a: "Product implementation takes 2 to 6 weeks, which covers database connection, business rule configuration, security setups, and validation testing."
-    },
-    {
-      q: "How does WhatsApp booking automation work?",
-      a: "HotelGPT and LeadBolt connect to the official WhatsApp Cloud API, allowing clients to make reservations, log details, and book slots 24/7."
-    },
-    {
-      q: "What are internal HR copilots?",
-      a: "HR copilots act as private knowledge layers, allowing employees to query internal documentation, manuals, policies, and training materials securely."
-    },
-    {
-      q: "Is business data secure with AlgoForce copilots?",
-      a: "Yes. Security is our core priority. We use end-to-end encryption, secure database channels, and can deploy copilots on private VPC cloud servers."
-    },
-    {
-      q: "How do you measure copilot performance?",
-      a: "We monitor performance metrics: reduction in entry errors, turnaround time for support tickets, lead conversion latency, and operational cost savings."
-    },
-    {
-      q: "What is the difference between AlgoForce and a traditional software vendor?",
-      a: "Traditional vendors charge high custom development retainers. AlgoForce builds specialized, pre-built AI copilots, charging a simple setup fee and a monthly subscription."
-    },
-    {
-      q: "What is the role of AlgoForce Labs?",
-      a: "AlgoForce Labs is our Talent Engine, training top developers and engineers by building real enterprise AI products."
-    },
-    {
-      q: "What is Crucible?",
-      a: "Crucible is our Startup Execution Platform, providing founders with a Startup Operating System to validate concepts, build MVPs, and scale products."
-    },
-    {
-      q: "How do we get started?",
-      a: "You can get started by booking a product demo on our contact page or by browsing our enterprise AI software products."
+      question: "Where is AlgoForce located?",
+      answer: "AlgoForce AI is headquartered in Kalkaji, South East Delhi, New Delhi 110019, India and registered as a Government of India MSME."
     }
   ];
 
-  const faqSchema = {
-    "@context": "https://schema.org",
+  graph.push({
     "@type": "FAQPage",
-    "mainEntity": faqsList.map((faq) => ({
+    "@id": `${pageUrl}#faq`,
+    "mainEntity": defaultFaqs.map((faq) => ({
       "@type": "Question",
-      "name": faq.q,
+      "name": faq.question,
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": faq.a
+        "text": faq.answer
       }
     }))
-  };
-
-  // Compile final graph depending on path
-  if (path === "/" || path === "") {
-    return {
-      "@context": "https://schema.org",
-      "@graph": [
-        organizationSchema,
-        localBusinessSchema,
-        {
-          "@type": "WebSite",
-          "@id": `${siteUrl}/#website`,
-          "url": siteUrl,
-          "name": "AlgoForce AI",
-          "description": "Enterprise AI Company India - Custom AI Systems & Business Automation"
-        },
-        faqSchema,
-        breadcrumbSchema
-      ]
-    };
-  }
-
-  if (path === "/services" || path === "/ai-consulting") {
-    return {
-      "@context": "https://schema.org",
-      "@graph": [
-        breadcrumbSchema,
-        ...servicesCatalog
-      ]
-    };
-  }
+  });
 
   return {
     "@context": "https://schema.org",
-    "@graph": [
-      breadcrumbSchema,
-      {
-        "@context": "https://schema.org",
-        "@type": meta.schemaType || "WebPage",
-        "@id": `${url}#webpage`,
-        "url": url,
-        "name": meta.title,
-        "description": meta.description
-      },
-      ...(meta.schemaType === "SoftwareApplication" || path.includes("finance-ai") ? [
-        {
-          "@context": "https://schema.org",
-          "@type": "SoftwareApplication",
-          "name": "TallyGPT Desktop Agent - AlgoForce Finance AI",
-          "operatingSystem": "Windows 10, Windows 11, macOS 12+, Linux",
-          "applicationCategory": "FinanceApplication",
-          "downloadUrl": `${siteUrl}/tallygpt-desktop.exe`,
-          "softwareVersion": "1.0.4",
-          "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "INR"
-          },
-          "description": "Native desktop connector agent for AlgoForce Finance AI. Connects local Tally Prime & ERP 9 with natural language accounting workflows."
-        }
-      ] : [])
-    ]
+    "@graph": graph
   };
 };
 
 const seoConfig = {
-  "/": {
-    title: "Enterprise AI Software Company India | AI Software for Business | AlgoForce",
-    description: "AlgoForce is an Enterprise AI Software Company. We deploy products such as AlgoForce Finance AI, LeadBolt and GST Autopilot to automate business operations.",
-    keywords: combineKeywords(pageKeywords.home, coreKeywords),
-    image: ogImage,
-    robots: "index, follow",
+  default: {
+    title: "AlgoForce AI — Enterprise AI Software Company",
+    description: "AlgoForce deploys ready-to-use AI software products that automate business operations across finance, sales, manufacturing, HR, and operations. Private cloud & on-premises deployment.",
     canonical: `${siteUrl}/`,
-    schemaType: "WebPage",
+    image: defaultOgImage,
+    keywords: defaultKeywords,
+    schemaType: "WebPage"
   },
-  "/products/finance-ai": {
-    title: "Install TallyGPT Desktop | AlgoForce Finance AI for Windows 10/11, macOS & Linux",
-    description: "Install TallyGPT Desktop Agent to connect Tally Prime & Tally ERP 9 with AlgoForce Finance AI. Direct download for Windows 10/11, macOS and Linux. Automate ledger entries, bank reconciliation & instant financial reporting.",
-    keywords: "Install TallyGPT, TallyGPT Desktop Download, TallyGPT Windows 10, TallyGPT Windows 11, AlgoForce Finance AI, Tally Prime AI Agent, Tally ERP 9 Automation, Accounting AI Software, Install TallyGPT Desktop Agent",
-    image: ogImage,
-    robots: "index, follow",
-    canonical: `${siteUrl}/products/finance-ai`,
-    schemaType: "SoftwareApplication",
+  "/": {
+    title: "AlgoForce AI — Enterprise AI Software Company | Business Automation",
+    description: "We deploy AI software that automates business operations. Ready-to-use products for finance, sales, HR, manufacturing, hospitality & operations deployed around your existing ERP & CRM stack.",
+    canonical: `${siteUrl}/`,
+    image: defaultOgImage,
+    keywords: combineKeywords(coreKeywords, [
+      "Enterprise AI Software Company",
+      "Business Operations Automation",
+      "Tally AI Integration",
+      "Lead Management AI",
+      "Delhi AI Software"
+    ]),
+    schemaType: "WebPage"
   },
-  "/products/tallygpt": {
-    title: "Install TallyGPT Desktop | AlgoForce Finance AI for Windows 10/11, macOS & Linux",
-    description: "Install TallyGPT Desktop Agent to connect Tally Prime & Tally ERP 9 with AlgoForce Finance AI. Direct download for Windows 10/11, macOS and Linux. Automate ledger entries, bank reconciliation & instant financial reporting.",
-    keywords: "Install TallyGPT, TallyGPT Desktop Download, TallyGPT Windows 10, TallyGPT Windows 11, AlgoForce Finance AI, Tally Prime AI Agent, Tally ERP 9 Automation, Accounting AI Software, Install TallyGPT Desktop Agent",
-    image: ogImage,
-    robots: "index, follow",
-    canonical: `${siteUrl}/products/finance-ai`,
-    schemaType: "SoftwareApplication",
+  "/products": {
+    title: "Enterprise AI Products & Solutions | AlgoForce AI",
+    description: "Explore AlgoForce AI software products: Finance AI for Tally, LeadBolt sales copilot, FactoryGPT computer vision quality inspection, HotelGPT & Corporate Brain.",
+    canonical: `${siteUrl}/products`,
+    image: defaultOgImage,
+    keywords: combineKeywords(coreKeywords, [
+      "AI Software Products",
+      "Tally ERP AI",
+      "LeadBolt Copilot",
+      "FactoryGPT Defect Inspection",
+      "HotelGPT Guest AI"
+    ]),
+    schemaType: "CollectionPage"
   },
   "/services": {
-    title: "Enterprise AI Software Products | AlgoForce Finance AI, LeadBolt, GST Autopilot | AlgoForce",
-    description: "Browse AlgoForce software products for finance, sales, GST compliance, HR, hotels and manufacturing. Deploy around the systems your teams already use.",
-    title: "AI Copilot Products for Enterprise | Business Automation | AlgoForce",
-    description: "AlgoForce builds pre-configured AI copilots for business operations. Subscription-based AI products for finance, sales, compliance, and more.",
-    keywords: combineKeywords(pageKeywords.services, coreKeywords),
-    image: ogImage,
-    robots: "index, follow",
+    title: "Enterprise AI Software Products & Deployment Services | AlgoForce",
+    description: "Deploy ready-to-use AI software integrated with your Tally, SAP, Zoho, Salesforce, and database stack with monthly managed support.",
+    canonical: `${siteUrl}/services`,
+    image: defaultOgImage,
+    keywords: combineKeywords(coreKeywords, ["AI Software Deployment", "Managed AI Support", "ERP Integration"]),
+    schemaType: "Service"
+  },
+  "/ai-consulting": {
+    title: "Enterprise AI Consulting & Operational Assessment | AlgoForce",
+    description: "Consult with AlgoForce product specialists to assess operational workflows, integration fit, and receive a clear AI deployment roadmap.",
     canonical: `${siteUrl}/ai-consulting`,
-    schemaType: "Service",
-  },
-  "/contact": {
-    title: "Request a Business AI Assessment | AlgoForce Copilots",
-    description: "Contact AlgoForce to book a product demo and discover which enterprise AI software product fits your operations. Demo → Discovery → Deployment → Support.",
-    keywords: combineKeywords(pageKeywords.contact, coreKeywords),
-    image: ogImage,
-    robots: "index, follow",
-    canonical: `${siteUrl}/contact`,
-    schemaType: "ContactPage",
-  },
-  "/pricing": {
-    title: "AI Copilot Pricing & Subscription Plans | AlgoForce",
-    description: "Enterprise AI software pricing is scoped after product demo and discovery, based on deployment, integration, security and support requirements.",
-    keywords: combineKeywords(pageKeywords.pricing, coreKeywords),
-    image: ogImage,
-    robots: "index, follow",
-    canonical: `${siteUrl}/pricing`,
-    schemaType: "PricingPage",
-  },
-  "/labs": {
-    title: "AlgoForce Labs — Talent Engine Building Real AI Copilots | New Delhi",
-    description: "AlgoForce Labs is the talent engine behind AlgoForce's AI copilots — training IIT/NIT engineers and developers by building real enterprise products.",
-    keywords: combineKeywords(pageKeywords.labs, coreKeywords),
-    image: ogImage,
-    robots: "index, follow",
-    canonical: `${siteUrl}/labs`,
-    schemaType: "EducationalOrganization",
+    image: defaultOgImage,
+    keywords: combineKeywords(coreKeywords, ["AI Consulting India", "Operational AI Assessment", "AI Strategy"]),
+    schemaType: "Service"
   },
   "/orion": {
-    title: "ORION | Advanced Space Systems Division | AlgoForce",
-    description: "ORION is AlgoForce's Advanced Space Systems Division, focused on orbital infrastructure, autonomous spacecraft, space robotics, digital twins, and mission engineering.",
-    keywords: "ORION advanced space systems, orbital infrastructure, autonomous spacecraft, orbital servicing, space robotics, mission engineering, AlgoForce",
-    image: ogImage,
-    robots: "index, follow",
+    title: "ORION Space Systems Division | Space AI & Orbital Robotics | AlgoForce",
+    description: "ORION is the Advanced Space Systems division of AlgoForce, building orbital robotics, satellite ground operations, space AI infrastructure, and autonomous flight computers.",
     canonical: `${siteUrl}/orion`,
-    schemaType: "Organization",
+    image: `${siteUrl}/orion_logo.png`,
+    keywords: combineKeywords(coreKeywords, [
+      "ORION Space Systems",
+      "Space AI Infrastructure",
+      "Orbital Robotics",
+      "Satellite Ground Operations",
+      "Autonomous Spacecraft Flight Computers",
+      "Orbital Manufacturing"
+    ]),
+    schemaType: "ItemPage"
   },
   "/orion/join": {
-    title: "Join ORION | Become an Orion Engineer | AlgoForce",
-    description: "Join ORION, AlgoForce's Advanced Space Systems Division. Work on autonomous spacecraft software, space robotics, and orbital infrastructure beyond Earth.",
-    keywords: "join ORION, advanced space systems, orbital infrastructure, space robotics, autonomous spacecraft, AlgoForce careers",
-    image: ogImage,
-    robots: "index, follow",
+    title: "Join ORION Space Systems Division | Orbital Robotics Careers | AlgoForce",
+    description: "Join the ORION Space Systems Division engineering orbital robotics, satellite operations, and autonomous space AI infrastructure.",
     canonical: `${siteUrl}/orion/join`,
-    schemaType: "WebPage",
-  },
-  "/training": {
-    title: "AlgoForce Labs — Talent Engine Building Real AI Copilots | New Delhi",
-    description: "AlgoForce Labs is the talent engine behind AlgoForce's AI copilots — training IIT/NIT engineers and developers by building real enterprise products.",
-    keywords: combineKeywords(pageKeywords.labs, coreKeywords),
-    image: ogImage,
-    robots: "index, follow",
-    canonical: `${siteUrl}/training`,
-    schemaType: "EducationalOrganization",
+    image: `${siteUrl}/orion_logo.png`,
+    keywords: combineKeywords(coreKeywords, ["Join ORION", "Space AI Careers", "Orbital Robotics Engineer"]),
+    schemaType: "ItemPage"
   },
   "/crucible": {
-    title: "Crucible — Startup Execution OS by AlgoForce | Build & Launch MVPs",
-    description: "Crucible is the Startup Operating System by AlgoForce, helping founders validate concepts, build MVPs fast, source technical talent, and scale with real execution infrastructure.",
-    keywords: combineKeywords(pageKeywords.crucible, coreKeywords),
-    image: ogImage,
-    robots: "index, follow",
+    title: "Crucible OS — The Startup Execution Platform | AlgoForce",
+    description: "Crucible is a Startup Operating System helping early-stage founders validate concepts, build launch-ready MVPs, and scale engineering teams.",
     canonical: `${siteUrl}/crucible`,
-    schemaType: "SoftwareApplication",
+    image: defaultOgImage,
+    keywords: combineKeywords(coreKeywords, ["Crucible Startup OS", "MVP Builder India", "Startup Technical Team"]),
+    schemaType: "ItemPage"
+  },
+  "/labs": {
+    title: "AlgoForce Labs — Engineering Community & Talent Platform",
+    description: "AlgoForce Labs trains and deploys product engineers who build, implement, and support enterprise AI software products.",
+    canonical: `${siteUrl}/labs`,
+    image: defaultOgImage,
+    keywords: combineKeywords(coreKeywords, ["AlgoForce Labs", "AI Engineering Community", "Talent Platform"]),
+    schemaType: "ItemPage"
   },
   "/velqora": {
-    title: "Velqora — Booking & Career OS for Performing Artists in India",
-    description: "Velqora helps performing artists and event organizers manage bookings, contracts, and payments — all in one platform. Subscriptions from ₹499/month.",
-    keywords: "artist booking platform India, event organizer tools India, Velqora, performer SaaS",
-    image: ogImage,
-    robots: "index, follow",
+    title: "Velqora — Live Entertainment Operating System | AlgoForce",
+    description: "Velqora provides live event execution infrastructure, venue booking software, and operational systems for live entertainment.",
     canonical: `${siteUrl}/velqora`,
-    schemaType: "SoftwareApplication",
+    image: defaultOgImage,
+    keywords: combineKeywords(coreKeywords, ["Velqora OS", "Live Event Software", "Entertainment Systems"]),
+    schemaType: "ItemPage"
+  },
+  "/what-is-algoforce": {
+    title: "What is AlgoForce? | Enterprise AI Software Company Overview",
+    description: "Learn how AlgoForce deploys AI software products that automate operations across finance, sales, HR, manufacturing, and hospitality.",
+    canonical: `${siteUrl}/what-is-algoforce`,
+    image: defaultOgImage,
+    keywords: combineKeywords(coreKeywords, ["What is AlgoForce", "AlgoForce AI Company Overview"]),
+    schemaType: "AboutPage"
   },
   "/about": {
-    title: "About AlgoForce — Enterprise AI Products Company | Dev N Suman | New Delhi",
-    description: "AlgoForce is an Enterprise AI Products Company founded in 2026 by Dev N Suman in New Delhi. We build specialized AI copilots on a subscription model for businesses across India.",
-    keywords: "About AlgoForce, Dev N Suman, Enterprise AI Products Company, Delhi AI Copilots",
-    image: ogImage,
-    robots: "index, follow",
+    title: "About AlgoForce AI — Enterprise AI Software Company",
+    description: "AlgoForce is an Enterprise AI Software Company headquartered in New Delhi, India. We build, deploy, and maintain software that automates business operations.",
     canonical: `${siteUrl}/about`,
-    schemaType: "AboutPage",
+    image: defaultOgImage,
+    keywords: combineKeywords(coreKeywords, ["About AlgoForce", "AI Company New Delhi", "Enterprise AI Vision"]),
+    schemaType: "AboutPage"
   },
-  "/cancellation-policy": {
-    title: "Cancellation Policy | AlgoForce",
-    description: "Read the cancellation and refund policy for AlgoForce AI Copilot subscriptions, Business Assessments, and Product Implementation agreements.",
-    keywords: "cancellation policy AlgoForce, AI copilot subscription cancellation",
-    image: ogImage,
-    robots: "index, follow",
-    canonical: `${siteUrl}/cancellation-policy`,
-    schemaType: "WebPage",
+  "/contact": {
+    title: "Book a Demo & Contact Product Specialists | AlgoForce AI",
+    description: "Book a focused 30-minute product demo with AlgoForce product specialists to see software in action and discuss operational integration.",
+    canonical: `${siteUrl}/contact`,
+    image: defaultOgImage,
+    keywords: combineKeywords(coreKeywords, ["Book AI Demo", "Contact AlgoForce", "AlgoForce New Delhi Address"]),
+    schemaType: "ContactPage"
   },
-  "/cookie-policy": {
-    title: "Cookie Policy | AlgoForce",
-    description: "Learn how AlgoForce uses cookies and tracking technologies on our Enterprise AI Copilot products website.",
-    keywords: "cookie policy AlgoForce, cookie consent New Delhi",
-    image: ogImage,
-    robots: "index, follow",
-    canonical: `${siteUrl}/cookie-policy`,
-    schemaType: "WebPage",
-  },
-  "/ai-policy": {
-    title: "Artificial Intelligence Policy | AlgoForce",
-    description: "AlgoForce policy on AI transparency, data privacy, LLM hosting, and secure AI copilot deployments.",
-    keywords: "AI policy AlgoForce, copilot data privacy, self-hosted LLM security",
-    image: ogImage,
-    robots: "index, follow",
-    canonical: `${siteUrl}/ai-policy`,
-    schemaType: "WebPage",
-  },
-  default: {
-    title: "AlgoForce | Enterprise AI Software Company India",
-    description: "AlgoForce deploys enterprise AI software products including AlgoForce Finance AI, LeadBolt, GST Autopilot and HR Copilot. Demo → Discovery → Deployment → Support.",
-    keywords: defaultKeywords,
-    image: ogImage,
-    robots: "index, follow",
+  "/pricing": {
+    title: "Transparent Product Pricing & Subscription Plans | AlgoForce AI",
+    description: "Simple monthly subscription pricing for AlgoForce AI products including Finance AI, LeadBolt, and custom enterprise deployments.",
+    canonical: `${siteUrl}/pricing`,
+    image: defaultOgImage,
+    keywords: combineKeywords(coreKeywords, ["AI Software Pricing", "AlgoForce Subscription Cost"]),
+    schemaType: "ItemPage"
   }
 };
 
-export { buildSchema, coreKeywords, defaultKeywords, siteName, siteUrl };
+export { siteUrl, siteName, defaultOgImage, coreKeywords, defaultKeywords };
 export default seoConfig;
