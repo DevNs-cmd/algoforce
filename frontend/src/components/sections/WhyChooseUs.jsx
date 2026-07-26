@@ -56,6 +56,11 @@ const WhyChooseUs = () => {
   })
 
   const [activeInt, setActiveInt] = useState(null)
+  const [showAllIndustries, setShowAllIndustries] = useState(false)
+  const [showAllIntegrations, setShowAllIntegrations] = useState(false)
+
+  const visibleIndustries = showAllIndustries ? INDUSTRIES : INDUSTRIES.slice(0, 5)
+  const visibleIntegrations = showAllIntegrations ? INTEGRATIONS : INTEGRATIONS.slice(0, 6)
 
   return (
     <section ref={ref} id="why-choose-us" className="py-16 md:py-24 bg-[#03070d] text-white relative overflow-hidden border-b border-white/5">
@@ -71,7 +76,7 @@ const WhyChooseUs = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            className="text-center mb-12"
+            className="text-center mb-10"
           >
             <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-purple-400">Vertical Relevance</span>
             <h3 className="text-3xl md:text-4xl font-bold leading-tight mt-2">
@@ -83,28 +88,45 @@ const WhyChooseUs = () => {
           </motion.div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 max-w-5xl mx-auto">
-            {INDUSTRIES.map((ind, idx) => (
-              <motion.div
-                key={ind.name}
-                whileHover={{ y: -3, backgroundColor: 'rgba(255,255,255,0.03)' }}
-                className="p-5 rounded-2xl border border-white/5 bg-white/[0.01] flex flex-col items-center justify-center text-center group transition-colors"
-              >
-                <div className="text-lg text-purple-400 mb-3 group-hover:scale-110 transition-transform">
-                  {ind.icon}
-                </div>
-                <span className="text-xs font-semibold text-slate-300">{ind.name}</span>
-              </motion.div>
-            ))}
+            <AnimatePresence>
+              {visibleIndustries.map((ind) => (
+                <motion.div
+                  key={ind.name}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.3 }}
+                  whileHover={{ y: -3, backgroundColor: 'rgba(255,255,255,0.03)' }}
+                  className="p-5 rounded-2xl border border-white/5 bg-white/[0.01] flex flex-col items-center justify-center text-center group transition-colors"
+                >
+                  <div className="text-lg text-purple-400 mb-3 group-hover:scale-110 transition-transform">
+                    {ind.icon}
+                  </div>
+                  <span className="text-xs font-semibold text-slate-300">{ind.name}</span>
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
+
+          {INDUSTRIES.length > 5 && (
+            <div className="text-center mt-6">
+              <button
+                onClick={() => setShowAllIndustries(!showAllIndustries)}
+                className="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider text-purple-300 hover:text-white border border-purple-500/30 bg-purple-500/10 hover:bg-purple-500/20 transition-all"
+              >
+                {showAllIndustries ? 'Show Fewer Industries' : `Show All Industries (${INDUSTRIES.length})`}
+              </button>
+            </div>
+          )}
         </div>
 
-        <hr className="border-white/5 my-14 max-w-5xl mx-auto" />
+        <hr className="border-white/5 my-12 max-w-5xl mx-auto" />
 
         <div id="integrations">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            className="text-center mb-12"
+            className="text-center mb-10"
           >
             <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-purple-400">Integrations</span>
             <h3 className="text-3xl md:text-5xl font-bold leading-tight mt-2">
@@ -115,22 +137,39 @@ const WhyChooseUs = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 mb-10 max-w-5xl mx-auto">
-            {INTEGRATIONS.map((item) => (
-              <motion.button
-                key={item.name}
-                whileHover={{ scale: 1.05, border: '1px solid rgba(143,56,255,0.4)' }}
-                onClick={() => setActiveInt(activeInt === item.name ? null : item.name)}
-                className={`p-4 rounded-xl border flex flex-col items-center justify-center font-bold text-xs uppercase tracking-wider transition-all h-20 ${
-                  activeInt === item.name 
-                    ? 'bg-purple-600/20 border-purple-500 text-purple-300' 
-                    : 'bg-white/[0.01] border-white/5 text-slate-400 hover:text-white'
-                }`}
-              >
-                <span>{item.name}</span>
-              </motion.button>
-            ))}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 mb-6 max-w-5xl mx-auto">
+            <AnimatePresence>
+              {visibleIntegrations.map((item) => (
+                <motion.button
+                  key={item.name}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.3 }}
+                  whileHover={{ scale: 1.05, border: '1px solid rgba(143,56,255,0.4)' }}
+                  onClick={() => setActiveInt(activeInt === item.name ? null : item.name)}
+                  className={`p-4 rounded-xl border flex flex-col items-center justify-center font-bold text-xs uppercase tracking-wider transition-all h-20 ${
+                    activeInt === item.name 
+                      ? 'bg-purple-600/20 border-purple-500 text-purple-300' 
+                      : 'bg-white/[0.01] border-white/5 text-slate-400 hover:text-white'
+                  }`}
+                >
+                  <span>{item.name}</span>
+                </motion.button>
+              ))}
+            </AnimatePresence>
           </div>
+
+          {INTEGRATIONS.length > 6 && (
+            <div className="text-center mb-8">
+              <button
+                onClick={() => setShowAllIntegrations(!showAllIntegrations)}
+                className="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider text-purple-300 hover:text-white border border-purple-500/30 bg-purple-500/10 hover:bg-purple-500/20 transition-all"
+              >
+                {showAllIntegrations ? 'Show Fewer Platforms' : `Show All Integrations (${INTEGRATIONS.length})`}
+              </button>
+            </div>
+          )}
 
           <div className="max-w-xl mx-auto h-24">
             <AnimatePresence mode="wait">

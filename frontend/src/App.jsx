@@ -93,7 +93,7 @@ const AppShell = () => {
 
   const hideMarketingShells = isBuilderPage || isNexusPage || isWorkspace || isLabsPortal || isAdminPortal || isLoginPage || isClientPortal
 
-  const routesWithOwnSurface = ['/pricing', '/labs', '/founder', '/team', '/contact', '/orion', '/orion/join']
+  const routesWithOwnSurface = ['/orion', '/orion/join']
   const hasPageVideoBackdrop =
     !hideMarketingShells &&
     location.pathname !== '/' &&
