@@ -20,6 +20,7 @@ import {
 import SeoHead from '../components/common/SeoHead'
 import { getProductBySlug } from '../data/productDetails'
 import TallyGPTInstallSection from '../components/sections/TallyGPTInstallSection'
+import TallyGPTLanding from '../components/sections/TallyGPTLanding'
 
 const ProductDetail = () => {
   const { productSlug } = useParams()
@@ -32,6 +33,15 @@ const ProductDetail = () => {
 
   const isFinanceAI = product.slug === 'finance-ai'
   const demoPath = `/contact?interest=${encodeURIComponent(product.name)}`
+
+  if (isFinanceAI) {
+    return (
+      <main className="min-h-screen bg-[#f7f9fc]">
+        <SeoHead path={`/products/${productSlug}`} />
+        <TallyGPTLanding />
+      </main>
+    )
+  }
 
   return (
     <main className="min-h-screen bg-[#f7f9fc] text-[#06101d]">
@@ -179,10 +189,7 @@ const ProductDetail = () => {
         </div>
       </section>
 
-      {/* Dedicated TallyGPT Installation & Desktop Agent Section for Finance AI */}
-      {isFinanceAI && (
-        <TallyGPTInstallSection isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
-      )}
+ 
 
       {/* Problem & Audience */}
       <section className="mx-auto grid max-w-7xl gap-6 px-5 py-14 sm:px-6 md:grid-cols-2 md:py-20">
@@ -305,11 +312,11 @@ const ProductDetail = () => {
 
             {isFinanceAI && (
               <a
-                href="/tallygpt-desktop.exe"
-                download="tallygpt-desktop.exe"
+                href="/tallygpt_setup.exe"
+                download="tallygpt_setup.exe"
                 className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-purple-600 px-6 py-4 text-xs font-bold uppercase tracking-widest text-white transition-colors hover:bg-purple-500"
               >
-                <FaDownload size={12} /> Install TallyGPT for Windows
+                <FaDownload size={12} /> Install TallyGPT Desktop (44.2 MB)
               </a>
             )}
           </div>

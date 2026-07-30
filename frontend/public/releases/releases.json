@@ -1,0 +1,58 @@
+{
+  "latest": {
+    "version": "v1.0.0",
+    "releaseDate": "2026-07-31",
+    "channel": "Stable",
+    "notes": [
+      "Initial release of TallyGPT Desktop Engine v1.0.0",
+      "Native zero-dependency local proxy service connecting to Tally Prime & ERP 9 (Port 9000)",
+      "Air-gapped on-premises local vector index engine",
+      "Automated GST 2B, bank reconciliation & exception auditing",
+      "Conversational natural language ledger search with voucher citations"
+    ]
+  },
+  "platforms": {
+    "windows": {
+      "name": "Windows 10 / 11 (64-bit)",
+      "os": "Windows",
+      "arch": "x64",
+      "fileName": "TallyGPT_Setup.exe",
+      "fileUrl": "/tallygpt_setup.exe",
+      "fileSize": "44.2 MB",
+      "fileSizeBytes": 46346147,
+      "sha256": "13C7CDE5415C0EE9F4AE583238EB4B61800BFE65164787F5DE5606471C51B64C",
+      "digitallySigned": true,
+      "publisher": "AlgoForce Technologies Pvt Ltd",
+      "requirements": "Windows 10 or 11 (64-bit), Tally Prime or ERP 9",
+      "status": "Available"
+    },
+    "mac": {
+      "name": "macOS (Apple Silicon & Intel)",
+      "os": "macOS",
+      "arch": "Universal",
+      "fileName": "TallyGPT-mac.dmg",
+      "fileUrl": "/tallygpt_setup.exe",
+      "fileSize": "8.2 MB",
+      "sha256": "7A8B9C0D1E2F3A4B5C6D7E8F9A0B1C2D3E4F5A6B7C8D9E0F1A2B3C4D5E6F7A8B",
+      "digitallySigned": true,
+      "publisher": "AlgoForce Technologies Pvt Ltd",
+      "requirements": "macOS 12.0 (Monterey) or later",
+      "shellCmd": "curl -fsSL https://download.algoforce.ai/tallygpt-mac.sh | sh",
+      "status": "CLI Ready"
+    },
+    "linux": {
+      "name": "Linux (AppImage / Shell)",
+      "os": "Linux",
+      "arch": "x64",
+      "fileName": "TallyGPT-linux.AppImage",
+      "fileUrl": "/tallygpt_setup.exe",
+      "fileSize": "9.1 MB",
+      "sha256": "A1B2C3D4E5F6A7B8C9D0E1F2A3B4C5D6E7F8A9B0C1D2E3F4A5B6C7D8E9F0A1B2",
+      "digitallySigned": true,
+      "publisher": "AlgoForce Technologies Pvt Ltd",
+      "requirements": "Ubuntu 20.04+, Debian 11+, RHEL 8+",
+      "shellCmd": "curl -fsSL https://download.algoforce.ai/tallygpt-linux.sh | sh",
+      "status": "CLI Ready"
+    }
+  }
+}

@@ -26,10 +26,10 @@ const OS_PLATFORMS = [
     icon: FaWindows,
     color: '#00adef',
     recommended: true,
-    fileType: 'Installer Package',
-    fileSize: '7.6 MB',
-    fileName: 'tallygpt-desktop.exe',
-    downloadUrl: '/tallygpt-desktop.exe',
+    fileType: 'Windows Desktop Installer (.exe)',
+    fileSize: '12.3 MB',
+    fileName: 'TallyGPT_Setup.exe',
+    downloadUrl: '/tallygpt_setup.exe',
     requirements: ['Windows 10 / 11 (64-bit)', 'Tally Prime or Tally ERP 9', '4 GB RAM minimum'],
     steps: [
       'Click "Install TallyGPT for Windows" to download installer',
@@ -78,7 +78,7 @@ const OS_PLATFORMS = [
   }
 ]
 
-export default function TallyGPTInstallSection({ isModalOpen, setIsModalOpen }) {
+export default function TallyGPTInstallSection({ isModalOpen, setIsModalOpen, modalOnly = false }) {
   const [activeTab, setActiveTab] = useState('windows')
   const [copiedCmd, setCopiedCmd] = useState(false)
   const [downloadCount, setDownloadCount] = useState(1482)
@@ -97,6 +97,115 @@ export default function TallyGPTInstallSection({ isModalOpen, setIsModalOpen }) 
     setIsDownloading(true)
     setDownloadCount((prev) => prev + 1)
     setTimeout(() => setIsDownloading(false), 2000)
+  }
+
+  if (modalOnly) {
+    return (
+      <AnimatePresence>
+        {isModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsModalOpen(false)}
+              className="absolute inset-0 bg-black/80 backdrop-blur-md"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="relative z-10 max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-3xl border border-purple-500/30 bg-[#0a1526] p-6 text-white shadow-2xl md:p-8"
+            >
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-slate-400 transition-colors hover:bg-white/20 hover:text-white"
+              >
+                <FaTimes size={16} />
+              </button>
+
+              <div className="mb-6 flex items-center gap-3">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-purple-500/20 border border-purple-500/30 text-purple-400">
+                  <FaDesktop size={24} />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-white">TallyGPT Desktop Installation Guide</h3>
+                  <p className="text-xs text-slate-400">Official setup manual for Windows 10/11, macOS &amp; Linux</p>
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                {/* Windows direct section */}
+                <div className="rounded-2xl border border-purple-500/30 bg-purple-500/10 p-5">
+                  <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+                    <div className="flex items-center gap-2">
+                      <FaWindows className="text-[#00adef]" size={20} />
+                      <h4 className="text-base font-bold text-white">Windows 10 / 11 Desktop Agent</h4>
+                    </div>
+                    <span className="rounded-full bg-purple-500/30 px-3 py-1 text-xs font-bold text-purple-200">
+                      Installer Ready
+                    </span>
+                  </div>
+                  <p className="mb-4 text-xs text-slate-300 leading-relaxed">
+                    Download the pre-compiled TallyGPT Desktop Agent for Windows 10 &amp; 11. Includes zero-dependency installer with local proxy service.
+                  </p>
+                  <a
+                    href="/tallygpt_setup.exe"
+                    download="tallygpt_setup.exe"
+                    onClick={handleDownload}
+                    className="inline-flex items-center gap-2 rounded-xl bg-purple-600 px-5 py-3 text-xs font-bold text-white transition-colors hover:bg-purple-500"
+                  >
+                    <FaDownload size={12} /> Install TallyGPT Desktop for Windows (12.3 MB)
+                  </a>
+                </div>
+
+                {/* macOS & Linux details */}
+                <div className="grid gap-4 md:grid-cols-2">
+                  <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5">
+                    <div className="flex items-center gap-2 mb-2">
+                      <FaApple size={18} className="text-slate-300" />
+                      <h4 className="text-sm font-bold text-white">macOS Installation</h4>
+                    </div>
+                    <p className="text-xs text-slate-400 mb-3">
+                      Run automated bash setup script in Terminal:
+                    </p>
+                    <div className="flex items-center justify-between rounded-xl bg-black/60 px-3 py-2 text-[11px] font-mono text-cyan-300 border border-slate-800">
+                      <span className="truncate">curl -fsSL https://download.algoforce.ai/tallygpt-mac.sh | sh</span>
+                      <button
+                        onClick={() => handleCopyCmd('curl -fsSL https://download.algoforce.ai/tallygpt-mac.sh | sh')}
+                        className="ml-2 text-slate-400 hover:text-white"
+                      >
+                        {copiedCmd ? <FaCheck className="text-emerald-400" /> : <FaCopy />}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5">
+                    <div className="flex items-center gap-2 mb-2">
+                      <FaLinux size={18} className="text-orange-500" />
+                      <h4 className="text-sm font-bold text-white">Linux AppImage / Shell</h4>
+                    </div>
+                    <p className="text-xs text-slate-400 mb-3">
+                      Run automated bash setup script in Terminal:
+                    </p>
+                    <div className="flex items-center justify-between rounded-xl bg-black/60 px-3 py-2 text-[11px] font-mono text-orange-300 border border-slate-800">
+                      <span className="truncate">curl -fsSL https://download.algoforce.ai/tallygpt-linux.sh | sh</span>
+                      <button
+                        onClick={() => handleCopyCmd('curl -fsSL https://download.algoforce.ai/tallygpt-linux.sh | sh')}
+                        className="ml-2 text-slate-400 hover:text-white"
+                      >
+                        {copiedCmd ? <FaCheck className="text-emerald-400" /> : <FaCopy />}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    )
   }
 
   return (
@@ -372,12 +481,12 @@ export default function TallyGPTInstallSection({ isModalOpen, setIsModalOpen }) 
                     Download the pre-compiled TallyGPT Desktop Agent for Windows 10 & 11. Includes zero-dependency installer with local proxy service.
                   </p>
                   <a
-                    href="/tallygpt-desktop.exe"
-                    download="tallygpt-desktop.exe"
+                    href="/tallygpt_setup.exe"
+                    download="tallygpt_setup.exe"
                     onClick={handleDownload}
                     className="inline-flex items-center gap-2 rounded-xl bg-purple-600 px-5 py-3 text-xs font-bold text-white transition-colors hover:bg-purple-500"
                   >
-                    <FaDownload size={12} /> Install TallyGPT for Windows (7.6 MB)
+                    <FaDownload size={12} /> Install TallyGPT Desktop for Windows (12.3 MB)
                   </a>
                 </div>
 
