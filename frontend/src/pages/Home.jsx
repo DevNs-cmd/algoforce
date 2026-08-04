@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import Hero from '../components/sections/Hero'
 import SummitSection from '../components/sections/SummitSection'
-import BrandFilmSection from '../components/sections/BrandFilmSection'
 import EnterpriseTrust from '../components/sections/EnterpriseTrust'
 import WhatIsAlgoForce from '../components/sections/WhatIsAlgoForce'
 import ProductModules from '../components/sections/ProductModules'
@@ -20,7 +19,6 @@ const Home = () => {
     <div className="overflow-x-hidden animate-moving-gradient">
       <Hero />
       <SummitSection />
-      <BrandFilmSection />
       <EnterpriseTrust />
       <WhatIsAlgoForce setActiveCategory={setActiveCategory} />
       <OrionDiscovery />
