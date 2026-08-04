@@ -38,11 +38,16 @@ const LABS_DATA = {
     internships: [
         {
             title: 'AI Software Deployment',
-            description: 'Hands-on roles deploying and configuring our ready-to-use software products.',
+            description: 'Two-track structure: Training Track (₹15,000–₹35,000 cohort fee) where students gain hands-on deployment, UAT, and support experience, and Deployment Track (no fee to student) where AlgoForce places trained talent at a 12–20% staffing markup billed to clients.',
             icon: FaBriefcase,
             color: '#7aa7c7',
-            features: ['Database connection support', 'UAT testing runs', 'Client support coordination'],
-            ctaText: 'Apply for Internship'
+            features: [
+                'Database connection support', 
+                'UAT testing runs', 
+                'Client support coordination',
+                'Top performers fast-tracked to paid Deployment Track placements'
+            ],
+            ctaText: 'Apply for Program'
         }
     ],
     research: [
@@ -137,7 +142,7 @@ const Labs = () => {
                         AlgoForce Labs trains <span className="premium-serif italic font-normal text-[#8f38ff]">future software engineers.</span>
                     </h1>
                     <p className="max-w-2xl text-base leading-relaxed text-slate-600 md:text-lg font-normal">
-                        Students learn by building real software products, not dummy projects. We collaborate with universities and student developer cells across India.
+                        A paid, cohort-based software engineering program. Students build and ship real production software for live AlgoForce clients — not dummy projects — under a structured 4-8 week track. Cohort fee: ₹15,000 – ₹35,000 per student.
                     </p>
                     
                     <div className="mt-8 grid max-w-xl grid-cols-2 gap-3">
@@ -146,8 +151,8 @@ const Labs = () => {
                             <div className="mt-1 text-[10px] font-semibold uppercase text-slate-400">Students Trained</div>
                         </div>
                         <div className="rounded-2xl border border-[#06101d]/10 bg-[#f7f9fc] p-4 text-center">
-                            <div className="text-2xl font-bold text-[#06101d]">Real Products</div>
-                            <div className="mt-1 text-[10px] font-semibold uppercase text-slate-400">Built in Labs</div>
+                            <div className="text-2xl font-bold text-[#06101d]">20+</div>
+                            <div className="mt-1 text-[10px] font-semibold uppercase text-slate-400">Students Placed with Paying Clients</div>
                         </div>
                     </div>
                 </motion.div>
@@ -287,17 +292,17 @@ const Labs = () => {
                         {
                             icon: FaLayerGroup,
                             title: 'University Collaborations',
-                            text: 'We collaborate with student communities from leading institutions (IITs, NITs, and top universities) to train future developers.',
+                            text: 'We collaborate with student communities from leading institutions (IITs, NITs, and top universities) to train future developers. Structured partnership fee for colleges: ₹50,000–₹2,00,000 per academic term, covering cohort delivery, mentorship, and placement-linked outcomes counted toward the institution\'s skilling/placement metrics.',
                         },
                         {
                             icon: FaBriefcase,
                             title: 'Real Software Products',
-                            text: "Students don't complete dummy projects. They write code for real business software, gaining hands-on database and integration experience.",
+                            text: "Students don't complete dummy projects. They write code for real business software, gaining hands-on database and integration experience. Practical product delivery is embedded directly in the paid training curriculum.",
                         },
                         {
                             icon: FaRocket,
                             title: 'Career Development',
-                            text: 'Our programs prepare elite student engineering talent to launch their software careers or join top product teams.',
+                            text: 'Our programs prepare elite student engineering talent to launch their software careers or join top product teams. Included in the paid track; job-readiness outcomes are what colleges and students are paying for.',
                         },
                     ].map((item, index) => (
                         <motion.article
