@@ -104,7 +104,7 @@ const Hero = () => {
         )}
       </div>
 
-      <div className="relative z-10 px-5 sm:px-6 mx-auto text-center max-w-7xl">
+      <div className="relative z-10 px-4 sm:px-6 mx-auto text-center max-w-7xl">
         <motion.div
           initial={{ opacity: 0, scale: 1.05 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -127,7 +127,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[2.35rem] sm:text-5xl md:text-6xl lg:text-[4.65rem] font-bold mb-6 leading-[1.06] text-white max-w-6xl mx-auto tracking-tight animate-pulse-subtle"
+            className="text-2xl min-[380px]:text-[2.35rem] sm:text-5xl md:text-6xl lg:text-[4.65rem] font-bold mb-6 leading-[1.08] text-white max-w-6xl mx-auto tracking-tight animate-pulse-subtle"
           >
             We deploy AI software that automates <span className="premium-serif italic font-normal text-[#cdb4ff]">business operations.</span>
           </motion.h1>
@@ -137,7 +137,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="max-w-3xl mx-auto mb-8 md:mb-10 text-base md:text-lg text-slate-300 font-normal leading-relaxed"
+            className="max-w-3xl mx-auto mb-8 md:mb-10 text-sm sm:text-base md:text-lg text-slate-300 font-normal leading-relaxed px-2 sm:px-0"
           >
             Ready-to-use products for finance, sales, HR, manufacturing, hospitality, knowledge and operations - deployed around the systems your team already uses.
           </motion.p>
@@ -147,7 +147,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.45 }}
-            className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-10 text-xs sm:text-sm font-bold text-slate-400 tracking-wider uppercase"
+            className="flex flex-wrap justify-center gap-x-4 sm:gap-x-6 gap-y-2 mb-8 sm:mb-10 text-[10px] sm:text-xs md:text-sm font-bold text-slate-400 tracking-wider uppercase px-2 sm:px-0"
           >
             <span className="flex items-center gap-1.5">
               <span className="w-1 h-1 bg-[#8f38ff] rounded-full" /> Product Discovery

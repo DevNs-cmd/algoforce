@@ -63,14 +63,14 @@ const Navigation = () => {
             }
           `}
         >
-          <Link to="/" className="flex min-w-0 items-center gap-3 group">
+          <Link to="/" className="flex min-w-0 items-center gap-2.5 sm:gap-3 group">
             <motion.div
               whileHover={{ scale: 1.02 }}
-              className="bg-white px-3 py-1 rounded-xl flex items-center justify-center border border-white/10 shadow-[0_4px_12px_rgba(255,255,255,0.05)]"
+              className="bg-white px-2.5 py-1 sm:px-3 rounded-xl flex items-center justify-center border border-white/10 shadow-[0_4px_12px_rgba(255,255,255,0.05)]"
             >
-              <img src="/logo.png" alt="AlgoForce" loading="lazy" className="h-6 sm:h-7 w-auto object-contain" />
+              <img src="/logo.png" alt="AlgoForce" loading="lazy" className="h-5 sm:h-7 w-auto object-contain" />
             </motion.div>
-            <span className="hidden min-[360px]:block text-lg sm:text-xl font-semibold brand-wordmark">
+            <span className="hidden min-[340px]:block text-base sm:text-xl font-semibold brand-wordmark">
               Algo<span>Force</span>
             </span>
           </Link>
@@ -104,10 +104,7 @@ const Navigation = () => {
           {/* Right Side */}
           <div className="flex items-center gap-4">
             <div className="hidden lg:flex items-center gap-4">
-              {user ? (
-                <div className="flex items-center gap-3">
-                </div>
-              ) : (
+              {!user ? (
                 <div className="flex items-center gap-4">
                   <Link
                     to="/contact"
@@ -116,14 +113,14 @@ const Navigation = () => {
                     Book a Demo
                   </Link>
                 </div>
-              )}
+              ) : null}
             </div>
 
             {/* Mobile Toggle */}
             <button
               onClick={() => setMobileMenuOpen(true)}
               aria-label="Open navigation menu"
-              className="lg:hidden w-11 h-11 flex items-center justify-center rounded-full bg-white/8 border border-white/12 text-white active:scale-95 transition-all"
+              className="lg:hidden w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center rounded-full bg-white/8 border border-white/12 text-white active:scale-95 transition-all"
             >
               <div className="flex flex-col gap-1.5">
                 <div className="w-5 h-0.5 bg-white rounded-full" />
@@ -137,7 +134,7 @@ const Navigation = () => {
       {/* Mobile Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <div className="fixed inset-0 z-[100] lg:hidden flex items-center justify-center p-6">
+          <div className="fixed inset-0 z-[100] lg:hidden flex items-center justify-center p-4 sm:p-6">
             {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
@@ -152,17 +149,17 @@ const Navigation = () => {
               initial={{ scale: 0.9, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
-              className="relative w-full max-w-[320px] bg-[#03070d] border border-white/12 rounded-[28px] flex flex-col p-8 shadow-[0_40px_100px_rgba(0,0,0,0.55)] overflow-hidden"
+              className="relative w-full max-w-[340px] sm:max-w-[380px] max-h-[85vh] bg-[#03070d] border border-white/12 rounded-[28px] flex flex-col p-6 sm:p-8 shadow-[0_40px_100px_rgba(0,0,0,0.55)] overflow-y-auto scrollbar-hide"
             >
               <button
                 onClick={() => setMobileMenuOpen(false)}
                 aria-label="Close navigation menu"
-                className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white text-xs active:scale-90 transition-all"
+                className="absolute top-4 right-4 sm:top-5 sm:right-5 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white text-xs font-bold active:scale-90 transition-all z-10"
               >
-                X
+                ✕
               </button>
 
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-6 pt-2">
                 {navLinks.map((link, i) => (
                   <motion.div
                     key={link.name}

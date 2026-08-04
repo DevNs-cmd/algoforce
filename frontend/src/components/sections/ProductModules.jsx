@@ -188,13 +188,13 @@ const ProductModules = ({ activeCategory, setActiveCategory, featuredOnly = fals
           </p>
         </motion.div>
 
-        {/* Categories Navigation Bar (Google-style) */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-12 max-w-4xl mx-auto px-4 border-b border-white/5 pb-6">
+        {/* Categories Navigation Bar (Labs-style responsive touch track) */}
+        <div className="flex items-center justify-start sm:justify-center gap-2 mb-10 md:mb-12 max-w-4xl mx-auto px-2 sm:px-4 border-b border-white/5 pb-4 sm:pb-6 overflow-x-auto scrollbar-hide touch-scroll">
           {CATEGORIES.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setCurrentCategory(tab.id)}
-              className={`px-4 py-2 rounded-full text-xs font-bold transition-all border ${
+              className={`px-4 py-2 rounded-full text-xs font-bold transition-all border shrink-0 whitespace-nowrap ${
                 currentCategory === tab.id
                   ? 'bg-purple-600 text-white border-purple-600 shadow-md shadow-purple-600/10'
                   : 'bg-white/5 text-slate-300 border-white/5 hover:bg-white/10 hover:text-white'
