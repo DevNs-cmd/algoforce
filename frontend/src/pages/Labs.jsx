@@ -38,7 +38,7 @@ const LABS_DATA = {
     internships: [
         {
             title: 'AI Software Deployment',
-            description: 'Two-track structure: Training Track (₹15,000–₹35,000 cohort fee) where students gain hands-on deployment, UAT, and support experience, and Deployment Track (no fee to student) where AlgoForce places trained talent at a 12–20% staffing markup billed to clients.',
+            description: 'Two-track structure: Training Track where students gain hands-on deployment, UAT, and support experience, and Deployment Track where AlgoForce places trained talent directly with client engagements.',
             icon: FaBriefcase,
             color: '#7aa7c7',
             features: [
@@ -142,7 +142,7 @@ const Labs = () => {
                         AlgoForce Labs trains <span className="premium-serif italic font-normal text-[#8f38ff]">future software engineers.</span>
                     </h1>
                     <p className="max-w-2xl text-base leading-relaxed text-slate-600 md:text-lg font-normal">
-                        A paid, cohort-based software engineering program. Students build and ship real production software for live AlgoForce clients — not dummy projects — under a structured 4-8 week track. Cohort fee: ₹15,000 – ₹35,000 per student.
+                        A cohort-based software engineering program. Students build and ship real production software for live AlgoForce clients — not dummy projects — under a structured 4-8 week track.
                     </p>
                     
                     <div className="mt-8 grid max-w-xl grid-cols-2 gap-3">
@@ -292,17 +292,17 @@ const Labs = () => {
                         {
                             icon: FaLayerGroup,
                             title: 'University Collaborations',
-                            text: 'We collaborate with student communities from leading institutions (IITs, NITs, and top universities) to train future developers. Structured partnership fee for colleges: ₹50,000–₹2,00,000 per academic term, covering cohort delivery, mentorship, and placement-linked outcomes counted toward the institution\'s skilling/placement metrics.',
+                            text: 'We collaborate with student communities from leading institutions (IITs, NITs, and top universities) to train future developers. Structured partnerships for colleges covering cohort delivery, mentorship, and placement-linked outcomes counted toward institutional skilling metrics.',
                         },
                         {
                             icon: FaBriefcase,
                             title: 'Real Software Products',
-                            text: "Students don't complete dummy projects. They write code for real business software, gaining hands-on database and integration experience. Practical product delivery is embedded directly in the paid training curriculum.",
+                            text: "Students don't complete dummy projects. They write code for real business software, gaining hands-on database and integration experience. Practical product delivery is embedded directly in the training curriculum.",
                         },
                         {
                             icon: FaRocket,
                             title: 'Career Development',
-                            text: 'Our programs prepare elite student engineering talent to launch their software careers or join top product teams. Included in the paid track; job-readiness outcomes are what colleges and students are paying for.',
+                            text: 'Our programs prepare elite student engineering talent to launch their software careers or join top product teams with job-readiness outcomes and client deployment opportunities.',
                         },
                     ].map((item, index) => (
                         <motion.article
