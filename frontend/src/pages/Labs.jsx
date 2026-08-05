@@ -191,7 +191,7 @@ const Labs = () => {
                 <div className="grid gap-6 sm:gap-8 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
                     
                     {/* Sidebar Navigator — horizontal scroll on mobile, vertical list on lg */}
-                    <aside className="rounded-[24px] sm:rounded-[30px] border border-[#06101d]/10 bg-white p-3.5 sm:p-4 shadow-[0_16px_50px_rgba(6,47,79,0.06)] md:p-5">
+                    <aside className="sticky top-[105px] z-30 rounded-[24px] sm:rounded-[30px] border border-[#06101d]/10 bg-white/95 backdrop-blur-md p-3.5 sm:p-4 shadow-[0_16px_50px_rgba(6,47,79,0.06)] md:p-5">
                         <p className="mb-2.5 px-2 text-[10px] sm:text-[11px] font-bold uppercase text-[#8f38ff] tracking-wider">Directory</p>
                         <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide flex-nowrap shrink-0 lg:grid lg:gap-2 lg:overflow-x-visible lg:pb-0">
                             {TABS.map((tab) => (

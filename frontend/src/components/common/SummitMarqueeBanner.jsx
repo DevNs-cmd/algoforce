@@ -13,7 +13,7 @@ const SummitMarqueeBanner = () => {
       {/* Ticker Bar */}
       <div 
         onClick={() => setShowModal(true)}
-        className="relative z-40 bg-gradient-to-r from-purple-950 via-[#06101d] to-purple-900 border-b border-purple-500/30 text-white cursor-pointer overflow-hidden py-2 px-4 shadow-md select-none group transition-colors hover:from-purple-900 hover:to-purple-850"
+        className="fixed top-0 left-0 right-0 z-[55] h-8 sm:h-9 bg-gradient-to-r from-purple-950 via-[#06101d] to-purple-900 border-b border-purple-500/30 text-white cursor-pointer overflow-hidden px-4 shadow-md select-none group transition-colors hover:from-purple-900 hover:to-purple-850 flex items-center"
       >
         <div className="flex items-center gap-4 text-xs font-semibold tracking-wide whitespace-nowrap animate-marquee">
           <span className="inline-flex items-center gap-1.5 bg-purple-500/25 border border-purple-400/40 text-purple-200 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider shrink-0">

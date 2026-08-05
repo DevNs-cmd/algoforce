@@ -4,6 +4,10 @@ const defaultOgImage = `${siteUrl}/logo.png`;
 
 // High-intent enterprise keywords for AEO, GEO, and Search Engines
 const coreKeywords = [
+  "AlgoForce AI Transformation Summit Delhi 2026",
+  "AI Summit Delhi 2026",
+  "Stop Buying AI Start Deploying AI",
+  "AlgoForce Summit Tickets Luma Unstop",
   "Enterprise AI Software Company",
   "AI Software Company India",
   "AI Consulting Company",
@@ -12,13 +16,6 @@ const coreKeywords = [
   "AI for Manufacturing",
   "AI for Finance",
   "Tally AI Integration",
-  "AI Lead Management",
-  "AI Workflow Automation",
-  "AI ERP Integration",
-  "Private AI Deployment",
-  "On-Premise AI Solutions",
-  "AI for SMEs",
-  "Enterprise AI Platform",
   "LeadBolt Sales Copilot",
   "AlgoForce Finance AI",
   "FactoryGPT Quality Inspection",
@@ -28,7 +25,8 @@ const coreKeywords = [
   "AlgoForce AI",
   "AlgoForce Labs",
   "Crucible Startup OS",
-  "Velqora"
+  "Velqora",
+  "Dev N Suman Founder"
 ];
 
 const combineKeywords = (...groups) =>
