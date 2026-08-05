@@ -8,7 +8,7 @@ const teamMembers = [
     role: "Founder & CEO",
     department: "Leadership",
     location: "New Delhi",
-    photo: "",
+    photo: "/dev-n-suman-founder.jpg",
     bio: "Building AlgoForce as an AI Software Company across ready-to-use software products, Labs talent training, and the Crucible platform.",
     linkedin: "https://www.linkedin.com/in/dev-n-suman-3616a6377/",
     email: "af@algoforceaii.com",

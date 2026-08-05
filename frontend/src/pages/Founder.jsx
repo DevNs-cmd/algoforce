@@ -12,7 +12,6 @@ import {
   FaShieldAlt,
 } from "react-icons/fa"
 import SeoHead from "../components/common/SeoHead"
-import OptimizedVideo from "../components/common/OptimizedVideo"
 
 const pillars = [
   {
@@ -55,8 +54,37 @@ const Founder = () => {
     <main className="min-h-screen bg-[#f7f9fc] text-[#06101d]">
       <SeoHead path="/founder" />
 
+      {/* Structured Person Schema for Dev N Suman SEO */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Person",
+          "@id": "https://www.algoforceaii.com/#founder",
+          "name": "Dev N Suman",
+          "jobTitle": "Founder & Chief Executive Officer",
+          "image": "https://www.algoforceaii.com/dev-n-suman-founder.jpg",
+          "photo": "https://www.algoforceaii.com/dev-n-suman-founder.jpg",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "AlgoForce AI",
+            "url": "https://www.algoforceaii.com"
+          },
+          "url": "https://www.algoforceaii.com/founder",
+          "sameAs": [
+            "https://www.linkedin.com/in/dev-n-suman-3616a6377/",
+            "https://github.com/DevNs-cmd"
+          ],
+          "knowsAbout": [
+            "Enterprise Artificial Intelligence",
+            "Business Process Automation",
+            "Next.js Architecture",
+            "Tally ERP Integration",
+            "Software Systems Architecture"
+          ]
+        })}
+      </script>
 
-      <section className="relative overflow-hidden border-b border-[#06101d]/8 bg-white pt-32 pb-14 md:pt-36 md:pb-20">
+      <section className="relative overflow-hidden border-b border-[#06101d]/8 bg-white pt-36 pb-14 md:pt-40 md:pb-20">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-[-12rem] right-[-8rem] h-[28rem] w-[28rem] rounded-full bg-[#8f38ff]/10 blur-[90px]" />
           <div className="absolute bottom-[-12rem] left-[-10rem] h-[30rem] w-[30rem] rounded-full bg-[#062f4f]/10 blur-[100px]" />
@@ -64,35 +92,35 @@ const Founder = () => {
 
         <div className="relative mx-auto max-w-7xl px-5 sm:px-6">
           <div className="grid gap-10 lg:grid-cols-[0.86fr_1.14fr] lg:items-center">
+            {/* Founder Card with Actual Photo */}
             <motion.article
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75 }}
               className="overflow-hidden rounded-[34px] border border-[#06101d]/10 bg-white p-4 shadow-[0_24px_70px_rgba(6,47,79,0.08)]"
             >
-              <div className="relative aspect-[4/5] min-h-[420px] overflow-hidden rounded-[28px] border border-[#06101d]/10 bg-[#eef2f7]">
-                <OptimizedVideo
-                  src="/vecteezy.mp4"
-                  inView
-                  preload="metadata"
-                  mobilePreload="none"
-                  className="absolute inset-0 h-full w-full object-cover opacity-76"
+              <div className="relative aspect-[4/5] min-h-[380px] sm:min-h-[420px] overflow-hidden rounded-[28px] border border-[#06101d]/10 bg-[#eef2f7]">
+                <img
+                  src="/dev-n-suman-founder.jpg"
+                  alt="Dev N Suman - Founder & Chief Executive Officer of AlgoForce AI"
+                  className="absolute inset-0 h-full w-full object-cover object-top"
+                  loading="eager"
                 />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,16,29,0.02),rgba(6,16,29,0.72))]" />
-                <div className="absolute left-5 right-5 bottom-5 text-white">
-                  <p className="mb-2 text-[10px] font-semibold uppercase text-white/70">Founder Office</p>
-                  <h2 className="text-2xl font-semibold md:text-3xl">Execution over noise.</h2>
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,16,29,0.0),rgba(6,16,29,0.75))]" />
+                <div className="absolute left-5 right-5 bottom-5 text-white z-10">
+                  <p className="mb-1 text-[10px] font-bold uppercase tracking-wider text-purple-300">Founder & Systems Architect</p>
+                  <h2 className="text-2xl sm:text-3xl font-bold">Dev N Suman</h2>
                 </div>
               </div>
 
               <div className="grid grid-cols-3 gap-3 px-2 pt-5">
                 {[
-                  ["Founder", "Role"],
+                  ["Dev N Suman", "Founder"],
                   ["MSME", "Registered"],
-                  ["Delhi", "Office"],
+                  ["Delhi", "HQ Office"],
                 ].map(([value, label]) => (
-                  <div key={label} className="rounded-2xl bg-[#f7f9fc] p-3">
-                    <div className="text-base font-bold text-[#06101d]">{value}</div>
+                  <div key={label} className="rounded-2xl bg-[#f7f9fc] p-3 text-center">
+                    <div className="text-xs sm:text-sm font-bold text-[#06101d] truncate">{value}</div>
                     <div className="mt-1 text-[9px] font-semibold uppercase text-slate-400">{label}</div>
                   </div>
                 ))}
@@ -112,9 +140,9 @@ const Founder = () => {
                 Dev N Suman leads product strategy at <span className="premium-serif italic font-normal text-[#8f38ff]">AlgoForce.</span>
               </h1>
               <p className="max-w-2xl text-base leading-relaxed text-slate-600 md:text-lg">
-                A profile of the founder shaping AlgoForce's software products, Labs engineering training, and Crucible platform.
+                Dev N Suman is the founder of AlgoForce AI OS, shaping enterprise AI software products, Labs engineering training, and the Crucible startup execution platform.
               </p>
- 
+
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <a
                   href="https://www.linkedin.com/in/dev-n-suman-3616a6377/"
@@ -137,7 +165,7 @@ const Founder = () => {
                   Book a Demo <FaArrowRight size={11} />
                 </Link>
               </div>
- 
+
               <div className="mt-8 flex items-start gap-3 rounded-[24px] border border-[#06101d]/10 bg-[#f7f9fc] p-5 text-sm font-semibold text-slate-500">
                 <FaMapMarkerAlt className="mt-0.5 text-[#8f38ff]" />
                 <span>Office: South Delhi, Kalkaji, New Delhi 110019</span>
@@ -146,7 +174,7 @@ const Founder = () => {
           </div>
         </div>
       </section>
- 
+
       <section className="mx-auto max-w-7xl px-5 py-14 sm:px-6 md:py-20">
         <div className="mb-10 flex flex-col gap-4 md:mb-12 md:flex-row md:items-end md:justify-between">
           <div>

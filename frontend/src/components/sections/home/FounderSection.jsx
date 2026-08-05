@@ -64,12 +64,17 @@ const FounderSection = () => {
                             transition={{ duration: 1.5 }}
                             className="relative aspect-[4/5] rounded-[3rem] overflow-hidden border-8 border-white/5 shadow-[0_50px_100px_rgba(0,0,0,0.8)] bg-gray-900 group"
                         >
-                            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10 opacity-60" />
-                            <div className="w-full h-full bg-indigo-950/20 animate-pulse flex items-center justify-center text-8xl font-black text-white/5">DEV</div>
+                            <img
+                                src="/dev-n-suman-founder.jpg"
+                                alt="Dev N Suman - Founder & AI Systems Architect of AlgoForce AI"
+                                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                                loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10 opacity-75" />
                             
                             <div className="absolute bottom-10 left-10 z-20">
-                                <h3 className="text-3xl font-black text-white tracking-tighter mb-2">Dev N Suman</h3>
-                                <p className="text-purple-500 font-bold uppercase tracking-widest text-[11px]">Founder & AI Engineer</p>
+                                <h3 className="text-3xl font-black text-white tracking-tighter mb-1">Dev N Suman</h3>
+                                <p className="text-purple-400 font-bold uppercase tracking-widest text-[11px]">Founder & Systems Architect</p>
                             </div>
                         </motion.div>
 

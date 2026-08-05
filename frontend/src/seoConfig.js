@@ -104,9 +104,11 @@ export const buildSchema = (path, meta = {}) => {
       "@id": `${siteUrl}/#founder`,
       "name": "Dev N Suman",
       "jobTitle": "Founder & Chief Executive Officer",
+      "image": `${siteUrl}/dev-n-suman-founder.jpg`,
+      "photo": `${siteUrl}/dev-n-suman-founder.jpg`,
       "worksFor": { "@id": `${siteUrl}/#organization` },
       "sameAs": [
-        "https://linkedin.com/in/dev-n-suman-3616a6377",
+        "https://www.linkedin.com/in/dev-n-suman-3616a6377/",
         "https://github.com/DevNs-cmd"
       ]
     },
@@ -429,6 +431,14 @@ const seoConfig = {
     image: defaultOgImage,
     keywords: combineKeywords(coreKeywords, ["Book AI Demo", "Contact AlgoForce", "AlgoForce New Delhi Address"]),
     schemaType: "ContactPage"
+  },
+  "/founder": {
+    title: "Dev N Suman — Founder & CEO | AlgoForce AI",
+    description: "Dev N Suman is the founder of AlgoForce AI OS, shaping enterprise AI software products, Labs engineering talent training, and the Crucible startup execution platform.",
+    canonical: `${siteUrl}/founder`,
+    image: `${siteUrl}/dev-n-suman-founder.jpg`,
+    keywords: combineKeywords(coreKeywords, ["Dev N Suman", "Dev N Suman Founder", "Dev N Suman CEO", "AlgoForce Founder"]),
+    schemaType: "ProfilePage"
   },
   "/pricing": {
     title: "Transparent Product Pricing & Subscription Plans | AlgoForce AI",
