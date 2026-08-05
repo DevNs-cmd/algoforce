@@ -113,7 +113,7 @@ const SummitSection = () => {
                     <Users size={15} className="text-purple-300 shrink-0" />
                     <div>
                       <span className="block text-[8px] font-bold uppercase tracking-wider text-slate-300">Audience</span>
-                      <span className="text-[10px] font-bold text-white truncate">Founders & CXOs</span>
+                      <span className="text-[10px] font-bold text-white truncate">Open to All Domains</span>
                     </div>
                   </div>
                 </div>
@@ -260,7 +260,7 @@ const SummitSection = () => {
                 <Users size={15} className="text-purple-600 shrink-0" />
                 <div>
                   <span className="block text-[8px] font-bold uppercase tracking-wider text-slate-400">Audience</span>
-                  <span className="text-[11px] font-bold text-slate-900 truncate">Founders & CXOs</span>
+                  <span className="text-[11px] font-bold text-slate-900 truncate">Open to All Domains</span>
                 </div>
               </div>
             </div>

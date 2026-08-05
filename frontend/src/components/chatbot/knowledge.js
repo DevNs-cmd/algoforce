@@ -22,7 +22,7 @@ export const ALGOFORCE_KNOWLEDGE = {
     city: 'Delhi',
     time: '10:00 AM – 3:00 PM IST',
     theme: 'Stop Buying AI. Start Deploying AI.',
-    audience: 'Founders, CXOs, Business Leaders, Startup Teams & AI Innovators',
+    audience: 'Open to All Domains, Students, Professionals & AI Innovators',
     lumaUrl: 'https://luma.com/t1m4rkst?tk=GuW27n',
     unstopUrl: 'https://unstop.com/o/a9xApLV?lb=kVkkl81P&utm_medium=Share&utm_source=events&utm_campaign=Fqgpcvtk16500',
     passes: [
