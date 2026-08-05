@@ -19,7 +19,7 @@ const generateAIResponse = (query) => {
   if (q.includes('summit') || q.includes('delhi') || q.includes('28 oct') || q.includes('october') || q.includes('event') || q.includes('ticket') || q.includes('luma') || q.includes('unstop')) {
     const s = ALGOFORCE_KNOWLEDGE.summit;
     const topics = s.keyTopics.slice(0, 5).map(t => `• ${t}`).join('\n');
-    return `🚀 **${s.title}**\n\n• **Date**: ${s.date} (9 AM - 6 PM IST)\n• **City**: ${s.city}\n• **Theme**: ${s.theme}\n• **Audience**: ${s.audience}\n\n**Key Topics**:\n${topics}\n\n**Registration Options**:\n• Reserve on Luma (${s.lumaUrl})\n• Reserve on Unstop (${s.unstopUrl})`;
+    return `🚀 **${s.title}**\n\n• **Date**: ${s.date} (10 AM - 3 PM IST)\n• **City**: ${s.city}\n• **Theme**: ${s.theme}\n• **Audience**: ${s.audience}\n\n**Key Topics**:\n${topics}\n\n**Registration Options**:\n• Reserve on Luma (${s.lumaUrl})\n• Reserve on Unstop (${s.unstopUrl})`;
   }
 
   // 2. Audit / Consultation

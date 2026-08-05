@@ -20,7 +20,7 @@ export const ALGOFORCE_KNOWLEDGE = {
     title: 'AlgoForce AI Transformation Summit Delhi 2026',
     date: '28 October 2026',
     city: 'Delhi',
-    time: '9:00 AM – 6:00 PM IST',
+    time: '10:00 AM – 3:00 PM IST',
     theme: 'Stop Buying AI. Start Deploying AI.',
     audience: 'Founders, CXOs, Business Leaders, Startup Teams & AI Innovators',
     lumaUrl: 'https://luma.com/t1m4rkst?tk=GuW27n',

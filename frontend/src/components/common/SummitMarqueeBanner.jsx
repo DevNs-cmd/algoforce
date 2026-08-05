@@ -70,7 +70,7 @@ const SummitMarqueeBanner = () => {
               </h3>
 
               <p className="text-xs text-slate-300 font-medium mb-4">
-                📅 28 Oct 2026 • 9 AM - 6 PM IST | Delhi, India
+                📅 28 Oct 2026 • 10 AM - 3 PM IST | Delhi, India
               </p>
 
               <p className="text-xs text-slate-300 leading-relaxed mb-6">

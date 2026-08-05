@@ -18,7 +18,7 @@ ALGOFORCE_KNOWLEDGE_DOCS = [
         "category": "Summit 2026",
         "title": "AlgoForce AI Transformation Summit Delhi 2026",
         "content": (
-            "The AlgoForce AI Transformation Summit Delhi 2026 takes place on 28 October 2026 in Delhi from 9 AM to 6 PM. "
+            "The AlgoForce AI Transformation Summit Delhi 2026 takes place on 28 October 2026 in Delhi from 10 AM to 3 PM. "
             "Theme: 'Stop Buying AI. Start Deploying AI.' Audience: Founders, CXOs, business leaders, startup teams, and AI innovators. "
             "Registration links: Luma (https://luma.com/t1m4rkst?tk=GuW27n) and Unstop (https://unstop.com/o/a9xApLV)."
         ),

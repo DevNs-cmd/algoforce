@@ -105,7 +105,7 @@ const SummitSection = () => {
                     <Clock size={15} className="text-purple-300 shrink-0" />
                     <div>
                       <span className="block text-[8px] font-bold uppercase tracking-wider text-slate-300">Time</span>
-                      <span className="text-xs font-bold text-white">9 AM – 6 PM</span>
+                      <span className="text-xs font-bold text-white">10 AM – 3 PM</span>
                     </div>
                   </div>
 
@@ -252,7 +252,7 @@ const SummitSection = () => {
                 <Clock size={15} className="text-purple-600 shrink-0" />
                 <div>
                   <span className="block text-[8px] font-bold uppercase tracking-wider text-slate-400">Time</span>
-                  <span className="text-[11px] font-bold text-slate-900">9 AM – 6 PM</span>
+                  <span className="text-[11px] font-bold text-slate-900">10 AM – 3 PM</span>
                 </div>
               </div>
 
