@@ -5,80 +5,90 @@ import { useNavigate } from 'react-router-dom';
 import { ALGOFORCE_KNOWLEDGE } from './knowledge';
 
 const SUGGESTIONS = [
+  { text: 'Summit 2026 Delhi', intent: 'summit' },
   { text: 'Book Free AI Audit', intent: 'audit' },
-  { text: 'What services do you offer?', intent: 'services' },
+  { text: 'Tally & CRM AI Sync', intent: 'tally' },
   { text: 'Retainer Pricing Plans', intent: 'price' },
-  { text: 'Tally & CRM Integrations', intent: 'integration' },
   { text: 'Data Privacy & Cloud Security', intent: 'privacy' },
 ];
 
 const generateAIResponse = (query) => {
   const q = query.toLowerCase().trim();
 
-  // 1. Audit / Consultation
+  // 1. Summit 2026 Event
+  if (q.includes('summit') || q.includes('delhi') || q.includes('28 oct') || q.includes('october') || q.includes('event') || q.includes('ticket') || q.includes('luma') || q.includes('unstop')) {
+    const s = ALGOFORCE_KNOWLEDGE.summit;
+    const topics = s.keyTopics.slice(0, 5).map(t => `• ${t}`).join('\n');
+    return `🚀 **${s.title}**\n\n• **Date**: ${s.date} (9 AM - 6 PM IST)\n• **City**: ${s.city}\n• **Theme**: ${s.theme}\n• **Audience**: ${s.audience}\n\n**Key Topics**:\n${topics}\n\n**Registration Options**:\n• Reserve on Luma (${s.lumaUrl})\n• Reserve on Unstop (${s.unstopUrl})`;
+  }
+
+  // 2. Audit / Consultation
   if (q.includes('audit') || q.includes('consult') || q.includes('book') || q.includes('schedule') || q.includes('call') || q.includes('meeting') || q.includes('strategy')) {
-    return ALGOFORCE_KNOWLEDGE.faq.audit;
+    return `${ALGOFORCE_KNOWLEDGE.faq.audit}\n\nYou can book a free 30-Minute AI Audit directly on our Contact page.`;
   }
 
-  // 2. Services / Portfolios / Core Work
-  if (q.includes('service') || q.includes('what do you do') || q.includes('offer') || q.includes('portfolio') || q.includes('capability') || q.includes('build')) {
-    const list = ALGOFORCE_KNOWLEDGE.products.map(p => `• ${p}`).join('\n');
-    return `AlgoForce AI delivers custom enterprise AI systems, database software, and workflow automation. Our main portfolios include:\n\n${list}\n\nWe support 13 distinct services. View the complete catalog with Problem/Solution/ROI pairs on our /services page.`;
+  // 3. Tally & Accounting AI (TallyGPT)
+  if (q.includes('tally') || q.includes('tallygpt') || q.includes('finance') || q.includes('accounting') || q.includes('gst') || q.includes('ledger') || q.includes('erp') || q.includes('sap')) {
+    const p = ALGOFORCE_KNOWLEDGE.products.find(prod => prod.id === 'tallygpt');
+    return `📊 **${p.name}**\n\n${p.description}\n\n• **Zero Copy-Pasting**: Direct API & middleware connector.\n• **GST Autopilot**: Real-time invoice & ledger reconciliation.\n• **Desktop Installer**: Available at /releases/tallygpt-desktop.exe.`;
   }
 
-  // 3. Tally / CRM / ERP / Integrations
-  if (q.includes('tally') || q.includes('crm') || q.includes('erp') || q.includes('sap') || q.includes('zoho') || q.includes('salesforce') || q.includes('integration') || q.includes('sync')) {
-    return `We construct secure middleware integrations connecting custom AI pipelines and automation flows directly into your existing business systems (Tally Prime, SAP, Zoho CRM, Salesforce, Shopify). 
-    
-    This replaces manual copy-pasting of datasets and registers, keeping your existing software infrastructure untouched.`;
+  // 4. LeadBolt & WhatsApp Automation
+  if (q.includes('leadbolt') || q.includes('whatsapp') || q.includes('crm') || q.includes('sales') || q.includes('lead') || q.includes('zoho') || q.includes('salesforce')) {
+    const s = ALGOFORCE_KNOWLEDGE.services.find(serv => serv.title.includes('WhatsApp'));
+    return `📱 **LeadBolt & Official WhatsApp Automation**\n\n${s.solution}\n\n• **Problem Solved**: ${s.problem}\n• **Expected ROI**: ${s.roi}\n• **Integration Time**: ${s.time}`;
   }
 
-  // 4. WhatsApp Automation
-  if (q.includes('whatsapp') || q.includes('chat') || q.includes('message') || q.includes('api')) {
-    const waService = ALGOFORCE_KNOWLEDGE.services.find(s => s.title.includes('WhatsApp'));
-    return `WhatsApp Automation:\nWe integrate official WhatsApp Cloud APIs with database systems and booking workflows.\n\n• **Problem**: ${waService.problem}\n• **Solution**: ${waService.solution}\n• **ROI**: ${waService.roi}\n• **Implementation**: ${waService.time}`;
+  // 5. Orion Advanced Space Systems
+  if (q.includes('orion') || q.includes('space') || q.includes('spacecraft') || q.includes('orbital') || q.includes('satellite')) {
+    const p = ALGOFORCE_KNOWLEDGE.products.find(prod => prod.id === 'orion');
+    return `🌌 **${p.name}**\n\n${p.description}\n\nWe connect autonomous mission software, robotics, and orbital infrastructure builders. Learn more on our /orion page.`;
   }
 
-  // 5. Data Privacy & Security
-  if (q.includes('privacy') || q.includes('security') || q.includes('secure') || q.includes('leak') || q.includes('cloud') || q.includes('aws') || q.includes('azure') || q.includes('llama') || q.includes('data')) {
-    return `${ALGOFORCE_KNOWLEDGE.security.privacy}\n\n${ALGOFORCE_KNOWLEDGE.security.policy}`;
+  // 6. Services & Products Overview
+  if (q.includes('service') || q.includes('product') || q.includes('what do you do') || q.includes('offer') || q.includes('portfolio') || q.includes('capability') || q.includes('build') || q.includes('factory') || q.includes('hotel') || q.includes('brain')) {
+    const list = ALGOFORCE_KNOWLEDGE.products.map(p => `• **${p.name}**: ${p.description}`).join('\n\n');
+    return `AlgoForce AI builds production-grade enterprise software products:\n\n${list}\n\nView complete service details on our /services page.`;
   }
 
-  // 6. Pricing & Packages
-  if (q.includes('price') || q.includes('pricing') || q.includes('cost') || q.includes('package') || q.includes('retainer') || q.includes('fees') || q.includes('razorpay')) {
+  // 7. Data Privacy & Cloud Security
+  if (q.includes('privacy') || q.includes('security') || q.includes('secure') || q.includes('leak') || q.includes('cloud') || q.includes('aws') || q.includes('azure') || q.includes('llama') || q.includes('vpc')) {
+    return `🛡️ **Enterprise Data Security & Cloud VPC**\n\n${ALGOFORCE_KNOWLEDGE.security.privacy}\n\n${ALGOFORCE_KNOWLEDGE.security.policy}`;
+  }
+
+  // 8. Pricing & Packages
+  if (q.includes('price') || q.includes('pricing') || q.includes('cost') || q.includes('package') || q.includes('retainer') || q.includes('fees') || q.includes('razorpay') || q.includes('$29')) {
     const list = ALGOFORCE_KNOWLEDGE.packages.map(p => `• **${p.name}** (${p.price}): ${p.description}`).join('\n\n');
-    return `We offer simple milestone pricing and transparent retainers:\n\n${list}\n\nPayments are secured via Razorpay. View full pricing tiers on our /pricing page.`;
+    return `AlgoForce offers transparent milestone pricing and retainers:\n\n${list}\n\nPayments are secured via Razorpay. View full pricing tiers on our /pricing page.`;
   }
 
-  // 7. Location & Contact
-  if (q.includes('address') || q.includes('location') || q.includes('delhi') || q.includes('office') || q.includes('where') || q.includes('phone') || q.includes('contact') || q.includes('email')) {
-    return `Our registered headquarters is located at:\n${ALGOFORCE_KNOWLEDGE.agency.globalHQ}\n\n• **Official Phone**: ${ALGOFORCE_KNOWLEDGE.agency.phone}\n• **Official Email**: ${ALGOFORCE_KNOWLEDGE.agency.email}\n• **Operating Hours**: ${ALGOFORCE_KNOWLEDGE.agency.operatingHours}`;
+  // 9. Location, HQ & Contact
+  if (q.includes('address') || q.includes('location') || q.includes('delhi') || q.includes('office') || q.includes('where') || q.includes('phone') || q.includes('contact') || q.includes('email') || q.includes('kalkaji')) {
+    return `🏢 **AlgoForce Global HQ**\n\n${ALGOFORCE_KNOWLEDGE.agency.globalHQ}\n\n• **Official Phone**: ${ALGOFORCE_KNOWLEDGE.agency.phone}\n• **Official Email**: ${ALGOFORCE_KNOWLEDGE.agency.email}\n• **Operating Hours**: ${ALGOFORCE_KNOWLEDGE.agency.operatingHours}`;
   }
 
-  // 8. MSME Registration
+  // 10. MSME Registration & Legal
   if (q.includes('msme') || q.includes('registration') || q.includes('udyam') || q.includes('gst') || q.includes('legal')) {
-    return `AlgoForce AI is a registered MSME unit under the Government of India.\n\n• **Registration ID**: ${ALGOFORCE_KNOWLEDGE.agency.msmeId}\nAll contracts and invoicing are fully GST and MSME compliant.`;
+    return `📜 **Government Registration & Legal Credentials**\n\nAlgoForce AI OS is a registered MSME unit under the Government of India.\n\n• **MSME Udyam Registration ID**: ${ALGOFORCE_KNOWLEDGE.agency.msmeId}\nAll contracts and invoicing are fully GST and MSME compliant.`;
   }
 
-  // 9. Founder Dev N Suman
+  // 11. Founder Dev N Suman
   if (q.includes('founder') || q.includes('ceo') || q.includes('dev') || q.includes('suman') || q.includes('who made') || q.includes('creator')) {
-    return `AlgoForce AI was founded in June 2026 by Dev N Suman in New Delhi. Dev is an enterprise systems architect, SaaS developer, and Next.js performance engineer. You can read more about him on our /founder page.`;
+    return `👨‍💻 **Founder Dev N Suman**\n\nAlgoForce AI OS was founded in June 2026 by Dev N Suman in New Delhi. Dev is an enterprise systems architect, SaaS developer, and Next.js performance engineer. Read more on our /founder page.`;
   }
 
-  // 10. Crucible, Labs & Velqora divisions
-  if (q.includes('crucible') || q.includes('incubator') || q.includes('labs') || q.includes('talent') || q.includes('training') || q.includes('velqora') || q.includes('performer')) {
-    return `Our ecosystem includes specialized divisions:
-    • **Crucible**: Our Startup Incubation Platform assisting early-stage founders with concepts, MVPs, and roadmap tracking.
-    • **AlgoForce Labs**: Our Talent Development Division training developers to build and manage enterprise database systems.
-    • **Velqora**: A specialized booking and contract OS for live entertainment performers.`;
+  // 12. Ecosystem: Crucible, Labs, Velqora
+  if (q.includes('crucible') || q.includes('incubator') || q.includes('labs') || q.includes('talent') || q.includes('velqora') || q.includes('performer')) {
+    const e = ALGOFORCE_KNOWLEDGE.ecosystem;
+    return `⚡ **AlgoForce Ecosystem Divisions**\n\n• **Crucible**: ${e.crucible}\n• **AlgoForce Labs**: ${e.labs}\n• **Velqora**: ${e.velqora}`;
   }
 
-  // 11. Greeting fallback
+  // 13. Greeting fallback
   if (q.includes('hello') || q.includes('hi') || q.includes('hey') || q.includes('greetings')) {
-    return `Greetings. How can I assist you with your business systems and workflow integrations today?\n\n• Ask about Tally/CRM Sync\n• Ask about Retainer Pricing\n• Ask about our Free AI Audit`;
+    return `Greetings! I am your AlgoForce AI Systems Advisor. How can I assist your business today?\n\n• Ask about Summit 2026 Delhi\n• Ask about TallyGPT & CRM Sync\n• Ask about Retainer Pricing ($29/mo)\n• Book a Free 30-Min AI Audit`;
   }
 
-  return `I can answer queries about the AlgoForce ecosystem:\n\n• Our 13 enterprise AI, CRM/ERP, and Tally services\n• Retainer packages starting from $29/mo\n• Free 30-Minute AI Readiness Audits\n• Private cloud VPC hosting for data security\n• Credentials (MSME registration: ${ALGOFORCE_KNOWLEDGE.agency.msmeId})\n\nWhat would you like to explore?`;
+  return `I am programmed with full AlgoForce ecosystem knowledge:\n\n• **Summit 2026**: Delhi event on 28 Oct 2026\n• **Products**: TallyGPT, LeadBolt, FactoryGPT, HotelGPT, Corporate Brain, Orion Space\n• **Credentials**: MSME ID (${ALGOFORCE_KNOWLEDGE.agency.msmeId})\n• **Pricing**: Retainers from $29/mo\n\nWhat would you like to explore?`;
 };
 
 const Chatbot = () => {
@@ -109,15 +119,15 @@ const Chatbot = () => {
       const botResponse = generateAIResponse(textToSend);
       setMessages(prev => [...prev, { role: 'bot', content: botResponse }]);
       setIsTyping(false);
-    }, 900);
+    }, 700);
   };
 
   const handleSuggestionClick = (intent) => {
     let queryText = '';
-    if (intent === 'audit') queryText = 'How do I book a free AI audit?';
-    else if (intent === 'services') queryText = 'What services do you offer?';
+    if (intent === 'summit') queryText = 'Tell me about the Summit 2026 in Delhi';
+    else if (intent === 'audit') queryText = 'How do I book a free AI audit?';
+    else if (intent === 'tally') queryText = 'How does TallyGPT connect with Tally Prime?';
     else if (intent === 'price') queryText = 'What are your retainer pricing plans?';
-    else if (intent === 'integration') queryText = 'Can you connect AI to Tally and CRM?';
     else if (intent === 'privacy') queryText = 'How do you keep our data secure?';
 
     handleSend(queryText);
@@ -237,6 +247,22 @@ const Chatbot = () => {
                             className="mt-2.5 text-[#b783ff] hover:text-[#cbb5ff] font-bold hover:underline flex items-center gap-0.5 text-xs cursor-pointer"
                           >
                             Meet Dev N Suman <FaChevronRight size={8} />
+                          </button>
+                        )}
+                        {msg.role === 'bot' && msg.content.includes('/orion') && (
+                          <button
+                            onClick={() => { setIsOpen(false); navigate('/orion'); }}
+                            className="mt-2.5 text-[#b783ff] hover:text-[#cbb5ff] font-bold hover:underline flex items-center gap-0.5 text-xs cursor-pointer"
+                          >
+                            Explore Orion Space <FaChevronRight size={8} />
+                          </button>
+                        )}
+                        {msg.role === 'bot' && (msg.content.includes('Summit') || msg.content.includes('luma')) && (
+                          <button
+                            onClick={() => { setIsOpen(false); navigate('/#summit'); }}
+                            className="mt-2.5 text-[#b783ff] hover:text-[#cbb5ff] font-bold hover:underline flex items-center gap-0.5 text-xs cursor-pointer"
+                          >
+                            Go to Summit 2026 Details <FaChevronRight size={8} />
                           </button>
                         )}
                         {msg.role === 'bot' && msg.content.includes('/pricing') && (

@@ -5,6 +5,7 @@ import { AuthProvider } from './contexts/AuthContext'
 import SeoHead from './components/common/SeoHead'
 
 import Navigation from './components/common/Navigation'
+import SummitMarqueeBanner from './components/common/SummitMarqueeBanner'
 import Footer from './components/common/Footer'
 import PageVideoBackdrop from './components/common/PageVideoBackdrop'
 import SplashScreen from './components/common/SplashScreen'
@@ -135,6 +136,7 @@ const AppShell = () => {
       )}
       <SeoHead path={location.pathname} />
       <SplashScreen />
+      {!hideMarketingShells && <SummitMarqueeBanner />}
       {!hideMarketingShells && <Navigation />}
       <main id="main-content" className="relative z-10">
         {!hideMarketingShells && location.pathname !== '/' && <Breadcrumbs />}
