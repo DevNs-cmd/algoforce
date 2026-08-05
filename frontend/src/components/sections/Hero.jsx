@@ -74,7 +74,7 @@ const Hero = () => {
   }, [heroInView, heroVideos.length, isMobile]);
 
   return (
-    <section ref={heroRef} className="relative flex items-center justify-center min-h-[84vh] md:min-h-screen overflow-hidden premium-page-bg text-white pt-28 sm:pt-32 md:pt-40 lg:pt-44 pb-12 md:pb-16">
+    <section ref={heroRef} className="relative flex items-center justify-center min-h-[84vh] md:min-h-screen overflow-hidden premium-page-bg text-white pt-36 sm:pt-40 md:pt-48 lg:pt-52 pb-12 md:pb-16">
       {/* Video Background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute inset-0 bg-[#03070d]/72 z-10" />
