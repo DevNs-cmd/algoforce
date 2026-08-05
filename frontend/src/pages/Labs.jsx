@@ -117,22 +117,23 @@ const Labs = () => {
     }
 
     return (
-        <main className="min-h-screen bg-[#f7f9fc] text-[#06101d] overflow-x-hidden">
+        <main className="min-h-screen bg-[#f7f9fc] text-[#06101d] overflow-x-hidden w-full">
             <SeoHead path="/labs" />
 
             {/* Hero Section — with ample top clearance for floating header */}
-            <section className="relative overflow-hidden border-b border-[#06101d]/8 bg-white pt-40 pb-12 sm:pt-44 sm:pb-16 md:pt-52 md:pb-20">
+            <section className="relative overflow-hidden border-b border-[#06101d]/8 bg-white pt-40 pb-12 sm:pt-44 sm:pb-16 md:pt-52 md:pb-20 w-full">
                 <div className="absolute inset-0 pointer-events-none">
                     <div className="absolute top-[-12rem] right-[-8rem] h-[28rem] w-[28rem] rounded-full bg-[#8f38ff]/10 blur-[90px]" />
                     <div className="absolute bottom-[-12rem] left-[-10rem] h-[30rem] w-[30rem] rounded-full bg-[#062f4f]/10 blur-[100px]" />
                 </div>
 
-                <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
-                    <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+                <div className="relative mx-auto max-w-7xl px-4 sm:px-6 w-full">
+                    <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center w-full">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.75 }}
+                            className="w-full max-w-full"
                         >
                             <div className="mb-4 sm:mb-6 inline-flex items-center gap-2 rounded-full border border-[#06101d]/10 bg-[#f7f9fc] px-3.5 py-1.5 sm:px-4 sm:py-2">
                                 <span className="h-1.5 w-1.5 rounded-full bg-[#8f38ff]" />
@@ -161,9 +162,9 @@ const Labs = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.08, duration: 0.75 }}
-                            className="overflow-hidden rounded-[24px] sm:rounded-[30px] border border-[#06101d]/10 bg-white p-3.5 sm:p-4 shadow-[0_24px_70px_rgba(6,47,79,0.08)]"
+                            className="overflow-hidden rounded-[24px] sm:rounded-[30px] border border-[#06101d]/10 bg-white p-3.5 sm:p-4 shadow-[0_24px_70px_rgba(6,47,79,0.08)] w-full"
                         >
-                            <div className="relative aspect-[16/10] min-h-[220px] sm:min-h-[260px] overflow-hidden rounded-[20px] sm:rounded-[24px] border border-[#06101d]/10 bg-[#eef2f7]">
+                            <div className="relative aspect-[16/10] min-h-[220px] sm:min-h-[260px] overflow-hidden rounded-[20px] sm:rounded-[24px] border border-[#06101d]/10 bg-[#eef2f7] w-full">
                                 <OptimizedVideo
                                     src="/vecteezy.mp4"
                                     inView
@@ -187,13 +188,13 @@ const Labs = () => {
             </section>
 
             {/* Labs Directory and Cards */}
-            <section className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-14 md:py-20">
-                <div className="grid gap-6 sm:gap-8 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
+            <section className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-14 md:py-20 w-full max-w-full overflow-hidden">
+                <div className="grid gap-6 sm:gap-8 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start w-full">
                     
-                    {/* Sidebar Navigator — horizontal scroll on mobile, vertical list on lg */}
-                    <aside className="sticky top-[125px] sm:top-[135px] z-30 rounded-[24px] sm:rounded-[30px] border border-[#06101d]/10 bg-white/95 backdrop-blur-md p-3.5 sm:p-4 shadow-[0_16px_50px_rgba(6,47,79,0.06)] md:p-5">
+                    {/* Sidebar Navigator — static on mobile to prevent navbar collision, sticky on desktop */}
+                    <aside className="relative lg:sticky lg:top-[135px] lg:z-30 rounded-[24px] sm:rounded-[30px] border border-[#06101d]/10 bg-white p-3.5 sm:p-4 shadow-[0_16px_50px_rgba(6,47,79,0.06)] md:p-5 w-full max-w-full overflow-hidden">
                         <p className="mb-2.5 px-2 text-[10px] sm:text-[11px] font-bold uppercase text-[#8f38ff] tracking-wider">Directory</p>
-                        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide flex-nowrap shrink-0 lg:grid lg:gap-2 lg:overflow-x-visible lg:pb-0">
+                        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide flex-nowrap shrink-0 lg:grid lg:gap-2 lg:overflow-x-visible lg:pb-0 w-full">
                             {TABS.map((tab) => (
                                 <button
                                     key={tab.id}
@@ -211,13 +212,13 @@ const Labs = () => {
                     </aside>
 
                     {/* Content Section */}
-                    <div className="min-w-0">
-                        <div className="mb-6 sm:mb-8 flex flex-col gap-2.5 md:flex-row md:items-end md:justify-between">
+                    <div className="min-w-0 w-full max-w-full overflow-hidden">
+                        <div className="mb-6 sm:mb-8 flex flex-col gap-2.5 md:flex-row md:items-end md:justify-between w-full">
                             <div>
                                 <p className="mb-1.5 text-[10px] sm:text-[11px] font-bold uppercase text-[#8f38ff] tracking-wider">Ecosystem Registry</p>
-                                <h2 className="text-2xl sm:text-3xl font-semibold md:text-4xl tracking-tight text-[#06101d]">{activeTrack.title}</h2>
+                                <h2 className="text-2xl sm:text-3xl font-semibold md:text-4xl tracking-tight text-[#06101d] break-words">{activeTrack.title}</h2>
                             </div>
-                            <p className="max-w-xl text-xs sm:text-sm leading-relaxed text-slate-500 md:text-base font-normal">
+                            <p className="max-w-xl text-xs sm:text-sm leading-relaxed text-slate-500 md:text-base font-normal break-words">
                                 {activeTrack.text}
                             </p>
                         </div>
@@ -229,7 +230,7 @@ const Labs = () => {
                                 initial={{ opacity: 0, y: 18 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -18 }}
-                                className="grid gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-3"
+                                className="grid gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-3 w-full max-w-full"
                             >
                                 {activeItems.map((item, index) => {
                                     const Icon = item.icon
@@ -240,9 +241,9 @@ const Labs = () => {
                                             whileInView={{ opacity: 1, y: 0 }}
                                             viewport={{ once: true, margin: "-50px" }}
                                             transition={{ delay: Math.min(index * 0.035, 0.18) }}
-                                            className="group flex h-full flex-col rounded-[22px] border border-[#06101d]/10 bg-white p-4 sm:p-6 shadow-[0_20px_55px_rgba(6,47,79,0.07)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_80px_rgba(6,47,79,0.12)] justify-between min-w-0"
+                                            className="group flex h-full flex-col rounded-[22px] border border-[#06101d]/10 bg-white p-4 sm:p-6 shadow-[0_20px_55px_rgba(6,47,79,0.07)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_80px_rgba(6,47,79,0.12)] justify-between w-full max-w-full overflow-hidden"
                                         >
-                                            <div className="min-w-0">
+                                            <div className="w-full max-w-full overflow-hidden">
                                                 <div className="mb-4 flex items-start justify-between gap-3">
                                                     <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-[#06101d]/10 bg-[#f7f9fc]" style={{ color: item.color }}>
                                                         {Icon && <Icon className="text-lg" />}
@@ -252,22 +253,24 @@ const Labs = () => {
                                                     </span>
                                                 </div>
 
-                                                <h3 className="mb-2 text-lg sm:text-xl font-semibold leading-tight text-[#06101d] tracking-tight break-words">
+                                                <h3 className="mb-2 text-lg sm:text-xl font-semibold leading-tight text-[#06101d] tracking-tight break-words w-full">
                                                     {item.title}
                                                 </h3>
-                                                <p className="mb-5 text-xs sm:text-sm leading-relaxed text-slate-600 font-normal break-words">{item.description}</p>
+                                                <p className="mb-5 text-xs sm:text-sm leading-relaxed text-slate-600 font-normal break-words w-full">
+                                                    {item.description}
+                                                </p>
 
-                                                <div className="mb-6 flex flex-wrap gap-1.5 sm:gap-2">
+                                                <div className="mb-6 flex flex-wrap gap-1.5 sm:gap-2 w-full max-w-full">
                                                     {item.features.map((feature) => (
-                                                        <span key={feature} className="inline-flex items-center gap-1.5 rounded-full border border-[#06101d]/10 bg-[#f7f9fc] px-2.5 py-1 text-[10px] sm:text-[11px] font-semibold text-slate-600 break-words">
+                                                        <span key={feature} className="inline-flex items-center gap-1.5 rounded-full border border-[#06101d]/10 bg-[#f7f9fc] px-2.5 py-1 text-[10px] sm:text-[11px] font-semibold text-slate-600 break-words max-w-full text-left">
                                                             <FaCheck size={8} className="text-[#8f38ff] shrink-0" />
-                                                            {feature}
+                                                            <span className="break-words">{feature}</span>
                                                         </span>
                                                     ))}
                                                 </div>
                                             </div>
 
-                                            <div className="mt-auto flex items-center justify-between gap-3 border-t border-[#06101d]/10 pt-4">
+                                            <div className="mt-auto flex items-center justify-between gap-3 border-t border-[#06101d]/10 pt-4 w-full">
                                                 <span className="text-[9px] sm:text-[10px] font-bold uppercase text-slate-400 tracking-wider shrink-0">Production Focus</span>
                                                 <button
                                                     onClick={() => setSelectedItem(item)}
@@ -286,8 +289,8 @@ const Labs = () => {
             </section>
 
             {/* Collaborations Info Section */}
-            <section className="mx-auto max-w-7xl px-4 sm:px-6 pb-12 sm:pb-16 md:pb-24">
-                <div className="grid gap-4 sm:gap-6 md:grid-cols-3">
+            <section className="mx-auto max-w-7xl px-4 sm:px-6 pb-12 sm:pb-16 md:pb-24 w-full max-w-full overflow-hidden">
+                <div className="grid gap-4 sm:gap-6 md:grid-cols-3 w-full">
                     {[
                         {
                             icon: FaLayerGroup,
@@ -311,13 +314,13 @@ const Labs = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ delay: index * 0.08 }}
-                            className="rounded-[24px] sm:rounded-[30px] border border-[#06101d]/10 bg-white p-5 sm:p-6 shadow-[0_20px_55px_rgba(6,47,79,0.06)] md:p-7"
+                            className="rounded-[24px] sm:rounded-[30px] border border-[#06101d]/10 bg-white p-5 sm:p-6 shadow-[0_20px_55px_rgba(6,47,79,0.06)] md:p-7 w-full max-w-full overflow-hidden"
                         >
                             <div className="mb-4 sm:mb-6 flex h-11 w-11 items-center justify-center rounded-2xl border border-[#06101d]/10 bg-[#f7f9fc] text-[#8f38ff]">
                                 <item.icon />
                             </div>
-                            <h3 className="mb-2 sm:mb-3 text-xl sm:text-2xl font-semibold tracking-tight text-[#06101d]">{item.title}</h3>
-                            <p className="text-xs sm:text-sm leading-relaxed text-slate-600 font-normal">{item.text}</p>
+                            <h3 className="mb-2 sm:mb-3 text-xl sm:text-2xl font-semibold tracking-tight text-[#06101d] break-words">{item.title}</h3>
+                            <p className="text-xs sm:text-sm leading-relaxed text-slate-600 font-normal break-words">{item.text}</p>
                         </motion.article>
                     ))}
                 </div>
