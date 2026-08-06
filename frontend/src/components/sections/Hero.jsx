@@ -110,15 +110,15 @@ const Hero = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
         >
-          {/* Product Vertical Badges */}
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-3 mb-6 md:mb-8">
+          {/* Product Vertical & Highlight Badges */}
+          <div className="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-2.5 sm:gap-3 mb-6 md:mb-8 px-2">
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full premium-dark-surface backdrop-blur-xl"
             >
               <div className="w-1.5 h-1.5 rounded-full bg-[#8f38ff]" />
-              <span className="text-[10px] font-semibold uppercase text-slate-300">Enterprise AI Software Company</span>
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-300">Enterprise AI Software Company</span>
             </motion.div>
 
             <Link to="/products/finance-ai">
@@ -126,6 +126,7 @@ const Hero = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
                 className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full border border-purple-500/40 bg-gradient-to-r from-purple-900/40 via-purple-600/30 to-indigo-900/40 backdrop-blur-xl text-xs font-bold text-purple-200 hover:border-purple-400 transition-all shadow-lg shadow-purple-500/20"
               >
                 <span className="relative flex h-2 w-2">
@@ -176,41 +177,53 @@ const Hero = () => {
             </span>
           </motion.div>
 
-          {/* CTAs */}
+          {/* Responsive Hero Action Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full px-4 sm:px-0"
+            className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3.5 sm:gap-4 w-full max-w-4xl mx-auto px-4 sm:px-0"
           >
             <Link to="/products/finance-ai" className="w-full sm:w-auto">
               <motion.button
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full px-8 py-4 sm:px-9 sm:py-4 bg-gradient-to-r from-[#8f38ff] via-[#7e25f6] to-[#6116cd] text-white rounded-full font-bold text-sm sm:text-[14px] flex items-center justify-center gap-2 shadow-[0_20px_50px_rgba(143,56,255,0.3)] transition-all"
+                className="w-full px-7 py-3.5 sm:px-8 sm:py-4 bg-gradient-to-r from-[#8f38ff] via-[#7e25f6] to-[#6116cd] text-white rounded-full font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-[0_20px_50px_rgba(143,56,255,0.3)] transition-all"
               >
                 <span>Install TallyGPT</span>
                 <span className="rounded-md bg-white/20 px-2 py-0.5 text-[10px] font-extrabold">v2.0 .exe</span>
               </motion.button>
             </Link>
+
             <Link to="/contact" className="w-full sm:w-auto">
               <motion.button
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full px-8 py-4 sm:px-9 sm:py-4 bg-white text-[#06101d] rounded-full font-bold text-sm sm:text-[14px] flex items-center justify-center gap-3 shadow-[0_20px_50px_rgba(143,56,255,0.16)] active:bg-gray-100 transition-all"
+                className="w-full px-7 py-3.5 sm:px-8 sm:py-4 bg-white text-[#06101d] rounded-full font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-[0_20px_50px_rgba(255,255,255,0.12)] active:bg-gray-100 transition-all"
               >
                 Book a Demo
               </motion.button>
             </Link>
+
             <a href="#products" className="w-full sm:w-auto">
               <motion.button
                 whileHover={{ scale: 1.02, backgroundColor: 'rgba(255,255,255,0.08)' }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full px-8 py-4 sm:px-9 sm:py-4 border border-white/14 rounded-full font-bold text-sm sm:text-[14px] text-white hover:border-white/30 backdrop-blur-xl transition-all"
+                className="w-full px-7 py-3.5 sm:px-8 sm:py-4 border border-white/14 rounded-full font-bold text-xs sm:text-sm text-white hover:border-white/30 backdrop-blur-xl transition-all"
               >
                 Explore Products {'->'}
               </motion.button>
             </a>
+
+            <Link to="/orion" className="w-full sm:w-auto">
+              <motion.button
+                whileHover={{ scale: 1.02, backgroundColor: 'rgba(255,255,255,0.08)' }}
+                whileTap={{ scale: 0.95 }}
+                className="w-full px-7 py-3.5 sm:px-8 sm:py-4 border border-[#d7b274]/50 rounded-full font-bold text-xs sm:text-sm text-[#f7e5bc] hover:border-[#d7b274] backdrop-blur-xl flex items-center justify-center gap-2 transition-all"
+              >
+                <Orbit size={16} aria-hidden="true" /> Explore Orion
+              </motion.button>
+            </Link>
           </motion.div>
 
           {/* Trust Badges */}
