@@ -120,6 +120,22 @@ const Hero = () => {
               <div className="w-1.5 h-1.5 rounded-full bg-[#8f38ff]" />
               <span className="text-[10px] font-semibold uppercase text-slate-300">Enterprise AI Software Company</span>
             </motion.div>
+
+            <Link to="/products/finance-ai">
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                whileHover={{ scale: 1.03 }}
+                className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full border border-purple-500/40 bg-gradient-to-r from-purple-900/40 via-purple-600/30 to-indigo-900/40 backdrop-blur-xl text-xs font-bold text-purple-200 hover:border-purple-400 transition-all shadow-lg shadow-purple-500/20"
+              >
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+                </span>
+                <span>⚡ Install TallyGPT v2.0 for Tally Prime &amp; ERP 9</span>
+                <span className="text-slate-400 font-normal">→</span>
+              </motion.div>
+            </Link>
           </div>
 
           {/* Heading */}
@@ -167,11 +183,21 @@ const Hero = () => {
             transition={{ delay: 0.5 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full px-4 sm:px-0"
           >
+            <Link to="/products/finance-ai" className="w-full sm:w-auto">
+              <motion.button
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-full px-8 py-4 sm:px-9 sm:py-4 bg-gradient-to-r from-[#8f38ff] via-[#7e25f6] to-[#6116cd] text-white rounded-full font-bold text-sm sm:text-[14px] flex items-center justify-center gap-2 shadow-[0_20px_50px_rgba(143,56,255,0.3)] transition-all"
+              >
+                <span>Install TallyGPT</span>
+                <span className="rounded-md bg-white/20 px-2 py-0.5 text-[10px] font-extrabold">v2.0 .exe</span>
+              </motion.button>
+            </Link>
             <Link to="/contact" className="w-full sm:w-auto">
               <motion.button
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full px-8 py-4 sm:px-11 sm:py-4 bg-white text-[#06101d] rounded-full font-bold text-sm sm:text-[14px] flex items-center justify-center gap-3 shadow-[0_20px_50px_rgba(143,56,255,0.16)] active:bg-gray-100 transition-all"
+                className="w-full px-8 py-4 sm:px-9 sm:py-4 bg-white text-[#06101d] rounded-full font-bold text-sm sm:text-[14px] flex items-center justify-center gap-3 shadow-[0_20px_50px_rgba(143,56,255,0.16)] active:bg-gray-100 transition-all"
               >
                 Book a Demo
               </motion.button>
@@ -180,20 +206,11 @@ const Hero = () => {
               <motion.button
                 whileHover={{ scale: 1.02, backgroundColor: 'rgba(255,255,255,0.08)' }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full px-8 py-4 sm:px-11 sm:py-4 border border-white/14 rounded-full font-bold text-sm sm:text-[14px] text-white hover:border-white/30 backdrop-blur-xl transition-all"
+                className="w-full px-8 py-4 sm:px-9 sm:py-4 border border-white/14 rounded-full font-bold text-sm sm:text-[14px] text-white hover:border-white/30 backdrop-blur-xl transition-all"
               >
                 Explore Products {'->'}
               </motion.button>
             </a>
-            <Link to="/orion" className="w-full sm:w-auto">
-              <motion.button
-                whileHover={{ scale: 1.02, backgroundColor: 'rgba(255,255,255,0.08)' }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full px-8 py-4 sm:px-9 sm:py-4 border border-[#d7b274]/50 rounded-full font-bold text-sm sm:text-[14px] text-[#f7e5bc] hover:border-[#d7b274] backdrop-blur-xl transition-all flex items-center justify-center gap-2"
-              >
-                <Orbit size={17} aria-hidden="true" /> Explore Orion
-              </motion.button>
-            </Link>
           </motion.div>
 
           {/* Trust Badges */}
