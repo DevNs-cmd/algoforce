@@ -78,7 +78,7 @@ const ProductDetail = () => {
                 {isFinanceAI && (
                   <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-700">
                     <FaBolt className="text-emerald-500" size={10} />
-                    <span>TallyGPT v1.0 Desktop Ready</span>
+                    <span>TallyGPT v2.0 Desktop Ready</span>
                   </div>
                 )}
               </div>
@@ -144,8 +144,8 @@ const ProductDetail = () => {
               <div className="mt-8 space-y-3.5">
                 {isFinanceAI && (
                   <a
-                    href="/tallygpt-desktop.exe"
-                    download="tallygpt-desktop.exe"
+                    href="/TallyGPT_Setup_v2.0.0.exe"
+                    download="TallyGPT_Setup_v2.0.0.exe"
                     className="group relative flex w-full flex-col items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-r from-[#8f38ff] via-[#7e25f6] to-[#6116cd] p-4 text-center text-white shadow-xl shadow-purple-500/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-purple-500/40 active:scale-[0.98]"
                   >
                     <div className="flex items-center gap-2 text-sm font-bold tracking-wider uppercase">
@@ -153,7 +153,7 @@ const ProductDetail = () => {
                       <span>Install TallyGPT for Windows</span>
                     </div>
                     <span className="mt-1 text-[11px] font-medium text-purple-200/90">
-                      v1.0.4 • 7.6 MB • Windows 10 & 11 (64-bit)
+                      v2.0.0 • 52.4 MB • Windows 10 &amp; 11 (64-bit)
                     </span>
                   </a>
                 )}
@@ -312,11 +312,11 @@ const ProductDetail = () => {
 
             {isFinanceAI && (
               <a
-                href="/tallygpt_setup.exe"
-                download="tallygpt_setup.exe"
+                href="/TallyGPT_Setup_v2.0.0.exe"
+                download="TallyGPT_Setup_v2.0.0.exe"
                 className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-purple-600 px-6 py-4 text-xs font-bold uppercase tracking-widest text-white transition-colors hover:bg-purple-500"
               >
-                <FaDownload size={12} /> Install TallyGPT Desktop (44.2 MB)
+                <FaDownload size={12} /> Install TallyGPT Desktop (52.4 MB)
               </a>
             )}
           </div>

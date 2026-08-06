@@ -2,15 +2,15 @@
 
 export const DEFAULT_RELEASE_DATA = {
   latest: {
-    version: "v1.0.0",
-    releaseDate: "2026-07-31",
+    version: "v2.0.0",
+    releaseDate: "2026-08-06",
     channel: "Stable",
     notes: [
-      "Initial release of TallyGPT Desktop Engine v1.0.0",
+      "Major release of TallyGPT Desktop Engine v2.0.0",
       "Native zero-dependency local proxy service connecting to Tally Prime & ERP 9 (Port 9000)",
-      "Air-gapped on-premises local vector index engine",
+      "Enhanced air-gapped on-premises local vector index engine",
       "Automated GST 2B, bank reconciliation & exception auditing",
-      "Conversational natural language ledger search with voucher citations"
+      "Optimized sub-second conversational natural language ledger search with voucher citations"
     ]
   },
   platforms: {
@@ -18,11 +18,11 @@ export const DEFAULT_RELEASE_DATA = {
       name: "Windows 10 / 11 (64-bit)",
       os: "Windows",
       arch: "x64",
-      fileName: "TallyGPT_Setup.exe",
-      fileUrl: "/tallygpt_setup.exe",
-      fileSize: "44.2 MB",
-      fileSizeBytes: 46346147,
-      sha256: "13C7CDE5415C0EE9F4AE583238EB4B61800BFE65164787F5DE5606471C51B64C",
+      fileName: "TallyGPT_Setup_v2.0.0.exe",
+      fileUrl: "/TallyGPT_Setup_v2.0.0.exe",
+      fileSize: "52.4 MB",
+      fileSizeBytes: 54941197,
+      sha256: "63D8114243F91D0367E4FEFB6285DE5195D169867C6DEE04FA46773362F65F8D",
       digitallySigned: true,
       publisher: "AlgoForce Technologies Pvt Ltd",
       requirements: "Windows 10 or 11 (64-bit), Tally Prime or ERP 9",
@@ -33,7 +33,7 @@ export const DEFAULT_RELEASE_DATA = {
       os: "macOS",
       arch: "Universal",
       fileName: "TallyGPT-mac.dmg",
-      fileUrl: "/tallygpt_setup.exe",
+      fileUrl: "/TallyGPT_Setup_v2.0.0.exe",
       fileSize: "8.2 MB",
       sha256: "7A8B9C0D1E2F3A4B5C6D7E8F9A0B1C2D3E4F5A6B7C8D9E0F1A2B3C4D5E6F7A8B",
       digitallySigned: true,
@@ -47,7 +47,7 @@ export const DEFAULT_RELEASE_DATA = {
       os: "Linux",
       arch: "x64",
       fileName: "TallyGPT-linux.AppImage",
-      fileUrl: "/tallygpt_setup.exe",
+      fileUrl: "/TallyGPT_Setup_v2.0.0.exe",
       fileSize: "9.1 MB",
       sha256: "A1B2C3D4E5F6A7B8C9D0E1F2A3B4C5D6E7F8A9B0C1D2E3F4A5B6C7D8E9F0A1B2",
       digitallySigned: true,
@@ -78,7 +78,7 @@ export async function getReleaseManifest() {
 /**
  * Track Download Analytics
  */
-export function trackDownload(platformId = 'windows', version = 'v1.0.0', fileName = 'TallyGPT_Setup.exe') {
+export function trackDownload(platformId = 'windows', version = 'v2.0.0', fileName = 'TallyGPT_Setup_v2.0.0.exe') {
   const payload = {
     event: 'TallyGPT_Download_Started',
     platform: platformId,

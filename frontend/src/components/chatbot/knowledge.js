@@ -53,7 +53,7 @@ export const ALGOFORCE_KNOWLEDGE = {
       id: 'tallygpt',
       name: 'TallyGPT (AlgoForce Finance AI)',
       description: 'Connects directly with Tally Prime to automate accounting workflows, GST autopilot, and ledger registers without replacing Tally. Zero manual copy-pasting.',
-      setupExe: '/releases/tallygpt-desktop.exe'
+      setupExe: '/TallyGPT_Setup_v2.0.0.exe'
     },
     {
       id: 'leadbolt',

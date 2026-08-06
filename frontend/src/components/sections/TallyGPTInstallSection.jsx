@@ -27,9 +27,9 @@ const OS_PLATFORMS = [
     color: '#00adef',
     recommended: true,
     fileType: 'Windows Desktop Installer (.exe)',
-    fileSize: '12.3 MB',
-    fileName: 'TallyGPT_Setup.exe',
-    downloadUrl: '/tallygpt_setup.exe',
+    fileSize: '52.4 MB',
+    fileName: 'TallyGPT_Setup_v2.0.0.exe',
+    downloadUrl: '/TallyGPT_Setup_v2.0.0.exe',
     requirements: ['Windows 10 / 11 (64-bit)', 'Tally Prime or Tally ERP 9', '4 GB RAM minimum'],
     steps: [
       'Click "Install TallyGPT for Windows" to download installer',
@@ -85,7 +85,6 @@ export default function TallyGPTInstallSection({ isModalOpen, setIsModalOpen, mo
   const [isDownloading, setIsDownloading] = useState(false)
 
   const activeOS = OS_PLATFORMS.find((p) => p.id === activeTab) || OS_PLATFORMS[0]
-
   const handleCopyCmd = (cmd) => {
     if (!cmd) return
     navigator.clipboard.writeText(cmd)
@@ -151,12 +150,12 @@ export default function TallyGPTInstallSection({ isModalOpen, setIsModalOpen, mo
                     Download the pre-compiled TallyGPT Desktop Agent for Windows 10 &amp; 11. Includes zero-dependency installer with local proxy service.
                   </p>
                   <a
-                    href="/tallygpt_setup.exe"
-                    download="tallygpt_setup.exe"
+                    href="/TallyGPT_Setup_v2.0.0.exe"
+                    download="TallyGPT_Setup_v2.0.0.exe"
                     onClick={handleDownload}
                     className="inline-flex items-center gap-2 rounded-xl bg-purple-600 px-5 py-3 text-xs font-bold text-white transition-colors hover:bg-purple-500"
                   >
-                    <FaDownload size={12} /> Install TallyGPT Desktop for Windows (12.3 MB)
+                    <FaDownload size={12} /> Install TallyGPT Desktop for Windows (52.4 MB)
                   </a>
                 </div>
 
@@ -481,12 +480,12 @@ export default function TallyGPTInstallSection({ isModalOpen, setIsModalOpen, mo
                     Download the pre-compiled TallyGPT Desktop Agent for Windows 10 & 11. Includes zero-dependency installer with local proxy service.
                   </p>
                   <a
-                    href="/tallygpt_setup.exe"
-                    download="tallygpt_setup.exe"
+                    href="/TallyGPT_Setup_v2.0.0.exe"
+                    download="TallyGPT_Setup_v2.0.0.exe"
                     onClick={handleDownload}
                     className="inline-flex items-center gap-2 rounded-xl bg-purple-600 px-5 py-3 text-xs font-bold text-white transition-colors hover:bg-purple-500"
                   >
-                    <FaDownload size={12} /> Install TallyGPT Desktop for Windows (12.3 MB)
+                    <FaDownload size={12} /> Install TallyGPT Desktop for Windows (52.4 MB)
                   </a>
                 </div>
 

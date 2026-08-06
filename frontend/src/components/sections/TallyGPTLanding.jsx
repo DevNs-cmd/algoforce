@@ -170,7 +170,7 @@ const FAQ_LIST = [
   { q: 'Does TallyGPT replace Tally Prime or ERP 9?', a: 'No. TallyGPT runs alongside your existing Tally instance on port 9000/9888. Tally remains your official system of record.' },
   { q: 'Is my accounting data uploaded to the cloud?', a: 'No. TallyGPT runs 100% on-premises. All vector indexing, search queries, and OCR parsing happen locally on your computer.' },
   { q: 'Which Tally versions are supported?', a: 'TallyGPT supports Tally Prime (v1.0 to v4.x) and Tally ERP 9 (Release 5.0+).' },
-  { q: 'How do I install TallyGPT on Windows?', a: 'Download TallyGPT_Setup.exe (44.2 MB), run the setup wizard, open Tally Prime, and TallyGPT will automatically detect your company.' },
+  { q: 'How do I install TallyGPT on Windows?', a: 'Download TallyGPT_Setup_v2.0.0.exe (52.4 MB), run the setup wizard, open Tally Prime, and TallyGPT will automatically detect your company.' },
   { q: 'Can I install TallyGPT on macOS or Linux?', a: 'Yes. In addition to the Windows .exe installer, TallyGPT includes automated setup scripts for macOS and Linux.' },
   { q: 'How does GST 2B reconciliation work?', a: 'Import your GSTR-2B file. TallyGPT automatically matches supplier GSTINs, invoice numbers, and tax rates against your Tally purchase books.' },
   { q: 'What are the system requirements?', a: 'Windows 10 or 11 (64-bit), 4 GB RAM minimum (8 GB recommended), and Tally Prime or ERP 9.' },
@@ -196,7 +196,7 @@ export default function TallyGPTLanding() {
   }, [])
 
   const handleDownloadClick = () => {
-    trackDownload('windows', 'v1.0.0', 'TallyGPT_Setup.exe')
+    trackDownload('windows', 'v2.0.0', 'TallyGPT_Setup_v2.0.0.exe')
   }
 
   const handleFormSubmit = (e) => {
@@ -243,7 +243,7 @@ export default function TallyGPTLanding() {
 
               <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#06101d]/10 bg-[#f7f9fc] px-4 py-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#8f38ff]" />
-                <span className="text-[10px] font-semibold uppercase text-slate-500">FINANCE SOFTWARE • TALLYGPT V1.0 DESKTOP READY</span>
+                <span className="text-[10px] font-semibold uppercase text-slate-500">FINANCE SOFTWARE • TALLYGPT V2.0 DESKTOP READY</span>
               </div>
 
               <h1 className="mb-6 max-w-4xl text-[2.45rem] font-semibold leading-[1.03] sm:text-5xl md:text-6xl lg:text-[4.1rem] tracking-tight">
@@ -257,14 +257,14 @@ export default function TallyGPTLanding() {
               {/* Action Buttons */}
               <div className="mt-8 flex flex-wrap items-center gap-3.5">
                 <a
-                  href="/tallygpt_setup.exe"
-                  download="tallygpt_setup.exe"
+                  href="/TallyGPT_Setup_v2.0.0.exe"
+                  download="TallyGPT_Setup_v2.0.0.exe"
                   onClick={handleDownloadClick}
                   className="flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-[#8f38ff] via-[#7e25f6] to-[#6116cd] px-7 py-4 text-xs font-bold uppercase tracking-widest text-white shadow-xl shadow-purple-500/25 transition-all hover:scale-[1.02] active:scale-[0.98]"
                 >
                   <FaDownload size={14} />
                   <span>Download TallyGPT for Windows</span>
-                  <span className="rounded-md bg-white/20 px-2 py-0.5 text-[10px] font-extrabold">44.2 MB</span>
+                  <span className="rounded-md bg-white/20 px-2 py-0.5 text-[10px] font-extrabold">52.4 MB</span>
                 </a>
 
                 <button
@@ -331,7 +331,7 @@ export default function TallyGPTLanding() {
 
               <div className="mt-4 flex items-center justify-between text-xs font-semibold text-slate-500 px-2">
                 <span className="text-emerald-700 font-bold">✓ Verified Native Release</span>
-                <span>SHA256 Signed • 44.2 MB</span>
+                <span>SHA256 Signed • 52.4 MB</span>
               </div>
             </motion.div>
 
@@ -461,7 +461,7 @@ export default function TallyGPTLanding() {
             <div className="rounded-[24px] border border-[#06101d]/10 bg-[#f7f9fc] p-6">
               <div className="mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-[#06101d] text-white font-bold text-xs">1</div>
               <h3 className="text-sm font-bold text-[#06101d] mb-1">Download</h3>
-              <p className="text-xs text-slate-500">Download TallyGPT_Setup.exe</p>
+              <p className="text-xs text-slate-500">Download TallyGPT_Setup_v2.0.0.exe</p>
             </div>
 
             <div className="rounded-[24px] border border-[#06101d]/10 bg-[#f7f9fc] p-6">
@@ -543,8 +543,8 @@ export default function TallyGPTLanding() {
                     </button>
                   ) : (
                     <a
-                      href="/tallygpt_setup.exe"
-                      download="tallygpt_setup.exe"
+                      href="/TallyGPT_Setup_v2.0.0.exe"
+                      download="TallyGPT_Setup_v2.0.0.exe"
                       onClick={handleDownloadClick}
                       className={`w-full flex items-center justify-center gap-2 rounded-2xl py-4 text-xs font-bold uppercase tracking-wider transition-all shadow-md ${
                         plan.isFeatured
@@ -553,7 +553,7 @@ export default function TallyGPTLanding() {
                       }`}
                     >
                       <FaDownload size={12} />
-                      <span>Download TallyGPT (44.2 MB)</span>
+                      <span>Download TallyGPT (52.4 MB)</span>
                     </a>
                   )}
                 </div>
@@ -654,13 +654,13 @@ export default function TallyGPTLanding() {
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <a
-              href="/tallygpt_setup.exe"
-              download="tallygpt_setup.exe"
+              href="/TallyGPT_Setup_v2.0.0.exe"
+              download="TallyGPT_Setup_v2.0.0.exe"
               onClick={handleDownloadClick}
               className="inline-flex items-center gap-3 rounded-2xl bg-[#8f38ff] px-8 py-4 text-xs font-bold uppercase tracking-widest text-white shadow-xl hover:bg-purple-600 transition-colors"
             >
               <FaDownload size={14} />
-              <span>Download TallyGPT for Windows (44.2 MB)</span>
+              <span>Download TallyGPT for Windows (52.4 MB)</span>
             </a>
 
             <button
@@ -690,10 +690,10 @@ export default function TallyGPTLanding() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#8f38ff] opacity-75" />
                   <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#8f38ff]" />
                 </span>
-                <span className="text-xs font-bold tracking-tight text-white">TallyGPT v1.0 Desktop</span>
+                <span className="text-xs font-bold tracking-tight text-white">TallyGPT v2.0 Desktop</span>
               </div>
               <span className="rounded-md bg-emerald-500/20 px-2 py-0.5 text-[9px] font-bold text-emerald-400">
-                44.2 MB .exe
+                52.4 MB .exe
               </span>
             </div>
 
@@ -703,8 +703,8 @@ export default function TallyGPTLanding() {
 
             <div className="flex flex-col gap-2">
               <a
-                href="/tallygpt_setup.exe"
-                download="tallygpt_setup.exe"
+                href="/TallyGPT_Setup_v2.0.0.exe"
+                download="TallyGPT_Setup_v2.0.0.exe"
                 onClick={handleDownloadClick}
                 className="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#8f38ff] to-[#7e25f6] py-3 text-xs font-bold uppercase tracking-wider text-white shadow-md transition-all hover:scale-[1.02] active:scale-[0.98]"
               >
@@ -734,13 +734,13 @@ export default function TallyGPTLanding() {
             className="fixed bottom-20 left-4 z-40 max-w-[calc(100%-80px)] rounded-2xl border border-[#06101d]/15 bg-[#06101d]/95 p-2.5 px-3.5 backdrop-blur-xl shadow-2xl flex items-center gap-2 text-white md:hidden"
           >
             <a
-              href="/tallygpt_setup.exe"
-              download="tallygpt_setup.exe"
+              href="/TallyGPT_Setup_v2.0.0.exe"
+              download="TallyGPT_Setup_v2.0.0.exe"
               onClick={handleDownloadClick}
               className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-xl bg-[#8f38ff] px-3.5 py-2 text-[11px] font-bold uppercase tracking-wider text-white shadow-md"
             >
               <FaDownload size={10} />
-              <span>Download (44.2 MB)</span>
+              <span>Download (52.4 MB)</span>
             </a>
           </motion.div>
         )}
