@@ -13,7 +13,7 @@ const SummitGlobalPopup = () => {
   }
 
   return (
-    <div className="fixed bottom-24 right-4 sm:bottom-28 sm:right-6 z-40 pointer-events-none">
+    <div className="fixed bottom-28 right-4 sm:bottom-32 sm:right-6 z-40 pointer-events-none">
       <AnimatePresence>
         {isOpen ? (
           <motion.div
@@ -22,7 +22,7 @@ const SummitGlobalPopup = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
             transition={{ duration: 0.35, ease: 'easeOut' }}
-            className="relative overflow-hidden pointer-events-auto max-w-[310px] sm:max-w-[330px] w-full p-4 rounded-2xl border border-white/25 bg-[#06101d] text-white shadow-[0_25px_60px_rgba(0,0,0,0.85)]"
+            className="relative overflow-hidden pointer-events-auto max-w-[calc(100vw-2rem)] sm:max-w-[310px] w-full p-4 rounded-2xl border border-white/25 bg-[#06101d] text-white shadow-[0_25px_60px_rgba(0,0,0,0.85)]"
           >
             {/* Banner Background Image with Dark Scrim Overlay */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -46,7 +46,7 @@ const SummitGlobalPopup = () => {
                 <button
                   onClick={handleClose}
                   className="p-1 rounded-lg text-slate-200 hover:text-white hover:bg-white/20 transition-colors"
-                  title="Dismiss (Re-appears in 7s)"
+                  title="Dismiss"
                 >
                   <X size={14} />
                 </button>
@@ -89,19 +89,19 @@ const SummitGlobalPopup = () => {
             </div>
           </motion.div>
         ) : (
-          /* Persistent Pulsing Badge when closed */
+          /* Persistent Pulsing Badge when closed (Anchored Right, max-w-[145px] on mobile so it never crosses center) */
           <motion.button
             key="popup-collapsed"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             onClick={() => setIsOpen(true)}
-            className="pointer-events-auto flex items-center gap-2 px-4 py-2.5 rounded-full border border-white/25 bg-[#06101d] text-white shadow-2xl hover:scale-105 transition-all active:scale-95"
+            className="pointer-events-auto flex items-center gap-2 px-3 py-2 rounded-full border border-white/25 bg-[#06101d] text-white shadow-xl hover:scale-105 transition-all active:scale-95 max-w-[145px] sm:max-w-none"
           >
-            <span className="h-2 w-2 rounded-full bg-purple-400 animate-pulse" />
-            <Ticket size={14} className="text-purple-300" />
-            <span className="text-[10px] font-extrabold uppercase tracking-wider text-white">
-              Register Summit 2026
+            <span className="h-2 w-2 rounded-full bg-purple-400 animate-pulse shrink-0" />
+            <Ticket size={12} className="text-purple-300 shrink-0" />
+            <span className="text-[10px] font-extrabold uppercase tracking-wider text-white truncate">
+              Summit 2026
             </span>
           </motion.button>
         )}

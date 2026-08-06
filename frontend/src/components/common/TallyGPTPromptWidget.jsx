@@ -4,7 +4,6 @@ import { Link, useLocation } from 'react-router-dom'
 import { FaDownload, FaArrowRight, FaTimes, FaDesktop, FaCheckCircle, FaBolt } from 'react-icons/fa'
 
 export default function TallyGPTPromptWidget() {
-  // Start collapsed by default so it doesn't clutter or block hero content on page load
   const [isOpen, setIsOpen] = useState(false)
   const [isPulsing, setIsPulsing] = useState(false)
   const location = useLocation()
@@ -12,7 +11,7 @@ export default function TallyGPTPromptWidget() {
   // Hide widget completely if user is ALREADY on the Finance AI page
   const isAlreadyOnFinanceAI = location.pathname === '/products/finance-ai'
 
-  // Subtle initial pulse after 3s to draw gentle attention to the pill badge
+  // Gentle pulse attention trigger after 3s
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsPulsing(true)
@@ -26,7 +25,7 @@ export default function TallyGPTPromptWidget() {
   if (isAlreadyOnFinanceAI) return null
 
   return (
-    <div className="fixed bottom-20 left-4 sm:bottom-24 sm:left-6 z-40 pointer-events-none">
+    <div className="fixed bottom-16 left-4 sm:bottom-20 sm:left-6 z-40 pointer-events-none">
       <AnimatePresence mode="wait">
         {isOpen ? (
           <motion.div
@@ -54,13 +53,13 @@ export default function TallyGPTPromptWidget() {
                 <button
                   onClick={() => setIsOpen(false)}
                   className="p-1 rounded-full text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
-                  title="Minimize"
+                  title="Minimize prompt"
                 >
                   <FaTimes size={12} />
                 </button>
               </div>
 
-              {/* Title & Info */}
+              {/* Title & Description */}
               <div className="mb-3">
                 <h4 className="text-xs font-bold text-white mb-1 flex items-center gap-1.5">
                   <FaDesktop className="text-[#8f38ff] shrink-0" size={12} />
@@ -104,29 +103,29 @@ export default function TallyGPTPromptWidget() {
             </div>
           </motion.div>
         ) : (
-          /* Sleek Non-Intrusive Floating Pill Badge */
+          /* Compact Left-Anchored Pill Badge (Max 160px width on mobile so it never crosses center) */
           <motion.button
             key="tallygpt-prompt-collapsed"
             initial={{ opacity: 0, scale: 0.85 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.85 }}
             onClick={() => setIsOpen(true)}
-            className={`pointer-events-auto flex items-center gap-2 px-3.5 py-2 rounded-full border bg-[#06101d]/95 text-white shadow-xl backdrop-blur-2xl transition-all duration-300 hover:scale-105 active:scale-95 ${
+            className={`pointer-events-auto flex items-center gap-2 px-3 py-2 rounded-full border bg-[#06101d]/95 text-white shadow-xl backdrop-blur-2xl transition-all duration-300 hover:scale-105 active:scale-95 max-w-[155px] sm:max-w-none ${
               isPulsing
                 ? 'border-[#8f38ff] shadow-[0_0_20px_rgba(143,56,255,0.6)] scale-105'
                 : 'border-[#8f38ff]/40'
             }`}
           >
-            <span className="relative flex h-2 w-2">
+            <span className="relative flex h-2 w-2 shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#8f38ff] opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#8f38ff]" />
             </span>
-            <FaBolt size={11} className="text-purple-400" />
-            <span className="text-[11px] font-bold tracking-tight text-white">
-              Install TallyGPT v2.0
+            <FaBolt size={11} className="text-purple-400 shrink-0" />
+            <span className="text-[10px] sm:text-xs font-bold tracking-tight text-white truncate">
+              Install TallyGPT
             </span>
-            <span className="rounded-full bg-purple-500/20 px-1.5 py-0.5 text-[8px] font-extrabold text-purple-300 border border-purple-500/30">
-              .exe
+            <span className="hidden sm:inline-block rounded-full bg-purple-500/20 px-1.5 py-0.5 text-[8px] font-extrabold text-purple-300 border border-purple-500/30">
+              v2.0
             </span>
           </motion.button>
         )}
