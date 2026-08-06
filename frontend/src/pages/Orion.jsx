@@ -142,76 +142,61 @@ const Orion = () => {
     <main className="min-h-screen bg-[#f7f9fc] text-[#06101d]">
 
       {/* ═══════════════════════════════════════════
-          1. HERO — SPACEX / ANDURIL / NASA CONFIDENT MINIMALIST
+          1. HERO — VIDEO BACKGROUND + ORION CONTEXT
           ═══════════════════════════════════════════ */}
-      <section className="relative isolate flex min-h-screen flex-col justify-between overflow-hidden bg-[#03070d] text-white">
-        
-        {/* Full-bleed Edge-to-Edge Cinematic Video */}
+      <section className="relative min-h-screen overflow-hidden bg-[#f0f0ee]">
         <video
-          autoPlay muted loop playsInline preload="auto"
-          aria-hidden="true" tabIndex={-1}
-          className="absolute inset-0 h-full w-full object-cover object-center opacity-55 sm:opacity-65 scale-[1.02]"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="absolute inset-0 w-full h-full object-cover"
         >
           <source src="/orion_video.mp4" type="video/mp4" />
+          <source
+            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260508_215831_c6a8989c-d716-4d8d-8745-e972a2eec711.mp4"
+            type="video/mp4"
+          />
         </video>
 
-        {/* Industrial Overlay Scrim */}
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,#03070d_0%,rgba(3,7,13,0.85)_45%,rgba(3,7,13,0.3)_75%,#03070d_100%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,7,13,0.2)_0%,rgba(3,7,13,0.96)_92%)]" />
+        {/* Foreground content wrapper */}
+        <div className="relative z-10 flex flex-col min-h-screen">
+          {/* Hero content (bottom-left aligned) */}
+          <div className="flex-1 flex items-end pb-10 sm:pb-16 lg:pb-20 px-6 sm:px-12 md:px-20 lg:px-28 pt-28">
+            <div className="max-w-xs sm:max-w-sm">
+              {/* 1. Badge link */}
+              <a
+                href="#orion-division"
+                className="inline-flex items-center gap-1.5 text-[11.5px] font-medium text-blue-500 hover:text-blue-600 transition-colors mb-3 group"
+              >
+                <span>ORION / Advanced Space Systems Division</span>
+                <span className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">
+                  &rarr;
+                </span>
+              </a>
 
-        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-5 pt-36 pb-16 sm:px-6">
-          <motion.div 
-            initial={{ opacity: 0, y: 24 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }} 
-            className="max-w-[52rem]"
-          >
-            
-            <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-200 backdrop-blur-md">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#d7b274]" /> ADVANCED SPACE SYSTEMS DIVISION
-            </div>
+              {/* 2. Headline h1 */}
+              <h1 className="text-[1.5rem] sm:text-[1.75rem] leading-[1.15] font-medium text-gray-900 tracking-tight mb-3">
+                Engineering the infrastructure future civilization will depend on.
+              </h1>
 
-            <h1 className="text-4xl font-semibold leading-[0.96] tracking-[-0.05em] sm:text-6xl md:text-7xl lg:text-[4.5rem]">
-              Engineering the infrastructure<br className="hidden sm:block" /> future civilization<br className="hidden sm:block" /> will depend on.
-            </h1>
+              {/* 3. Subtext p */}
+              <p className="text-[13px] text-gray-400 font-normal mb-3">
+                Flight software, space robotics, and digital twins built for orbital operations.
+              </p>
 
-            <p className="mt-7 max-w-2xl text-base leading-relaxed text-slate-300 sm:text-lg md:text-xl">
-              Flight software, space robotics, and digital twins built for the next century of orbital operations.
-            </p>
-
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
-              <Link 
-                to="/orion/join" 
-                className="inline-flex items-center justify-center gap-2.5 rounded-xl bg-white px-7 py-4 text-xs font-bold uppercase tracking-wider text-[#03070d] transition-colors hover:bg-slate-100"
+              {/* 4. CTA anchor */}
+              <a
+                href="/orion/join"
+                className="inline-flex items-center gap-2 text-[13px] font-medium text-blue-500 border border-blue-400 rounded-full px-5 py-2.5 hover:bg-blue-500 hover:text-white hover:border-blue-500 transition-all duration-200 group"
               >
                 <span>Become an Orion Engineer</span>
-                <ArrowRight size={15} />
-              </Link>
-              <a 
-                href="#architecture" 
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/5 px-7 py-4 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-md transition-colors hover:bg-white/10"
-              >
-                <span>Mission Architecture</span>
-                <ArrowDown size={14} className="text-[#d7b274]" />
+                <span className="transition-transform duration-200 group-hover:translate-x-0.5">
+                  &rarr;
+                </span>
               </a>
             </div>
-
-          </motion.div>
-        </div>
-
-        {/* Minimal Subsystem Bar at Hero Bottom */}
-        <div className="relative z-10 border-t border-white/10 bg-[#03070d]/80 py-4.5 backdrop-blur-md">
-          <div className="mx-auto flex max-w-7xl items-center justify-between px-5 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 sm:px-6">
-            <div className="flex flex-wrap items-center gap-4 sm:gap-8">
-              <span>Flight Software</span>
-              <span className="text-white/20">•</span>
-              <span>Space Robotics</span>
-              <span className="text-white/20">•</span>
-              <span>Digital Twins</span>
-              <span className="text-white/20">•</span>
-              <span>Orbital Infrastructure</span>
-            </div>
-            <span className="hidden lg:inline font-mono text-slate-500">ORION ARCHITECTURE</span>
           </div>
         </div>
       </section>
@@ -287,6 +272,63 @@ const Orion = () => {
                 </div>
               </FadeIn>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          4.5 BIONIC & ROBOTIC HAND TECHNOLOGY SECTION
+          ═══════════════════════════════════════════ */}
+      <section className="relative overflow-hidden bg-[#f0f0ee] py-24 sm:py-32 my-8">
+        {/* Fullscreen autoplaying background video */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source
+            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260508_215831_c6a8989c-d716-4d8d-8745-e972a2eec711.mp4"
+            type="video/mp4"
+          />
+        </video>
+
+        {/* Foreground content overlay wrapper */}
+        <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-12 md:px-20 lg:px-28 flex flex-col justify-end min-h-[460px] sm:min-h-[520px]">
+          <div className="max-w-xs sm:max-w-sm bg-white/70 backdrop-blur-md p-6 sm:p-8 rounded-2xl border border-gray-200/60 shadow-lg">
+            {/* 1. Badge link */}
+            <a
+              href="#shark-tank"
+              className="inline-flex items-center gap-1.5 text-[11.5px] font-medium text-blue-500 hover:text-blue-600 transition-colors mb-3 group"
+            >
+              <span>Seen on Shark Tank in India</span>
+              <span className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">
+                &rarr;
+              </span>
+            </a>
+
+            {/* 2. Headline h2 */}
+            <h2 className="text-[1.5rem] sm:text-[1.75rem] leading-[1.15] font-medium text-gray-900 tracking-tight mb-3">
+              Simple, smart prosthetics made for people who keep fighting.
+            </h2>
+
+            {/* 3. Subtext p */}
+            <p className="text-[13px] text-gray-500 font-normal mb-4">
+              Reclaim your movement now.
+            </p>
+
+            {/* 4. CTA anchor */}
+            <a
+              href="/contact"
+              className="inline-flex items-center gap-2 text-[13px] font-medium text-blue-500 border border-blue-400 rounded-full px-5 py-2.5 hover:bg-blue-500 hover:text-white hover:border-blue-500 transition-all duration-200 group"
+            >
+              <span>Try a free fitting</span>
+              <span className="transition-transform duration-200 group-hover:translate-x-0.5">
+                &rarr;
+              </span>
+            </a>
           </div>
         </div>
       </section>

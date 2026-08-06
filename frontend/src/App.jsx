@@ -88,7 +88,6 @@ const AppShell = () => {
   const isAdminPortal = location.pathname.startsWith('/admin')
   const isLoginPage = location.pathname === '/login'
   const isClientPortal = location.pathname.startsWith('/client')
-
   const hideMarketingShells = isBuilderPage || isNexusPage || isWorkspace || isLabsPortal || isAdminPortal || isLoginPage || isClientPortal
 
   const routesWithOwnSurface = ['/orion', '/orion/join']
