@@ -6,22 +6,11 @@ const LUMA_EVENT_URL = "https://luma.com/t1m4rkst?tk=GuW27n"
 const UNSTOP_EVENT_URL = "https://unstop.com/o/a9xApLV?lb=kVkkl81P&utm_medium=Share&utm_source=events&utm_campaign=Fqgpcvtk16500"
 
 const SummitGlobalPopup = () => {
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(false)
 
-  // Re-appear automatically after 7 seconds if closed by user
   const handleClose = () => {
     setIsOpen(false)
   }
-
-  useEffect(() => {
-    let timer
-    if (!isOpen) {
-      timer = setTimeout(() => {
-        setIsOpen(true)
-      }, 7000)
-    }
-    return () => clearTimeout(timer)
-  }, [isOpen])
 
   return (
     <div className="fixed bottom-24 right-4 sm:bottom-28 sm:right-6 z-40 pointer-events-none">

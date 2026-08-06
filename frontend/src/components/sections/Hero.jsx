@@ -111,14 +111,14 @@ const Hero = () => {
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
         >
           {/* Product Vertical & Highlight Badges */}
-          <div className="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-2.5 sm:gap-3 mb-6 md:mb-8 px-2">
+          <div className="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-2 sm:gap-3 mb-6 md:mb-8 px-2">
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full premium-dark-surface backdrop-blur-xl"
+              className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full premium-dark-surface backdrop-blur-xl"
             >
               <div className="w-1.5 h-1.5 rounded-full bg-[#8f38ff]" />
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-300">Enterprise AI Software Company</span>
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-300">Enterprise AI Software</span>
             </motion.div>
 
             <Link to="/products/finance-ai">
@@ -127,14 +127,14 @@ const Hero = () => {
                 animate={{ opacity: 1, y: 0 }}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full border border-purple-500/40 bg-gradient-to-r from-purple-900/40 via-purple-600/30 to-indigo-900/40 backdrop-blur-xl text-xs font-bold text-purple-200 hover:border-purple-400 transition-all shadow-lg shadow-purple-500/20"
+                className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full border border-purple-500/40 bg-gradient-to-r from-purple-900/40 via-purple-600/30 to-indigo-900/40 backdrop-blur-xl text-[11px] font-bold text-purple-200 hover:border-purple-400 transition-all shadow-md shadow-purple-500/20"
               >
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
                 </span>
-                <span>⚡ Install TallyGPT v2.0 for Tally Prime &amp; ERP 9</span>
-                <span className="text-slate-400 font-normal">→</span>
+                <span>⚡ TallyGPT v2.0 Desktop Ready</span>
+                <span className="text-purple-400 font-normal">→</span>
               </motion.div>
             </Link>
           </div>
