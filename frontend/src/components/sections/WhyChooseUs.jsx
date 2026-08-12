@@ -78,12 +78,13 @@ const WhyChooseUs = () => {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             className="text-center mb-10"
           >
-            <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-purple-400">Vertical Relevance</span>
+            <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-purple-400">Industries</span>
             <h3 className="text-3xl md:text-4xl font-bold leading-tight mt-2">
-              Software that understands <span className="premium-serif italic font-normal text-[#cdb4ff]">your industry.</span>
+              Solutions designed for{' '}
+              <span className="premium-serif italic font-normal text-[#cdb4ff]">operationally complex businesses.</span>
             </h3>
             <p className="max-w-xl mx-auto text-slate-400 font-normal text-sm mt-3">
-              Start with the realities of your operation, then choose the product that fits the workflow.
+              We start with the operational workflow, not a generic industry pitch. The business function comes first; the industry context shapes the deployment.
             </p>
           </motion.div>
 

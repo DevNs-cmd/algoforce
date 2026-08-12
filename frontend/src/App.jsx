@@ -49,6 +49,8 @@ const LabsPortal = lazy(() => import('./pages/LabsPortal'))
 const AdminPortal = lazy(() => import('./pages/AdminPortal'))
 const ClientPortal = lazy(() => import('./pages/ClientPortal'))
 const ProductDetail = lazy(() => import('./pages/ProductDetail'))
+// ORION: routes preserved in codebase but removed from primary commercial navigation.
+// These pages remain accessible via direct URL for internal use and future re-enabling.
 const Orion = lazy(() => import('./pages/Orion'))
 const OrionJoin = lazy(() => import('./pages/OrionJoin'))
 
@@ -145,10 +147,25 @@ const AppShell = () => {
             <Route path="/" element={<Home />} />
             <Route path="/products" element={<Products />} />
             <Route path="/products/:productSlug" element={<ProductDetail />} />
+
+            {/* Solution family routes */}
             <Route path="/solutions" element={<Products />} />
+            <Route path="/solutions/finance" element={<ProductDetail />} />
+            <Route path="/solutions/revenue" element={<Products />} />
+            <Route path="/solutions/operations" element={<Products />} />
+            <Route path="/solutions/manufacturing" element={<Products />} />
+            <Route path="/solutions/people" element={<Products />} />
+            <Route path="/solutions/knowledge" element={<Products />} />
+
+            {/* Industry routes */}
+            <Route path="/industries" element={<Products />} />
+            <Route path="/industries/:industrySlug" element={<Products />} />
+
             <Route path="/services" element={<Products />} />
             <Route path="/ai-consulting" element={<Products />} />
             <Route path="/crucible" element={<Crucible />} />
+
+            {/* ORION: routes preserved but hidden from commercial nav — R&D only */}
             <Route path="/orion" element={<Orion />} />
             <Route path="/orion/join" element={<OrionJoin />} />
             <Route path="/velqora" element={<Velqora />} />

@@ -40,10 +40,11 @@ const EnterpriseTrust = () => {
         >
           <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.35em] text-purple-400">Enterprise-ready deployment</p>
           <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-            Software that works with <span className="premium-serif font-normal italic text-[#cdb4ff]">the way you operate.</span>
+            Software that works with{' '}
+            <span className="premium-serif font-normal italic text-[#cdb4ff]">the way you already operate.</span>
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-slate-400">
-            AlgoForce is a product company: we deploy proven AI software, connect it to your environment and stay accountable after launch.
+            AlgoForce deploys automation around your existing systems, stays accountable after go-live, and operates as a long-term technology partner — not a one-time vendor.
           </p>
         </motion.div>
 

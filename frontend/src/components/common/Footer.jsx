@@ -28,15 +28,15 @@ const Footer = () => {
               </Link>
             </div>
 
-            <p className="mb-8 text-gray-500 max-w-sm font-medium leading-[1.8]">
-              AlgoForce is an Enterprise AI Software Company. We deploy, integrate and support software that automates business operations.
+            <p className="mb-8 text-gray-500 max-w-sm font-normal leading-[1.8]">
+              AlgoForce is a multi-industry Enterprise AI, Automation and Managed Services company. We help businesses identify operational bottlenecks, implement intelligent automation, and continuously improve the workflows that matter.
             </p>
 
             <div className="mb-8 flex flex-col gap-3 max-w-sm text-gray-500 text-sm font-medium leading-relaxed">
               <div className="flex items-start gap-3">
                 <FaMapMarkerAlt className="mt-1 text-purple-500 flex-shrink-0" />
                 <p>
-                  Office: South East Delhi, Kalkaji, New Delhi – 110019
+                  South East Delhi, Kalkaji, New Delhi – 110019
                 </p>
               </div>
               <div className="pl-6 text-xs text-gray-600 space-y-1">
@@ -65,20 +65,20 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Products Column */}
+          {/* Solutions Column */}
           <div>
-            <h4 className="mb-8 text-[10px] font-black uppercase tracking-[0.3em] text-gray-600 italic">Products</h4>
+            <h4 className="mb-8 text-[10px] font-black uppercase tracking-[0.3em] text-gray-600 italic">Solutions</h4>
             <ul className="space-y-4">
               {[
-                { name: 'Finance', path: '/services' },
-                { name: 'Sales', path: '/products' },
-                { name: 'HR', path: '/products' },
-                { name: 'Manufacturing', path: '/products' },
-                { name: 'Hospitality', path: '/products' },
-                { name: 'Knowledge', path: '/products' }
+                { name: 'Finance', path: '/solutions/finance' },
+                { name: 'Revenue', path: '/solutions/revenue' },
+                { name: 'Operations', path: '/solutions/operations' },
+                { name: 'Manufacturing', path: '/solutions/manufacturing' },
+                { name: 'People', path: '/solutions/people' },
+                { name: 'Knowledge', path: '/solutions/knowledge' }
               ].map(link => (
                 <li key={link.name}>
-                  <Link to={link.path} className="text-gray-500 hover:text-white transition-colors text-sm font-bold italic">
+                  <Link to={link.path} className="text-gray-500 hover:text-white transition-colors text-sm font-semibold italic">
                     {link.name}
                   </Link>
                 </li>
@@ -92,37 +92,34 @@ const Footer = () => {
             <ul className="space-y-4">
               {[
                 { name: 'About', path: '/about' },
+                { name: 'Pricing', path: '/pricing' },
+                { name: 'Blog', path: '/blog' },
                 { name: 'Labs', path: '/labs' },
-                { name: 'Orion Space Systems', path: '/orion' },
-                { name: 'Join Orion', path: '/orion/join' },
-                { name: 'Engineering Operations', path: '/labs' },
-                { name: 'Technical Publications', path: '/labs' },
-                { name: 'Careers', path: '/labs' },
-                { name: 'Talent Engine', path: '/labs' },
-                { name: 'Crucible', path: '/crucible' }
+                { name: 'Careers', path: '/about' },
               ].map(link => (
                 <li key={link.name}>
-                  <Link to={link.path} className="text-gray-500 hover:text-white transition-colors text-sm font-bold italic">
+                  <Link to={link.path} className="text-gray-500 hover:text-white transition-colors text-sm font-semibold italic">
                     {link.name}
                   </Link>
                 </li>
               ))}
+              {/* ORION: hidden from commercial nav — preserved as internal R&D, accessible via /orion */}
             </ul>
           </div>
 
-          {/* Deployment Column */}
+          {/* Start a Deployment Column */}
           <div>
-            <h4 className="mb-8 text-[10px] font-black uppercase tracking-[0.3em] text-purple-600 italic">Start a Deployment</h4>
+            <h4 className="mb-8 text-[10px] font-black uppercase tracking-[0.3em] text-purple-600 italic">Get Started</h4>
             <ul className="space-y-4">
               {[
-                { name: 'Book a Demo', path: '/contact' },
+                { name: 'Book Workflow Assessment', path: '/contact?type=assessment' },
+                { name: 'Book a Demo', path: '/contact?type=demo' },
                 { name: 'How It Works', path: '/#how-it-works' },
-                { name: 'Pricing', path: '/pricing' },
+                { name: 'Contact', path: '/contact' },
                 { name: 'Support', path: '/contact' },
-                { name: 'Contact', path: '/contact' }
               ].map(link => (
                 <li key={link.name}>
-                  <Link to={link.path} className="text-gray-500 hover:text-white transition-colors text-sm font-bold italic">
+                  <Link to={link.path} className="text-gray-500 hover:text-white transition-colors text-sm font-semibold italic">
                     {link.name}
                   </Link>
                 </li>
@@ -134,15 +131,16 @@ const Footer = () => {
 
         {/* Bottom bar links */}
         <div className="pt-16 mt-16 flex flex-wrap justify-center gap-8 border-t border-white/5 opacity-50">
-             {[
-                { name: 'Privacy', path: '/privacy-policy' },
-                { name: 'Terms', path: '/terms-and-conditions' },
-                { name: 'Cookies', path: '/cookie-policy' }
-              ].map(link => (
-                <Link key={link.path} to={link.path} className="text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition-all">
-                  {link.name}
-                </Link>
-              ))}
+          {[
+            { name: 'Privacy', path: '/privacy-policy' },
+            { name: 'Terms', path: '/terms-and-conditions' },
+            { name: 'Cookies', path: '/cookie-policy' },
+            { name: 'AI Policy', path: '/ai-policy' }
+          ].map(link => (
+            <Link key={link.path} to={link.path} className="text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition-all">
+              {link.name}
+            </Link>
+          ))}
         </div>
 
         {/* Copyright */}

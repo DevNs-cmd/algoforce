@@ -1,28 +1,47 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Ticket, ExternalLink, ArrowUpRight, X, Sparkles } from 'lucide-react'
 
 const LUMA_EVENT_URL = "https://luma.com/t1m4rkst?tk=GuW27n"
 const UNSTOP_EVENT_URL = "https://unstop.com/o/a9xApLV?lb=kVkkl81P&utm_medium=Share&utm_source=events&utm_campaign=Fqgpcvtk16500"
+const DISMISSED_KEY = "af_summit_banner_dismissed"
 
 const SummitMarqueeBanner = () => {
   const [showModal, setShowModal] = useState(false)
+  const [dismissed, setDismissed] = useState(false)
+
+  useEffect(() => {
+    try {
+      const isDismissed = localStorage.getItem(DISMISSED_KEY) === 'true'
+      setDismissed(isDismissed)
+    } catch (_) {
+      // localStorage not available
+    }
+  }, [])
+
+  const handleDismiss = (e) => {
+    e.stopPropagation()
+    setDismissed(true)
+    try { localStorage.setItem(DISMISSED_KEY, 'true') } catch (_) {}
+  }
+
+  if (dismissed) return null
 
   return (
     <>
       {/* Ticker Bar */}
-      <div 
+      <div
         onClick={() => setShowModal(true)}
-        className="fixed top-0 left-0 right-0 z-[55] h-8 sm:h-9 bg-gradient-to-r from-purple-950 via-[#06101d] to-purple-900 border-b border-purple-500/30 text-white cursor-pointer overflow-hidden px-4 shadow-md select-none group transition-colors hover:from-purple-900 hover:to-purple-850 flex items-center"
+        className="fixed top-0 left-0 right-0 z-[55] h-8 sm:h-9 bg-gradient-to-r from-purple-950 via-[#06101d] to-purple-900 border-b border-purple-500/30 text-white cursor-pointer overflow-hidden shadow-md select-none group transition-colors hover:from-purple-900 hover:to-purple-850 flex items-center justify-between pr-3"
       >
-        <div className="flex items-center gap-4 text-xs font-semibold tracking-wide whitespace-nowrap animate-marquee">
+        <div className="flex items-center gap-4 text-xs font-semibold tracking-wide whitespace-nowrap animate-marquee overflow-hidden flex-1">
           <span className="inline-flex items-center gap-1.5 bg-purple-500/25 border border-purple-400/40 text-purple-200 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider shrink-0">
             <Sparkles size={11} className="text-purple-300 animate-spin" style={{ animationDuration: '4s' }} />
             Summit Delhi 2026
           </span>
           <span>🚀 AlgoForce AI Transformation Summit Delhi 2026 • 28 Oct 2026 • Stop Buying AI. Start Deploying AI.</span>
           <span className="underline decoration-purple-400 font-bold text-purple-300 group-hover:text-white transition-colors flex items-center gap-1">
-            Reserve Your Seat on Luma & Unstop <ArrowUpRight size={13} />
+            Reserve Your Seat on Luma &amp; Unstop <ArrowUpRight size={13} />
           </span>
           <span className="text-purple-400/50">|</span>
           <span className="inline-flex items-center gap-1.5 bg-purple-500/25 border border-purple-400/40 text-purple-200 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider shrink-0">
@@ -31,12 +50,21 @@ const SummitMarqueeBanner = () => {
           </span>
           <span>🚀 AlgoForce AI Transformation Summit Delhi 2026 • 28 Oct 2026 • Stop Buying AI. Start Deploying AI.</span>
           <span className="underline decoration-purple-400 font-bold text-purple-300 group-hover:text-white transition-colors flex items-center gap-1">
-            Reserve Your Seat on Luma & Unstop <ArrowUpRight size={13} />
+            Reserve Your Seat <ArrowUpRight size={13} />
           </span>
         </div>
+
+        {/* Dismiss button */}
+        <button
+          onClick={handleDismiss}
+          aria-label="Dismiss summit banner"
+          className="ml-3 w-6 h-6 rounded-full bg-white/10 hover:bg-white/25 flex items-center justify-center text-white/70 hover:text-white transition-all flex-shrink-0 z-10"
+        >
+          <X size={12} />
+        </button>
       </div>
 
-      {/* 1-Tap Redirect Modal */}
+      {/* Registration Modal */}
       <AnimatePresence>
         {showModal && (
           <div className="fixed inset-0 z-[100001] flex items-center justify-center p-4 sm:p-6">
@@ -78,13 +106,7 @@ const SummitMarqueeBanner = () => {
               </p>
 
               <div className="space-y-3">
-                <a
-                  href={LUMA_EVENT_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setShowModal(false)}
-                  className="block w-full"
-                >
+                <a href={LUMA_EVENT_URL} target="_blank" rel="noopener noreferrer" onClick={() => setShowModal(false)} className="block w-full">
                   <button className="w-full py-3.5 px-4 bg-white text-[#06101d] hover:bg-slate-100 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-all">
                     <Ticket size={16} />
                     <span>Register on Luma</span>
@@ -92,13 +114,7 @@ const SummitMarqueeBanner = () => {
                   </button>
                 </a>
 
-                <a
-                  href={UNSTOP_EVENT_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setShowModal(false)}
-                  className="block w-full"
-                >
+                <a href={UNSTOP_EVENT_URL} target="_blank" rel="noopener noreferrer" onClick={() => setShowModal(false)} className="block w-full">
                   <button className="w-full py-3.5 px-4 bg-purple-600 hover:bg-purple-500 text-white rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md active:scale-95 transition-all">
                     <ExternalLink size={15} />
                     <span>Register on Unstop</span>
