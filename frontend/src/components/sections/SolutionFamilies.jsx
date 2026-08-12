@@ -10,9 +10,9 @@ const SOLUTION_FAMILIES = [
     eyebrow: 'Finance Operations',
     icon: Landmark,
     badge: 'Core Beachhead',
-    problem: 'Finance teams lose hundreds of hours on manual ledger reconciliation, exception tracking, and invoice processing.',
+    problem: 'Finance teams often spend significant time on manual ledger reconciliation, exception tracking, and invoice processing.',
     capability: 'Automate accounting workflows around your existing Tally, SAP, or ERP environment without software replacement.',
-    outcome: 'Eliminate manual reconciliation bottlenecks and detect ledger exceptions earlier.',
+    outcome: 'Reduce manual reconciliation effort and detect ledger exceptions earlier in the process.',
     path: '/solutions/finance',
   },
   {
@@ -20,9 +20,9 @@ const SOLUTION_FAMILIES = [
     name: 'Revenue',
     eyebrow: 'Revenue Operations',
     icon: TrendingUp,
-    problem: 'Inconsistent lead follow-up, qualification delays, and manual CRM logging reduce sales velocity.',
+    problem: 'Inconsistent lead follow-up, qualification delays, and manual CRM logging can reduce sales velocity.',
     capability: 'Deploy intelligent automation for lead engagement, instant qualification, and CRM synchronization.',
-    outcome: 'Faster lead response times, higher conversion velocity, and complete pipeline visibility.',
+    outcome: 'More consistent follow-up, faster response times, and improved pipeline visibility.',
     path: '/solutions/revenue',
   },
   {
@@ -30,7 +30,7 @@ const SOLUTION_FAMILIES = [
     name: 'Operations',
     eyebrow: 'Process Coordination',
     icon: Sliders,
-    problem: 'Cross-department approvals, exception handling, and operational handoffs create costly delays.',
+    problem: 'Cross-department approvals, exception handling, and operational handoffs create delays that single systems don\'t manage.',
     capability: 'Orchestrate approval matrixes, automated escalations, and task routing between disconnected tools.',
     outcome: 'Streamlined operational throughput and reduced manual administrative oversight.',
     path: '/solutions/operations',
@@ -40,9 +40,9 @@ const SOLUTION_FAMILIES = [
     name: 'Manufacturing',
     eyebrow: 'Production & Quality',
     icon: Factory,
-    problem: 'Quality checks, defect logging, and shop-floor reporting rely heavily on manual visual oversight.',
+    problem: 'Quality inspection, defect logging, and shop-floor reporting still depend heavily on manual visual observation.',
     capability: 'Integrate automated visual quality inspection and real-time production telemetry directly with your ERP.',
-    outcome: 'Earlier defect detection, automated compliance logs, and enhanced shop-floor throughput.',
+    outcome: 'Earlier defect detection, automated compliance logs, and enhanced shop-floor visibility.',
     path: '/solutions/manufacturing',
   },
   {
@@ -50,9 +50,9 @@ const SOLUTION_FAMILIES = [
     name: 'People',
     eyebrow: 'HR & Workforces',
     icon: Users,
-    problem: 'HR teams spend excessive time answering repetitive policy queries and managing manual onboarding steps.',
+    problem: 'HR teams spend significant time answering repetitive policy queries and managing manual onboarding steps.',
     capability: 'Automate employee self-service inquiries, policy lookups, and standardized onboarding checklists.',
-    outcome: 'Faster employee support resolution and significantly reduced routine HR workload.',
+    outcome: 'Faster employee support resolution and reduced routine HR workload.',
     path: '/solutions/people',
   },
   {
@@ -60,9 +60,9 @@ const SOLUTION_FAMILIES = [
     name: 'Knowledge',
     eyebrow: 'Enterprise Knowledge',
     icon: FileText,
-    problem: 'Critical operational SOPs, historical records, and policy manuals are scattered across silos.',
+    problem: 'Critical operational SOPs, historical records, and policy manuals are scattered across separate documents and email silos.',
     capability: 'Unify internal documentation into a secure, searchable enterprise knowledge repository.',
-    outcome: 'Instant access to verified operational answers and preserved institutional memory.',
+    outcome: 'Faster access to verified operational answers and preserved institutional memory.',
     path: '/solutions/knowledge',
   },
 ]
@@ -149,8 +149,9 @@ const SolutionCard = ({ item, index, inView }) => {
   )
 }
 
-const SolutionFamilies = () => {
+const SolutionFamilies = ({ featuredOnly = false }) => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 })
+  const displayedFamilies = featuredOnly ? SOLUTION_FAMILIES.slice(0, 4) : SOLUTION_FAMILIES
 
   return (
     <section ref={ref} id="solutions" className="relative bg-slate-50/70 py-20 md:py-28 text-slate-900 border-b border-slate-200/70">
@@ -177,30 +178,32 @@ const SolutionFamilies = () => {
         </motion.div>
 
         {/* Cards Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {SOLUTION_FAMILIES.map((item, index) => (
+        <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
+          {displayedFamilies.map((item, index) => (
             <SolutionCard key={item.id} item={item} index={index} inView={inView} />
           ))}
         </div>
 
-        {/* Bottom Assessment Callout */}
+        {/* Bottom Assessment & View All Callout */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.5, duration: 0.6 }}
-          className="text-center mt-16"
+          className="text-center mt-16 flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <div className="inline-flex flex-col sm:flex-row items-center justify-between gap-6 rounded-3xl border border-slate-200 bg-white p-6 sm:px-8 sm:py-5 shadow-sm max-w-3xl mx-auto">
-            <div className="text-left">
-              <h4 className="text-base font-bold text-slate-900">Unsure which solution matches your current setup?</h4>
-              <p className="text-xs text-slate-500 font-normal mt-0.5">Our team will map your operational bottlenecks and recommend the right path.</p>
-            </div>
-            <Link to="/contact?type=assessment" className="shrink-0">
-              <button className="px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-xs uppercase tracking-wider transition-all shadow-sm hover:shadow-md">
-                Book a Workflow Assessment
+          {featuredOnly && (
+            <Link to="/solutions">
+              <button className="px-8 py-3.5 border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-800 rounded-full font-bold text-xs uppercase tracking-wider transition-all shadow-sm">
+                View All Solution Families (6)
               </button>
             </Link>
-          </div>
+          )}
+
+          <Link to="/contact?type=assessment">
+            <button className="px-8 py-3.5 bg-slate-900 hover:bg-slate-800 text-white rounded-full font-bold text-xs uppercase tracking-wider transition-all shadow-md">
+              Book a Workflow Assessment
+            </button>
+          </Link>
         </motion.div>
       </div>
     </section>

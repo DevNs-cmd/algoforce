@@ -1,61 +1,60 @@
 import Hero from '../components/sections/Hero'
 import TheProblem from '../components/sections/TheProblem'
-import EnterpriseTrust from '../components/sections/EnterpriseTrust'
-import SolutionFamilies from '../components/sections/SolutionFamilies'
-import ImplementationProcess from '../components/sections/ImplementationProcess'
-import FinanceBeachhead from '../components/sections/FinanceBeachhead'
-import WhyChooseUs from '../components/sections/WhyChooseUs'
 import WhyAlgoForce from '../components/sections/WhyAlgoForce'
+import ImplementationProcess from '../components/sections/ImplementationProcess'
+import SolutionFamilies from '../components/sections/SolutionFamilies'
+import FinanceBeachhead from '../components/sections/FinanceBeachhead'
+import LandProveExpand from '../components/sections/LandProveExpand'
+import WhyChooseUs from '../components/sections/WhyChooseUs'
+import EnterpriseTrust from '../components/sections/EnterpriseTrust'
 import AssessmentSection from '../components/sections/AssessmentSection'
 import EnterpriseFaq from '../components/sections/EnterpriseFaq'
 import FinalCTA from '../components/sections/FinalCTA'
 
-// ORION: Commented out — R&D initiative, hidden from commercial homepage per strategic direction.
-// Remove comment to restore when AlgoForce is ready to surface ORION commercially.
+// ORION: Commented out — internal R&D initiative, hidden from commercial user journey per business model.
+// Accessible via direct URL /orion for internal review.
 // import OrionDiscovery from '../components/sections/OrionDiscovery'
-
-// SUMMIT: Commented out as a homepage section — Summit is available via the dismissible banner
-// and as a standalone event resource. It should not compete with primary customer acquisition flow.
-// import SummitSection from '../components/sections/SummitSection'
 
 const Home = () => {
   return (
     <div className="overflow-x-hidden animate-moving-gradient">
-      {/* 1. Hero — What is AlgoForce, for whom, what outcome */}
+      {/* 1. HERO — Eyebrow, H1, Subhead, Primary CTA: Book a Workflow Assessment, Secondary: Explore Solutions */}
       <Hero />
 
-      {/* 2. The Problem — The work between the systems */}
+      {/* 2. OPERATIONAL GAP — "Your business already has software. The problem is what still happens between the systems." */}
       <TheProblem />
 
-      {/* 3. Enterprise Trust — Why AlgoForce is deployable */}
-      <EnterpriseTrust />
-
-      {/* 4. Solutions by Business Function — The 6 solution families */}
-      <SolutionFamilies />
-
-      {/* 5. How We Work — 8-step engagement model */}
-      <ImplementationProcess />
-
-      {/* 6. Finance AI Beachhead — Current commercial product */}
-      <FinanceBeachhead />
-
-      {/* 7. Industries + Integrations */}
-      <WhyChooseUs />
-
-      {/* 8. Business value framing */}
+      {/* 3. WHY ALGOFORCE — Qualitative value drivers (no invented ROI %) */}
       <WhyAlgoForce />
 
-      {/* 9. Workflow Assessment CTA */}
+      {/* 4. DISCOVER → IMPLEMENT → OPERATE → IMPROVE — 8-step engagement process */}
+      <ImplementationProcess />
+
+      {/* 5. SOLUTIONS BY FUNCTION — Featured commercial solution families + View All */}
+      <SolutionFamilies featuredOnly={true} />
+
+      {/* 6. FINANCE AI BEACHHEAD — Current commercial beachhead (Tally-connected workflows) */}
+      <FinanceBeachhead />
+
+      {/* 7. LAND → PROVE → EXPAND — Start with one workflow, prove value, expand adjacent */}
+      <LandProveExpand />
+
+      {/* 8 & 9. INDUSTRIES + EXISTING STACK / INTEGRATIONS — Qualified industry & integration fit */}
+      <WhyChooseUs />
+
+      {/* 10. BUSINESS VALUE & DEPLOYMENT CREDIBILITY — Infrastructure & security fit */}
+      <EnterpriseTrust />
+
+      {/* 11. WORKFLOW ASSESSMENT — Differentiates Assessment vs Demo + 4-step outputs */}
       <AssessmentSection />
 
-      {/* 10. FAQ — Buyer objections */}
+      {/* 12. FAQ — Buyer objections answered */}
       <EnterpriseFaq />
 
-      {/* 11. Final CTA — "Have a workflow worth improving?" */}
+      {/* 13. FINAL CTA — "Have a workflow worth improving?" */}
       <FinalCTA />
 
-      {/* ORION: <OrionDiscovery /> — hidden. Preserved in codebase at components/sections/OrionDiscovery.jsx */}
-      {/* SUMMIT: <SummitSection /> — hidden. Summit accessible via marquee banner. */}
+      {/* ORION: Preserved in codebase at components/sections/OrionDiscovery.jsx, hidden from commercial flow */}
     </div>
   )
 }
