@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { Link } from 'react-router-dom'
-import { Landmark, TrendingUp, Sliders, Factory, Users, FileText, ArrowRight, CheckCircle2 } from 'lucide-react'
+import { Landmark, TrendingUp, Sliders, Factory, Users, FileText, ArrowRight, CheckCircle2, HelpCircle } from 'lucide-react'
+import { trackCTAClick } from '../../utils/analytics'
 
 const SOLUTION_FAMILIES = [
   {
@@ -9,7 +10,7 @@ const SOLUTION_FAMILIES = [
     name: 'Finance',
     eyebrow: 'Finance Operations',
     icon: Landmark,
-    badge: 'Core Beachhead',
+    badge: 'Current Beachhead',
     problem: 'Finance teams often spend significant time on manual ledger reconciliation, exception tracking, and invoice processing.',
     capability: 'Automate accounting workflows around your existing Tally, SAP, or ERP environment without software replacement.',
     outcome: 'Reduce manual reconciliation effort and detect ledger exceptions earlier in the process.',
@@ -78,7 +79,7 @@ const SolutionCard = ({ item, index, inView }) => {
       className="group relative flex flex-col justify-between rounded-3xl border border-slate-200/80 bg-white p-7 md:p-8 shadow-[0_4px_20px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-slate-300 hover:shadow-[0_20px_45px_rgba(15,23,42,0.08)] hover:-translate-y-1"
     >
       <div>
-        {/* Top Header Row */}
+        {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-slate-800 transition-colors duration-300 group-hover:bg-slate-900 group-hover:text-white">
@@ -137,6 +138,7 @@ const SolutionCard = ({ item, index, inView }) => {
       <div className="pt-4 border-t border-slate-100">
         <Link
           to={item.path}
+          onClick={() => trackCTAClick(`Explore ${item.name}`, item.path, 'solution_card')}
           className="inline-flex w-full items-center justify-between text-xs font-bold uppercase tracking-widest text-slate-900 transition-colors duration-200 group-hover:text-purple-700"
         >
           <span>Explore {item.name} Solution</span>
@@ -178,32 +180,53 @@ const SolutionFamilies = ({ featuredOnly = false }) => {
         </motion.div>
 
         {/* Cards Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6 max-w-7xl mx-auto mb-16">
           {displayedFamilies.map((item, index) => (
             <SolutionCard key={item.id} item={item} index={index} inView={inView} />
           ))}
         </div>
 
-        {/* Bottom Assessment & View All Callout */}
+        {/* Product-Agnostic Conversion Box */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.5, duration: 0.6 }}
-          className="text-center mt-16 flex flex-col sm:flex-row items-center justify-center gap-4"
+          transition={{ delay: 0.4, duration: 0.6 }}
+          className="max-w-4xl mx-auto rounded-3xl border border-slate-200 bg-white p-8 md:p-10 shadow-sm text-center"
         >
-          {featuredOnly && (
-            <Link to="/solutions">
-              <button className="px-8 py-3.5 border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-800 rounded-full font-bold text-xs uppercase tracking-wider transition-all shadow-sm">
-                View All Solution Families (6)
+          <div className="w-12 h-12 rounded-2xl bg-purple-50 text-purple-700 border border-purple-100 flex items-center justify-center mx-auto mb-4">
+            <HelpCircle size={22} />
+          </div>
+          
+          <h3 className="text-2xl font-bold text-slate-900 mb-3">
+            Not sure which solution fits?
+          </h3>
+          
+          <p className="text-slate-600 text-sm md:text-base leading-relaxed font-normal mb-8 max-w-2xl mx-auto">
+            Don't choose a product first. Tell us what your team is still doing manually. We'll identify the appropriate AlgoForce capability.
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            {featuredOnly && (
+              <Link
+                to="/solutions"
+                onClick={() => trackCTAClick('View All Solution Families', '/solutions', 'product_agnostic_box')}
+              >
+                <button className="px-6 py-3.5 border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-800 rounded-full font-bold text-xs uppercase tracking-wider transition-all shadow-sm">
+                  View All Solution Families (6)
+                </button>
+              </Link>
+            )}
+
+            <Link
+              to="/contact?type=assessment"
+              onClick={() => trackCTAClick('Find My Workflow', '/contact?type=assessment', 'product_agnostic_box')}
+            >
+              <button className="inline-flex items-center gap-2 px-8 py-3.5 bg-slate-900 hover:bg-slate-800 text-white rounded-full font-bold text-xs uppercase tracking-wider transition-all shadow-md">
+                <span>Find My Workflow</span>
+                <ArrowRight size={14} />
               </button>
             </Link>
-          )}
-
-          <Link to="/contact?type=assessment">
-            <button className="px-8 py-3.5 bg-slate-900 hover:bg-slate-800 text-white rounded-full font-bold text-xs uppercase tracking-wider transition-all shadow-md">
-              Book a Workflow Assessment
-            </button>
-          </Link>
+          </div>
         </motion.div>
       </div>
     </section>

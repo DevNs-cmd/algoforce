@@ -11,7 +11,7 @@ const TRUST_SIGNALS = [
   {
     icon: <FaLock />,
     title: 'Designed for business data',
-    description: 'Choose secure private-cloud or on-premises deployment options that keep your operating data in your control.'
+    description: 'Deployment options are defined based on solution scope and customer data security requirements.'
   },
   {
     icon: <FaCloud />,
@@ -38,13 +38,13 @@ const EnterpriseTrust = () => {
           transition={{ duration: 0.7 }}
           className="mx-auto mb-12 max-w-3xl text-center"
         >
-          <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.35em] text-purple-400">Enterprise-ready deployment</p>
+          <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.35em] text-purple-400">System Compatibility & Operations</p>
           <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-            Software that works with{' '}
-            <span className="premium-serif font-normal italic text-[#cdb4ff]">the way you already operate.</span>
+            Built around the way your business{' '}
+            <span className="premium-serif font-normal italic text-[#cdb4ff]">already operates.</span>
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-slate-400">
-            AlgoForce deploys automation around your existing systems, stays accountable after go-live, and operates as a long-term technology partner — not a one-time vendor.
+            AlgoForce deploys automation around your existing software, stays accountable after launch, and provides managed operational support as your business grows.
           </p>
         </motion.div>
 

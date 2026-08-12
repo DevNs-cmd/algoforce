@@ -1,18 +1,12 @@
 import Chatbot from '../chatbot/Chatbot'
 import ConsultancyButton from './ConsultancyButton'
-import WebinarPopup from './WebinarPopup'
-import SummitGlobalPopup from './SummitGlobalPopup'
-import TallyGPTPromptWidget from './TallyGPTPromptWidget'
 
-// These controls are helpful after a visitor starts exploring, but they do not
-// belong on the critical rendering path of a marketing page.
+// MarketingWidgets provides quiet, non-intrusive assistant tools (Chatbot & Consult button).
+// Global popups for Summit & TallyGPT installs are removed to preserve conversion focus.
 const MarketingWidgets = () => (
   <>
     <Chatbot />
     <ConsultancyButton />
-    <WebinarPopup />
-    <SummitGlobalPopup />
-    <TallyGPTPromptWidget />
   </>
 )
 

@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { Link } from 'react-router-dom'
 import { FaCheck, FaArrowRight, FaClock, FaClipboardList, FaBullseye, FaMap } from 'react-icons/fa'
+import { trackCTAClick } from '../../utils/analytics'
 
 const AssessmentSection = () => {
   const [ref, inView] = useInView({
@@ -23,7 +24,7 @@ const AssessmentSection = () => {
     {
       icon: <FaBullseye className="text-purple-600" />,
       title: "Identify the automation opportunity",
-      desc: "We recommend specifically what to automate, what to leave as-is, and what would create the most measurable operational value."
+      desc: "We recommend specifically what to automate, what to leave as-is, and what would create the most practical operational value."
     },
     {
       icon: <FaMap className="text-purple-600" />,
@@ -42,7 +43,7 @@ const AssessmentSection = () => {
   ]
 
   return (
-    <section ref={ref} id="book-assessment" className="py-16 md:py-24 bg-white text-black border-b border-gray-100">
+    <section ref={ref} id="book-assessment" className="py-20 md:py-28 bg-white text-black border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -56,8 +57,8 @@ const AssessmentSection = () => {
               Start with a{' '}
               <span className="premium-serif italic font-normal text-purple-600">Workflow Assessment.</span>
             </h2>
-            <p className="text-gray-500 text-sm mt-4 font-normal leading-relaxed">
-              Tell us what your team is still doing manually. We map the workflow, identify where automation creates practical value, and define a clear implementation path — no commitment required to start.
+            <p className="text-gray-600 text-sm mt-4 font-normal leading-relaxed">
+              Start with a focused workflow conversation. If there is a fit, we'll recommend the appropriate next step — mapping your manual bottlenecks and defining a clear implementation path.
             </p>
           </div>
 
@@ -97,16 +98,20 @@ const AssessmentSection = () => {
                   ))}
                 </div>
 
-                <p className="text-xs text-slate-500 leading-relaxed font-normal border-t border-white/5 pt-5">
-                  The assessment is a structured, focused conversation — not a sales process. If there's a fit, you receive a clear proposal. If there isn't, you receive honest advice about what to do instead.
+                <p className="text-xs text-slate-400 leading-relaxed font-normal border-t border-white/5 pt-5">
+                  The assessment is a structured workflow conversation, not a generic sales process. If there's a fit, you receive a clear implementation proposal. If there isn't, you receive honest advice about your current options.
                 </p>
               </div>
 
               <div className="border-t border-white/5 pt-6 flex flex-col sm:flex-row gap-4 items-center justify-between mt-6">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
                   Typically 45–60 minutes
                 </span>
-                <Link to="/contact?type=assessment" className="w-full sm:w-auto">
+                <Link
+                  to="/contact?type=assessment"
+                  onClick={() => trackCTAClick('Book Workflow Assessment', '/contact?type=assessment', 'assessment_section')}
+                  className="w-full sm:w-auto"
+                >
                   <button className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-white text-black hover:bg-gray-100 px-6 py-3.5 text-xs font-bold uppercase tracking-wider transition-all">
                     Book Workflow Assessment <FaArrowRight size={8} />
                   </button>

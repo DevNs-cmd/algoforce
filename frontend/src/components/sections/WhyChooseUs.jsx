@@ -2,10 +2,6 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { 
-  FaLink, 
-  FaDatabase, 
-  FaCloud, 
-  FaNetworkWired,
   FaIndustry,
   FaHeartbeat,
   FaHotel,
@@ -17,23 +13,19 @@ import {
   FaBriefcase,
   FaCogs
 } from 'react-icons/fa'
+import { trackCTAClick } from '../../utils/analytics'
 
 const INTEGRATIONS = [
-  { name: 'Tally', desc: 'Compatible. Connects to your local Tally database.' },
-  { name: 'SAP', desc: 'Requires connector. Connects via secure SAP integration gateway.' },
-  { name: 'Zoho', desc: 'Native Integration. Syncs contact details and logs meetings instantly.' },
-  { name: 'Salesforce', desc: 'Native Integration. Connects directly to update sales pipelines.' },
-  { name: 'WhatsApp', desc: 'Native Integration. Connects with the official Cloud API.' },
-  { name: 'Shopify', desc: 'Native Integration. Syncs store orders and inventory levels.' },
-  { name: 'HubSpot', desc: 'Native Integration. Synchronizes leads and scheduling records.' },
-  { name: 'Google Workspace', desc: 'Native Integration. Connects to Google Drive and Calendar.' },
-  { name: 'Microsoft 365', desc: 'Native Integration. Syncs with OneDrive and Outlook.' },
-  { name: 'Oracle', desc: 'Requires connector. Reconciles database records securely.' },
-  { name: 'MongoDB', desc: 'Native Integration. Connects database fields to AI copilots.' },
-  { name: 'PostgreSQL', desc: 'Native Integration. Reads database schemas directly.' },
-  { name: 'AWS', desc: 'Compatible. Supports secure private hosting.' },
-  { name: 'Azure', desc: 'Compatible. Supports enterprise deployment networks.' },
-  { name: 'Google Cloud', desc: 'Compatible. Supports secure hosting and API integrations.' }
+  { name: 'Tally', desc: 'Connects to your local Tally database without software replacement.' },
+  { name: 'SAP', desc: 'Connects via secure SAP enterprise gateway.' },
+  { name: 'Zoho', desc: 'Syncs contacts, leads, and sales records.' },
+  { name: 'Salesforce', desc: 'Updates pipeline stages and logs customer interactions.' },
+  { name: 'WhatsApp', desc: 'Connects via official Cloud API for lead follow-up.' },
+  { name: 'Shopify', desc: 'Syncs orders and inventory levels.' },
+  { name: 'HubSpot', desc: 'Synchronizes prospect records and scheduling.' },
+  { name: 'Google Workspace', desc: 'Connects with Drive and Calendar workflows.' },
+  { name: 'Microsoft 365', desc: 'Syncs with OneDrive and Outlook.' },
+  { name: 'PostgreSQL', desc: 'Reads and reconciles database tables directly.' },
 ]
 
 const INDUSTRIES = [
@@ -43,7 +35,7 @@ const INDUSTRIES = [
   { name: 'Education', icon: <FaGraduationCap /> },
   { name: 'Hospitality', icon: <FaHotel /> },
   { name: 'Construction', icon: <FaBuilding /> },
-  { name: 'Finance', icon: <FaDollarSign /> },
+  { name: 'Finance & Accounting', icon: <FaDollarSign /> },
   { name: 'Logistics', icon: <FaTruck /> },
   { name: 'Professional Services', icon: <FaBriefcase /> },
   { name: 'SMEs', icon: <FaCogs /> }
@@ -63,8 +55,8 @@ const WhyChooseUs = () => {
   const visibleIntegrations = showAllIntegrations ? INTEGRATIONS : INTEGRATIONS.slice(0, 6)
 
   return (
-    <section ref={ref} id="why-choose-us" className="py-16 md:py-24 bg-[#03070d] text-white relative overflow-hidden border-b border-white/5">
-      {/* Decorative Glows */}
+    <section ref={ref} id="why-choose-us" className="py-20 md:py-28 bg-[#03070d] text-white relative overflow-hidden border-b border-white/5">
+      {/* Glows */}
       <div className="absolute top-[-10rem] right-[-10rem] w-[30rem] h-[30rem] rounded-full bg-purple-600/10 blur-[100px] pointer-events-none" />
       <div className="absolute bottom-[-10rem] left-[-10rem] w-[30rem] h-[30rem] rounded-full bg-blue-600/10 blur-[100px] pointer-events-none" />
       <div className="absolute inset-0 subtle-ai-grid opacity-30 pointer-events-none" />
@@ -84,7 +76,7 @@ const WhyChooseUs = () => {
               <span className="premium-serif italic font-normal text-[#cdb4ff]">operationally complex businesses.</span>
             </h3>
             <p className="max-w-xl mx-auto text-slate-400 font-normal text-sm mt-3">
-              We start with the operational workflow, not a generic industry pitch. The business function comes first; the industry context shapes the deployment.
+              We start with the operational workflow, not a generic industry pitch. The business function comes first; the industry context shapes the implementation.
             </p>
           </motion.div>
 
@@ -115,26 +107,28 @@ const WhyChooseUs = () => {
                 onClick={() => setShowAllIndustries(!showAllIndustries)}
                 className="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider text-purple-300 hover:text-white border border-purple-500/30 bg-purple-500/10 hover:bg-purple-500/20 transition-all"
               >
-                {showAllIndustries ? 'Show Fewer Industries' : `Show All Industries (${INDUSTRIES.length})`}
+                {showAllIndustries ? 'Show Fewer Industries' : 'View Industries'}
               </button>
             </div>
           )}
         </div>
 
-        <hr className="border-white/5 my-12 max-w-5xl mx-auto" />
+        <hr className="border-white/5 my-14 max-w-5xl mx-auto" />
 
+        {/* Integrations Grid */}
         <div id="integrations">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             className="text-center mb-10"
           >
-            <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-purple-400">Integrations</span>
+            <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-purple-400">Existing Stack Compatibility</span>
             <h3 className="text-3xl md:text-5xl font-bold leading-tight mt-2">
-              Automate work without <span className="premium-serif italic font-normal text-[#cdb4ff]">replacing your stack.</span>
+              Works with the systems{' '}
+              <span className="premium-serif italic font-normal text-[#cdb4ff]">your business already uses.</span>
             </h3>
             <p className="max-w-xl mx-auto text-slate-400 font-normal text-sm mt-3">
-              AlgoForce products are deployed around the systems your teams already use.
+              AlgoForce automates work around your existing ERP, CRM, databases, and communication tools.
             </p>
           </motion.div>
 
@@ -147,7 +141,7 @@ const WhyChooseUs = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.3 }}
-                  whileHover={{ scale: 1.05, border: '1px solid rgba(143,56,255,0.4)' }}
+                  whileHover={{ scale: 1.03, border: '1px solid rgba(143,56,255,0.4)' }}
                   onClick={() => setActiveInt(activeInt === item.name ? null : item.name)}
                   className={`p-4 rounded-xl border flex flex-col items-center justify-center font-bold text-xs uppercase tracking-wider transition-all h-20 ${
                     activeInt === item.name 
@@ -161,16 +155,14 @@ const WhyChooseUs = () => {
             </AnimatePresence>
           </div>
 
-          {INTEGRATIONS.length > 6 && (
-            <div className="text-center mb-8">
-              <button
-                onClick={() => setShowAllIntegrations(!showAllIntegrations)}
-                className="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider text-purple-300 hover:text-white border border-purple-500/30 bg-purple-500/10 hover:bg-purple-500/20 transition-all"
-              >
-                {showAllIntegrations ? 'Show Fewer Platforms' : `Show All Integrations (${INTEGRATIONS.length})`}
-              </button>
-            </div>
-          )}
+          <div className="text-center mb-8">
+            <button
+              onClick={() => setShowAllIntegrations(!showAllIntegrations)}
+              className="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider text-purple-300 hover:text-white border border-purple-500/30 bg-purple-500/10 hover:bg-purple-500/20 transition-all"
+            >
+              {showAllIntegrations ? 'Show Fewer Platforms' : 'View Supported Integrations'}
+            </button>
+          </div>
 
           <div className="max-w-xl mx-auto h-24">
             <AnimatePresence mode="wait">
@@ -187,7 +179,7 @@ const WhyChooseUs = () => {
                 </motion.div>
               ) : (
                 <div className="p-5 rounded-2xl bg-white/[0.01] border border-white/5 border-dashed text-center flex flex-col justify-center text-xs text-slate-500 font-semibold italic">
-                  Select a platform to view how it fits into the deployment.
+                  Select a platform to view how it fits into your workflow.
                 </div>
               )}
             </AnimatePresence>
