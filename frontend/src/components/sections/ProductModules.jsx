@@ -2,15 +2,15 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { Link } from 'react-router-dom'
-import { 
-  FaBrain, 
-  FaCogs, 
-  FaWhatsapp, 
-  FaChartLine, 
-  FaUsers, 
-  FaIndustry, 
-  FaHotel, 
-  FaDatabase, 
+import {
+  FaBrain,
+  FaCogs,
+  FaWhatsapp,
+  FaChartLine,
+  FaUsers,
+  FaIndustry,
+  FaHotel,
+  FaDatabase,
   FaArrowRight,
   FaTimes,
   FaCheck
@@ -194,11 +194,10 @@ const ProductModules = ({ activeCategory, setActiveCategory, featuredOnly = fals
             <button
               key={tab.id}
               onClick={() => setCurrentCategory(tab.id)}
-              className={`px-4 py-2 rounded-full text-xs font-bold transition-all border shrink-0 whitespace-nowrap ${
-                currentCategory === tab.id
-                  ? 'bg-purple-600 text-white border-purple-600 shadow-md shadow-purple-600/10'
-                  : 'bg-white/5 text-slate-300 border-white/5 hover:bg-white/10 hover:text-white'
-              }`}
+              className={`px-4 py-2 rounded-full text-xs font-bold transition-all border shrink-0 whitespace-nowrap ${currentCategory === tab.id
+                ? 'bg-purple-600 text-white border-purple-600 shadow-md shadow-purple-600/10'
+                : 'bg-white/5 text-slate-300 border-white/5 hover:bg-white/10 hover:text-white'
+                }`}
             >
               {tab.name}
             </button>
@@ -237,8 +236,8 @@ const ProductModules = ({ activeCategory, setActiveCategory, featuredOnly = fals
                     <span className="block font-bold text-slate-500 uppercase tracking-wider text-[9px] mb-1">Primary Outcome</span>
                     <p className="text-slate-200 font-semibold text-xs leading-relaxed">{p.outcome}</p>
                   </div>
-                  
-                  <Link 
+
+                  <Link
                     to={`/products/${p.id === 'tallygpt' ? 'finance-ai' : p.id}`}
                     className="text-[11px] font-bold uppercase tracking-widest text-purple-400 group-hover:text-white flex items-center gap-2 transition-colors focus:outline-none"
                   >
@@ -279,8 +278,8 @@ const ProductModules = ({ activeCategory, setActiveCategory, featuredOnly = fals
               exit={{ scale: 0.92, opacity: 0, y: 20 }}
               className="relative w-full max-w-xl overflow-hidden rounded-[30px] border border-white/10 bg-[#070710] p-6 sm:p-8 md:p-10 shadow-[0_30px_100px_rgba(143,56,255,0.15)] max-h-[90vh] overflow-y-auto"
             >
-              <button 
-                onClick={() => setSelectedProduct(null)} 
+              <button
+                onClick={() => setSelectedProduct(null)}
                 className="absolute right-6 top-6 text-slate-400 hover:text-white focus:outline-none w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/5 active:scale-90 transition-transform"
               >
                 <FaTimes size={12} />
@@ -339,7 +338,7 @@ const ProductModules = ({ activeCategory, setActiveCategory, featuredOnly = fals
                   Ready in 2–4 Weeks setup
                 </span>
                 <Link to={`/contact?interest=${selectedProduct.id}`} className="w-full sm:w-auto">
-                  <button 
+                  <button
                     onClick={() => setSelectedProduct(null)}
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-white text-black hover:bg-gray-100 px-6 py-3 text-xs font-bold uppercase tracking-wider transition-all"
                   >

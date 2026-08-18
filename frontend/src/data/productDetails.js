@@ -164,3 +164,4 @@ export const PRODUCT_DETAILS = [
 ]
 
 export const getProductBySlug = (slug) => PRODUCT_DETAILS.find((product) => product.slug === slug)
+
