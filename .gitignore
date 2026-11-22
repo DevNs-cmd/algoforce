@@ -74,3 +74,5 @@ query
 *.glb
 !frontend/public/*.glb
 !frontend/public/*.mp4
+
+.npm-cache/

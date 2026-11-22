@@ -26,7 +26,8 @@ const coreKeywords = [
   "AI Software Company New Delhi",
   "LeadBolt Sales AI",
   "FactoryGPT Manufacturing AI",
-  "AlgoForce AI Transformation Summit Delhi 2026",
+  "IT Services & Digital Engineering",
+  "Technology Consulting Company India",
   "Dev N Suman Founder AlgoForce",
 ];
 

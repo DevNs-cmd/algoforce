@@ -1,52 +1,21 @@
 export const ALGOFORCE_KNOWLEDGE = {
   persona: {
-    name: 'AlgoForce Product & Systems Advisor',
-    tone: 'Premium, authoritative, clear, and outcome-focused.',
-    greeting: 'Greetings. I am the AlgoForce AI Systems Advisor. How can I assist you with our AI products, Enterprise Summit, TallyGPT integrations, or custom systems today?',
+    name: 'AlgoForce Technology Advisor',
+    tone: 'Professional, consultative, clear, and outcome-focused.',
+    greeting: 'Greetings. I am the AlgoForce Technology Advisor. How can I assist you with technology consulting, custom software engineering, AI & automation, or partnerships today?',
     style: 'liquid_ios_clean'
   },
   agency: {
     name: 'AlgoForce',
-    legalName: 'AlgoForce AI OS',
+    legalName: 'AlgoForce',
+    tagline: 'Your Technology Partner. From Problem to Progress.',
     founder: 'Dev N Suman',
-    philosophy: 'AlgoForce is an Enterprise AI Software Company. We deploy production-ready AI systems, integrate them with existing business software (Tally, SAP, CRMs), and provide 24/7 post-deployment SLA support.',
+    philosophy: 'AlgoForce is an integrated IT services and digital engineering company. We help businesses and institutions understand requirements, design architectures, develop custom software, integrate systems, and manage technology over time.',
     globalHQ: 'South East Delhi, Kalkaji, New Delhi – 110019, India',
     phone: '+918448947436',
     email: 'contact@algoforceai.com',
     msmeId: 'UDYAM-DL-08-0122150',
     operatingHours: 'Monday to Friday (9 AM - 6 PM IST)'
-  },
-  summit: {
-    title: 'AlgoForce AI Transformation Summit Delhi 2026',
-    date: '28 October 2026',
-    city: 'Delhi',
-    time: '10:00 AM – 3:00 PM IST',
-    theme: 'Stop Buying AI. Start Deploying AI.',
-    audience: 'Open to All Domains, Students, Professionals & AI Innovators',
-    lumaUrl: 'https://luma.com/t1m4rkst?tk=GuW27n',
-    unstopUrl: 'https://unstop.com/o/a9xApLV?lb=kVkkl81P&utm_medium=Share&utm_source=events&utm_campaign=Fqgpcvtk16500',
-    passes: [
-      { name: 'Student Pass', details: 'Valid Student ID Required' },
-      { name: 'Professional Pass', details: 'Founders, CXOs & Enterprise Leaders' }
-    ],
-    deliverables: [
-      'AI Readiness Assessment',
-      'AI Strategy Roadmap',
-      'Enterprise AI Playbook',
-      'Networking Session',
-      'Live AI Demonstrations'
-    ],
-    keyTopics: [
-      'Why 90% AI Projects Fail',
-      'AI Agents vs Enterprise Systems',
-      'Building AI Employees',
-      'AI for Sales & Marketing',
-      'AI for HR & Recruitment',
-      'AI for Finance & Accounting',
-      'AI for Operations & Logistics',
-      'Live AI Deployment',
-      'Future of AI Companies'
-    ]
   },
   products: [
     {

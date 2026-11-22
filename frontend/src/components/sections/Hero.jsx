@@ -1,170 +1,110 @@
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useEffect, useRef } from 'react'
+import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { useInView } from 'react-intersection-observer'
-import TrustBadges from '../common/TrustBadges'
-import OptimizedVideo from '../common/OptimizedVideo'
-import useIsMobile from '../../hooks/useIsMobile'
+import { ArrowRight } from 'lucide-react'
 
-const DESKTOP_HERO_VIDEOS = [
-  '/video1.mp4',
-  '/video2.mp4',
-  '/vecteezy.mp4',
-];
-
-const MOBILE_HERO_VIDEOS = [
-  '/video1.mp4',
-];
-
-const getHeroVideos = () => {
-  if (typeof window === 'undefined') return DESKTOP_HERO_VIDEOS
-  return window.matchMedia('(max-width: 767px)').matches
-    ? MOBILE_HERO_VIDEOS
-    : DESKTOP_HERO_VIDEOS
-}
+const HERO_VIDEOS = [
+  { src: '/video1.mp4', label: '01 / Enterprise Systems' },
+  { src: '/video2.mp4', label: '02 / Digital Engineering' },
+  { src: '/vecteezy.mp4', label: '03 / Integrated Architecture' },
+]
 
 const Hero = () => {
   const [heroRef, heroInView] = useInView({
-    threshold: 0.08,
-    rootMargin: '160px 0px',
+    threshold: 0.05,
+    rootMargin: '100px 0px',
     initialInView: true,
-  });
+  })
 
-  const isMobile = useIsMobile();
-  const [heroVideos, setHeroVideos] = useState(getHeroVideos);
-  const [activeVideoIdx, setActiveVideoIdx] = useState(0);
+  const [activeVideoIdx, setActiveVideoIdx] = useState(0)
+  const [isPlaying, setIsPlaying] = useState(true)
+  const videoRef = useRef(null)
 
+  // Auto-advance video slide every 8 seconds
   useEffect(() => {
-    if (typeof window === 'undefined') return undefined
-    const mediaQuery = window.matchMedia('(max-width: 767px)')
-    const updatePlaylist = () => {
-      const nextVideos = mediaQuery.matches ? MOBILE_HERO_VIDEOS : DESKTOP_HERO_VIDEOS
-      setHeroVideos(nextVideos)
-      setActiveVideoIdx((prev) => nextVideos.length ? prev % nextVideos.length : 0)
-    }
-    updatePlaylist()
-    if (mediaQuery.addEventListener) {
-      mediaQuery.addEventListener('change', updatePlaylist)
-      return () => mediaQuery.removeEventListener('change', updatePlaylist)
-    }
-    mediaQuery.addListener(updatePlaylist)
-    return () => mediaQuery.removeListener(updatePlaylist)
-  }, [])
+    if (!isPlaying) return undefined
+    const interval = setInterval(() => {
+      setActiveVideoIdx((prev) => (prev + 1) % HERO_VIDEOS.length)
+    }, 8000)
+    return () => clearInterval(interval)
+  }, [isPlaying])
 
-  // Auto-slide every 8 seconds
+  // Ensure current video plays cleanly when slide changes
   useEffect(() => {
-    if (isMobile || !heroInView || heroVideos.length < 2) return undefined
-    const timer = setInterval(() => {
-      setActiveVideoIdx((prev) => (prev + 1) % heroVideos.length);
-    }, 8000);
-    return () => clearInterval(timer);
-  }, [heroInView, heroVideos.length, isMobile]);
+    if (videoRef.current) {
+      videoRef.current.load()
+      videoRef.current.play().catch(() => {})
+    }
+  }, [activeVideoIdx])
 
   return (
-    <section ref={heroRef} className="relative flex items-center justify-center min-h-[84vh] md:min-h-screen overflow-hidden premium-page-bg text-white pt-36 sm:pt-40 md:pt-48 lg:pt-52 pb-12 md:pb-16">
-      {/* Video Background */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute inset-0 bg-[#03070d]/72 z-10" />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,7,13,0.24),rgba(3,7,13,0.8)_72%,#03070d)] z-10" />
-        <div className="absolute inset-0 subtle-ai-grid z-10 opacity-60" />
+    <section 
+      ref={heroRef} 
+      className="relative flex flex-col justify-center items-center min-h-[92vh] md:min-h-screen overflow-hidden text-slate-900 pt-28 sm:pt-32 pb-14 sm:pb-16 bg-white"
+    >
+      {/* Background Video Slider (Visible with light veil) */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <video
+          ref={videoRef}
+          key={HERO_VIDEOS[activeVideoIdx].src}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover scale-[1.01] filter brightness-[0.98] contrast-[1.02]"
+        >
+          <source src={HERO_VIDEOS[activeVideoIdx].src} type="video/mp4" />
+        </video>
 
-        {heroVideos.length > 0 && (
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeVideoIdx}
-              initial={{ opacity: 0, scale: 1.03 }}
-              animate={{ opacity: 0.28, scale: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1.5 }}
-              className="absolute inset-0 w-full h-full"
-            >
-              <OptimizedVideo
-                src={heroVideos[activeVideoIdx]}
-                inView={heroInView}
-                preload="metadata"
-                mobilePreload="none"
-                key={heroVideos[activeVideoIdx]}
-                className="w-full h-full object-cover"
-              />
-            </motion.div>
-          </AnimatePresence>
-        )}
+        {/* Clean, translucent veil that keeps video visible across entire viewport */}
+        <div className="absolute inset-0 bg-white/25" />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-transparent to-white/70" />
       </div>
 
-      <div className="relative z-10 px-4 sm:px-6 mx-auto text-center max-w-7xl">
+      {/* Main Hero Card — Frosted glass gives 100% crystal-clear text visibility while preserving the video behind */}
+      <div className="relative z-10 px-4 sm:px-6 mx-auto max-w-4xl text-center my-auto">
         <motion.div
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="bg-white/92 backdrop-blur-md rounded-3xl p-7 sm:p-10 md:p-14 border-t-2 border-t-white border-b-4 border-b-slate-300/80 border-x border-slate-200/90 shadow-[0_28px_65px_-8px_rgba(9,41,65,0.2),0_12px_28px_-6px_rgba(9,41,65,0.12),inset_0_1px_0_rgba(255,255,255,1)]"
         >
-          {/* Eyebrow */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex justify-center mb-6 md:mb-8"
-          >
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full premium-dark-surface backdrop-blur-xl">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#8f38ff]" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-300">
-                Enterprise AI &nbsp;•&nbsp; Automation &nbsp;•&nbsp; Digital Operations
-              </span>
-            </div>
-          </motion.div>
+          {/* Executive Sub-badge */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200/90 mb-6 shadow-2xs">
+            <span className="w-2 h-2 rounded-full bg-[#092941]" />
+            <span className="text-[11px] font-semibold tracking-wider text-slate-800 uppercase font-mono">
+              Integrated IT Services & Digital Engineering
+            </span>
+          </div>
 
-          {/* H1 */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-2xl min-[380px]:text-[2.35rem] sm:text-5xl md:text-6xl lg:text-[4.65rem] font-bold mb-6 leading-[1.08] text-white max-w-5xl mx-auto tracking-tight"
-          >
-            AI systems for the workflows{' '}
-            <span className="premium-serif italic font-normal text-[#cdb4ff]">that run your business.</span>
-          </motion.h1>
+          {/* Strategic Creative Headline */}
+          <h1 className="text-3xl min-[400px]:text-4xl sm:text-5xl md:text-6xl font-bold text-[#092941] mb-5 tracking-tight leading-[1.12]">
+            Your Technology Partner.{' '}
+            <span className="font-serif italic font-normal text-purple-900 block sm:inline">
+              From Problem to Progress.
+            </span>
+          </h1>
 
-          {/* Subhead */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="max-w-2xl mx-auto mb-8 md:mb-10 text-sm sm:text-base md:text-lg text-slate-300 font-normal leading-relaxed px-2 sm:px-0"
-          >
-            AlgoForce helps businesses identify operational bottlenecks, implement intelligent automation around the systems they already use, and continuously improve the workflows that matter.
-          </motion.p>
+          {/* Supporting Copy (High-Contrast, perfectly readable) */}
+          <p className="max-w-2xl mx-auto mb-8 text-sm sm:text-base md:text-lg text-slate-700 font-normal leading-relaxed">
+            From technology consulting and software engineering to AI-powered systems and managed technology services, AlgoForce helps businesses and institutions turn technology requirements into practical, scalable solutions.
+          </p>
 
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3.5 sm:gap-4 w-full max-w-xl mx-auto px-4 sm:px-0"
-          >
-            {/* Primary CTA */}
-            <Link to="/contact?type=assessment" className="w-full sm:w-auto">
-              <motion.button
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full px-7 py-3.5 sm:px-8 sm:py-4 bg-gradient-to-r from-[#8f38ff] via-[#7e25f6] to-[#6116cd] text-white rounded-full font-bold text-sm flex items-center justify-center gap-2 shadow-[0_20px_50px_rgba(143,56,255,0.3)] transition-all"
-              >
-                Book a Workflow Assessment
-              </motion.button>
+          {/* Executive CTAs */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 w-full max-w-md mx-auto">
+            <Link to="/contact" className="w-full sm:w-auto">
+              <button className="w-full sm:w-auto px-7 py-3.5 bg-gradient-to-b from-[#12395b] to-[#092941] hover:from-[#0d2d48] hover:to-[#071f32] text-white rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all border-t border-t-white/30 border-b-2 border-b-[#051724] shadow-[0_10px_22px_rgba(9,41,65,0.32),inset_0_1px_0_rgba(255,255,255,0.25)] hover:-translate-y-0.5 active:translate-y-0">
+                <span>Discuss Your Requirement</span>
+                <ArrowRight size={16} />
+              </button>
             </Link>
 
-            {/* Secondary CTA */}
-            <Link to="/solutions" className="w-full sm:w-auto">
-              <motion.button
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full px-7 py-3.5 sm:px-8 sm:py-4 bg-white text-[#06101d] rounded-full font-bold text-sm flex items-center justify-center gap-2 shadow-[0_20px_50px_rgba(255,255,255,0.12)] active:bg-gray-100 transition-all"
-              >
-                Explore Solutions →
-              </motion.button>
+            <Link to="/services" className="w-full sm:w-auto">
+              <button className="w-full sm:w-auto px-6 py-3.5 bg-gradient-to-b from-white to-slate-100 hover:to-slate-200 text-[#092941] border-t border-t-white border-b-2 border-b-slate-300 border-x border-slate-200 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all shadow-[0_4px_12px_rgba(9,41,65,0.06),inset_0_1px_0_rgba(255,255,255,1)] hover:-translate-y-0.5 active:translate-y-0">
+                <span>Explore Our Capabilities</span>
+              </button>
             </Link>
-          </motion.div>
-
-          {/* Trust Badges */}
-          <div className="mt-10 md:mt-14">
-            <TrustBadges />
           </div>
         </motion.div>
       </div>

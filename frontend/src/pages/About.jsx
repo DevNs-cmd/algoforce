@@ -1,203 +1,221 @@
 import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
-import { FaEye, FaRocket, FaShieldAlt, FaHandshake, FaArrowRight, FaUsers, FaCheckCircle, FaBuilding } from "react-icons/fa"
+import { ShieldCheck, ArrowRight, CheckCircle2, Building2, Code2, Cpu, Layers, Workflow, Sparkles, MapPin, Phone, Mail } from "lucide-react"
 import SeoHead from "../components/common/SeoHead"
 
+const DIVISIONS = [
+  { num: '01', title: 'Technology Consulting', desc: 'Requirements analysis, architecture design, digital roadmaps, and technical feasibility audits.' },
+  { num: '02', title: 'Software & Digital Engineering', desc: 'Custom enterprise web platforms, mobile apps, secure APIs, and microservices architecture.' },
+  { num: '03', title: 'AI & Intelligent Automation', desc: 'Applied machine learning, LLM agents, document processing, and robotic workflow orchestration.' },
+  { num: '04', title: 'Enterprise & Industry Solutions', desc: 'Non-invasive Tally Prime, SAP, and CRM connectors with executive management dashboards.' },
+  { num: '05', title: 'Managed Technology Services', desc: '24/7 proactive system monitoring, security updates, SLA-backed bug fixes, and continuous tuning.' },
+  { num: '06', title: 'Products, Platforms & R&D', desc: 'Proprietary IP and engineering accelerators that enable 2x faster deployment for client scopes.' }
+]
+
+const VALUES = [
+  {
+    title: 'Integrated Delivery, Not Fragmented Vendors',
+    desc: 'Businesses shouldn’t have to juggle a strategist, a freelance coder, and an external support team. We take full ownership from assessment to long-term operations.'
+  },
+  {
+    title: 'Non-Invasive Architecture',
+    desc: 'We never force clients to rip and replace systems that work. We engineer smart middleware that connects to your existing Tally, SAP, or legacy database.'
+  },
+  {
+    title: 'Production Reality Over Hype',
+    desc: 'We do not sell AI as magic. We only recommend artificial intelligence and automation where there is a mathematically clear operational efficiency gain.'
+  },
+  {
+    title: 'Strict Intellectual Property Protection',
+    desc: 'Client data is hosted in your private VPCs (AWS, Azure, or on-premise). Your code, data schemas, and competitive IP remain 100% yours.'
+  }
+]
+
 const About = () => {
-  const standards = [
-    {
-      icon: <FaShieldAlt className="text-indigo-600 text-xl" />,
-      title: "Private Cloud Security",
-      description: "Deployments inside client private VPCs (AWS/Azure) so proprietary business data never leaves your infrastructure."
-    },
-    {
-      icon: <FaRocket className="text-purple-600 text-xl" />,
-      title: "Implementation Model",
-      description: "Fast-track 2-4 week product configurations and direct database integrations (Tally, SAP, and custom CRMs)."
-    },
-    {
-      icon: <FaHandshake className="text-blue-600 text-xl" />,
-      title: "Customer Success",
-      description: "Dedicated account managers handle monthly performance tuning, model updates, and seamless operational expansions."
-    }
-  ]
-
-  const workflowSteps = [
-    { num: "01", title: "Product Demo", desc: "Interactive walkthrough tailored to your existing software stack." },
-    { num: "02", title: "Business Assessment", desc: "Technical discovery to identify high-impact automation targets." },
-    { num: "03", title: "VPC Deployment", desc: "Fast-track 2-4 week deployment directly into your secure infrastructure." },
-    { num: "04", title: "Ongoing Support", desc: "Monthly subscription model with continuous performance tuning and expansion." }
-  ]
-
   return (
-    <main className="min-h-screen bg-[#f8fafc] text-[#06101d] pt-28 pb-24 selection:bg-purple-500/20">
-      <SeoHead path="/about" />
-      
-      <article className="mx-auto max-w-7xl px-5 sm:px-6">
+    <div className="bg-[#f8fafc] text-slate-900 pt-28 sm:pt-36 pb-24 overflow-hidden">
+      <SeoHead 
+        title="About AlgoForce | Integrated IT Services & Digital Engineering" 
+        description="Learn about AlgoForce — Your Technology Partner. We combine technology consulting, software engineering, AI automation, and managed operations under one unified brand."
+      />
+
+      <div className="max-w-6xl mx-auto px-6">
         
         {/* Header Hero Section */}
-        <header className="mx-auto mb-20 max-w-4xl text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-            <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50/80 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.25em] text-indigo-700 backdrop-blur-sm">
-              <span className="h-2 w-2 rounded-full bg-indigo-600" /> Company Profile
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border-t border-t-white border-b-2 border-b-slate-200 border-x border-slate-200 shadow-[0_4px_10px_rgba(9,41,65,0.06),inset_0_1px_0_rgba(255,255,255,1)] mb-4">
+            <Building2 size={15} className="text-[#092941]" />
+            <span className="text-[11px] font-mono font-semibold uppercase tracking-[0.2em] text-[#092941]">
+              About AlgoForce
             </span>
-            <h1 className="mt-4 text-4xl font-extrabold leading-tight tracking-tight text-[#06101d] sm:text-6xl md:text-7xl">
-              Enterprise AI Software Company
-            </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg md:text-xl">
-              We build specialized AI products that integrate directly with existing business systems to automate daily operations.
+          </div>
+
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[#092941] tracking-tight mb-5">
+            Your Technology Partner.{' '}
+            <span className="font-serif italic font-normal text-purple-900 block sm:inline">
+              From Problem to Progress.
+            </span>
+          </h1>
+
+          <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+            AlgoForce is an integrated IT services and digital engineering company. We help businesses and institutions understand their technology requirements, identify problems, design solutions, develop software, integrate systems, deploy technology, and manage it over time.
+          </p>
+        </div>
+
+        {/* Corporate Identity & Government MSME Verification */}
+        <div className="p-8 sm:p-11 rounded-3xl bg-gradient-to-r from-white via-slate-50 to-white border-t-2 border-t-white border-b-4 border-b-slate-300 border-x border-slate-200 shadow-[0_20px_45px_-6px_rgba(9,41,65,0.14),inset_0_1px_0_rgba(255,255,255,1)] mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+            <div className="md:col-span-8">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-11 h-11 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-800 shadow-2xs">
+                  <ShieldCheck size={24} />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-800">
+                      Government of India Enterprise
+                    </span>
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-semibold">
+                      Verified
+                    </span>
+                  </div>
+                  <h2 className="text-xl sm:text-2xl font-bold text-[#092941]">
+                    Ministry of MSME Registered Enterprise
+                  </h2>
+                </div>
+              </div>
+
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal mb-4">
+                AlgoForce is legally registered under the Ministry of Micro, Small and Medium Enterprises (MSME), Government of India, under registration number <span className="font-mono text-slate-900 font-bold">UDYAM-DL-08-0122150</span>. Our headquarters and delivery operations are situated in Kalkaji, South East Delhi.
+              </p>
+
+              <div className="flex flex-wrap items-center gap-4 text-xs text-slate-600">
+                <div className="flex items-center gap-1.5">
+                  <MapPin size={13} className="text-[#092941]" />
+                  <span>South East Delhi, Kalkaji, New Delhi – 110019</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <Phone size={13} className="text-[#092941]" />
+                  <span>+91 84489 47436</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="md:col-span-4 bg-white p-5 rounded-2xl border border-slate-200/90 shadow-2xs text-center">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold block mb-1">
+                Official Entity Designation
+              </span>
+              <div className="text-sm font-bold text-[#092941] mb-2">
+                AlgoForce Integrated Technologies
+              </div>
+              <div className="text-xs text-slate-500 font-mono">
+                UDYAM: UDYAM-DL-08-0122150
+              </div>
+              <div className="mt-3 pt-3 border-t border-slate-100 text-[11px] text-emerald-800 font-semibold flex items-center justify-center gap-1">
+                <CheckCircle2 size={13} />
+                <span>Active Operating Status</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* The 6 Capabilities Under ONE Brand */}
+        <div className="mb-20">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#092941] bg-white px-3 py-1 rounded-md border border-slate-200 shadow-2xs">
+              One Organization • Six Unified Divisions
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#092941] mt-3 mb-2">
+              Integrated Capabilities Under One Roof
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600">
+              We are not six separate vendors or a loose agency network. All six divisions work in tight collaboration to deliver complete technology solutions.
             </p>
-          </motion.div>
-        </header>
-
-        {/* Mission & Vision Grid */}
-        <section className="mb-20 grid gap-8 md:grid-cols-2">
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }} 
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="group flex flex-col justify-between rounded-[32px] border border-slate-200/90 bg-white p-8 sm:p-10 shadow-sm transition-all duration-300 hover:border-indigo-300 hover:shadow-xl"
-          >
-            <div>
-              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600 transition-transform duration-300 group-hover:scale-110">
-                <FaRocket className="text-xl" />
-              </div>
-              <span className="text-[10px] font-bold uppercase tracking-widest text-indigo-600">Our Core Focus</span>
-              <h2 className="mt-2 text-2xl font-bold tracking-tight text-[#06101d] sm:text-3xl">Mission</h2>
-              <p className="mt-4 text-sm leading-relaxed text-slate-600 sm:text-base">
-                Automate business operations by deploying secure, pre-built, reliable AI products that integrate seamlessly with existing enterprise software systems.
-              </p>
-            </div>
-            <div className="mt-8 flex items-center gap-2 text-xs font-semibold text-indigo-600">
-              <FaCheckCircle /> Secure Private Deployment
-            </div>
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }} 
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="group flex flex-col justify-between rounded-[32px] border border-slate-200/90 bg-white p-8 sm:p-10 shadow-sm transition-all duration-300 hover:border-purple-300 hover:shadow-xl"
-          >
-            <div>
-              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-purple-50 text-purple-600 transition-transform duration-300 group-hover:scale-110">
-                <FaEye className="text-xl" />
-              </div>
-              <span className="text-[10px] font-bold uppercase tracking-widest text-purple-600">Future Outlook</span>
-              <h2 className="mt-2 text-2xl font-bold tracking-tight text-[#06101d] sm:text-3xl">Vision</h2>
-              <p className="mt-4 text-sm leading-relaxed text-slate-600 sm:text-base">
-                AI software products that systematically automate business operations, helping growth-driven organizations eliminate repetitive manual workloads.
-              </p>
-            </div>
-            <div className="mt-8 flex items-center gap-2 text-xs font-semibold text-purple-600">
-              <FaCheckCircle /> Zero Custom Code Overhead
-            </div>
-          </motion.div>
-        </section>
-
-        {/* What We Build & How We Work */}
-        <section className="mb-20 overflow-hidden rounded-[36px] border border-slate-200/90 bg-white p-8 sm:p-12 md:p-16 shadow-sm">
-          <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center">
-            <div>
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-indigo-600">Operational Methodology</span>
-              <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-[#06101d] sm:text-4xl">What we build & How we work</h2>
-              <p className="mt-5 text-sm leading-relaxed text-slate-600 sm:text-base">
-                We build and deploy business software powered by AI. Rather than billing by the hour or writing custom code from scratch, we offer ready-to-use software products configured for Tally, SAP, CRM, and other existing systems.
-              </p>
-              <p className="mt-4 text-sm leading-relaxed text-slate-600 sm:text-base">
-                Every client journey begins with a product demo. When there is a fit, we run discovery and a business assessment before deploying and supporting the software on a monthly subscription.
-              </p>
-            </div>
-
-            {/* Workflow Step Grid */}
-            <div className="grid gap-4 sm:grid-cols-2">
-              {workflowSteps.map((step) => (
-                <div key={step.num} className="rounded-2xl border border-slate-100 bg-slate-50/80 p-5 transition-all duration-300 hover:border-indigo-200 hover:bg-white hover:shadow-md">
-                  <span className="font-mono text-xs font-bold text-indigo-600">{step.num}</span>
-                  <h3 className="mt-2 text-base font-bold text-[#06101d]">{step.title}</h3>
-                  <p className="mt-1.5 text-xs leading-relaxed text-slate-500">{step.desc}</p>
-                </div>
-              ))}
-            </div>
           </div>
-        </section>
 
-        {/* Methodology & Enterprise Standards */}
-        <section className="mb-20">
-          <div className="mb-12 text-center">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-indigo-600">Enterprise Readiness</span>
-            <h2 className="mt-2 text-3xl font-extrabold tracking-tight text-[#06101d] sm:text-4xl">Deployment Standards</h2>
-          </div>
-          
-          <div className="mb-10 grid gap-6 md:grid-cols-3">
-            {standards.map((item, index) => (
-              <motion.article
-                key={item.title}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.08, duration: 0.5 }}
-                className="group rounded-3xl border border-slate-200/90 bg-white p-8 shadow-sm transition-all duration-300 hover:border-indigo-300 hover:shadow-xl"
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {DIVISIONS.map((div) => (
+              <div
+                key={div.num}
+                className="rounded-3xl bg-gradient-to-b from-white via-white to-slate-50 border-t-2 border-t-white border-b-3 border-b-slate-300/80 border-x border-slate-200/90 shadow-[0_12px_28px_-4px_rgba(9,41,65,0.1),inset_0_1px_0_rgba(255,255,255,1)] p-6 hover:-translate-y-1 transition-all duration-200"
               >
-                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-50 transition-transform duration-300 group-hover:scale-110">
-                  {item.icon}
+                <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-100">
+                  <span className="text-xs font-mono font-bold text-purple-900">
+                    Division {div.num}
+                  </span>
                 </div>
-                <h3 className="mb-3 text-xl font-bold text-[#06101d]">{item.title}</h3>
-                <p className="text-xs leading-relaxed text-slate-600 sm:text-sm">{item.description}</p>
-              </motion.article>
+                <h3 className="text-base font-bold text-[#092941] mb-2">
+                  {div.title}
+                </h3>
+                <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                  {div.desc}
+                </p>
+              </div>
             ))}
           </div>
+        </div>
 
-          {/* Formal Registry Card */}
-          <div className="mx-auto flex max-w-4xl flex-col items-center justify-between gap-4 rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm sm:flex-row text-center sm:text-left">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-slate-700">
-                <FaBuilding />
-              </div>
-              <div>
-                <span className="block text-[10px] font-bold uppercase tracking-widest text-indigo-600">Formal Registry</span>
-                <span className="block text-sm font-bold text-[#06101d]">MSME Registered: UDYAM-DL-08-0122150</span>
-              </div>
-            </div>
-            <div className="text-xs font-semibold text-slate-500">
-              Operating in compliance with Indian standards for software entities.
-            </div>
+        {/* Operating Ethos & Values */}
+        <div className="mb-20">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#092941] mb-2">
+              Our Engineering Ethos
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600">
+              How we approach software development, client trust, and long-term partnerships.
+            </p>
           </div>
-        </section>
 
-        {/* Leadership & Team Section */}
-        <section className="mx-auto max-w-4xl rounded-[36px] border border-slate-200/90 bg-white p-8 text-center shadow-sm sm:p-12 md:p-16">
-          <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-purple-50 text-purple-600 text-2xl">
-            <FaUsers />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {VALUES.map((val, idx) => (
+              <div 
+                key={idx}
+                className="p-7 rounded-3xl bg-white border-t-2 border-t-white border-b-3 border-b-slate-300 border-x border-slate-200 shadow-[0_12px_28px_-4px_rgba(9,41,65,0.08),inset_0_1px_0_rgba(255,255,255,1)]"
+              >
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-xl bg-purple-50 text-purple-900 font-mono font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5 border border-purple-200">
+                    0{idx + 1}
+                  </div>
+                  <div>
+                    <h3 className="text-base font-bold text-[#092941] mb-2">
+                      {val.title}
+                    </h3>
+                    <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                      {val.desc}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-purple-600">Company Leadership</span>
-          <h2 className="mt-2 mb-4 text-3xl font-extrabold tracking-tight text-[#06101d] sm:text-4xl">
-            Founder & Leadership
+        </div>
+
+        {/* Bottom CTA */}
+        <div className="text-center p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-white via-slate-50 to-white border-t-2 border-t-white border-b-4 border-b-slate-300 border-x border-slate-200 shadow-[0_16px_35px_-4px_rgba(9,41,65,0.1),inset_0_1px_0_rgba(255,255,255,1)]">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#092941] mb-3">
+            Looking for a Long-Term Technology Partner?
           </h2>
-          <p className="mx-auto mb-8 max-w-2xl text-sm leading-relaxed text-slate-600 sm:text-base">
-            AlgoForce is led by Dev N Suman (Founder & CEO) in New Delhi, India, supported by our ecosystem contributors in engineering, operations, and product implementation.
+          <p className="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto mb-6 leading-relaxed">
+            Whether you are assessing a new digital initiative, building custom software, or needing reliable ongoing managed support, let's talk about your requirements.
           </p>
-          <div className="flex flex-col justify-center gap-4 sm:flex-row">
-            <Link
-              to="/founder"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#06101d] px-8 py-4 text-xs font-bold uppercase tracking-wider text-white shadow-md transition-colors hover:bg-slate-800"
-            >
-              Meet Our Founder <FaArrowRight size={12} />
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Link to="/contact">
+              <button className="px-6 py-3.5 bg-gradient-to-b from-[#12395b] to-[#092941] hover:from-[#0d2d48] hover:to-[#071f32] text-white rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-2 transition-all border-t border-t-white/30 border-b-2 border-b-[#051724] shadow-[0_10px_22px_rgba(9,41,65,0.32),inset_0_1px_0_rgba(255,255,255,0.25)] hover:-translate-y-0.5">
+                <span>Discuss Your Requirement</span>
+                <ArrowRight size={15} />
+              </button>
             </Link>
-            <Link
-              to="/team"
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-8 py-4 text-xs font-bold uppercase tracking-wider text-[#06101d] transition-colors hover:bg-slate-50"
-            >
-              Meet Our Team
+            <Link to="/services">
+              <button className="px-5 py-3.5 bg-white hover:bg-slate-50 text-[#092941] border border-slate-300 rounded-xl text-xs sm:text-sm font-semibold transition-all shadow-xs">
+                Explore Our Divisions
+              </button>
             </Link>
           </div>
-        </section>
+        </div>
 
-      </article>
-    </main>
-  );
-};
+      </div>
+    </div>
+  )
+}
 
-export default About;
+export default About

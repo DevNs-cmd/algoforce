@@ -5,7 +5,6 @@ import { AuthProvider } from './contexts/AuthContext'
 import SeoHead from './components/common/SeoHead'
 
 import Navigation from './components/common/Navigation'
-import SummitMarqueeBanner from './components/common/SummitMarqueeBanner'
 import Footer from './components/common/Footer'
 import PageVideoBackdrop from './components/common/PageVideoBackdrop'
 import SplashScreen from './components/common/SplashScreen'
@@ -49,6 +48,12 @@ const LabsPortal = lazy(() => import('./pages/LabsPortal'))
 const AdminPortal = lazy(() => import('./pages/AdminPortal'))
 const ClientPortal = lazy(() => import('./pages/ClientPortal'))
 const ProductDetail = lazy(() => import('./pages/ProductDetail'))
+const Services = lazy(() => import('./pages/Services'))
+const IndustryManufacturing = lazy(() => import('./pages/IndustryManufacturing'))
+const IndustryEducation = lazy(() => import('./pages/IndustryEducation'))
+const Industries = lazy(() => import('./pages/Industries'))
+const Partnerships = lazy(() => import('./pages/Partnerships'))
+
 // ORION: routes preserved in codebase but removed from primary commercial navigation.
 // These pages remain accessible via direct URL for internal use and future re-enabling.
 const Orion = lazy(() => import('./pages/Orion'))
@@ -129,7 +134,7 @@ const AppShell = () => {
   }, [location])
 
   return (
-    <div className={(isBuilderPage || isWorkspace || isLabsPortal || isAdminPortal) ? 'h-screen overflow-hidden' : 'relative min-h-screen bg-black isolation-isolate'}>
+    <div className={(isBuilderPage || isWorkspace || isLabsPortal || isAdminPortal) ? 'h-screen overflow-hidden' : 'relative min-h-screen bg-[#f8fafc] text-slate-900 isolation-isolate'}>
       {hasPageVideoBackdrop && (
         <div className="fixed inset-0 z-0">
           <PageVideoBackdrop src="/video1.mp4" videoClassName="opacity-[0.16]" />
@@ -137,7 +142,6 @@ const AppShell = () => {
       )}
       <SeoHead path={location.pathname} />
       <SplashScreen />
-      {!hideMarketingShells && <SummitMarqueeBanner />}
       {!hideMarketingShells && <Navigation />}
       <main id="main-content" className="relative z-10">
         {!hideMarketingShells && location.pathname !== '/' && <Breadcrumbs />}
@@ -148,21 +152,24 @@ const AppShell = () => {
             <Route path="/products" element={<Products />} />
             <Route path="/products/:productSlug" element={<ProductDetail />} />
 
-            {/* Solution family routes */}
-            <Route path="/solutions" element={<Products />} />
+            {/* Solution and Services routes */}
+            <Route path="/services" element={<Services />} />
+            <Route path="/solutions" element={<Services />} />
             <Route path="/solutions/finance" element={<ProductDetail />} />
-            <Route path="/solutions/revenue" element={<Products />} />
-            <Route path="/solutions/operations" element={<Products />} />
-            <Route path="/solutions/manufacturing" element={<Products />} />
-            <Route path="/solutions/people" element={<Products />} />
-            <Route path="/solutions/knowledge" element={<Products />} />
+            <Route path="/solutions/revenue" element={<Services />} />
+            <Route path="/solutions/operations" element={<Services />} />
+            <Route path="/solutions/manufacturing" element={<IndustryManufacturing />} />
+            <Route path="/solutions/people" element={<Services />} />
+            <Route path="/solutions/knowledge" element={<Services />} />
 
             {/* Industry routes */}
-            <Route path="/industries" element={<Products />} />
-            <Route path="/industries/:industrySlug" element={<Products />} />
+            <Route path="/industries" element={<Industries />} />
+            <Route path="/industries/manufacturing" element={<IndustryManufacturing />} />
+            <Route path="/industries/education" element={<IndustryEducation />} />
+            <Route path="/industries/:industrySlug" element={<Industries />} />
 
-            <Route path="/services" element={<Products />} />
-            <Route path="/ai-consulting" element={<Products />} />
+            <Route path="/partnerships" element={<Partnerships />} />
+            <Route path="/ai-consulting" element={<Services />} />
             <Route path="/crucible" element={<Crucible />} />
 
             {/* ORION: routes preserved but hidden from commercial nav — R&D only */}
