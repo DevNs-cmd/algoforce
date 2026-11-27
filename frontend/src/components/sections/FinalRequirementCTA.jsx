@@ -1,63 +1,111 @@
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Phone, Mail, CheckCircle2 } from 'lucide-react'
+import { ArrowRight, Phone, Mail, Check, MessageSquareText, Compass } from 'lucide-react'
+import './SectionSurfaces.css'
 
 const FinalRequirementCTA = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
+  const prefersReducedMotion = useReducedMotion()
 
   return (
-    <section ref={ref} className="py-24 md:py-32 bg-[#f8fafc] text-slate-900 border-t border-slate-200 relative overflow-hidden">
-      <div className="max-w-5xl mx-auto px-6 relative z-10 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
-        >
-          <span className="inline-block text-[11px] font-bold uppercase tracking-[0.25em] text-[#092941] bg-white border border-slate-200 px-4 py-1.5 rounded-full mb-6 shadow-2xs">
-            Start a Conversation
-          </span>
+    <section ref={ref} className="w-full bg-white py-10 sm:py-16 px-3 sm:px-5 lg:px-7 overflow-x-clip">
+      <div className="saas-canvas relative mx-auto max-w-[1400px] rounded-[24px] sm:rounded-[32px] lg:rounded-[36px] border border-[#e3e8f0] overflow-hidden shadow-[0_1px_3px_rgba(10,42,67,0.03),0_22px_55px_-28px_rgba(10,42,67,0.09)] py-16 sm:py-24 px-5 sm:px-8">
+        <div className="saas-dot-matrix absolute inset-0 pointer-events-none" aria-hidden="true" />
+        <div className="saas-center-halo absolute inset-0 pointer-events-none" aria-hidden="true" />
 
-          <h2 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-[#092941] mb-6 tracking-tight leading-[1.12]">
-            Have a Technology Requirement?{' '}
-            <span className="font-serif italic font-normal text-purple-900 block sm:inline">
-              Let's Work on It.
+        {/* Decorative Corner Note Accents mirroring Hero ChronoTask Bookend Symmetry */}
+        <div className="hidden lg:block pointer-events-none" aria-hidden="true">
+          <div className="absolute top-10 left-10 w-[196px] -rotate-[5deg] rounded-2xl bg-white border border-[#e2e8f0] p-4 shadow-[0_18px_38px_-14px_rgba(10,42,67,0.12)]">
+            <div className="flex justify-center -mt-6 mb-2">
+              <span className="w-3 h-3 rounded-full saas-pin ring-2 ring-white" />
+            </div>
+            <div className="flex items-center gap-2 text-xs font-semibold text-[#0A2A43] mb-1">
+              <MessageSquareText size={13} className="text-[#2563EB]" />
+              <span>Direct Discussion</span>
+            </div>
+            <p className="text-[11px] text-[#5A6678] leading-snug">
+              Talk directly with engineers about what your business needs.
+            </p>
+          </div>
+
+          <div className="absolute bottom-9 right-10 w-[206px] rotate-[4deg] rounded-2xl bg-white border border-[#e2e8f0] p-4 shadow-[0_18px_38px_-14px_rgba(10,42,67,0.12)]">
+            <div className="flex items-center gap-2 text-xs font-semibold text-[#0A2A43] mb-1">
+              <Compass size={13} className="text-[#9A4DFF]" />
+              <span>Clear Build Plan</span>
+            </div>
+            <p className="text-[11px] text-[#5A6678] leading-snug">
+              Practical software scope and architecture before development starts.
+            </p>
+          </div>
+        </div>
+
+        <motion.div
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 18 }}
+          animate={prefersReducedMotion || inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          className="relative z-10 max-w-3xl mx-auto text-center"
+        >
+          {/* Floating Brand Pill */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#e2e8f0] shadow-[0_2px_8px_rgba(10,42,67,0.04)] mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" aria-hidden="true" />
+            <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0A2A43] font-mono">
+              Get Started
+            </span>
+          </div>
+
+          <h2 className="font-['Outfit',sans-serif] text-3xl sm:text-5xl md:text-[3.4rem] font-semibold text-[#0A2A43] mb-5 tracking-[-0.03em] leading-[1.1]">
+            <span className="block">Have a Project in Mind?</span>
+            <span className="block mt-1.5 text-[#6E7B8C] font-medium">
+              Let&apos;s discuss it.
             </span>
           </h2>
 
-          <p className="max-w-2xl mx-auto text-base sm:text-lg text-slate-600 font-normal leading-relaxed mb-10">
-            Whether you need a new software system, an existing process improved, technology integrated or ongoing technical support, start with a conversation about your requirement.
+          <p className="max-w-xl mx-auto text-sm sm:text-base md:text-[17px] text-[#4A5769] font-normal leading-[1.65] mb-9">
+            Tell us what you need. Let&apos;s discuss the right technology solution.
           </p>
 
-          {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto mb-12">
-            <Link to="/contact" className="w-full sm:w-auto">
-              <button className="w-full sm:w-auto px-8 py-4 bg-gradient-to-b from-[#12395b] to-[#092941] hover:from-[#0d2d48] hover:to-[#071f32] text-white rounded-xl font-semibold text-sm sm:text-base flex items-center justify-center gap-2 transition-all border-t border-t-white/30 border-b-2 border-b-[#051724] shadow-[0_10px_25px_rgba(9,41,65,0.35),0_2px_4px_rgba(9,41,65,0.2),inset_0_1px_0_rgba(255,255,255,0.25)] hover:-translate-y-0.5 active:translate-y-0">
-                <span>Discuss Your Requirement</span>
-                <ArrowRight size={17} />
-              </button>
+          {/* Action Links */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 max-w-md mx-auto mb-10">
+            <Link
+              to="/contact"
+              className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-[#0A2A43] hover:bg-[#113D61] text-white text-sm font-medium inline-flex items-center justify-center gap-2 transition-all shadow-[0_10px_24px_-6px_rgba(10,42,67,0.38)] hover:-translate-y-0.5 whitespace-nowrap"
+            >
+              <span>Discuss Your Requirement</span>
+              <ArrowRight size={15} />
             </Link>
 
-            <Link to="/services" className="w-full sm:w-auto">
-              <button className="w-full sm:w-auto px-7 py-4 bg-gradient-to-b from-white to-slate-100 hover:to-slate-200 text-[#092941] border-t border-t-white border-b-2 border-b-slate-300 border-x border-slate-200 rounded-xl font-semibold text-sm sm:text-base flex items-center justify-center gap-2 transition-all shadow-[0_6px_16px_rgba(9,41,65,0.06),inset_0_1px_0_rgba(255,255,255,1)] hover:-translate-y-0.5 active:translate-y-0">
-                <span>Explore Our Capabilities</span>
-              </button>
+            <Link
+              to="/contact?type=general"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-white/95 hover:bg-white text-[#0A2A43] border border-[#dce3ec] hover:border-[#c6d1de] text-sm font-medium inline-flex items-center justify-center gap-2 transition-all shadow-[0_2px_10px_-2px_rgba(10,42,67,0.06)] hover:-translate-y-0.5 whitespace-nowrap"
+            >
+              <span>Contact AlgoForce</span>
             </Link>
           </div>
 
-          {/* Direct channels for quick communication */}
-          <div className="pt-10 border-t border-slate-200 flex flex-wrap items-center justify-center gap-8 text-xs text-slate-600">
-            <div className="flex items-center gap-2">
-              <Phone size={14} className="text-[#092941]" />
-              <span>Direct Phone / WhatsApp: <a href="https://wa.me/918448947436" target="_blank" rel="noopener noreferrer" className="text-slate-900 font-semibold hover:underline">+91 84489 47436</a></span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Mail size={14} className="text-[#092941]" />
-              <span>Official Inquiries: <a href="mailto:contact@algoforceai.com" className="text-slate-900 font-semibold hover:underline">contact@algoforceai.com</a></span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 size={14} className="text-emerald-700" />
-              <span className="font-medium">Direct response within 24 business hours</span>
+          {/* Direct Channels Bar */}
+          <div className="pt-8 border-t border-[#e2e8f0] flex flex-wrap items-center justify-center gap-3 sm:gap-5 text-xs text-[#4A5769]">
+            <a
+              href="https://wa.me/918448947436"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white border border-[#e2e8f0] hover:border-[#cbd5e1] text-[#0A2A43] font-medium shadow-2xs transition-colors"
+            >
+              <Phone size={13} className="text-[#2563EB]" />
+              <span>WhatsApp / Phone: +91 84489 47436</span>
+            </a>
+
+            <a
+              href="mailto:contact@algoforceai.com"
+              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white border border-[#e2e8f0] hover:border-[#cbd5e1] text-[#0A2A43] font-medium shadow-2xs transition-colors"
+            >
+              <Mail size={13} className="text-[#2563EB]" />
+              <span>contact@algoforceai.com</span>
+            </a>
+
+            <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white border border-[#e2e8f0] text-[#0A2A43] font-medium shadow-2xs">
+              <Check size={13} className="text-emerald-600" />
+              <span>Direct response during business hours</span>
             </div>
           </div>
         </motion.div>

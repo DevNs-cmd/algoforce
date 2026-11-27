@@ -119,24 +119,24 @@ const DIVISIONS_DETAIL = [
     number: '05',
     title: 'Managed Technology Services & SLAs',
     shortTitle: 'Managed Services',
-    tagline: '24/7 uptime monitoring, application maintenance & proactive support.',
+    tagline: 'Proactive system monitoring, maintenance and ongoing support.',
     icon: ShieldCheck,
     overview:
-      'Software requires dedicated ongoing care. We provide proactive application monitoring, server infrastructure management, routine security patching, database backups, and dedicated SLA-backed engineering support.',
+      'Software requires regular care after launch. We handle application monitoring, infrastructure upkeep, security patches, database backups and technical support.',
     coreServices: [
-      '24/7 Uptime & System Performance Monitoring',
-      'Dedicated Tier-2 & Tier-3 Engineering Support with Defined SLAs',
-      'Scheduled Security Patching, Vulnerability Scans & Backups',
-      'Cloud Resource Optimization & Infrastructure Cost Reduction',
-      'Continuous Feature Iteration, Sprint Enhancements & Tech Debt Upgrades'
+      'System monitoring and uptime checks',
+      'Ongoing engineering support under clear service terms',
+      'Scheduled security updates, vulnerability scans and backups',
+      'Cloud resource and hosting optimization',
+      'Incremental feature updates as operations change'
     ],
     deliverables: [
-      'Contractual SLA Agreement with Guaranteed Response Times',
-      'Monthly Infrastructure & Health Analytics Reports',
-      'Dedicated Slack / WhatsApp Escalation Channels',
-      'Automated Disaster Recovery & Backup Routines'
+      'Structured support agreement and escalation paths',
+      'Periodic infrastructure and health summaries',
+      'Direct communication channels with engineers',
+      'Routine backup and recovery routines'
     ],
-    idealFor: 'Companies seeking high-reliability technical operations without the overhead of an in-house DevOps team.'
+    idealFor: 'Companies needing ongoing application care without hiring a full internal maintenance team.'
   },
   {
     id: 'products-rnd',

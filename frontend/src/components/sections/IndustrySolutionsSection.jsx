@@ -1,126 +1,121 @@
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { Link } from 'react-router-dom'
-import { Factory, GraduationCap, ArrowRight, CheckCircle2, ChevronRight, AlertCircle } from 'lucide-react'
+import { Factory, GraduationCap, ArrowRight, ChevronRight, AlertCircle, CheckCircle2, ArrowLeftRight } from 'lucide-react'
+import { SectionCanvas, SectionHeader, FolderTabEar } from './sectionPrimitives'
 
 const INDUSTRIES = [
   {
     id: 'manufacturing',
-    title: 'Manufacturing & Distribution',
-    tagline: 'Operational visibility, production logging & ERP synchronisation.',
+    title: 'Manufacturing',
+    tagline: 'Production, inventory and ERP integration.',
     icon: Factory,
     path: '/industries/manufacturing',
-    challenges: [
-      'Shop-floor paper logs causing critical data delays in central ERP',
-      'Inventory count discrepancies between manufacturing plant & warehouse',
-      'Manual quality inspection reports creating shipment approval bottlenecks',
-      'Finance reconciliation delays between dispatch notes and Tally/SAP invoices'
+    badge: 'Manufacturing & Distribution',
+    pairs: [
+      {
+        challenge: 'Paper shift logs delay production and downtime reporting.',
+        solutionTitle: 'Shop-Floor Activity Tracking',
+        solutionDesc: 'Capture daily machine runs and shift logs on tablets.',
+      },
+      {
+        challenge: 'Stock counts mismatch between the factory floor and warehouse.',
+        solutionTitle: 'Inventory & Dispatch Sync',
+        solutionDesc: 'Update stock levels automatically from barcode scans and dispatches.',
+      },
+      {
+        challenge: 'Manual quality sign-offs delay outgoing customer shipments.',
+        solutionTitle: 'Operational Dashboards',
+        solutionDesc: 'Track daily production output and quality approvals clearly.',
+      },
+      {
+        challenge: 'Matching invoices with dispatch records takes manual hours.',
+        solutionTitle: 'Tally & ERP Integration',
+        solutionDesc: 'Sync dispatch records directly with Tally or ERP invoices.',
+      },
     ],
-    solutions: [
-      {
-        title: 'Production & Shop-Floor Event Tracking',
-        desc: 'Digital line and machine event logging synced directly into central database.'
-      },
-      {
-        title: 'Inventory & Dispatch Automation',
-        desc: 'Automated barcode/QR scanning, dispatch note creation and real-time stock levels.'
-      },
-      {
-        title: 'Finance & Tally/SAP Integration',
-        desc: 'Automated invoice mapping, tax compliance checks, and accounts reconciliation.'
-      },
-      {
-        title: 'Custom Plant Executive Dashboards',
-        desc: 'Live operational KPIs, yield metrics, and downtime analytics on tablet and desktop.'
-      }
-    ],
-    badge: 'Industry Priority 01'
   },
   {
     id: 'education',
-    title: 'Education & Institutional Networks',
-    tagline: 'Student lifecycle management, admission automation & portals.',
+    title: 'Education',
+    tagline: 'Admissions, student management and fee automation.',
     icon: GraduationCap,
     path: '/industries/education',
-    challenges: [
-      'High volume of admission enquiries lost in WhatsApp & manual spreadsheets',
-      'Fragmented student databases between admissions, fee counters & academics',
-      'Manual fee reminder calls and paper receipt generation causing revenue delay',
-      'Outdated institutional portals lacking student and parent self-service'
+    badge: 'Schools, Colleges & Institutes',
+    pairs: [
+      {
+        challenge: 'Student enquiries are lost across chats and spreadsheets.',
+        solutionTitle: 'Admission Enquiry Management',
+        solutionDesc: 'Track and assign student enquiries from one organized pipeline.',
+      },
+      {
+        challenge: 'Students and parents lack online access to updates.',
+        solutionTitle: 'Student & Parent Portals',
+        solutionDesc: 'Online portals for attendance records, notices and schedules.',
+      },
+      {
+        challenge: 'Manual fee reminders and paper receipts create extra work.',
+        solutionTitle: 'Fee Workflow Automation',
+        solutionDesc: 'Send fee reminders and issue digital receipts automatically.',
+      },
+      {
+        challenge: 'Student data sits disconnected between admissions and accounts.',
+        solutionTitle: 'Institutional Web & Apps',
+        solutionDesc: 'Unified campus websites, admission forms and records.',
+      },
     ],
-    solutions: [
-      {
-        title: 'Admission & Enquiry Automation',
-        desc: 'Multi-channel enquiry capture, instant automated responses, and counselor routing.'
-      },
-      {
-        title: 'Institutional & Student Portals',
-        desc: 'Self-service portals for students, faculty, and parents with fee tracking and notices.'
-      },
-      {
-        title: 'Administrative Workflow Automation',
-        desc: 'Automated fee receipting, attendance exception alerts, and compliance documentation.'
-      },
-      {
-        title: 'Modern Web & Mobile Infrastructure',
-        desc: 'High-speed institutional portals, admission microsites, and campus communication apps.'
-      }
-    ],
-    badge: 'Industry Priority 02'
-  }
+  },
+]
+
+const OTHER_SECTORS = [
+  { name: 'Retail', desc: 'E-commerce and inventory systems' },
+  { name: 'Logistics', desc: 'Dispatch, tracking and workflow automation' },
+  { name: 'Healthcare', desc: 'Clinic management and operational software' },
+  { name: 'Professional Services', desc: 'Business applications and process automation' },
 ]
 
 const IndustrySolutionsSection = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.08 })
   const [activeIdx, setActiveIdx] = useState(0)
+  const [focusedPair, setFocusedPair] = useState(0)
+  const prefersReducedMotion = useReducedMotion()
 
   const current = INDUSTRIES[activeIdx]
   const CurrentIcon = current.icon
 
   return (
-    <section ref={ref} className="py-16 md:py-24 bg-[#f8fafc] text-slate-900 border-b border-slate-200/90 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-10 max-w-3xl mx-auto"
-        >
-          <span className="inline-block text-[11px] font-bold uppercase tracking-[0.25em] text-[#0A2A43] bg-white border border-slate-200 px-4 py-1.5 rounded-full mb-3.5 shadow-2xs">
-            Domain-Specific Operating Context
-          </span>
+    <div ref={ref}>
+      <SectionCanvas outerClassName="bg-white py-5 sm:py-7">
+        <SectionHeader
+          badge="Industries"
+          titlePrimary="Industries We Serve"
+          titleMuted="Software built around daily work."
+          description="We solve manual processes and disconnected tools with practical industry software."
+          inView={inView}
+        />
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight tracking-tight text-[#0A2A43] mb-4">
-            Solutions Built for Your{' '}
-            <span className="font-serif italic font-normal text-purple-900">
-              Specific Industry Challenges.
-            </span>
-          </h2>
-
-          <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-normal">
-            Software only succeeds when it respects the daily realities of your sector. Toggle between sectors to see our targeted engineering architectures.
-          </p>
-        </motion.div>
-
-        {/* 3D Tactile Sector Toggle */}
+        {/* Sector Toggle */}
         <div className="flex items-center justify-center mb-8 overflow-x-auto pb-2 scrollbar-hide max-w-full">
-          <div className="inline-flex p-1.5 sm:p-2 rounded-2xl bg-gradient-to-b from-slate-200/90 to-slate-300/80 border-t border-t-white/80 border-b-2 border-b-slate-400/50 border-x border-slate-300/90 shadow-[inset_0_3px_8px_rgba(9,41,65,0.12),inset_0_1px_2px_rgba(0,0,0,0.08),0_2px_4px_rgba(255,255,255,0.9)] backdrop-blur-md gap-1">
+          <div className="inline-flex p-1.5 rounded-2xl saas-tab-tray gap-1.5">
             {INDUSTRIES.map((ind, idx) => {
               const Icon = ind.icon
               const isActive = activeIdx === idx
               return (
                 <button
                   key={ind.id}
-                  onClick={() => setActiveIdx(idx)}
-                  className={`flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-6 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 whitespace-nowrap ${
+                  type="button"
+                  onClick={() => {
+                    setActiveIdx(idx)
+                    setFocusedPair(0)
+                  }}
+                  className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 whitespace-nowrap ${
                     isActive
-                      ? 'bg-gradient-to-b from-[#12395b] to-[#092941] text-white shadow-[0_8px_20px_rgba(9,41,65,0.38),0_2px_6px_rgba(9,41,65,0.2),inset_0_1px_1px_rgba(255,255,255,0.35)] border-t border-t-white/30 border-b-2 border-b-[#051724] -translate-y-0.5'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-white/60 active:translate-y-0'
+                      ? 'bg-[#0A2A43] text-white shadow-[0_8px_18px_-6px_rgba(10,42,67,0.38)] -translate-y-0.5'
+                      : 'text-slate-600 hover:text-[#0A2A43] hover:bg-white/70'
                   }`}
                 >
-                  <Icon size={16} className={isActive ? 'text-white' : 'text-slate-500'} />
+                  <Icon size={15} className={isActive ? 'text-white' : 'text-slate-500'} />
                   <span>{ind.title}</span>
                 </button>
               )
@@ -128,94 +123,138 @@ const IndustrySolutionsSection = () => {
           </div>
         </div>
 
-        {/* 3D Elevated Sliding Spotlight */}
+        {/* Paired Transformation Lens Card */}
         <div className="max-w-5xl mx-auto mb-8">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeIdx}
-              initial={{ opacity: 0, y: 16, scale: 0.99 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -16, scale: 0.99 }}
-              transition={{ duration: 0.35, ease: 'easeOut' }}
-              className="rounded-3xl bg-gradient-to-b from-white via-white to-slate-50 border-t-2 border-t-white border-b-4 border-b-slate-300/90 border-x border-slate-200/90 shadow-[0_24px_55px_-6px_rgba(9,41,65,0.18),0_12px_24px_-6px_rgba(9,41,65,0.12),0_0_0_1px_rgba(9,41,65,0.06),inset_0_1px_0_rgba(255,255,255,1),inset_0_-1px_2px_rgba(9,41,65,0.03)] p-6 sm:p-10"
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={prefersReducedMotion ? undefined : { opacity: 0, y: -12 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="relative rounded-[26px] bg-white border border-[#dce3ec] p-5 sm:p-8 lg:p-10 saas-card-elevation"
             >
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-5 mb-6 border-b border-slate-200">
-                <div className="flex items-center gap-3">
-                  <div className="w-11 h-11 rounded-xl bg-white border-t border-t-white border-b border-b-slate-200 border-x border-slate-200 flex items-center justify-center text-[#092941] shadow-[0_4px_10px_rgba(9,41,65,0.08),inset_0_1px_0_rgba(255,255,255,1)]">
-                    <CurrentIcon size={22} />
+              <FolderTabEar />
+
+              {/* Sector Header Bar */}
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-5 mb-6 border-b border-slate-100">
+                <div className="flex items-center gap-3.5">
+                  <div className="w-11 h-11 rounded-2xl bg-[#f8f9fb] border border-[#e2e8f0] saas-squircle-badge flex items-center justify-center text-[#0A2A43] flex-shrink-0">
+                    <CurrentIcon size={21} />
                   </div>
                   <div>
-                    <h3 className="text-xl sm:text-2xl font-bold text-[#092941]">
+                    <span className="text-[10px] font-mono font-semibold uppercase tracking-wider text-[#2563EB] block">
+                      {current.badge}
+                    </span>
+                    <h3 className="font-['Outfit',sans-serif] text-xl sm:text-2xl font-semibold text-[#0A2A43]">
                       {current.title}
                     </h3>
-                    <p className="text-xs text-slate-500 font-normal">
-                      {current.tagline}
-                    </p>
+                    <p className="text-xs text-[#6E7B8C]">{current.tagline}</p>
                   </div>
                 </div>
 
-                <Link to={current.path} className="w-full sm:w-auto">
-                  <button className="w-full sm:w-auto px-4 py-2 bg-gradient-to-b from-white to-slate-50 hover:to-slate-100 text-[#092941] border-t border-t-white border-b-2 border-b-slate-300 border-x border-slate-200 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-[0_4px_10px_rgba(9,41,65,0.06),inset_0_1px_0_rgba(255,255,255,1)] hover:-translate-y-0.5 active:translate-y-0">
-                    <span>Full Sector Blueprint</span>
-                    <ArrowRight size={13} />
-                  </button>
+                <Link
+                  to={current.path}
+                  className="w-full sm:w-auto px-4 py-2.5 bg-[#f8f9fb] hover:bg-white text-[#0A2A43] border border-[#dce3ec] rounded-xl text-xs font-semibold inline-flex items-center justify-center gap-1.5 transition-all shadow-2xs hover:-translate-y-0.5"
+                >
+                  <span>Full Sector Blueprint</span>
+                  <ArrowRight size={13} />
                 </Link>
               </div>
 
-              {/* Side-by-Side: Challenges vs Engineered Solutions */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Challenges Column */}
-                <div className="p-5 rounded-2xl bg-gradient-to-b from-white to-rose-50/30 border border-slate-200/80 shadow-[0_4px_14px_rgba(0,0,0,0.03)]">
-                  <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-rose-900 mb-3.5">
-                    <AlertCircle size={15} className="text-rose-600" />
-                    <span>Operational Bottlenecks We Solve:</span>
-                  </div>
-                  <ul className="space-y-3">
-                    {current.challenges.map((c, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-xs text-slate-700 bg-white p-2.5 rounded-lg border border-slate-100 shadow-2xs">
-                        <span className="w-1.5 h-1.5 rounded-full bg-rose-500 mt-1.5 flex-shrink-0" />
-                        <span className="leading-relaxed font-medium">{c}</span>
-                      </li>
-                    ))}
-                  </ul>
+              {/* Column Labels (Desktop) */}
+              <div className="hidden md:grid grid-cols-12 gap-4 px-2 mb-3 text-[10.5px] font-mono font-semibold uppercase tracking-wider text-[#6E7B8C]">
+                <div className="col-span-5 flex items-center gap-1.5 text-rose-700">
+                  <AlertCircle size={12} />
+                  <span>Common Bottleneck</span>
                 </div>
+                <div className="col-span-2 text-center">Solution</div>
+                <div className="col-span-5 flex items-center gap-1.5 text-[#0A2A43]">
+                  <CheckCircle2 size={12} className="text-[#2563EB]" />
+                  <span>Business Software &amp; Integrations</span>
+                </div>
+              </div>
 
-                {/* Solutions Column */}
-                <div className="p-5 rounded-2xl bg-gradient-to-b from-white to-purple-50/20 border border-slate-200/80 shadow-[0_4px_14px_rgba(0,0,0,0.03)]">
-                  <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-purple-900 mb-3.5">
-                    <CheckCircle2 size={15} className="text-purple-800" />
-                    <span>AlgoForce Engineered Systems:</span>
-                  </div>
-                  <div className="space-y-2.5">
-                    {current.solutions.map((s, i) => (
-                      <div key={i} className="p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs hover:-translate-y-0.5 transition-transform">
-                        <div className="text-xs font-bold text-[#0A2A43] mb-0.5">
-                          {s.title}
-                        </div>
-                        <p className="text-[11px] text-slate-600 leading-normal font-normal">
-                          {s.desc}
+              {/* Paired Workflow Rows */}
+              <div className="space-y-3">
+                {current.pairs.map((pair, idx) => {
+                  const isFocused = focusedPair === idx
+                  return (
+                    <div
+                      key={pair.solutionTitle}
+                      onMouseEnter={() => setFocusedPair(idx)}
+                      onClick={() => setFocusedPair(idx)}
+                      className={`grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4 items-center p-3 sm:p-3.5 rounded-2xl border transition-all duration-200 cursor-pointer ${
+                        isFocused
+                          ? 'bg-[#f8f9fb] border-[#cbd5e1] shadow-[0_10px_24px_-12px_rgba(10,42,67,0.14)]'
+                          : 'bg-white border-[#eceff4] hover:border-[#dce3ec]'
+                      }`}
+                    >
+                      {/* Bottleneck Note Card */}
+                      <div className="md:col-span-5 flex items-start gap-2.5 p-3 rounded-xl bg-white border border-rose-100 shadow-[0_2px_6px_-2px_rgba(225,29,72,0.06)]">
+                        <span className="w-2 h-2 rounded-full bg-rose-500 mt-1.5 flex-shrink-0" aria-hidden="true" />
+                        <p className="text-xs text-slate-700 font-medium leading-relaxed">
+                          {pair.challenge}
                         </p>
                       </div>
-                    ))}
-                  </div>
-                </div>
+
+                      {/* Bridge Arrow */}
+                      <div className="md:col-span-2 flex items-center justify-center py-0.5 md:py-0">
+                        <div className={`w-8 h-8 rounded-full border flex items-center justify-center transition-colors ${
+                          isFocused
+                            ? 'bg-[#0A2A43] border-[#0A2A43] text-white shadow-sm'
+                            : 'bg-white border-[#e2e8f0] text-slate-400'
+                        }`}>
+                          <ArrowLeftRight size={13} className="rotate-90 md:rotate-0" />
+                        </div>
+                      </div>
+
+                      {/* Engineered Solution Paper Card */}
+                      <div className={`md:col-span-5 p-3 rounded-xl border transition-all ${
+                        isFocused
+                          ? 'bg-white border-[#bfdbfe] shadow-[0_8px_18px_-8px_rgba(37,99,235,0.2)]'
+                          : 'bg-white border-[#e6ebf2]'
+                      }`}>
+                        <div className="text-xs font-semibold text-[#0A2A43] mb-0.5">
+                          {pair.solutionTitle}
+                        </div>
+                        <p className="text-[11.5px] text-[#5A6678] leading-snug">
+                          {pair.solutionDesc}
+                        </p>
+                      </div>
+                    </div>
+                  )
+                })}
               </div>
             </motion.div>
           </AnimatePresence>
         </div>
 
-        {/* View All Industries Link */}
-        <div className="text-center">
-          <Link
-            to="/industries"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-600 hover:text-[#0A2A43] transition-colors"
-          >
-            <span>Explore how we support Retail, Healthcare, Logistics, and Professional Services</span>
-            <ChevronRight size={14} />
-          </Link>
+        {/* Additional Industry Cards Strip */}
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 mb-5">
+            {OTHER_SECTORS.map((sector) => (
+              <div
+                key={sector.name}
+                className="p-3 rounded-xl bg-white border border-[#e3e8f0] text-left shadow-2xs"
+              >
+                <div className="text-xs font-semibold text-[#0A2A43] mb-0.5">{sector.name}</div>
+                <div className="text-[11px] text-[#5A6678] leading-snug">{sector.desc}</div>
+              </div>
+            ))}
+          </div>
+          <div className="text-center">
+            <Link
+              to="/industries"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0A2A43] hover:text-[#2563EB] transition-colors"
+            >
+              <span>View all industry solutions</span>
+              <ChevronRight size={14} />
+            </Link>
+          </div>
         </div>
-      </div>
-    </section>
+      </SectionCanvas>
+    </div>
   )
 }
 

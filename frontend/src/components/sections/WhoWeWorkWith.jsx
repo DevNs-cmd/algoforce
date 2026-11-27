@@ -1,213 +1,310 @@
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { Link } from 'react-router-dom'
-import { Building2, GraduationCap, Handshake, ArrowRight, CheckCircle2 } from 'lucide-react'
+import { Building2, GraduationCap, Handshake, ArrowRight, Check, ArrowUpRight } from 'lucide-react'
+import { SectionCanvas, SectionHeader, FolderTabEar } from './sectionPrimitives'
 
 const AUDIENCES = [
   {
     id: 'businesses',
-    tabLabel: 'Businesses & Enterprises',
-    title: 'For Businesses & Enterprise Operations',
-    subtitle: 'Founders, CXOs, Operations, Finance & IT Decision-Makers',
+    tabLabel: 'Businesses',
+    shortDesc: 'Business software, process automation and system integration.',
+    title: 'For Businesses',
+    subtitle: 'Founders, Operations, Finance & IT Teams',
     description:
-      'Turn manual operations and fragmented tools into integrated, scalable technology systems. We engineer custom web and mobile applications, automate business processes, connect ERP/CRM data, and provide continuous technical management.',
+      'Business software, process automation and system integration.',
     icon: Building2,
-    badge: 'Commercial Operations',
+    badge: 'Businesses',
+    tint: 'bg-[#0A2A43] text-white',
+    badgeTint: 'text-[#2563EB] bg-blue-50 border-blue-100',
     highlights: [
-      'Custom Enterprise Web & Mobile Applications',
-      'End-to-End Workflow & Business Process Automation',
-      'Tally Prime, SAP & Legacy Database Connectors',
-      'Real-Time Operational Dashboards & Executive Reporting',
-      'Dedicated Application Support & Uptime SLAs'
+      'Custom web and mobile business applications',
+      'Approval and workflow automation',
+      'Tally, SAP and database integrations',
+      'Operational reporting and dashboards',
+      'Ongoing maintenance and technical support',
     ],
     ctaText: 'Explore Business Solutions',
     ctaLink: '/services',
     stats: [
-      { label: 'Deployment Model', val: 'Private Cloud / On-Prem' },
-      { label: 'Integration Fit', val: 'Works with existing stack' }
-    ]
+      { label: 'Deployment', val: 'Cloud or on-premise' },
+      { label: 'Integration', val: 'Works with existing tools' },
+    ],
   },
   {
     id: 'institutions',
     tabLabel: 'Educational Institutions',
-    title: 'For Educational Institutions & Campus Networks',
-    subtitle: 'Schools, Colleges, Universities & Coaching Organizations',
+    shortDesc: 'Admission systems, student portals and campus automation.',
+    title: 'For Educational Institutions',
+    subtitle: 'Schools, Colleges, Universities & Coaching Institutes',
     description:
-      'Modernize institutional infrastructure and student experiences. We deliver end-to-end admission portals, student lifecycle management systems, administrative workflow automation, and institutional web applications.',
+      'Admission systems, student portals and campus automation.',
     icon: GraduationCap,
-    badge: 'Institutional Transformation',
+    badge: 'Educational Institutions',
+    tint: 'bg-[#2563EB] text-white',
+    badgeTint: 'text-[#2563EB] bg-blue-50 border-blue-100',
     highlights: [
-      'Multi-Channel Admission & Enquiry Capture Systems',
-      'Unified Student, Faculty & Parent Portals',
-      'Automated Fee Tracking, Receipting & Notifications',
-      'Administrative Workflow & Examination Automation',
-      'Modern High-Speed Institutional Portals & Apps'
+      'Admission and enquiry management systems',
+      'Student, faculty and parent self-service portals',
+      'Fee tracking and automated digital receipts',
+      'Administrative and exam workflow software',
+      'Institutional websites and mobile apps',
     ],
     ctaText: 'Explore Education Technology',
     ctaLink: '/industries/education',
     stats: [
-      { label: 'Enquiry Response', val: 'Instant 24/7 Automation' },
-      { label: 'Student Portals', val: 'Self-service Web & Mobile' }
-    ]
+      { label: 'Admissions', val: 'Enquiry to enrollment tracking' },
+      { label: 'Portals', val: 'Web and mobile access' },
+    ],
   },
   {
     id: 'partners',
-    tabLabel: 'Technology & Agency Partners',
-    title: 'For Technology, Consulting & Delivery Partners',
-    subtitle: 'Consultancies, Agencies, IT Resellers & System Integrators',
+    tabLabel: 'Technology Partners',
+    shortDesc: 'White-label development and technical delivery.',
+    title: 'For Technology Partners',
+    subtitle: 'Consultancies, Agencies, IT Resellers & Advisors',
     description:
-      'Expand your delivery capacity without overhead. Collaborate with AlgoForce for reliable software development, AI implementation, white-label project execution, referral commissions, and joint client engagements.',
+      'White-label development and technical delivery.',
     icon: Handshake,
-    badge: 'Partner Ecosystem',
+    badge: 'Technology Partners',
+    tint: 'bg-[#9A4DFF] text-white',
+    badgeTint: 'text-[#9A4DFF] bg-purple-50 border-purple-100',
     highlights: [
-      'White-Label Software & Digital Engineering Delivery',
-      'AI & Intelligent Automation Implementation Support',
-      'Project Delivery Partnerships for Complex Scopes',
-      'Transparent Recurring Referral & Reseller Models',
-      'Long-Term Collaborative Technology Delivery'
+      'White-label web and mobile development',
+      'AI and workflow automation delivery',
+      'Joint execution on technical project scopes',
+      'Reseller and structured referral agreements',
+      'Dedicated engineering collaboration',
     ],
     ctaText: 'Become a Technology Partner',
     ctaLink: '/partnerships',
     stats: [
-      { label: 'Delivery Model', val: 'White-label / Co-delivery' },
-      { label: 'Partnership Terms', val: 'Transparent SLA & NDA' }
-    ]
-  }
+      { label: 'Model', val: 'White-label or co-delivery' },
+      { label: 'Confidentiality', val: 'Mutual NDA terms' },
+    ],
+  },
 ]
 
 const WhoWeWorkWith = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.08 })
-  const [activeTab, setActiveTab] = useState(0)
-
-  const current = AUDIENCES[activeTab]
-  const CurrentIcon = current.icon
+  const [activeIdx, setActiveIdx] = useState(0)
+  const prefersReducedMotion = useReducedMotion()
 
   return (
-    <section ref={ref} className="py-16 md:py-24 bg-[#f8fafc] text-slate-900 border-b border-slate-200/90 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-10 max-w-3xl mx-auto"
-        >
-          <span className="inline-block text-[11px] font-bold uppercase tracking-[0.25em] text-[#092941] bg-white border border-slate-200/90 px-4 py-1.5 rounded-full mb-3.5 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
-            Audience-Led Pathways
-          </span>
+    <div ref={ref}>
+      <SectionCanvas outerClassName="bg-white py-5 sm:py-7">
+        <SectionHeader
+          badge="Customer Pathways"
+          titlePrimary="Who We Work With"
+          titleMuted="Software built around your requirements."
+          description="Select your organization type to view relevant services and delivery options."
+          inView={inView}
+        />
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight tracking-tight text-[#092941] mb-4">
-            Built for Your Specific{' '}
-            <span className="font-serif italic font-normal text-purple-900">
-              Technology Context.
-            </span>
-          </h2>
+        {/* Desktop Interactive Expanding 3-Card Bento Workspace */}
+        <div className="hidden lg:flex items-stretch gap-4 min-h-[430px]">
+          {AUDIENCES.map((item, idx) => {
+            const Icon = item.icon
+            const isActive = activeIdx === idx
 
-          <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-normal">
-            Select your organization type to see tailored technology capabilities, architecture fit, and engagement routes.
-          </p>
-        </motion.div>
+            return (
+              <motion.div
+                key={item.id}
+                layout={!prefersReducedMotion}
+                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                onClick={() => !isActive && setActiveIdx(idx)}
+                className={`relative rounded-[24px] transition-colors duration-300 ${
+                  isActive
+                    ? 'flex-[2.2] bg-white border border-[#dce3ec] p-7 saas-card-elevation cursor-default'
+                    : 'flex-[0.85] bg-white/75 hover:bg-white border border-[#e3e8f0] hover:border-[#cbd5e1] p-6 cursor-pointer saas-card-elevation-hover flex flex-col justify-between group'
+                }`}
+              >
+                {isActive && <FolderTabEar />}
 
-        {/* 3D Tactile Tab Switcher — Mobile Responsive Horizontal Scroll */}
-        <div className="flex items-center justify-center mb-8 overflow-x-auto pb-2 scrollbar-hide max-w-full">
-          <div className="inline-flex p-1.5 sm:p-2 rounded-2xl bg-gradient-to-b from-slate-200/90 to-slate-300/80 border-t border-t-white/80 border-b-2 border-b-slate-400/50 border-x border-slate-300/90 shadow-[inset_0_3px_8px_rgba(9,41,65,0.12),inset_0_1px_2px_rgba(0,0,0,0.08),0_2px_4px_rgba(255,255,255,0.9)] backdrop-blur-md gap-1">
-            {AUDIENCES.map((item, idx) => {
-              const Icon = item.icon
-              const isActive = activeTab === idx
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => setActiveTab(idx)}
-                  className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 md:px-6 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 whitespace-nowrap ${
-                    isActive
-                      ? 'bg-gradient-to-b from-[#12395b] to-[#092941] text-white shadow-[0_8px_20px_rgba(9,41,65,0.38),0_2px_6px_rgba(9,41,65,0.2),inset_0_1px_1px_rgba(255,255,255,0.35)] border-t border-t-white/30 border-b-2 border-b-[#051724] -translate-y-0.5'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-white/60 active:translate-y-0'
-                  }`}
-                >
-                  <Icon size={15} className={isActive ? 'text-white' : 'text-slate-500'} />
-                  <span>{item.tabLabel}</span>
-                </button>
-              )
-            })}
-          </div>
-        </div>
-
-        {/* 3D Elevated Spotlight Showcase Card */}
-        <div className="max-w-5xl mx-auto">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, y: 16, scale: 0.99 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -16, scale: 0.99 }}
-              transition={{ duration: 0.35, ease: 'easeOut' }}
-              className="rounded-3xl bg-gradient-to-b from-white via-white to-slate-50 border-t-2 border-t-white border-b-4 border-b-slate-300/90 border-x border-slate-200/90 shadow-[0_24px_55px_-6px_rgba(9,41,65,0.18),0_12px_24px_-6px_rgba(9,41,65,0.12),0_0_0_1px_rgba(9,41,65,0.06),inset_0_1px_0_rgba(255,255,255,1),inset_0_-1px_2px_rgba(9,41,65,0.03)] p-6 sm:p-10 md:p-12 relative overflow-hidden"
-            >
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                {/* Left Overview Column */}
-                <div className="lg:col-span-7">
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-white border-t border-t-white border-b border-b-slate-200 border-x border-slate-200 text-xs font-mono font-bold text-slate-700 mb-4 shadow-[0_4px_10px_rgba(9,41,65,0.06),inset_0_1px_0_rgba(255,255,255,1)]">
-                    <CurrentIcon size={14} className="text-purple-900" />
-                    <span>{current.badge}</span>
-                  </div>
-
-                  <h3 className="text-2xl sm:text-3xl font-bold text-[#092941] mb-2 tracking-tight">
-                    {current.title}
-                  </h3>
-                  <p className="text-xs font-medium text-slate-500 mb-4">
-                    {current.subtitle}
-                  </p>
-                  <p className="text-sm text-slate-600 leading-relaxed font-normal mb-6">
-                    {current.description}
-                  </p>
-
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-                    <Link to={current.ctaLink} className="w-full sm:w-auto">
-                      <button className="w-full sm:w-auto px-6 py-3.5 bg-gradient-to-b from-[#12395b] to-[#092941] hover:from-[#0d2d48] hover:to-[#071f32] text-white rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-all border-t border-t-white/30 border-b-2 border-b-[#051724] shadow-[0_10px_22px_rgba(9,41,65,0.32),0_2px_4px_rgba(9,41,65,0.2),inset_0_1px_0_rgba(255,255,255,0.25)] hover:-translate-y-0.5 active:translate-y-0 active:shadow-sm">
-                        <span>{current.ctaText}</span>
-                        <ArrowRight size={15} />
-                      </button>
-                    </Link>
-
-                    <div className="flex items-center gap-3 text-xs font-medium text-slate-500">
-                      {current.stats.map((st, i) => (
-                        <div key={i} className="flex flex-col bg-white/80 px-2.5 sm:px-3 py-1.5 rounded-lg border border-slate-200/80 shadow-[0_2px_6px_rgba(0,0,0,0.04)]">
-                          <span className="text-[9px] sm:text-[10px] uppercase font-mono text-slate-400">{st.label}</span>
-                          <span className="text-slate-800 font-bold text-[11px] sm:text-xs">{st.val}</span>
+                {isActive ? (
+                  <motion.div
+                    key={`expanded-${item.id}`}
+                    initial={prefersReducedMotion ? false : { opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 0.08 }}
+                    className="h-full grid grid-cols-12 gap-6 items-center"
+                  >
+                    {/* Left Detail */}
+                    <div className="col-span-7 flex flex-col justify-between h-full">
+                      <div>
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-[#f8fafc] border border-[#e2e8f0] text-[11px] font-mono font-semibold text-[#0A2A43] mb-4">
+                          <Icon size={13} className="text-[#2563EB]" />
+                          <span>{item.badge}</span>
                         </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
 
-                {/* Right Capabilities Box (Layered 3D Floating Sub-card) */}
-                <div className="lg:col-span-5 bg-gradient-to-b from-white to-slate-50/90 p-5 sm:p-6 rounded-2xl border-t-2 border-t-white border-b-3 border-b-slate-300 border-x border-slate-200 shadow-[0_14px_30px_-4px_rgba(9,41,65,0.12),0_4px_10px_rgba(9,41,65,0.06),inset_0_1px_0_rgba(255,255,255,1)]">
-                  <div className="text-xs font-bold uppercase tracking-wider text-[#092941] mb-4 flex items-center justify-between">
-                    <span>Key Solution Capabilities:</span>
-                    <span className="text-[10px] font-mono text-purple-900 font-bold px-2 py-0.5 rounded bg-purple-50 border border-purple-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
-                      5 Priority Areas
-                    </span>
-                  </div>
-
-                  <div className="space-y-2.5 sm:space-y-3">
-                    {current.highlights.map((h, i) => (
-                      <div 
-                        key={i} 
-                        className="flex items-start gap-2.5 text-xs text-slate-700 p-2.5 sm:p-3 rounded-xl bg-white border-t border-t-white border-b-2 border-b-slate-200 border-x border-slate-200/90 shadow-[0_4px_12px_rgba(9,41,65,0.06),0_1px_2px_rgba(0,0,0,0.03),inset_0_1px_0_rgba(255,255,255,1)] hover:-translate-y-0.5 hover:shadow-[0_8px_18px_rgba(9,41,65,0.1)] transition-all"
-                      >
-                        <CheckCircle2 size={15} className="text-[#092941] mt-0.5 flex-shrink-0" />
-                        <span className="font-semibold leading-snug">{h}</span>
+                        <h3 className="font-['Outfit',sans-serif] text-2xl font-semibold text-[#0A2A43] tracking-tight mb-1.5">
+                          {item.title}
+                        </h3>
+                        <p className="text-xs font-medium text-[#6E7B8C] mb-4">
+                          {item.subtitle}
+                        </p>
+                        <p className="text-[13.5px] text-[#4A5769] leading-[1.65] font-normal mb-6">
+                          {item.description}
+                        </p>
                       </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
+
+                      <div className="space-y-4">
+                        <div className="flex flex-wrap items-center gap-2.5">
+                          {item.stats.map((st) => (
+                            <div
+                              key={st.label}
+                              className="px-3 py-2 rounded-xl bg-[#f8f9fb] border border-[#e5eaf2]"
+                            >
+                              <span className="block text-[9.5px] font-mono uppercase tracking-wider text-[#6E7B8C]">
+                                {st.label}
+                              </span>
+                              <span className="text-xs font-semibold text-[#0A2A43]">
+                                {st.val}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+
+                        <Link
+                          to={item.ctaLink}
+                          className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#0A2A43] hover:bg-[#113D61] text-white text-xs font-medium shadow-[0_10px_22px_-6px_rgba(10,42,67,0.34)] hover:-translate-y-0.5 transition-all"
+                        >
+                          <span>{item.ctaText}</span>
+                          <ArrowRight size={14} />
+                        </Link>
+                      </div>
+                    </div>
+
+                    {/* Right Layered Paper Checklist Card */}
+                    <div className="col-span-5 relative h-full flex flex-col justify-center">
+                      <div className="rounded-2xl bg-[#f8f9fb] border border-[#e4e9f0] p-4 shadow-[inset_0_1px_2px_rgba(10,42,67,0.03)]">
+                        <div className="flex items-center justify-between text-[11px] font-semibold text-[#0A2A43] uppercase tracking-wider mb-3 px-1">
+                          <span>Key Capabilities</span>
+                          <span className="font-mono text-[10px] text-[#6E7B8C]">05 Areas</span>
+                        </div>
+                        <div className="space-y-2">
+                          {item.highlights.map((h) => (
+                            <div
+                              key={h}
+                              className="flex items-start gap-2.5 p-2.5 rounded-xl bg-white border border-[#e6ebf2] shadow-[0_2px_6px_-2px_rgba(10,42,67,0.05)] text-[11.5px] font-medium text-[#0A2A43] leading-snug"
+                            >
+                              <span className="w-4 h-4 rounded-md bg-blue-50 border border-blue-100 text-[#2563EB] flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <Check size={10} strokeWidth={2.5} />
+                              </span>
+                              <span>{h}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ) : (
+                  <>
+                    {/* Compact Inactive Docked Preview Card */}
+                    <div>
+                      <div className="flex items-start justify-between mb-6">
+                        <div className="w-12 h-12 rounded-2xl bg-white border border-[#e2e8f0] saas-squircle-badge flex items-center justify-center -rotate-6 group-hover:rotate-0 transition-transform duration-300">
+                          <div className={`w-7 h-7 rounded-lg flex items-center justify-center ${item.tint}`}>
+                            <Icon size={15} />
+                          </div>
+                        </div>
+                        <span className="w-8 h-8 rounded-full bg-[#f8f9fb] border border-[#e2e8f0] flex items-center justify-center text-slate-400 group-hover:text-[#0A2A43] group-hover:bg-white transition-colors">
+                          <ArrowUpRight size={14} />
+                        </span>
+                      </div>
+
+                      <span className={`inline-block text-[10px] font-mono font-semibold px-2 py-0.5 rounded-md border mb-3 ${item.badgeTint}`}>
+                        {item.badge}
+                      </span>
+
+                      <h3 className="font-['Outfit',sans-serif] text-xl font-semibold text-[#0A2A43] tracking-tight mb-2">
+                        {item.tabLabel}
+                      </h3>
+                      <p className="text-xs text-[#5B6779] leading-relaxed font-normal">
+                        {item.shortDesc}
+                      </p>
+                    </div>
+
+                    <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-[#0A2A43]">
+                      <span>Inspect Pathway</span>
+                      <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </>
+                )}
+              </motion.div>
+            )
+          })}
         </div>
-      </div>
-    </section>
+
+        {/* Tablet & Mobile Segmented Switcher + Clean Stack (< lg) */}
+        <div className="lg:hidden">
+          <div className="flex items-center justify-center mb-6 overflow-x-auto pb-2 scrollbar-hide max-w-full">
+            <div className="inline-flex p-1.5 rounded-2xl saas-tab-tray gap-1">
+              {AUDIENCES.map((item, idx) => {
+                const Icon = item.icon
+                const isActive = activeIdx === idx
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => setActiveIdx(idx)}
+                    className={`flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
+                      isActive
+                        ? 'bg-[#0A2A43] text-white shadow-[0_6px_14px_-4px_rgba(10,42,67,0.35)]'
+                        : 'text-slate-600 hover:text-[#0A2A43] hover:bg-white/70'
+                    }`}
+                  >
+                    <Icon size={14} />
+                    <span>{item.tabLabel}</span>
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+
+          {(() => {
+            const current = AUDIENCES[activeIdx]
+            const CurrentIcon = current.icon
+            return (
+              <div className="relative rounded-[24px] bg-white border border-[#dce3ec] p-5 sm:p-8 saas-card-elevation">
+                <FolderTabEar />
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-[#f8fafc] border border-[#e2e8f0] text-[11px] font-mono font-semibold text-[#0A2A43] mb-3.5">
+                  <CurrentIcon size={13} className="text-[#2563EB]" />
+                  <span>{current.badge}</span>
+                </div>
+
+                <h3 className="font-['Outfit',sans-serif] text-xl sm:text-2xl font-semibold text-[#0A2A43] mb-1.5">
+                  {current.title}
+                </h3>
+                <p className="text-xs font-medium text-[#6E7B8C] mb-3.5">{current.subtitle}</p>
+                <p className="text-sm text-[#4A5769] leading-relaxed mb-5">{current.description}</p>
+
+                <div className="space-y-2 mb-6">
+                  {current.highlights.map((h) => (
+                    <div
+                      key={h}
+                      className="flex items-start gap-2.5 p-2.5 rounded-xl bg-[#f8f9fb] border border-[#e5eaf2] text-xs font-medium text-[#0A2A43]"
+                    >
+                      <Check size={14} className="text-[#2563EB] mt-0.5 flex-shrink-0" />
+                      <span>{h}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <Link
+                  to={current.ctaLink}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#0A2A43] text-white text-xs sm:text-sm font-medium shadow-[0_8px_20px_-6px_rgba(10,42,67,0.34)]"
+                >
+                  <span>{current.ctaText}</span>
+                  <ArrowRight size={14} />
+                </Link>
+              </div>
+            )
+          })()}
+        </div>
+      </SectionCanvas>
+    </div>
   )
 }
 

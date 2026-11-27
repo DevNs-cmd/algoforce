@@ -78,8 +78,8 @@ const IndustryEducation = () => {
             <div className="space-y-4">
               {[
                 {
-                  title: '1. Intelligent Multi-Channel Admission & CRM Engine',
-                  desc: 'Centralize every inbound enquiry from your website, WhatsApp, social channels, and walk-ins into a unified admission pipeline. Automated qualification, counsellor lead assignment, and instant applicant SMS/WhatsApp follow-ups increase conversion by 40%.'
+                  title: '1. Admission Enquiry & CRM Management',
+                  desc: 'Capture inbound enquiries from your website, WhatsApp and walk-ins into one pipeline with structured counsellor assignment and timely follow-up tracking.'
                 },
                 {
                   title: '2. Unified Student, Parent & Faculty Web/Mobile Portals',
@@ -122,8 +122,8 @@ const IndustryEducation = () => {
                 Dedicated cloud or on-premise deployment guaranteeing student data confidentiality.
               </div>
               <div className="p-3.5 rounded-xl bg-white border border-slate-200 shadow-xs">
-                <span className="font-bold text-slate-900 block mb-1">99.9% Uptime During Exams</span>
-                High-concurrency infrastructure engineered for peak traffic during admissions and exam result days.
+                <span className="font-bold text-slate-900 block mb-1">Admission & Result Peak Readiness</span>
+                Scalable cloud setup built to handle high traffic during admissions and result days.
               </div>
             </div>
           </div>

@@ -20,36 +20,36 @@ const PARTNERSHIP_MODELS = [
     id: 'ai-codelivery',
     title: 'AI & Intelligent Automation Co-Delivery',
     subtitle: 'Specialized AI Engineering • Joint Execution',
-    description: 'When your clients request AI workflows, LLM agents, document intelligence, or custom machine learning models, partner with AlgoForce to design and deploy the AI layer seamlessly.',
+    description: 'When your clients request AI workflows, LLM agents, or document automation, partner with AlgoForce to build and deploy the system.',
     benefits: [
-      'Pre-tested agentic scaffolding reducing development time by 50%',
-      'Custom LLM prompt pipelines, embeddings, and vector databases',
-      'Non-invasive API middleware for SAP, Tally, Salesforce, and legacy DBs',
-      'Ongoing model maintenance, prompt tuning, and SLA support'
+      'Reusable workflow templates built from field experience',
+      'Custom LLM pipelines, embeddings, and vector databases',
+      'API middleware connecting SAP, Tally, CRMs, and legacy DBs',
+      'Ongoing maintenance, prompt tuning, and technical support'
     ]
   },
   {
     id: 'institutional',
     title: 'Institutional & Campus Delivery Partnerships',
     subtitle: 'For Education Consultants & Institutional Resellers',
-    description: 'Collaborate to digitize schools, colleges, coaching institutes, and universities. We engineer the admission CRMs, student/parent portals, and fee workflows while you manage institutional relationships.',
+    description: 'Collaborate to modernize schools, colleges, coaching institutes, and universities with admission CRMs, portals, and fee workflows.',
     benefits: [
-      'Turnkey institutional portal platforms with high-speed web & mobile apps',
-      'Proven admission conversion engine and fee reconciliation pipelines',
-      'Dedicated on-site or remote institutional onboarding support',
-      'Generous recurring annual maintenance contract (AMC) revenue share'
+      'Institutional web portals and mobile apps tailored per campus',
+      'Admission tracking and fee reconciliation workflows',
+      'Remote or on-site onboarding for campus staff',
+      'Structured annual maintenance revenue sharing'
     ]
   },
   {
     id: 'reseller',
     title: 'Reseller & Referral Agreements',
-    subtitle: 'Earn 10%–20% on Every Qualified Engagement',
-    description: 'Refer clients who need custom software engineering, enterprise integrations, or managed tech services. Receive competitive upfront referral commissions and recurring revenue share on long-term contracts.',
+    subtitle: 'Structured Commission Terms per Qualified Project',
+    description: 'Refer clients needing custom software, system integrations, or ongoing maintenance under clear referral agreements.',
     benefits: [
       'Formal referral contract with transparent milestone tracking',
-      '10% to 20% commission on closed project contracts',
-      'Recurring share on ongoing Managed Services & AMC retainer retainers',
-      'Zero delivery or operational liability for your firm'
+      'Agreed referral structure on closed project contracts',
+      'Ongoing share options on managed support retainers',
+      'AlgoForce handles delivery and technical support directly'
     ]
   },
   {

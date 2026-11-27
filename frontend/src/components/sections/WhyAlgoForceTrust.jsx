@@ -1,134 +1,147 @@
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { Link } from 'react-router-dom'
-import { 
-  Layers, 
-  Target, 
-  Cpu, 
-  Workflow, 
-  ShieldCheck, 
-  Headphones, 
-  FileCheck2
+import {
+  Layers,
+  Target,
+  Cpu,
+  Workflow,
+  ShieldCheck,
+  Headphones,
+  FileCheck2,
+  ArrowRight,
 } from 'lucide-react'
+import { SectionHeader, FolderTabEar } from './sectionPrimitives'
 
 const PILLARS = [
   {
+    num: '01',
     icon: Layers,
-    title: 'One Partner Across Multiple Requirements',
+    span: 'md:col-span-3',
+    tint: 'text-[#2563EB] bg-blue-50 border-blue-100',
+    title: 'One Technology Partner',
     description:
-      'Eliminate the friction of managing separate vendors for consulting, web development, mobile apps, AI automation, and system maintenance. AlgoForce unifies all six capabilities under one accountable delivery team.'
+      'Multiple technology capabilities under one engagement.',
   },
   {
+    num: '02',
     icon: Target,
-    title: 'Business-Problem-First Methodology',
+    span: 'md:col-span-3',
+    tint: 'text-[#9A4DFF] bg-purple-50 border-purple-100',
+    title: 'Built Around Your Needs',
     description:
-      'We do not push trendy frameworks or unnecessary AI models. Every engagement begins with dissecting your operational bottlenecks, identifying constraints, and proposing the most economical, reliable solution.'
+      'Solutions based on actual business requirements.',
   },
   {
+    num: '03',
     icon: Cpu,
-    title: 'Custom Engineering Over Generic Templates',
+    span: 'md:col-span-2',
+    tint: 'text-[#0A2A43] bg-slate-100 border-slate-200',
+    title: 'Custom Development',
     description:
-      'Your business logic and compliance needs are unique. We engineer software tailored to your specific workflows, database schemas, and organizational hierarchy rather than forcing rigid off-the-shelf SaaS compromises.'
+      'Software designed around your workflows.',
   },
   {
+    num: '04',
     icon: Workflow,
-    title: 'Deep Integration with Your Existing Stack',
+    span: 'md:col-span-2',
+    tint: 'text-[#2563EB] bg-blue-50 border-blue-100',
+    title: 'Existing System Integration',
     description:
-      'You do not need to replace your existing ERP or CRM. We build non-invasive middleware and API connectors that integrate smoothly with Tally, SAP, Zoho, Salesforce, legacy SQL databases, and internal spreadsheets.'
+      'Connect with the tools you already use.',
   },
   {
-    icon: ShieldCheck,
-    title: 'Development & Implementation Under One Engagement',
-    description:
-      'We do not hand over code and walk away. Our engineers supervise staging validation, data migration, cloud deployment, and user onboarding to ensure high user adoption and zero operational disruption.'
-  },
-  {
+    num: '05',
     icon: Headphones,
-    title: 'Continued Technical Support & SLAs',
+    span: 'md:col-span-2',
+    tint: 'text-[#0A2A43] bg-slate-100 border-slate-200',
+    title: 'Ongoing Support',
     description:
-      'Software requires continuous stewardship. We offer structured monthly retainers, 24/7 uptime monitoring, security patching, and ongoing feature enhancements to keep your systems fast and dependable.'
-  }
+      'Maintenance and continued technical assistance.',
+  },
 ]
 
 const WhyAlgoForceTrust = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.08 })
+  const prefersReducedMotion = useReducedMotion()
 
   return (
-    <section ref={ref} className="py-20 md:py-28 bg-[#f8fafc] text-slate-900 border-b border-slate-200 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-16 max-w-3xl mx-auto"
-        >
-          <span className="inline-block text-[11px] font-bold uppercase tracking-[0.25em] text-[#092941] bg-white border border-slate-200 px-4 py-1.5 rounded-full mb-4 shadow-2xs">
-            Reliability & Engineering Rigor
-          </span>
+    <section ref={ref} className="py-16 sm:py-24 bg-white text-[#0A2A43] relative overflow-x-clip">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 relative z-10">
+        <div className="max-w-6xl mx-auto">
+          <SectionHeader
+            badge="Why AlgoForce"
+            titlePrimary="Why Work With AlgoForce?"
+            titleMuted="Practical engineering. Direct accountability."
+            description="Plan, build and maintain software built to grow with your business."
+            inView={inView}
+          />
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight tracking-tight text-[#092941] mb-5">
-            Why Organizations Choose{' '}
-            <span className="font-serif italic font-normal text-purple-900">
-              AlgoForce as Their Technology Partner.
-            </span>
-          </h2>
+          {/* Asymmetric Bento Mosaic Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-6 gap-4 sm:gap-5 mb-8">
+            {PILLARS.map((p, idx) => {
+              const Icon = p.icon
+              return (
+                <motion.div
+                  key={p.title}
+                  initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
+                  animate={prefersReducedMotion || inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.45, delay: idx * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                  className={`${p.span} relative rounded-[22px] bg-[#f8f9fb] hover:bg-white border border-[#e3e8f0] hover:border-[#cbd5e1] p-6 sm:p-7 saas-card-elevation-hover group`}
+                >
+                  {idx === 0 && <FolderTabEar bgClass="bg-[#f8f9fb]" />}
 
-          <p className="text-slate-600 text-base md:text-lg leading-relaxed font-normal">
-            Grounded in software engineering fundamentals, transparent communication, and a commitment to measurable operational outcomes.
-          </p>
-        </motion.div>
+                  <div>
+                    <div className="w-11 h-11 rounded-2xl bg-white border border-[#e2e8f0] saas-squircle-badge flex items-center justify-center flex-shrink-0 mb-5 group-hover:-translate-y-0.5 transition-transform">
+                      <span className={`w-6 h-6 rounded-lg border flex items-center justify-center ${p.tint}`}>
+                        <Icon size={14} strokeWidth={2.1} />
+                      </span>
+                    </div>
 
-        {/* 6 Pillars Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-14">
-          {PILLARS.map((p, idx) => {
-            const Icon = p.icon
-            return (
-              <motion.div
-                key={p.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: idx * 0.08 }}
-                className="rounded-3xl bg-gradient-to-b from-white via-white to-slate-50 border-t-2 border-t-white border-b-3 border-b-slate-300/80 border-x border-slate-200/90 p-7 shadow-[0_14px_30px_-4px_rgba(9,41,65,0.1),0_4px_10px_rgba(9,41,65,0.04),inset_0_1px_0_rgba(255,255,255,1)] hover:-translate-y-1 hover:shadow-[0_22px_45px_-6px_rgba(9,41,65,0.16)] transition-all group"
-              >
-                <div className="w-12 h-12 rounded-2xl bg-white border-t border-t-white border-b-2 border-b-slate-200 border-x border-slate-200 flex items-center justify-center text-[#092941] mb-5 shadow-[0_4px_10px_rgba(9,41,65,0.06),inset_0_1px_0_rgba(255,255,255,1)] group-hover:bg-purple-50 group-hover:text-purple-900 transition-colors">
-                  <Icon size={22} />
-                </div>
-                <h3 className="text-lg font-bold text-[#092941] mb-3 group-hover:text-purple-950 transition-colors">
-                  {p.title}
-                </h3>
-                <p className="text-xs text-slate-600 leading-relaxed font-normal">
-                  {p.description}
-                </p>
-              </motion.div>
-            )
-          })}
-        </div>
-
-        {/* Verified Enterprise Credentials Bar */}
-        <div className="p-7 rounded-3xl bg-gradient-to-r from-white via-slate-50 to-white border-t-2 border-t-white border-b-3 border-b-slate-300 border-x border-slate-200 shadow-[0_16px_35px_-4px_rgba(9,41,65,0.1),0_4px_10px_rgba(9,41,65,0.04),inset_0_1px_0_rgba(255,255,255,1)] flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-emerald-50 border-t border-t-white border-b-2 border-b-emerald-200 border-x border-emerald-200 text-emerald-800 flex items-center justify-center flex-shrink-0 shadow-[0_4px_10px_rgba(16,185,129,0.1),inset_0_1px_0_rgba(255,255,255,1)]">
-              <FileCheck2 size={24} />
-            </div>
-            <div>
-              <div className="text-sm font-bold text-[#092941] mb-1 flex items-center gap-2">
-                <span>Verified Government of India Enterprise</span>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-semibold border border-emerald-200">
-                  Active
-                </span>
-              </div>
-              <p className="text-xs text-slate-600">
-                Registered under the Ministry of Micro, Small and Medium Enterprises (MSME) • Registration Number: <span className="font-mono text-slate-900 font-semibold">UDYAM-DL-08-0122150</span>
-              </p>
-            </div>
+                    <div>
+                      <div className="flex items-center gap-2 mb-1.5">
+                        <span className="text-[10px] font-mono font-bold text-[#6E7B8C]">{p.num}</span>
+                        <h3 className="font-['Outfit',sans-serif] text-lg font-semibold text-[#0A2A43] tracking-tight">
+                          {p.title}
+                        </h3>
+                      </div>
+                      <p className="text-xs sm:text-[13px] text-[#4A5769] leading-[1.65] font-normal">
+                        {p.description}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              )
+            })}
           </div>
 
-          <Link to="/about">
-            <button className="px-5 py-2.5 bg-gradient-to-b from-white to-slate-100 hover:to-slate-200 text-slate-900 border-t border-t-white border-b-2 border-b-slate-300 border-x border-slate-200 rounded-xl text-xs font-semibold whitespace-nowrap transition-all shadow-[0_4px_10px_rgba(9,41,65,0.05),inset_0_1px_0_rgba(255,255,255,1)] hover:-translate-y-0.5">
+          {/* Official Government Registration Seal Card */}
+          <div className="relative rounded-[22px] bg-white border border-[#dce3ec] p-6 sm:p-7 saas-card-elevation flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
+            <div className="flex items-start sm:items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 flex items-center justify-center flex-shrink-0 shadow-xs">
+                <FileCheck2 size={22} />
+              </div>
+              <div>
+                <div className="flex flex-wrap items-center gap-2 text-sm font-semibold text-[#0A2A43] mb-1">
+                  <span>Registered Government of India Enterprise</span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-800 font-bold border border-emerald-200">
+                    Active MSME Unit
+                  </span>
+                </div>
+                <p className="text-xs text-[#4A5769] leading-relaxed">
+                  Ministry of Micro, Small and Medium Enterprises (MSME) • Udyam Registration:{' '}
+                  <span className="font-mono text-[#0A2A43] font-semibold">UDYAM-DL-08-0122150</span>
+                </p>
+              </div>
+            </div>
+
+            <Link
+              to="/about"
+              className="px-5 py-2.5 bg-[#f8f9fb] hover:bg-white text-[#0A2A43] border border-[#dce3ec] rounded-xl text-xs font-semibold whitespace-nowrap transition-all shadow-2xs hover:-translate-y-0.5"
+            >
               Learn More About AlgoForce →
-            </button>
-          </Link>
+            </Link>
+          </div>
         </div>
       </div>
     </section>

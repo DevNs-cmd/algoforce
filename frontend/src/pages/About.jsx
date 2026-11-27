@@ -8,8 +8,8 @@ const DIVISIONS = [
   { num: '02', title: 'Software & Digital Engineering', desc: 'Custom enterprise web platforms, mobile apps, secure APIs, and microservices architecture.' },
   { num: '03', title: 'AI & Intelligent Automation', desc: 'Applied machine learning, LLM agents, document processing, and robotic workflow orchestration.' },
   { num: '04', title: 'Enterprise & Industry Solutions', desc: 'Non-invasive Tally Prime, SAP, and CRM connectors with executive management dashboards.' },
-  { num: '05', title: 'Managed Technology Services', desc: '24/7 proactive system monitoring, security updates, SLA-backed bug fixes, and continuous tuning.' },
-  { num: '06', title: 'Products, Platforms & R&D', desc: 'Proprietary IP and engineering accelerators that enable 2x faster deployment for client scopes.' }
+  { num: '05', title: 'Managed Technology Services', desc: 'System monitoring, security updates, bug fixes, and ongoing software maintenance.' },
+  { num: '06', title: 'Products, Platforms & R&D', desc: 'Proprietary software products and reusable engineering tools built in-house.' }
 ]
 
 const VALUES = [
